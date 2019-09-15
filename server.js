@@ -5,7 +5,7 @@ const app= express()
 app.use(compression());
 const port = process.env.PORT || 3030;
 // static file serve
-const dirName = 'di1st'
+const dirName = 'dist'
 app.use(express.static(path.resolve(`${dirName}`)))
 // not found in static files, so default to index.html
 app.use((req, res) => res.sendFile(path.resolve(`${dirName}/index.html`)))
