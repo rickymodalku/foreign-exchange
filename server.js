@@ -1,14 +1,14 @@
 const express = require('express');
+const compression = require('compression')
 const path = require('path');
-const app = express();
-
-// Serve static files....
-app.use(express.static(__dirname + '/dist'));
-
-// Send all requests to index.html
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname + '/dist/index.html'));
-});
-
-// default Heroku PORT
-app.listen(process.env.PORT || 3000);
+const app= express()
+app.use(compression());
+const port = process.env.PORT || 3030;
+// static file serve
+const dirName = 'di1st'
+app.use(express.static(path.resolve(`${dirName}`)))
+// not found in static files, so default to index.html
+app.use((req, res) => res.sendFile(path.resolve(`${dirName}/index.html`)))
+app.listen(port, (e, b) => {
+    console.log(`Server has started in port ${port}`);
+})
