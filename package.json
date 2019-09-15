@@ -5,11 +5,11 @@
     "ng": "ng",
     "start": "ng serve",
     "serve": "node ./server.js",
-    "build": "ng build",
+    "postinstall": "ng build --aot --configuration production",
+    "build": "ng build --aot --configuration production",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "postinstall": "ng build --aot --configuration production"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
