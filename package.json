@@ -6,7 +6,7 @@
     "start": "ng serve",
     "serve": "node ./server.js",
     "postinstall": "ng build --aot --configuration production",
-    "build": "ng build  --configuration production --aot --buildOptimizer=true",
+    "build": "ng build  --configuration production --aot",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -29,7 +29,9 @@
     "path": "^0.12.7",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "compression": "^1.7.1",
+
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.800.0",
