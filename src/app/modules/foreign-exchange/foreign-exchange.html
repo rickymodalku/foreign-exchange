@@ -1,0 +1,45 @@
+<div class="container w-25 p-3">
+  <div class="row border border-secondary p-1">
+    <div class="d-flex col-lg-12" style="font-size:12px"><i>{{ baseCurrency.currency }} - {{ baseCurrency.label }}</i>
+    </div>
+    <div class="d-flex col-lg-12 justify-content-between">
+      <div class="small"><b>{{ baseCurrency.currency }}</b></div>
+      <div class="small"><b>{{ baseCurrency.currency }}
+          <input autoFormat autoFormatType="number" type="text" [(ngModel)]="currencyAmount"
+            style="width:100px" (ngModelChange)='calculateRate()' /></b>
+      </div>
+    </div>
+  </div>
+  <div class="row border border-secondary border-top-0 p-3">
+    <ng-container *ngFor="let data of allowedCurrency">
+      <div class="col-lg-12 border border-secondary p-0 mb-3" *ngIf="data.show">
+        <div class="col-lg-10 float-left border-right border-secondary">
+          <div class="d-flex justify-content-between">
+            <div class="small">{{ data.currency }}</div>
+            <div class="small">{{ data.conversion | number }}</div>
+          </div>
+          <div class="d-flex" style="font-size:10px">
+            <i><b> {{ data.currency }} - {{ data.label }} </b></i>
+          </div>
+          <div class="d-flex" style="font-size:10px">
+            <i> 1 {{ baseCurrency.currency }} = {{ data.currency }} {{ data.rate }} </i>
+          </div>
+        </div>
+        <div class="col-lg-2 float-right d-flex justify-content-center align-items-center h-100">
+          <div class="cursor-pointer" (click)="removeCurrency(data.currency)">(-)
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <div class="col-lg-12 border border-secondary p-1 mb-3 small cursor-pointer" *ngIf="!showAddCurrencyInput" (click)="showAddCurrencyInput = true"> (+) Add more Currencies
+    </div>
+    <div class="col-lg-12 border border-secondary p-0 small" *ngIf="showAddCurrencyInput">
+      <input class="col-lg-9 float-left" type="text" [(ngModel)]="newCurrency"/>
+      <div class="col-lg-3 cursor-pointer float-right d-flex justify-content-center align-items-center h-100" (click)="addCurrency()">
+        Submit
+      </div>
+    </div>
+    <div class="col-lg-12 p-0 mb-3 small text-danger" *ngIf="showError"> {{ errorMessage }}
+
+  </div>
+</div>
