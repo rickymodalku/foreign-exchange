@@ -1,0 +1,168 @@
+
+@media #{$phone} {
+  .rdn-registration-container{
+    padding-top: 125px;
+    padding-bottom: 32px;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+  .rdn-registration-step-col{
+    width:initial;
+    font-size:16px;
+    .caption{
+      margin-right:1em;
+    }
+  }
+  .rdn-registration-information{
+    font-size:$font-16;
+  }
+  .rdn-registration-step-container{
+    margin-bottom:2em;
+  }
+  .grey-border{
+    width:100%;
+    &.radio-container{
+      width:100%;
+      .mat-radio-label{
+        display:block;
+        text-align:right;
+      }
+    }
+    &.upload{
+      border: none;
+      background-color: inherit;
+      &.show-preview-image{
+        .dz-preview{
+          display: inline-block;;
+        }
+      }
+      .dz-preview{
+        display:none;
+      }
+    }
+  }
+}
+
+@media #{$tablet} {
+  .rdn-registration-container{
+    padding-top: 125px;
+    padding-bottom: 96px;
+    margin-left: 50px;
+    padding-right:100px;
+    .form-inline .form-group{
+      display: inline-block;
+    }
+    .grey-border.upload{
+      width:23em;
+    }
+  }
+  .rdn-registration-step-col{
+    .caption{
+      margin-right:0;
+    }
+  }
+  .rdn-registration-information{
+    font-size:$font-40;
+  }
+  .rdn-registration-step-container{
+    margin-bottom:4.5em;
+  }
+  .grey-border{
+    width:20em;
+    &.radio-container{
+      width:35em;
+    }
+    &.upload{
+      width:30em;
+    }
+  }
+}
+
+@media #{$desktop}{
+  .rdn-registration-container{
+    padding-top: 125px;
+    padding-bottom: 96px;
+    margin-left: 100px;
+    margin-right:0px;
+    padding-right: 45px;
+    .grey-border.upload{
+      width:30em;
+    }
+  }
+}
+
+.rdn-registration-step-container{
+  font-family: $gilroy-semibold-font-stack;
+}
+
+.rdn-registration-information{
+  font-family: $gilroy-semibold-font-stack;
+}
+
+.rdn-registration-section-title{
+  font-family: $gilroy-semibold-font-stack;
+  margin-top:1.6em;
+  font-size:$font-32;
+  &.no-margin{
+    margin:0;
+  }
+}
+
+.rdn-registration-section-caption{
+  color:#222222;
+  margin-bottom:8px;
+}
+
+.line {
+  border-top: 2px solid #E0E0E0;
+  margin: 1.25em 8px;
+  width: 2em;
+  &.success {
+    border-top: 2px solid $fs-blue;
+  }
+}
+
+.rdn-registration-step-col{
+  color:#ADADAD;
+  .circle {
+    margin-right:8px;
+    @include circle-text(1.75em,#ADADAD 2px solid, #FFFFFF, 16px, #ADADAD);
+  }
+  .caption{
+    line-height: 2.75em;
+  }
+  &.success{
+    color:$fs-blue;
+    .circle {
+      margin-right:8px;
+      @include circle-text(1.75em, $fs-blue, $fs-blue, 16px, white);
+    }
+  }
+}
+
+.grey-border{
+  border: 1px solid #CCCCCC;
+  border-radius: 2px;
+  &.radio-container{
+    padding: 12px 16px;
+  }
+}
+
+.disabled-input-container{
+  padding:16px;
+  background-color:#F5F5F5;
+  border-radius: 8px;
+  .placeholder{
+    color:#757575;
+  }
+  .value{
+    color:#222222;
+  }
+}
+
+.red-error-box{
+  background: #F5D7D7;
+  border-radius: 4px;
+  color: #8F0101;
+  padding:12px 16px
+}

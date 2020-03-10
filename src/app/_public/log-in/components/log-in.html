@@ -1,0 +1,76 @@
+<div class="container-fluid standalone-log-in">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="log-in-white-box">
+          <div class="row">
+            <form ngNativeValidate (ngSubmit)="logIn(null, null, 'sms')">
+              <div class="col-xs-12">
+                <div class="header">
+                  <h3 class="Gilroy-SemiBold">
+                    {{ 'navigation.log-in' | translate }}
+                  </h3>
+                </div>
+                <div class="log-in-form" id="log-in-investor-form" name="log-in-investor-form">
+                  <div class="row" *ngIf="showError">
+                    <div class="col-xs-12 log-in-form-field__wrapper form-control-error flex-display-vertical-align"
+                      style="padding: 12px 32px;">
+                      {{ 'form.log-in.error' | translate }}
+                      <i class="fa fa-times flex-align-right" aria-hidden="true" role="button"
+                        (click)="onCloseError()"></i>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12 log-in-form-field__wrapper">
+                      <input [(ngModel)]="logInModel.userName" name="userName"
+                        [ngClass]="{ 'form-control-error' : !logInModel.userName && logInModel.validation }"
+                        [placeholder]="('form.sign-up-investor.placeholder.email' | translate )" autocomplete="off"
+                        class="form-control fs-form-control" type="email" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12 log-in-form-field__wrapper">
+                      <input [(ngModel)]="logInModel.password" name="password"
+                        [ngClass]="{ 'form-control-error' : !logInModel.password && logInModel.validation }"
+                        [placeholder]="('form.sign-up-investor.placeholder.password' | translate )" autocomplete="off"
+                        class="form-control fs-form-control" type="password" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-7">
+                    <mat-checkbox [(ngModel)]="logInModel.rememberMe" class="example-margin" name="rememberMe">
+                      {{ 'form.log-in.placeholder.remember-me-30-days' | translate }}
+                    </mat-checkbox>
+                  </div>
+                  <div class="col-xs-5 text-right log-in-text">
+                    <a routerLink="/forgot-password">
+                      <span class="Gilroy-SemiBold">{{ 'form.log-in.placeholder.forgot-password' | translate }}</span>
+                    </a>
+                  </div>
+                </div>
+                <button id="log-in-form-submit" name="log-in-form-submit"
+                  class="btn btn-log-in-investor fs-log-in-button Gilroy-SemiBold fs-box-shadow" type="submit">
+                  {{ 'navigation.log-in' | translate }}
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <h4 class="line-text-middle"></h4>
+            </div>
+            <div class="col-md-12 logInBox">
+              <div class="logInCaption pull-left">
+                {{ 'form.log-in.placeholder.footer-caption' | translate }}</div>
+              <a class="logIn btn pull-right fs-box-shadow" id="log-in-dialog-login-btn" name="log-in-dialog-login-btn"
+                routerLink="/sign-up">{{ 'navigation.sign-up' | translate }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<timer-login-section *ngIf="startLoginTimer"></timer-login-section>
+<app-two-fa-setup [isFirstSetup]="true"></app-two-fa-setup>

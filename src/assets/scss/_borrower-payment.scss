@@ -1,0 +1,254 @@
+.paymentContainer {
+  padding-bottom: 80px;
+  padding-top: 20px;
+  background-color: #f2f5fe;
+    .title {
+      color: #4c1f97;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      strong, a {
+          color: inherit;
+          text-decoration: underline;
+          cursor: pointer;
+      }
+    }
+
+    .title-description {
+      text-align: left;
+      margin-right: auto;
+    }
+
+    .title-instructions {
+      margin-right: auto;
+    }
+    .paymentBox {
+        text-align: center;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        .paymentBoxHeader {
+            display: flex;
+            flex-direction: row;
+            flex-basis: 0;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+            text-align: center;
+            margin: 0;
+            background-color: #ffffff;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            .paymentHeaderTitleBox {
+                padding: 10px 10px;
+                height: 100%;
+                flex-grow: 1;
+                .circle-number-information {
+                    color: #4c1f97;
+                    border: rgba(76, 31, 151, 0.25);
+                    background: rgba(76, 31, 151, 0.25);
+                }
+                &.active {
+                    cursor: pointer;
+                    // background-color: #f2edfd;
+                    border: rgba(76, 31, 151, 0.25);
+                    background-color: rgba(76, 31, 151, 0.25);
+                }
+            }
+            &.active {
+                background-color: #f2edfd;
+            }
+        }
+        .paymentBoxBody {
+            display: inline-block;
+            width: 100%;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.29);
+            .fs-signup-form {
+                height: inherit;
+                text-align: left;
+                padding: 0 !important;
+                background-color: transparent !important;
+
+                input, select {
+                    height: 20px;
+                    line-height: 20px;
+                }
+
+                .form-control-affix {
+                    width: calc(100% - 50px) !important;
+                }
+                mat-select {
+                    height: 20px;
+                    line-height: 20px;
+                    margin-top: 1px;
+                }
+            }
+            .paymentBoxBodyHeader {
+                display:flex;
+                margin: 1em auto;
+                flex-direction: column;
+                .btnAddGuarantor {
+                    height: 40px;
+                    line-height: 27px;
+                    margin-left: auto;
+                    border-radius: 2px;
+                    border: solid 1px rgba(151, 151, 151, 0.4);
+                    color: #6f2bfe;
+                    align-self: center;
+                    margin-bottom: 10px;
+                }
+                .btnDeleteGuarantor {
+                    align-self: center;
+                    border-radius: 50px;
+                    background-color: rgba(216, 216, 216, 0.4);
+                    color: black;
+                    margin-left: auto;
+                    margin-bottom: 10px;
+                }
+
+                .paymentBoxBodyHeader__title {
+                  order: 2;
+                }
+            }
+
+            padding: 2em;
+            .newLoanFormGroup {
+                width: 49%;
+                .newLoanFormControl {
+                    width: 100%;
+                    border-radius: 0;
+                    height: 3.5em;
+                }
+            }
+            .fs-fetch-automator-box {
+                height: 75px;
+                padding: 15px;
+                margin-top: 175px;
+                border-radius: 4px;
+                background-color: #ffffff;
+                border: solid 1px #cfd8e1;
+                &.success {
+                    border: solid 1px #2cc08a;
+                    background-color: rgba(44, 192, 138, 0.15);
+                }
+                .fetch-button {
+                    font-weight: bold;
+                    line-height: 25px;
+                    width: 190px;
+                    text-align: left;
+                    padding-left: 20px;
+                    height: 40px;
+                    background-color: #6e2fe7;
+                    &.success {
+                        background-color: #24c08a;
+                    }
+                }
+                .change-edit-button {
+                    background-color: #d8d8d8;
+                    border-radius: 4px;
+                    padding: 0.1em 0.5em 0.1em 0.5em;
+                }
+            }
+            .fs-add-bank-box {
+                height: 75px;
+                padding: 1.5em 1em 1.5em 1em;
+                border-radius: 4px;
+                border: dashed 1px rgba(50, 14, 166, 0.25);
+                .add-bank-button {
+                    background-color: #f5f5f5;
+                    color: black;
+                }
+            }
+            .btnReturnDashboard {
+                padding: 0.5em 1em 0.5em 1em;
+            }
+        }
+        .paymentBoxFooter {
+          display: flex;
+          justify-content: center;
+        }
+    }
+
+    .btnNewLoanNext {
+        color: white;
+        padding: 0.5em 1em 0.5em 1em;
+        width:175px;
+        .white-right-arrow-icon{
+            margin-top:3px;
+        }
+    }
+}
+
+.btnSelectBank {
+    width: 100%;
+    color: white;
+    background-color: #6e2fe7;
+    padding: 1em !important;
+}
+
+.bankLogInFooter {
+    border-top: solid 1px #e1e1e1;
+    padding: 1em 0em 1em 2em;
+}
+
+.btnBankLogIn {
+    background-color: #6e2fe7;
+    color: white;
+    padding: 0.5em 2.5em !important;
+}
+
+.selectBankFormControl {
+    background-color: rgba(221, 229, 237, 0.3) !important;
+    border-radius: 0 !important;
+    padding: 1.25em 0.75em !important;
+}
+
+@media #{$phone} {
+  .paymentContainer {
+    .title {
+
+    }
+  }
+}
+
+@media #{$tablet} {
+  .paymentContainer {
+    .title {
+      text-align: right;
+      margin-bottom: 50px;
+      .title-instructions {
+        margin-left: auto;
+        margin-right: unset;
+      }
+    }
+
+    .paymentBox {
+      .paymentBoxBody {
+        .paymentBoxBodyHeader {
+          flex-direction: row;
+          .paymentBoxBodyHeader__title {
+            order: 0;
+          }
+        }
+      }
+      .paymentBoxFooter {
+        display: flex;
+        justify-content: flex-end;;
+      }
+    }
+  }
+}
+
+@media #{$desktop} {
+  .paymentContainer {
+    .title {
+      width: 60em;
+    }
+
+    .paymentBox {
+      width: 60em;
+    }
+  }
+}

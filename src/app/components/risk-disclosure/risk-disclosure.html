@@ -1,0 +1,34 @@
+<modal id="fsRiskDisclosureModal" class="fs-modal fs-modal__open fs-modal--hidden fs-risk-disclosure-pop-up">
+    <div class="fs-modal__background"></div>
+    <div class="fs-modal__dialog fs-modal__dialog--centered statement-dialog">
+      <div class="fs-modal__content statement-dialog__content">
+        <div class="fs-modal__header fs-modal__header--noborder">
+        </div>
+        <div type="button" class="fs-modal__close" (click)="closeModal('fsRiskDisclosureModal')"></div>
+        <div class="col-xs-12 fs-platform-agreement text-justify content">
+          <div class="fs-mobile-scroll-to-bottom" *ngIf="!riskDisclosureScrollFlag" (click)="scrollDown(riskDisclosureContainer)">
+            <div>
+              {{ 'investor-agreement.platform-agreement.scroll-to-bottom' | translate }}
+            </div>
+            <i class="fa fa-chevron-down"></i>
+            </div>
+          <div class="title">
+            {{ 'investor-agreement.risk-disclosure.title' | translate }}
+          </div>
+          <div class="caption">
+            {{ 'investor-agreement.risk-disclosure.caption' | translate }}
+          </div>
+          <div #riskDisclosureContainer class="fs-agreement-container risk-disclosure-container" (scroll)="onScrollDebounce('riskDisclosureAgreement')" [innerHtml]="riskDisclosureTemplate">
+          </div>
+        </div>
+        <div class="footer">
+          <div *ngIf="riskDisclosureScrollFlag" #riskdisclosurebottom class="btn btn-primary-investor btn-fs-disable pull-right hidden-sm hidden-md hidden-lg full-width" (click)="onRiskDisclosureAgreementAgree()">
+            {{ 'investor-agreement.platform-agreement.agree-button' | translate }}
+          </div>
+          <div #riskdisclosurebottom class="btn btn-primary-investor btn-fs-disable pull-right hidden-xs" [ngClass]="{ 'disabled': !riskDisclosureScrollFlag }" (click)="onRiskDisclosureAgreementAgree()">
+            {{ 'investor-agreement.platform-agreement.agree-button' | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </modal>

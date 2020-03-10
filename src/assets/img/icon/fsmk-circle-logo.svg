@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="154px" height="168px" viewBox="0 0 154 168" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 45 (43475) - http://www.bohemiancoding.com/sketch -->
+    <title>CDEA96B6-BBB3-4007-9CBE-880D6B576E7D</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="99.0214445%" id="linearGradient-1">
+            <stop stop-color="#000000" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.02" offset="80%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.04" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#FFFFFF" stop-opacity="0.12" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0.06" offset="20%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-3" cx="63" cy="63" r="63"></circle>
+        <filter x="-33.3%" y="-22.2%" width="166.7%" height="166.7%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="14" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="7" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.24 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter2"></feOffset>
+            <feGaussianBlur stdDeviation="7" in="shadowOffsetOuter2" result="shadowBlurOuter2"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter2" in2="SourceAlpha" operator="out" result="shadowBlurOuter2"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.12 0" type="matrix" in="shadowBlurOuter2" result="shadowMatrixOuter2"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="shadowMatrixOuter2"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="About" transform="translate(-643.000000, -1195.000000)">
+            <g id="Group-8" transform="translate(657.000000, 1209.000000)">
+                <g id="fab">
+                    <g id="button-bg">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+                        <circle stroke="url(#linearGradient-1)" stroke-width="1.125" cx="63" cy="63" r="62.4375"></circle>
+                        <circle stroke="url(#linearGradient-2)" stroke-width="1.125" cx="63" cy="63" r="62.4375"></circle>
+                    </g>
+                </g>
+                <g id="Page-1" transform="translate(32.000000, 32.000000)">
+                    <polygon id="Fill-23" fill="#FFB50D" points="31 18 18 31 5 18 18 5"></polygon>
+                    <polyline id="Fill-24" fill="#27E3CC" points="31 44 18 31 31 18"></polyline>
+                    <polyline id="Fill-25" fill="#5203E9" points="31 18 44 31 31 44"></polyline>
+                    <polygon id="Fill-26" fill="#3E7EFF" points="57 44 44 57 31 44 44 31"></polygon>
+                    <path d="M56.7277765,18 L44,31 L56.7277765,44 C63.7574078,36.820432 63.7574078,25.179568 56.7277765,18" id="Fill-27" fill="#08C0A6"></path>
+                    <path d="M31,18.2720085 L44.0004141,31 L57,18.2720085 C49.820432,11.2426638 38.1799822,11.2426638 31,18.2720085" id="Fill-28" fill="#27E3CC"></path>
+                    <path d="M5.27200851,44 L18,31 L5.27200851,18 C-1.75733617,25.179568 -1.75733617,36.820432 5.27200851,44" id="Fill-29" fill="#5203E9"></path>
+                    <path d="M18,5.27200851 L31,18 L44,5.27200851 C36.8200178,-1.75733617 25.179568,-1.75733617 18,5.27200851" id="Fill-30" fill="#FFDD0F"></path>
+                    <path d="M31,43.7279915 L18,31 L5,43.7279915 C12.1799822,50.7573362 23.820432,50.7573362 31,43.7279915" id="Fill-31" fill="#3B03A8"></path>
+                    <path d="M44,56.7279915 L30.9995859,44 L18,56.7279915 C25.179568,63.7573362 36.8200178,63.7573362 44,56.7279915" id="Fill-32" fill="#2C50FF"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

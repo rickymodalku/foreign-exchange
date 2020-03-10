@@ -1,0 +1,72 @@
+<modal id="twoFaLoginSetupDialog" class="fs-modal fs-full-height-modal fs-modal--hidden"
+  *ngIf="CONFIGURATION.country_code === 'SG' && enable2FAFeatureToggle">
+  <div class="fs-modal__background" (click)="closeTwoFaLoginDialog('dismiss')"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered fs-modal__dialog--full-height">
+    <div class="fs-modal__content">
+      <div class="fs-modal__body fs-modal__body--content-center">
+        <div class="text-center">
+          <div class="fs-modal__icon two-fa-setup-icon content-center"></div>
+          <div class="fs-modal__title two-fa-title">
+            {{ 'form.otp.intro-2fa' | translate }}
+          </div>
+          <div class="two-fa-paragraph margin-top-10">
+            {{ 'form.otp.intro-2fa-content' | translate }}
+          </div>
+          <div class="fs-modal__actions">
+            <div class="btn btn-primary-investor" (click)="verifyPhoneNumber()">
+              {{ 'form.otp.intro-2fa-set-up' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+
+<!-- 2FA Change Number OTP -->
+<modal id="changeNumberOtpModal" class="fs-modal fs-modal-layer-fix fs-modal__open fs-modal--hidden">
+  <div class="fs-modal__background"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered fs-modal__dialog--full-height">
+    <div class="fs-modal__content">
+      <div class="fs-modal__body fs-modal__body--content-center">
+        <div class="col-xs-12 text-center two-fa-modal-content">
+          <div class="two-fa-otp-verify-icon content-center"></div>
+          <div class="two-fa-title">{{ 'form.otp.one-time-password' | translate }}</div>
+          <div class="two-fa-paragraph">
+            <div>{{ 'form.otp.otp-caption' | translate }}</div>
+            <div>
+              <a class="link" (click)="onClickGetOtp()"
+                *ngIf="disableOtpInput">{{ 'form.otp.btn-resend' | translate }}</a>
+              <span *ngIf="!disableOtpInput">{{ 'form.otp.btn-resend' | translate }}</span>
+              {{ 'form.otp.to' | translate }}
+              <b>{{otpUserPhoneNumber}}</b> {{ 'form.otp.or' | translate }} <span *ngIf="!disableOtpInput">{{'form.otp.call' | translate}}</span>
+              <a  *ngIf="disableOtpInput" class="link" (click)="onClickGetOtp('voice')">{{ 'form.otp.call' | translate }}</a> <b>{{otpUserPhoneNumber}}</b>
+              <span *ngIf="!disableOtpInput">{{ 'form.otp.in' | translate }} {{ otpCountDownTimer }}</span>
+
+            </div>
+          </div>
+          <ng-container *ngIf="enable2FAFeatureToggle">
+            <div *ngIf="enable2FAFeatureToggle" class="two-fa-otp">
+              <input (keyup)="onInputOtp()" [(ngModel)]="otpInput" class="turn-off-spinner text-center"
+                maxlength={{numberOfOtpDigits}} type="tel" [disabled]="disableOtpInput" />
+              <div *ngIf="showOtpError" class="d-flex align-items-center justify-content-center two-fa-error-subtitle">
+                <span class="icon error-icon-exclamation">!</span>
+                <span class="form-error-text">{{ errorMessage }}</span>
+              </div>
+              <span class="two-fa-error"></span>
+            </div>
+            <div id="investor-signup-otp-verify-btn" class="margin-top-20 col-xs-12 content-center padding-null"
+              (click)="onClickVerifyButton()">
+              <div class="btn btn-primary-investor proceed-button ">
+                {{ 'form.otp.btn-verify' | translate }}
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+
+<two-fa-phone-number [config]="phoneNumberConfig"
+  (onClickPhoneNumberChangeConfirm)="onClickPhoneNumberChangeConfirm($event)"></two-fa-phone-number>

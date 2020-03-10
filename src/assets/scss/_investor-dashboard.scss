@@ -1,0 +1,815 @@
+.invDashboard {
+  .accountOverview {
+    .invDashboardBtn {
+      display: none;
+      background-color: #ffb50d;
+      margin-top: 1em;
+      font-size: 20px;
+      padding-top: 0.6em;
+      padding-bottom: 0.6em;
+      line-height: 25px;
+      margin-right: 20px;
+    }
+  }
+
+  .investor-app-link {
+    padding: 8px 16px;
+    background-color: $cornflower-blue;
+    color: $ink-light;
+
+    .app-logo {
+      width: 32px;
+      height: 32px;
+    }
+
+    .text {
+      margin-left: 20px;
+    }
+
+    .close-icon-round {
+      margin-top: 0.75em;
+    }
+  }
+}
+
+@media #{$phone} {
+  .invDashboard {
+    .progressRow {
+      display: none;
+    }
+
+    .rdn-registration-row {
+      .btn-container {
+        line-height: 6em;
+      }
+    }
+
+    .accountOverview {
+      padding: 20px 10px;
+
+      .accountOverviewCaption {
+        text-align: center;
+      }
+    }
+
+    .statisticRow {
+      height: 275px;
+
+      .detailRow {
+        display: none;
+      }
+
+      .swiper-container {
+        .swiper-wrapper {
+          .swiper-slide {
+            background-color: inherit;
+            opacity: inherit;
+            box-shadow: none;
+          }
+        }
+
+        .swiper-pagination-bullets {
+          bottom: 100px !important;
+
+          .swiper-pagination-bullet {
+            background-color: white !important;
+          }
+        }
+
+        display: block;
+      }
+    }
+
+    .graphicRow {
+      .detailContainer {
+        padding: 25px 10px;
+
+        .information-title {
+          margin-top: 20px;
+        }
+
+        .left-side {
+          .detail-loan {
+            padding-left: 0;
+            line-height: 1.5em;
+
+            .detail-loan-left {
+              color: rgba(0, 0, 0, 0.54);
+            }
+
+            .detail-loan-right {
+              float: none;
+              display: block;
+              margin-bottom: 10px;
+              font-weight: bold;
+            }
+          }
+
+          .number {
+            font-size: 18px;
+
+            &.income {
+              color: #3e7eff;
+              float: none;
+              display: block;
+              margin-bottom: 5px;
+            }
+
+            &.expense {
+              color: #ea5a29;
+              float: none;
+              display: block;
+              margin-bottom: 5px;
+            }
+
+            &.summary {
+              color: #00c0a6;
+              float: none;
+              display: block;
+              margin-bottom: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .recent-activities-container {
+    text-align: center;
+
+    [for~=toggle-deposit] {
+      margin-top: 10px;
+    }
+  }
+
+  .fs-year-in-review-banner {
+    padding: 2em;
+
+    .button-row {
+      line-height: 0;
+      margin-top: 2em;
+      text-align: center;
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+    }
+
+    .year-in-review-description {
+      text-align: center;
+    }
+
+    .fs-banner-yir {
+      background-position: center;
+    }
+  }
+
+  .accredited-declaration-row {
+    padding: 2em;
+    text-align: center;
+
+    .accredited-declaration-graphic {
+      margin-left: auto;
+      margin-right: auto;
+      float: none;
+    }
+
+    .accredited-declaration-content {
+      text-align: left;
+      padding: 0;
+      margin-top: 10px;
+      margin-bottom: 10px;
+
+      .title {
+        font-size: $font-20;
+        font-weight: bold;
+      }
+
+      .content {
+        color: $ink-lighter;
+      }
+    }
+
+    .accredited-declaration-button {
+      padding: 0;
+
+      .btn-primary-investor {
+        width: 100%;
+      }
+    }
+  }
+
+  .legal-notification {
+    &.my {
+      width: 100%;
+
+      .content-left {
+        width: 87%;
+      }
+    }
+  }
+}
+
+@media #{$largephone} {
+  .recent-activities-container {
+    [for~=toggle-deposit] {
+      margin-top: 0px;
+    }
+  }
+
+  .accredited-declaration-row {
+    padding: 1.5em 1em;
+  }
+}
+
+@media #{$tablet} {
+  .invDashboard {
+    .graphicRow {
+      .detailContainer {
+        .left-side {
+          .detail-loan {
+            padding-left: 1em;
+
+            .detail-loan-left {
+              color: #333;
+            }
+
+            .detail-loan-right {
+              float: right;
+            }
+          }
+
+          .number {
+            &.income {
+              float: right;
+            }
+
+            &.expense {
+              float: right;
+            }
+
+            &.summary {
+              float: right;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .fs-year-in-review-banner {
+    padding: 1em 4em;
+
+    .button-row {
+      line-height: 8em;
+      margin-top: 0;
+      text-align: right;
+    }
+
+    .year-in-review-description {
+      text-align: left;
+    }
+
+    .fs-banner-yir {
+      background-position: left;
+    }
+  }
+
+  .legal-notification {
+    &.sg {
+      width: 600px;
+
+      .content-left {
+        width: 525px;
+
+        .accredited-declaration-row {
+          padding: 1.5em 1em;
+          text-align: inherit;
+
+          .accredited-declaration-content {
+            margin-top: 10px;
+            text-align: inherit;
+            padding: unset;
+            margin-top: 10px;
+            margin-bottom: 10px;
+          }
+
+          .accredited-declaration-button {
+            .btn-primary-investor {
+              width: auto;
+              float: right;
+            }
+          }
+        }
+      }
+    }
+
+    &.my {
+      width: 500px;
+
+      .content-left {
+        width: 430px;
+      }
+    }
+  }
+}
+
+@media #{$desktop} {
+  .invDashboard {
+    .progressRow {
+      display: block;
+    }
+
+    .rdn-registration-row {
+      .btn-container {
+        line-height: 10em;
+        text-align: center;
+      }
+    }
+
+    .accountOverview {
+      padding-left: 15vw;
+      padding-right: 150px;
+
+      .accountOverviewCaption {
+        text-align: left;
+      }
+
+      .invDashboardBtn {
+        display: inline-block;
+      }
+    }
+
+    .statisticRow {
+      padding-left: 5em;
+      padding-right: 5em;
+
+      .detailRow {
+        display: block;
+      }
+
+      .swiper-container {
+        display: none;
+      }
+    }
+
+    .graphicRow {
+      .detailContainer {
+        padding: 25px 0px 30px 40px;
+
+        .information-title {
+          padding: 0px 0px 5px 0px;
+          margin-top: 0;
+        }
+      }
+    }
+  }
+
+  .recent-activities-container {
+    text-align: right;
+  }
+
+  .accredited-declaration-row {
+    padding: 16px 70px;
+
+    .accredited-declaration-button {
+      margin-top: 30px;
+    }
+  }
+}
+
+@media #{$widescreen} {
+  .invDashboard {
+    .statisticRow {
+      padding-left: 14em;
+      padding-right: 14em;
+    }
+  }
+}
+
+p-progressBar {
+  &.green {
+    .ui-progressbar.ui-progressbar-determinate {
+      .ui-progressbar-value {
+        background-color: #19c0a6;
+      }
+    }
+  }
+}
+
+.ui-progressbar {
+  border-radius: 100px !important;
+  background-color: rgba(61, 126, 255, 0.2) !important;
+}
+
+.ui-progressbar-value {
+  border-radius: 100px !important;
+}
+
+.ui-progressbar-label {
+  visibility: hidden;
+}
+
+.invDashboard {
+  background-color: #eceff1;
+
+  .rdn-registration-row {
+    background-color: white;
+    padding-left: 5vw;
+    padding-right: 5vw;
+
+    .fs-lock-key {
+      margin-right: 5em;
+      height: 8em;
+      width: 9em;
+      background-position: center;
+      margin-top: 0.5em;
+    }
+
+    .btn-container {
+      text-align: right;
+    }
+
+    .title {
+      font-size: $font-20;
+      margin-top: 1em;
+    }
+
+    .caption {
+      font-size: $font-16;
+      color: $assessment-gray;
+    }
+  }
+
+  .progressRow {
+    height: 145px;
+    border-radius: 4px;
+    background-color: #f3f7ff;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
+
+    .progressRowImg {
+      background: url("../img/investor/inv-dashboard.png") no-repeat;
+      height: 100%;
+    }
+
+    .progressRowCaption {
+      margin-top: 30px;
+
+      .title {
+        font-size: 24px;
+        text-align: left;
+        color: #4a4a4a;
+      }
+
+      .caption {
+        font-size: 16px;
+        text-align: left;
+      }
+
+      .link {
+        font-size: 14px;
+        font-weight: bold;
+        text-align: left;
+        color: #000000;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      i {
+        opacity: 0.7;
+        margin-left: 3px;
+      }
+    }
+
+    .progressRowBar {
+      height: 100%;
+      padding-top: 70px;
+    }
+  }
+
+  .accountOverview {
+    background-color: #3e7eff;
+
+    .accountOverviewCaption {
+      .title {
+        color: #ffffff;
+      }
+
+      .caption {
+        text-align: left;
+        color: #ffffff;
+        opacity: 0.55;
+      }
+    }
+
+    .accountOverviewBtn {
+      margin-top: 1em;
+      font-size: 20px;
+      padding-top: 0.6em;
+      padding-bottom: 0.6em;
+      line-height: 25px;
+    }
+  }
+
+  .statisticRow {
+    background-color: #374ce5;
+    padding-top: 50px;
+
+    .detailRow {
+      .leftStatistic {
+        width: 21.5em;
+        height: 40px;
+        border-radius: 20px;
+        color: #ffffff;
+        font-size: 16px;
+        line-height: 40px;
+        text-align: left;
+        background-color: rgba(255, 255, 255, 0.35);
+        margin-bottom: 10px;
+      }
+
+      .rightStatistic {
+        font-size: 18px;
+        text-align: left;
+        color: #ffffff;
+        border-bottom: solid 1px rgba(255, 255, 255, 0.3);
+
+        span:nth-child(2) {
+          letter-spacing: 1px;
+        }
+      }
+    }
+  }
+
+  .graphicRow {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -50px;
+    margin-bottom: 1em;
+    padding-top: 15px;
+    border-radius: 4px;
+    background-color: #ffffff;
+
+    .graphicRowHeader {
+      border-bottom: solid 1px #e2e4e5;
+
+      .title {
+        font-size: 24px;
+        font-weight: bold;
+        letter-spacing: -0.2px;
+        text-align: left;
+        color: #344ce6;
+      }
+
+      .fs-graph-period {
+        border-left: 1px solid rgba(0, 0, 0, 0.1);
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    .graphicTitle {
+      font-size: 16px;
+      font-weight: bold;
+      letter-spacing: -0.1px;
+      text-align: left;
+      color: #485465;
+      margin-left: 10px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    .detailContainer {
+      background-color: #fafafa;
+      border-top: solid 1px #e2e4e5;
+
+      .left-side {
+        padding: 1em 2em;
+        margin-right: 20px;
+        background-color: white;
+        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);
+        line-height: 2em;
+
+        .highlight-caption {
+          font-size: 16px;
+        }
+      }
+
+      .information-title {
+        font-size: 20px;
+        text-align: left;
+        color: #212121;
+      }
+
+      .right-side {
+        padding: 10px 25px 10px 15px;
+        background-color: #ffffff;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+
+        .row-caption {
+          font-size: 15.3px;
+          line-height: 1.5;
+          text-align: left;
+          color: rgba(0, 0, 0, 0.87);
+        }
+
+        .row-amount {
+          font-size: 18px;
+          text-align: right;
+          color: #000000;
+          color: #3e7eff !important;
+        }
+
+        .row-caption-month {
+          font-size: 13.4px;
+          line-height: 1.43;
+          text-align: left;
+          color: rgba(0, 0, 0, 0.54);
+        }
+
+        .row-percent {
+          font-size: 16px;
+          text-align: right;
+          color: #000000;
+        }
+      }
+    }
+  }
+
+  .tableContainer {
+    margin-top: 40px;
+    margin-bottom: 70px;
+    padding-top: 15px;
+    padding-left: 0;
+    padding-right: 0;
+    background-color: #ffffff;
+
+    .tableContainerHeader {
+      border-bottom: solid 1px #979797;
+      padding-bottom: 15px;
+
+      .tableContainerTitle {
+        font-weight: bold;
+        letter-spacing: -0.2px;
+        text-align: left;
+        color: #344ce6;
+        font-size: 24px;
+      }
+    }
+
+    .tableRow {
+      overflow: auto;
+      padding-left: 0;
+      padding-right: 0;
+
+      tr {
+        th:nth-child(1) {
+          width: 45%;
+        }
+      }
+    }
+
+    .btnActivities {
+      width: 200px;
+      line-height: 25px;
+      padding-top: 0.5em;
+      font-size: 20px;
+    }
+  }
+}
+
+.information-circle {
+  &.blue {
+    @include circle-text(10px, #3d7eff, #3d7eff, 14px, white);
+  }
+
+  &.green {
+    @include circle-text(10px, #2ae49f, #2ae49f, 14px, white);
+  }
+}
+
+.legal-notification {
+  background-color: $white;
+  padding: 16px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+
+  .content-left {
+    float: left;
+    margin-right: 16px;
+    overflow: hidden;
+  }
+
+  .content-right {
+    width: 20px;
+    overflow: hidden;
+    float: left;
+
+    .fs-modal__close {
+      width: 20px;
+      height: 20px;
+      color: $lightgray;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .legal-notification {
+    z-index: 2200000000;
+    width: 100%;
+    border-top: 1px $silver solid;
+
+    .content-left {
+      width: 87%;
+    }
+
+    .content-right {
+      float: right;
+    }
+  }
+}
+
+.mat-checkbox-small-font {
+  font-size: $font-12;
+}
+
+
+#sinarmasRDNSuccessfulDialog {
+  .fs-modal__content {
+    padding: 24px;
+
+    .activation-success {
+      margin: 2em 0 3em 0;
+    }
+  }
+
+  .title {
+    font-size: $font-20;
+  }
+
+  .caption {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    color: $assessment-gray;
+  }
+
+  .note {
+    margin-bottom: 3em;
+    color: $assessment-gray;
+  }
+}
+
+.button-toggle-left-side {
+  margin-right: 5px;
+}
+
+.rdn-registration-button {
+  margin-top: 64px;
+}
+
+.fs-year-in-review-banner {
+  background-color: $white;
+
+  .year-in-review-description {
+    margin-top: 30px;
+
+    .title {
+      font-size: $font-20;
+    }
+
+    .caption {
+      color: $ink-lighter;
+    }
+  }
+}
+
+.accredited-declaration-row {
+  background-color: $white;
+}
+
+.bg-app-download-dl {
+  padding-left: 10px;
+  @media #{$phone} {
+    height: 140px;
+  }
+  @media #{$tablet} {
+    height: 130px;
+  }
+  .title {
+    font-size: $font-24;
+    font-family: $gilroy-bold-font-stack;
+  }
+  .app-download-link{
+    &#ios-app {
+      width: 10.25em;
+    }
+    &#android-app {
+      width: 11.5em;
+    }
+  }
+}

@@ -1,0 +1,154 @@
+<div class="container-fluid fs-investor-account-act-container">
+  <div class="row">
+    <div class="col-xs-12 margin-bottom-20 margin-top-20 text-center">
+      <div class="Gilroy-SemiBold title">
+        {{ 'investor-account-activation.title' | translate }}
+      </div>
+    </div>
+    <div
+      class="col-xs-12 col-sm-10 col-md-6 col-md-offset-3 col-sm-offset-1 col-lg-offset-3 text-center transparant-text">
+      <span>{{ 'investor-account-activation.caption' | translate }}</span>
+    </div>
+  </div>
+  <!--  STEP 1 -->
+  <div class="row">
+    <div
+      class="col-xs-12 col-sm-10 col-md-8 col-lg-6 content-center fs-box-shadow margin-top-20 fs-account-activation-box fs-account-activation-box-my">
+      <div class="col-xs-12 title-row">
+        <div class="col-xs-1 padding-null">
+          <div class="circle margin-top-5" [ngClass]="{ 'success' : lastStep >= 1 }">
+            <label class="white-text" *ngIf="lastStep < 1">1</label>
+            <i *ngIf="lastStep >= 1" class="fa fa-check" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="col-xs-11 col-sm-7 col-md-6 Gilroy-SemiBold sub-title padding-null">
+          {{ 'investor-account-activation.subscription-agreement.title' | translate }}
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-5 padding-null">
+          <div class="btn btn-primary-investor pull-right btn-activation-box-small-padding"
+            routerLink="/admin-investor/subscription-agreement" *ngIf="lastStep == 0">
+            {{ 'investor-account-activation.subscription-agreement.button' | translate }}
+          </div>
+          <div class="btn btn-primary-referral pull-right btn-activation-box-small-padding" *ngIf="lastStep >= 1">
+            {{ 'investor-account-activation.completed' | translate }}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 margin-top-20 text-justify padding-null">
+        {{ 'investor-account-activation.subscription-agreement.description' | translate }}
+      </div>
+    </div>
+  </div>
+  <!--  STEP 2 -->
+  <div class="row">
+    <div
+      class="col-xs-12 col-sm-10 col-md-8 col-lg-6 content-center fs-box-shadow margin-top-20 fs-account-activation-box fs-account-activation-box-my"
+      [ngClass]="{ 'in-active' : lastStep < 1 } ">
+      <div class="col-xs-12 title-row">
+        <div class="col-xs-1 padding-null">
+          <div class="circle margin-top-5" [ngClass]="{ 'success' : lastStep >= 2 }">
+            <label class="white-text" *ngIf="lastStep < 2">2</label>
+            <i *ngIf="lastStep >= 2" class="fa fa-check" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="col-xs-7 Gilroy-SemiBold sub-title padding-null">
+          {{ 'investor-account-activation.making-deposit.title' | translate }}
+        </div>
+        <div class="col-xs-4 padding-null">
+          <div class="btn btn-primary-investor pull-right" routerLink="/admin-investor/deposit" *ngIf="lastStep === 1">
+            {{ 'investor-account-activation.making-deposit.button' | translate }}
+          </div>
+          <div class="btn-primary-referral pull-right" *ngIf="lastStep === 2">
+            {{ 'investor-account-activation.completed' | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 margin-top-20 text-justify padding-null">
+        {{ 'investor-account-activation.making-deposit.description' | translate }}
+      </div>
+    </div>
+  </div>
+
+  <!--  STEP 3 -->
+  <div class="row">
+    <div
+      id="digisign"
+      class="col-xs-12 col-sm-10 col-md-8 col-lg-6 content-center fs-box-shadow margin-top-20 fs-account-activation-box fs-account-activation-box-my"
+      [ngClass]="{ 'in-active' : lastStep < 2 } ">
+      <div class="col-xs-12 title-row">
+        <div class="col-xs-1 padding-null">
+          <div class="circle margin-top-5" [ngClass]="{ 'success' : lastStep > 3 }">
+            <label class="white-text" *ngIf="lastStep <= 3">3</label>
+            <i *ngIf="lastStep > 3" class="fa fa-check" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="col-xs-7 Gilroy-SemiBold sub-title padding-null">
+          {{ 'investor-account-activation.e-sign-document.title' | translate }}
+        </div>
+        <div class="col-xs-4 padding-null">
+          <div class="btn btn-primary-investor pull-right" *ngIf="currentStep === activationStepCode['send_econtract']"
+            (click)="openModal('digitalSignaturePopUp')">
+            {{ 'investor-account-activation.e-sign-document.start-e-sign' | translate }}
+          </div>
+          <div class="btn-primary-referral pull-right" *ngIf="currentStep === activationStepCode['sign_econtract']">
+            {{ 'investor-account-activation.completed' | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 margin-top-20 text-justify padding-null" [innerHtml]="('investor-account-activation.e-sign-document.caption' | translate)">
+      </div>
+    </div>
+  </div>
+
+
+  <!--  STEP 4 -->
+  <div class="row">
+    <div
+      class="col-xs-12 col-sm-10 col-md-8 col-lg-6 content-center fs-box-shadow margin-top-20 fs-account-activation-box fs-account-activation-box-my"
+      [ngClass]="{ 'in-active' : lastStep < 3 } ">
+      <div class="col-xs-12 title-row">
+        <div class="col-xs-1 padding-null">
+          <div class="circle margin-top-5" [ngClass]="{ 'success' : lastStep > 4 }">
+            <label class="white-text" *ngIf="lastStep <= 4">4</label>
+            <i *ngIf="lastStep > 4" class="fa fa-check" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="col-xs-7 Gilroy-SemiBold sub-title padding-null">
+          {{ 'investor-account-activation.success.title' | translate }}
+        </div>
+        <div class="col-xs-4 padding-null">
+          <div class="btn btn-primary-investor pull-right"
+            *ngIf="lastStep === 3 && investorBalance >= minimumFirstDeposit">
+            {{ 'investor-account-activation.success.button' | translate }}
+          </div>
+          <div class="btn-primary-referral pull-right" *ngIf="lastStep === 4">
+            {{ 'investor-account-activation.completed' | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 margin-top-20 text-justify padding-null">
+        <ng-container *ngIf="investorBalance >= minimumFirstDeposit">
+          {{ 'investor-account-activation.success.description' | translate }}
+        </ng-container>
+        <ng-container *ngIf="investorBalance < minimumFirstDeposit">
+          {{ 'investor-account-activation.failed' | translate }}
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<modal id="digitalSignaturePopUp" class="fs-register-dialog fs-modal fs-modal__open fs-modal--hidden content-center">
+  <div class="fs-modal__background"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered">
+    <div class="fs-modal__content">
+      <div class="fs-modal__header fs-modal__header--noborder full-height">
+        <div type="button" class="fs-modal__close" (click)="closeModal('digitalSignaturePopUp')"></div>
+        <div class="col-md-12 full-height">
+          <iframe width="100%" height="100%" frameBorder="0" [srcdoc]="websiteContent"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>

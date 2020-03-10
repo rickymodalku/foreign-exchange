@@ -1,0 +1,62 @@
+<modal id="changePhoneNumberModal" class="fs-modal fs-modal-layer-fix fs-modal__open fs-modal--hidden two-fa-modal">
+  <div class="fs-modal__background"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered">
+    <div class="fs-modal__content">
+      <div class="fs-modal__header fs-modal__header--noborder ">
+        <div type="button" class="fs-modal__close" (click)="closeModal('changePhoneNumberModal')"></div>
+      </div>
+
+      <div class="col-xs-12 two-fa-modal-content">
+        <div class="two-fa-verify-icon content-center">
+
+        </div>
+        <ng-container *ngIf="enablePhoneNumberChange">
+          <h2 class="text-center">{{ 'form.otp.change-mobile-number' | translate }}</h2>
+          <h3 class="text-center">{{ 'form.otp.not-right-number-instructions' | translate }}</h3>
+        </ng-container>
+        <ng-container *ngIf="!enablePhoneNumberChange">
+          <h2 class="text-center">{{ 'form.otp.verify-mobile-phone-number' | translate }}</h2>
+        </ng-container>
+
+        <form id="changePhoneNumber">
+          <div class="form-group full-width"
+            [ngClass]="{ 'form-control-error': changePhoneNumberForm.error }">
+            <label>{{ 'form.otp.mobile-number' | translate }}</label>
+            <input #mobilePhoneNumber
+              [attr.disabled]="!enablePhoneNumberChange ? '': null"
+              class="form-control sign-up-form intl-phone-form"
+              name="mobilePhoneNumber"
+              type="text"
+              telInput
+              [telInputOptions]="telInputOptions"
+              (isValid)="mobileNumberIsValid($event)"
+              (telOutput)="setNumber($event)"
+              (intlTelInputObject)="telInputObject($event)"
+              (countryChange)="onCountryChange($event)" />
+          </div>
+          <div *ngIf="!changePhoneNumberForm.error">
+            <span *ngIf="!enablePhoneNumberChange && CONFIGURATION.enable2FaLogin" class="form-subtitle-text">
+                {{ 'form.otp.valid-mobile-number-user-cannot-change-phone-number' | translate: userCannotChangePhoneNumberParam }}
+            </span>
+          </div>
+          <div *ngIf="changePhoneNumberForm.error">
+            <span *ngIf="enablePhoneNumberChange" class="form-error-text">{{ 'form.otp.invalid-mobile-number' | translate }}</span>
+            <span *ngIf="!enablePhoneNumberChange" class="form-error-text">
+              {{ 'form.otp.invalid-mobile-number-user-cannot-change-phone-number' | translate: userCannotChangePhoneNumberParam }}
+            </span>
+          </div>
+        </form>
+        <button [attr.disabled]="changePhoneNumberForm.error ? 'disabled': null" *ngIf="enablePhoneNumberChange" id="signup-otp-change-phone"
+          [ngClass]="{ 'disabled': changePhoneNumberForm.error || changePhoneNumberForm.number && changePhoneNumberForm.number.length <= 0 }"
+          class="btn btn-primary-investor btn-two-fa-modal-update col-xs-12" (click)="clickChangePhoneNumber()">
+          {{ 'form.otp.btn-update' | translate }}
+        </button>
+        <button [attr.disabled]="changePhoneNumberForm.error" *ngIf="!enablePhoneNumberChange" id="confirm-phone"
+          [ngClass]="{ 'disabled': changePhoneNumberForm.error || changePhoneNumberForm.number && changePhoneNumberForm.number.length <= 0 }"
+          class="btn btn-primary-investor btn-two-fa-modal-update col-xs-12" (click)="clickChangePhoneNumber()">
+          {{ 'form.otp.btn-confirm' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</modal>

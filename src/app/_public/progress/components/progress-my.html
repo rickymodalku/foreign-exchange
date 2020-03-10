@@ -1,0 +1,55 @@
+<div class="container-fluid progress-title">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="title Gilroy-SemiBold">{{ 'statistics-performance.title' | translate }}</div>
+        <p>{{ 'statistics-performance.description-1' | translate }}</p><br>
+        <p>{{ 'statistics-performance.description-2' | translate }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-container>
+  <div class="container progress-container my">
+    <div class="row">
+      <div class="col-xs-12 title">
+        <span>{{ 'statistics-performance.current-default-rate' | translate }}</span>
+      </div>
+      <div class="col-xs-12">
+        <span class="caption">{{ 'statistics-performance.last-updated' | translate }} {{ currentDateTime }}</span>
+      </div>
+      <div class="col-xs-12 highlighted-number">
+        <span class="">{{ defaultRate }}%</span>
+      </div>
+      <div class="col-xs-12 title margin-bottom">
+        <span>{{ 'statistics-performance.understanding-the-calculation' | translate }}</span>
+      </div>
+      <div class="col-xs-12">
+        <div class="col-xs-12 formula-box">
+          <div class="col-xs-12 d-flex align-items-center formula-line">
+            <div class="col-xs-12 col-sm-2 padding-null">
+                {{ 'statistics-performance.default-rate' | translate }} =
+            </div>
+            <div class="col-xs-12 col-sm-8">
+              <div class="text-left">{{ 'statistics-performance.total-exsopure-of-all-defaulted-notes' | translate }}</div>
+              <div><i>({{ 'statistics-performance.outstanding-principal-amount' | translate }} +
+                      {{ 'statistics-performance.outstanding-interest-due-to-investors' | translate }})</i></div>
+              <div class="full-width divider"></div>
+              <div>{{ 'statistics-performance.total-principle-amount-financed' | translate }} +
+                    {{ 'statistics-performance.total-interest-payable' | translate }}
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-2 padding-null">
+              x 100
+            </div>
+          </div>
+          <div class="col-xs-12 padding-null formula-description">
+            <div *ngFor="let calculationRuleList of calculationRuleList;let i = index">
+              [{{ i + 1 }}] <span [innerHtml]="calculationRuleList"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

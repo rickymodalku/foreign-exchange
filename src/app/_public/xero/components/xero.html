@@ -1,0 +1,109 @@
+<section class="xero" *ngIf="showXero">
+  <div class="xero-top-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-7 col-sm-8 col-xs-12 content">
+          <img class="bolt-xero-logo" src="assets/img/SG/xero/bolt-logo.png" />
+          <img class="bolt-xero-logo" src="assets/img/SG/xero/xero-logo.png" />
+          <p class="title Gilroy-SemiBold">{{ 'xero.header-section.title' | translate }}</p>
+          <p class="caption">{{ 'xero.header-section.caption-1' | translate }}</p>
+          <p class="caption">{{ 'xero.header-section.caption-2' | translate }}</p>
+          <div class="btn-container">
+            <div id="btn-go-to-bolt" name="btn-go-to-bolt" (click)="goToBoltLink()" class="btn btn-bolt Gilroy-SemiBold">{{ 'xero.button-bolt' | translate }}</div>
+            <div id="btn-go-to-xero" name="btn-go-to-xero" (click)="goToXeroLink()" class="btn btn-xero Gilroy-SemiBold">{{ 'xero.button-xero' | translate }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="xero-why-bolt-section text-center">
+    <div class="title Gilroy-SemiBold">{{ 'xero.why-fs-bolt-section.title' | translate }}</div>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4 col-xs-12 item">
+          <img class="icon" src="assets/img/SG/xero/icon-2-min-application.png" />
+          <p class="caption Gilroy-SemiBold">{{ 'xero.why-fs-bolt-section.caption-1' | translate }}</p>
+          <p class="description">{{ 'xero.why-fs-bolt-section.description-1' | translate }}</p>
+        </div>
+        <div class="col-sm-4 col-xs-12 item">
+          <img class="icon" src="assets/img/SG/xero/icon-2-hr-approval.png" />
+          <p class="caption Gilroy-SemiBold">{{ 'xero.why-fs-bolt-section.caption-2' | translate }}</p>
+          <p class="description">{{ 'xero.why-fs-bolt-section.description-2' | translate }}</p>
+        </div>
+        <div class="col-sm-4 col-xs-12 item">
+          <img class="icon" src="assets/img/SG/xero/icon-24-hr-disburse.png" />
+          <p class="caption Gilroy-SemiBold">{{ 'xero.why-fs-bolt-section.caption-3' | translate }}</p>
+          <p class="description">{{ 'xero.why-fs-bolt-section.description-3' | translate }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="xero-about-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="title Gilroy-SemiBold">{{ 'xero.about-xero-section.title' | translate }}</div>
+          <p class="caption">{{ 'xero.about-xero-section.caption' | translate }}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-xs-12 item">
+          <ul>
+            <li>{{ 'xero.about-xero-section.about-1' | translate }}
+            </li>
+            <li>{{ 'xero.about-xero-section.about-2' | translate }}
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-6 col-xs-12 item">
+          <ul>
+            <li>{{ 'xero.about-xero-section.about-3' | translate }}
+            </li>
+            <li>{{ 'xero.about-xero-section.about-4' | translate }}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div id="about-btn-go-to-xero" name="about-btn-go-to-xero"  (click)="goToXeroLink()" class="btn btn-xero Gilroy-SemiBold fs-box-shadow">{{ 'xero.button-xero' | translate }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="xero-how-to-connect">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-xs-12">
+          <img src="assets/img/SG/xero/bolt-doc.png" />
+        </div>
+        <div class="col-sm-6 col-xs-12 right-content">
+          <div class="title Gilroy-SemiBold">{{ 'xero.how-to-connect-section.title' | translate }}</div>
+          <p class="caption">{{ 'xero.how-to-connect-section.caption' | translate }}</p>
+          <ul>
+            <li>{{ 'xero.how-to-connect-section.step-1' | translate }}</li>
+            <li>{{ 'xero.how-to-connect-section.step-2' | translate }}</li>
+            <li>{{ 'xero.how-to-connect-section.step-3' | translate }}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 margin-top-20">
+          <span class="disclaimer"[innerHtml]="('xero.how-to-connect-section.disclaimer' | translate)"></span>
+          <span (click)="goToXeroFaqLink()" class="disclaimer-link">here</span>.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="xero-get-bolt-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <div class="title Gilroy-SemiBold">{{ 'xero.get-bolt-section.title' | translate }}</div>
+          <p class="caption">{{ 'xero.get-bolt-section.caption' | translate }}</p>
+          <div id="btn-go-to-bolt-bottom" name="btn-go-to-bolt-bottom" (click)="goToBoltLink()" class="btn btn-bolt Gilroy-SemiBold fs-box-shadow">{{ 'xero.button-bolt' | translate }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

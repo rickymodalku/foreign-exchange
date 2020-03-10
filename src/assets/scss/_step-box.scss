@@ -1,0 +1,42 @@
+.step-box {
+  display: flex;
+  flex-direction: row;
+
+  &:first-child {
+    border-top-left-radius: 4px;
+  }
+
+  &:last-child {
+    border-top-right-radius: 4px;
+  }
+}
+
+.step-box__number {
+  display: block;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  border-radius: 28px;
+  border: #92b7ff;
+  font-size: 14px;
+  background: #92b7ff;
+  color: #336bda;
+  text-align: center;
+  margin-right: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+}
+
+.step-box__title {
+  display: block;
+}
+
+@media #{$tablet} {
+  .step-box__number {
+    display: inline-block;
+  }
+  .step-box__title {
+    display: inline-block;
+  }
+}

@@ -1,0 +1,317 @@
+<div class="container-fluid fs-signup padding-null">
+    <div class="onboarding">
+      <div class="onboarding-content investor padding-null col-xs-12 col-md-8">
+        <!-- HEADER -->
+        <ng-container *ngIf="!isInvestorOnboardingCompleted">
+          <div class="onboarding-header" *ngIf="steps.length > 0 && currentStep < steps.length">
+            <div *ngFor="let step of steps"
+              [ngClass]="{ 'active': currentStep >= step.index }"
+              (click)="changeStep(step.index, true)"
+              class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+              <span class="onboarding-header-flag" *ngIf="currentStep <= step.index"><font>{{ step.index }}</font></span>
+              <span class="onboarding-header-flag" *ngIf="currentStep > step.index"><i class="fa fa-check"></i></span>
+              {{ step.label }}
+            </div>
+          </div>
+        </ng-container>
+        <!-- FORMS -->
+        <ng-container *ngIf="!isInvestorOnboardingCompleted">
+          <div class="fs-signup-form"  #signUpInvestorPersonalFormView>
+            <form
+              [formGroup]="signUpInvestorPersonalForm"
+              (ngSubmit)="onSignUpInvestorPersonalFormSubmit()"
+              *ngIf="currentStep === 1"
+              class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null"
+              id="sign-up-investor-personal-form"
+              name="sign-up-investor-personal-form">
+              <div class="investor">
+                <div class="fs-signup-title font-size-20 Gilroy-SemiBold">{{ 'form.onboarding-investor.personal.placeholder.title-general' | translate }}</div>
+                <div class="fs-signup-caption margin-bottom-10">{{ 'form.onboarding-investor.personal.placeholder.subtitle-general' | translate }}</div>
+                <div class="form-inline margin-bottom-10">
+                  <div
+                    class="form-group sign-up-group"
+                    [ngClass]="{ 'form-control-error': formModel.signUpInvestorPersonal.validation && signUpInvestorPersonalForm.controls.genderId.invalid }">
+                    <label>{{ 'form.onboarding-investor.personal.placeholder.gender' | translate }}</label>
+                    <mat-select
+                      placeholder="{{ 'form.onboarding-investor.personal.select.gender' | translate }}"
+                      [(ngModel)]="formModel.signUpInvestorPersonal.genderId"
+                      formControlName="genderId"
+                      id="genderId"
+                      name="genderId">
+                      <mat-option *ngFor="let gender of masterData.genders" [value]="gender.id" ngDefaultControl>
+                        {{ gender.name }}
+                      </mat-option>
+                    </mat-select>
+
+                  </div>
+                  <div
+                    class="form-group sign-up-group"
+                    [ngClass]="{ 'form-control-error': formModel.signUpInvestorPersonal.validation && (!formModel.signUpInvestorPersonal.birthDateValid || signUpInvestorPersonalForm.controls.birthDate.invalid) }">
+                    <label>{{ 'form.onboarding-investor.personal.placeholder.birth-date' | translate }}</label>
+                    <p-calendar
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      (onSelect)="onBirthDateChange(false)"
+                      formControlName="birthDate"
+                      id="birthDate"
+                      inputStyleClass="form-control sign-up-form"
+                      name="birthDate"
+                      [baseZIndex]="10001"
+                      placeholder="{{ 'form.onboarding-investor.personal.placeholder.birth-date-default' | translate }}"
+                      yearRange="1900:2030">
+                    </p-calendar>
+                  </div>
+                </div>
+                <div class="fs-signup-title font-size-20 margin-top-20 Gilroy-SemiBold">{{ 'form.onboarding-investor.personal.placeholder.title-residential' | translate }}</div>
+                <div class="fs-signup-caption margin-bottom-10">{{ 'form.onboarding-investor.personal.placeholder.subtitle-residential' | translate }}</div>
+                <div class="form-inline margin-bottom-10">
+                  <div
+                    class="form-group sign-up-group full-width"
+                    [ngClass]="{ 'form-control-error': formModel.signUpInvestorPersonal.validation && signUpInvestorPersonalForm.controls.residentialCountryId.invalid }">
+                    <label>{{ 'form.onboarding-investor.personal.placeholder.country' | translate }}</label>
+                    <mat-select
+                      placeholder="{{ 'form.onboarding-investor.personal.select.country' | translate }}"
+                      (selectionChange)="onResidentialCountryChange(formModel.signUpInvestorPersonal.residentialCountryId)"
+                      [(ngModel)]="formModel.signUpInvestorPersonal.residentialCountryId"
+                      formControlName="residentialCountryId"
+                      id="residentialCountryId"
+                      name="residentialCountryId">
+                      <mat-option *ngFor="let country of masterData.countries" [value]="country.code" ngDefaultControl>
+                        {{ country.name }}
+                      </mat-option>
+                    </mat-select>
+                  </div>
+                </div>
+                <div class="form-inline margin-bottom-10">
+                  <div
+                    class="form-group sign-up-group"
+                    *ngIf="masterData.states.length > 0"
+                    [ngClass]="{ 'form-control-error': formModel.signUpInvestorPersonal.validation && signUpInvestorPersonalForm.controls.stateId.invalid }">
+                    <label>{{ 'form.onboarding-investor.personal.placeholder.state' | translate }}</label>
+                    <mat-select
+                      placeholder="{{ 'form.onboarding-investor.personal.select.state' | translate }}"
+                      (selectionChange)="onResidentialStateChange(formModel.signUpInvestorPersonal.stateId)"
+                      [(ngModel)]="formModel.signUpInvestorPersonal.stateId"
+                      formControlName="stateId"
+                      id="stateId"
+                      name="stateId">
+                      <mat-option *ngFor="let state of masterData.states" [value]="state.id" ngDefaultControl>
+                        {{ state.name }}
+                      </mat-option>
+                    </mat-select>
+
+                  </div>
+                  <div
+                    class="form-group sign-up-group"
+                    [ngClass]="{ 'form-control-error': formModel.signUpInvestorPersonal.validation && signUpInvestorPersonalForm.controls.district.invalid, 'full-width' : masterData.states.length === 0 }">
+                    <label>{{ 'form.onboarding-investor.personal.placeholder.city' | translate }}</label>
+                    <input
+                      autocomplete="off"
+                      class="form-control sign-up-form"
+                      formControlName="district"
+                      id="district"
+                      name="district"
+                      type="text" />
+                  </div>
+                </div>
+                <div class="form-inline margin-bottom-10">
+                  <div
+                    class="form-group sign-up-group full-width"
+                    [ngClass]="{ 'form-control-error': formModel.signUpInvestorPersonal.validation && signUpInvestorPersonalForm.controls.address1.invalid }">
+                    <label>{{ 'form.onboarding-investor.personal.placeholder.address-1' | translate }}</label>
+                    <input
+                      autocomplete="off"
+                      class="form-control sign-up-form"
+                      formControlName="address1"
+                      id="address1"
+                      name="address1"
+                      type="text" />
+                  </div>
+                </div>
+                <div class="form-inline margin-bottom-10">
+                  <div
+                    class="form-group sign-up-group full-width"
+                    [ngClass]="{ 'form-control-error': formModel.signUpInvestorPersonal.validation && signUpInvestorPersonalForm.controls.address2.invalid }">
+                    <label>{{ 'form.onboarding-investor.personal.placeholder.address-2' | translate }}</label>
+                    <input
+                      autocomplete="off"
+                      class="form-control sign-up-form"
+                      formControlName="address2"
+                      id="address2"
+                      name="address2"
+                      type="text" />
+                  </div>
+                </div>
+                <div class="form-inline margin-bottom-10">
+                  <div
+                    class="form-group sign-up-group"
+                    [ngClass]="{ 'form-control-error': formModel.signUpInvestorPersonal.validation && signUpInvestorPersonalForm.controls.zipCode.invalid }">
+                    <label>{{ 'form.onboarding-investor.personal.placeholder.postal-code' | translate }}</label>
+                    <input
+                      autocomplete="off"
+                      class="form-control sign-up-form"
+                      formControlName="zipCode"
+                      id="zipCode"
+                      name="zipCode"
+                      type="text" />
+                  </div>
+                </div>
+
+                <div class="fs-signup-title font-size-20 margin-top-20 Gilroy-SemiBold">{{ 'form.onboarding-investor.personal.placeholder.title-citizenship' | translate }}</div>
+                <div class="fs-signup-caption margin-bottom-10">{{ 'form.onboarding-investor.personal.placeholder.subtitle-citizenship' | translate }}</div>
+                <div class="form-inline margin-bottom-10">
+                  <div
+                    class="form-group sign-up-group full-width"
+                    [ngClass]="{ 'form-control-error': formModel.signUpInvestorPersonal.validation && signUpInvestorPersonalForm.controls.citizenshipCountryId.invalid }">
+                    <label>{{ 'form.onboarding-investor.personal.placeholder.country' | translate }}</label>
+                    <mat-select
+                      placeholder="{{ 'form.onboarding-investor.personal.select.country' | translate }}"
+                      [(ngModel)]="formModel.signUpInvestorPersonal.citizenshipCountryId"
+                      formControlName="citizenshipCountryId"
+                      id="citizenshipCountryId"
+                      name="citizenshipCountryId">
+                      <mat-option *ngFor="let country of masterData.countries" [value]="country.code" ngDefaultControl>
+                        {{ country.name }}
+                      </mat-option>
+                    </mat-select>
+
+                  </div>
+                </div>
+                <div class="form-inline margin-bottom-10" *ngIf="signUpInvestorPersonalForm.value.citizenshipCountryId === countryCode">
+                  <div
+                    class="form-group sign-up-group"
+                    [ngClass]="{ 'form-control-error': formModel.signUpInvestorPersonal.validation && (!formModel.signUpInvestorPersonal.citizenshipValid || signUpInvestorPersonalForm.controls.icNumber.invalid) }">
+                    <label>{{ 'form.onboarding-investor.personal.placeholder.ic-number' | translate }}</label>
+                    <input
+                      (keyup)="onIdentityNumberChange()"
+                      autocomplete="off"
+                      class="form-control sign-up-form"
+                      formControlName="icNumber"
+                      id="icNumber"
+                      name="icNumber"
+                      type="text" />
+                  </div>
+                </div>
+                <div class="form-inline margin-bottom-10" *ngIf="signUpInvestorPersonalForm.value.citizenshipCountryId !== countryCode">
+                  <div
+                    class="form-group sign-up-group"
+                    [ngClass]="{ 'form-control-error': formModel.signUpInvestorPersonal.validation && (!formModel.signUpInvestorPersonal.citizenshipValid || signUpInvestorPersonalForm.controls.passportNumber.invalid ) }">
+                    <label>{{ 'form.onboarding-investor.personal.placeholder.passport-number' | translate }}</label>
+                    <input
+                      (keyup)="onIdentityNumberChange()"
+                      autocomplete="off"
+                      class="form-control sign-up-form"
+                      formControlName="passportNumber"
+                      id="passportNumber"
+                      name="passportNumber"
+                      type="text" />
+                  </div>
+                  <div
+                    class="form-group sign-up-group"
+                    [ngClass]="{ 'form-control-error': formModel.signUpInvestorPersonal.validation && (!formModel.signUpInvestorPersonal.passportExpiryDateValid || signUpInvestorPersonalForm.controls.passportExpiryDate.invalid ) }">
+                    <label>{{ 'form.onboarding-investor.personal.placeholder.passport-expiry-date' | translate }}</label>
+                    <p-calendar
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      (onSelect)="onPassportExpiryDateChange(false)"
+                      formControlName="passportExpiryDate"
+                      id="passportExpiryDate"
+                      inputStyleClass="form-control sign-up-form"
+                      name="passportExpiryDate"
+                      [baseZIndex]="10001"
+                      placeholder="{{ 'form.onboarding-investor.personal.placeholder.passport-expiry-date-default' | translate }}"
+                      yearRange="1900:2030">
+                    </p-calendar>
+                  </div>
+                </div>
+                <div class="col-xs-12 onboarding-footer">
+                  <div class="col-xs-12 col-sm-8 margin-top-10 tnc-box">
+                    <mat-checkbox [checked]="formModel.signUpInvestorPersonal.accepted"
+                      (change)="onSignUpInvestorPersonalFormAccept($event)"
+                      class="light-gray-text text-center font-size-10" >
+                    </mat-checkbox>
+                    &nbsp;{{ 'form.onboarding-investor.personal.placeholder.agreement' | translate }} <a href="./terms-of-service" target="_blank">{{ 'form.onboarding-investor.personal.placeholder.jurisdiction-limitations' | translate }}</a>.
+                  </div>
+                  <button
+                    *ngIf="formModel.signUpInvestorPersonal.accepted"
+                    class="btn btn-primary-investor btn-process-signup"
+                    id="investor-signup-personal-btn"
+                    name="investor-signup-personal-btn"
+                    type="submit">
+                    <div class="block pull-left">
+                        {{ 'form.onboarding-investor.personal.placeholder.submit' | translate }}
+                    </div>
+                    <div class="white-right-arrow-icon arrow-icon pull-right">
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="fs-signup-form" #signUpInvestorDocumentUploadView>
+            <form
+              *ngIf="currentStep === 2"
+              (ngSubmit)="onSignUpInvestorDocumentFormSubmit()"
+              class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null"
+              id="sign-up-investor-document-form"
+              name="sign-up-investor-document-form">
+              <div class="investor">
+                <div class="fs-signup-title font-size-20 Gilroy-SemiBold">{{ 'form.onboarding-investor.document.placeholder.title' | translate }}</div>
+                <div class="fs-signup-caption margin-bottom-10" [innerHtml]="('form.onboarding-investor.document.placeholder.subtitle' | translate)"></div>
+                <dropzone
+                  *ngFor="let document of formModel.signUpInvestorDocument.documents"
+                  [config]="formModel.signUpInvestorDocument.configuration"
+                  [message]="document.message"
+                  [ngClass]="{ 'hide': !document.display }"
+                  (error)="onFileUploadError($event, document.label)"
+                  (sending)="onFileUploadSending($event, document.type)"
+                  (success)="onFileUploadSuccess($event, document.type)"
+                  class="investor">
+                </dropzone>
+
+                <div class="col-xs-12 onboarding-footer">
+                  <button id="investor-signup-doc-btn" name="investor-signup-doc-btn" class="btn btn-primary-investor" type="submit">
+                    <div class="block pull-left">
+                        {{ 'form.onboarding-investor.document.placeholder.submit' | translate }}
+                    </div>
+                    <div class="white-right-arrow-icon arrow-icon pull-right">
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </ng-container>
+        <div class="fs-signup-form" #signUpInvestorSuccessfullView>
+          <ng-container *ngIf="isInvestorOnboardingCompleted">
+            <div class="two-fa-icon activation-success-icon content-center"></div>
+            <div class="Gilroy-Regular two-fa-title">{{ 'form.otp.signed-up' | translate }}</div>
+
+            <p class="two-fa-paragraph text-center">{{ 'form.otp.after-signed-up-investor' | translate }}</p>
+            <div class="two-fa-steps">
+              <div class="step-container">
+                <div class="two-fa-step-icon two-fa-sign-up-icon"></div>
+                <div class="step-content">{{ 'form.otp.sign-up-step' | translate }}</div>
+              </div>
+              <div class="step-line step-line--completed"></div>
+              <div class="step-container">
+                <div class="two-fa-step-icon two-fa-sign-up-icon"></div>
+                <div class="step-content">{{ 'form.otp.investor-profile' | translate }}</div>
+              </div>
+              <div class="step-line step-line--incomplete"></div>
+              <div class="step-container">
+                <div class="two-fa-step-icon two-fa-deposit-icon"></div>
+                <div class="step-content">{{ 'form.otp.first-deposit' | translate }}</div>
+              </div>
+            </div>
+            <div id="investor-signup-otp-proceed-btn"
+              class="btn btn-primary-investor proceed-button margin-top-20 col-xs-12 col-sm-4 content-center text-center d-flex justify-content-center"
+              (click)="goToSubscriptionAgreement()">
+              {{ 'form.otp.go-investor-profile' | translate }}
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <app-onboarding-testimonial-swiper [memberType]="investorMemberTypeCode"></app-onboarding-testimonial-swiper>
+    </div>
+  </div>

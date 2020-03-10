@@ -1,0 +1,130 @@
+.my-info-empty {
+  padding-bottom: 1em;
+}
+
+.my-info-container {
+  padding: 20px;
+  min-height: calc(100vh - 100px);
+  .my-info {
+    width: 100%;
+    background-color: $white;
+    padding: 20px;
+  }
+
+  .my-info-title {
+    font-size: $font-22;
+
+    p {
+      font-size: $font-16;
+    }
+  }
+
+  .my-info-content-title {
+    font-size: $font-22;
+    font-family: $gilroy-font-stack;
+  }
+
+  .my-info-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 100%);
+    grid-gap: 10px;
+  }
+
+  .my-info-header {
+    display: block;
+    padding: 20px;
+
+    .funding-societies-logo {
+      display: inline-block;
+      height: 50px;
+      width: 120px;
+    }
+  }
+
+  .my-info-header-logos {
+    display: inline-block;
+    width: 65%;
+  }
+
+
+  .my-info-header-logo {
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+    margin-right: 10px;
+  }
+
+  .my-info-footer {
+    border-top: 1px solid #dae5ee;
+    display: grid;
+    grid-template-columns: 1fr 100px;
+    padding: 20px;
+  }
+
+  .my-info-footer-cta {
+    .btn-primary-investor {
+      margin: auto 0;
+      text-align: center;
+    }
+  }
+
+  .my-info-footer__label {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+  }
+
+  .my-info-footer__description {
+    padding: 0 10px;
+  }
+
+  .my-info-header-timing {
+    display: inline-block;
+    text-align: right;
+    margin: 0 auto;
+    width: 30%;
+  }
+
+  .my-info-header-timing-number {
+    font-size: $font-22;
+  }
+}
+
+.my-info-pending-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: inherit;
+}
+
+.my-info-pending-text {
+  font-size: 2em;
+  max-width: 50%;
+}
+
+.my-info-link {
+  text-decoration: underline;
+}
+
+@media #{$largephone} {
+  .my-info-container {
+    .my-info-header {
+      .funding-societies-logo {
+        width: 170px;
+      }
+    }
+  }
+}
+
+@media #{$desktop} {
+  .my-info-container {
+    .my-info-list {
+      grid-template-columns: repeat(auto-fit, 49%);
+    }
+
+    .my-info-header {
+      .funding-societies-logo {
+        width: 200px;
+      }
+    }
+  }
+}

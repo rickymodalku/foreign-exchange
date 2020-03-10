@@ -1,0 +1,205 @@
+<div class="container-fluid padding-null">
+    <div class="onboarding" [ngClass]="{ 'hide': showMyInfoAndManualSelection}">
+      <div class="onboarding-content borrower padding-null col-xs-12 col-md-8">
+        <!-- HEADER -->
+        <ng-container *ngIf="!isInvestorOnboardingCompleted">
+          <div class="onboarding-header" *ngIf="steps.length > 0 && currentStep <= steps.length">
+            <ng-container *ngFor="let step of steps;let i = index">
+              <div [ngClass]="{ 'active': currentStep >= step.index , 'col-xs-12' : !showMyInfoStep , 'col-xs-4' : showMyInfoStep }"
+                (click)="changeStep(step.index, true)">
+                <span class="onboarding-header-flag" *ngIf="currentStep <= step.index">
+                  <span>{{ i + 1 }}</span>
+                </span>
+                <span class="onboarding-header-flag" *ngIf="currentStep > step.index">
+                  <i class="fa fa-check"></i>
+                </span>
+                {{ step.label }}
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+        <!-- Review my info -->
+        <!-- <div class="fs-signup-form" *ngIf="currentStep === 1">
+        </div> -->
+        <!-- FORMS -->
+        <ng-container *ngIf="!isInvestorOnboardingCompleted">
+          <div class="fs-signup-form" *ngIf="currentStep === 1">
+            <!-- Business Form -->
+            <form [formGroup]="signUpBorrowerBusinessForm" (ngSubmit)="onSignUpBorrowerBusinessFormSubmit()"
+              class="col-xs-12 padding-null" id="sign-up-borrower-financial-form" name="sign-up-borrower-financial-form">
+              <div class="borrower">
+                <div class="fs-signup-title font-size-20 margin-bottom-10 Gilroy-SemiBold">{{ 'form.onboarding-borrower.organization.placeholder.title-general' | translate }}</div>
+                <div class="form-inline margin-bottom-10" *ngIf="!hasMyInfo">
+                  <div class="form-group sign-up-group full-width" [ngClass]="{ 'form-control-error': formModel.signUpBorrowerBusiness.validation && signUpBorrowerBusinessForm.controls.fullName.invalid }">
+                    <label>{{ 'form.sign-up-borrower.placeholder.fullname' | translate }}</label>
+                    <input autocomplete="off" class="form-control sign-up-form form-control" formControlName="fullName" id="borrowerFullName"
+                      name="borrowerFullName" type="text" />
+                  </div>
+                </div>
+                <div class="form-group sign-up-group margin-bottom-10" *ngIf="!hasMyInfo" [ngClass]="{ 'form-control-error': ( formModel.signUpBorrowerBusiness.validation && signUpBorrowerBusinessForm.controls.mobilePhoneNumber.invalid ) || formModel.signUpBorrowerBusiness.mobilePhoneValidation }">
+                  <label>{{ 'form.sign-up-borrower.placeholder.mobile-phone-number' | translate }}</label>
+                  <int-telp-input [config]="phoneNumberConfig" (getValidation)="getMobilePhoneValidation($event)" (patchPhoneNumber)="patchMobilePhoneNumber($event)" [showValidation]="formModel.signUpBorrowerBusiness.mobilePhoneValidation"></int-telp-input>
+                </div>
+                <div class="form-inline margin-bottom-10">
+                  <div class="form-group sign-up-group full-width" [ngClass]="{ 'form-control-error': formModel.signUpBorrowerBusiness.validation && signUpBorrowerBusinessForm.controls.companyName.invalid }">
+                    <label>{{ 'form.onboarding-borrower.business.placeholder.company-name' | translate }}</label>
+                    <input autocomplete="off" class="form-control sign-up-form form-control" formControlName="companyName" id="companyName" name="companyName"
+                      type="text" />
+                  </div>
+                </div>
+
+                <div class="form-inline margin-bottom-10">
+                  <div class="form-group sign-up-group" [ngClass]="{ 'form-control-error': formModel.signUpBorrowerBusiness.validation && signUpBorrowerBusinessForm.controls.companyCountryId.invalid }">
+                      <label>{{ 'form.onboarding-borrower.business.placeholder.company-country' | translate }}</label>
+                      <input [value]="countryName" class="form-control sign-up-form" id="companyCountryId" name="companyCountryId"
+                        type="text" />
+                  </div>
+
+                  <div class="form-group sign-up-group" [ngClass]="{ 'form-control-error': (formModel.signUpBorrowerBusiness.validation && signUpBorrowerBusinessForm.controls.companyPhoneNumber.invalid) || formModel.signUpBorrowerBusiness.companyPhoneValidation }">
+                    <label>{{ 'form.onboarding-borrower.business.placeholder.company-phone-number' | translate }}</label>
+                    <int-telp-input [config]="companyPhoneNumberConfig" (getValidation)="getCompanyMobilePhoneValidation($event)" (patchPhoneNumber)="patchCompanyMobilePhoneNumber($event)" [showValidation]="formModel.signUpBorrowerBusiness.companyPhoneValidation"></int-telp-input>
+                  </div>
+                </div>
+
+                <div class="form-inline margin-bottom-10">
+                  <div class="form-group sign-up-group" [ngClass]="{ 'form-control-error': formModel.signUpBorrowerBusiness.validation && signUpBorrowerBusinessForm.controls.companyEntityTypeId.invalid }">
+                      <label>{{ 'form.onboarding-borrower.business.placeholder.company-entity-type' | translate }}</label>
+                      <mat-select placeholder="{{ 'form.onboarding-borrower.business.select.company-entity-type' | translate }}" [(ngModel)]="formModel.signUpBorrowerBusiness.entityType" formControlName="companyEntityTypeId" id="companyEntityTypeId"
+                        name="companyEntityTypeId">
+                        <mat-option *ngFor="let companyEntityType of masterData.companyEntityTypes" [value]="companyEntityType.id" ngDefaultControl>
+                          {{ companyEntityType.name }}
+                        </mat-option>
+                      </mat-select>
+                  </div>
+
+                  <div class="form-group sign-up-group" [ngClass]="{ 'form-control-error': formModel.signUpBorrowerBusiness.validation && signUpBorrowerBusinessForm.controls.companyTotalEmployeeId.invalid }">
+                      <label>{{ 'form.onboarding-borrower.business.placeholder.company-total-employee' | translate }}</label>
+                      <mat-select placeholder="{{ 'form.onboarding-borrower.business.select.company-total-employee' | translate }}" [(ngModel)]="formModel.signUpBorrowerBusiness.totalEmployee" formControlName="companyTotalEmployeeId" id="companyTotalEmployeeId"
+                        name="companyTotalEmployeeId">
+                        <mat-option *ngFor="let totalemployee of masterData.companyTotalEmployee" [value]="totalemployee.id" ngDefaultControl>
+                          {{ totalemployee.name }}
+                        </mat-option>
+                      </mat-select>
+                    </div>
+                </div>
+
+                <div class="form-inline margin-bottom-10">
+                  <div class="form-group sign-up-group" [ngClass]="{ 'form-control-error': formModel.signUpBorrowerBusiness.validation && signUpBorrowerBusinessForm.controls.companyOwnership.invalid }">
+                    <label>{{ 'form.onboarding-borrower.business.placeholder.company-local-shareholding' | translate }}</label>
+                    <input class="form-control sign-up-form" formControlName="companyOwnership" id="companyOwnership" name="companyOwnership"
+                      type="number" />
+                  </div>
+                  <div class="form-group sign-up-group" [ngClass]="{ 'form-control-error': formModel.signUpBorrowerBusiness.validation && signUpBorrowerBusinessForm.controls.companyAnnualRevenue.invalid }">
+                    <label>{{ 'form.onboarding-borrower.business.placeholder.company-annual-revenue' | translate }}</label>
+                    <input [value]="countryCurrencyCode" class="form-control sign-up-form form-control-prefix" type="text" disabled/>
+                    <input class="form-control sign-up-form form-control-affix form-control-no-float" (keyup)="autoFormatCompanyAnnualRevenue()" formControlName="companyAnnualRevenue"
+                      id="companyAnnualRevenue" name="companyAnnualRevenue" type="tel" />
+                  </div>
+                </div>
+
+                <div class="form-inline margin-bottom-10">
+                  <div class="form-group sign-up-group" [ngClass]="{ 'form-control-error': formModel.signUpBorrowerBusiness.validation && signUpBorrowerBusinessForm.controls.companyAnnualNetIncome.invalid }">
+                    <label>{{ 'form.onboarding-borrower.business.placeholder.company-annual-net-income' | translate }}</label>
+                    <input [value]="countryCurrencyCode" class="form-control sign-up-form form-control-prefix" type="text" disabled/>
+                    <input class="form-control sign-up-form form-control-affix form-control-no-float" (keyup)="autoFormatCompanyAnnualNetIncome()" formControlName="companyAnnualNetIncome"
+                      id="companyAnnualNetIncome" name="companyAnnualNetIncome" type="tel" />
+                  </div>
+                  <div class="form-group sign-up-group" [ngClass]="{ 'form-control-error': formModel.signUpBorrowerBusiness.validation && signUpBorrowerBusinessForm.controls.companyCurrentDebt.invalid }">
+                    <label>{{ 'form.onboarding-borrower.business.placeholder.company-current-debt' | translate }}</label>
+                    <input [value]="countryCurrencyCode" class="form-control sign-up-form form-control-prefix" type="text" disabled/>
+                    <input (keyup)="autoFormatCompanyCurrentDebt()" class="form-control sign-up-form form-control-affix form-control-no-float" formControlName="companyCurrentDebt"
+                      id="companyCurrentDebt" name="companyCurrentDebt" type="tel" />
+                  </div>
+                </div>
+
+                <div class="form-inline margin-bottom-10">
+                  <div class="form-group sign-up-group" [ngClass]="{ 'form-control-error': formModel.signUpBorrowerBusiness.validation && signUpBorrowerBusinessForm.controls.companyCurrentInstallment.invalid }">
+                    <label>{{ 'form.onboarding-borrower.business.placeholder.company-current-installment' | translate }}</label>
+                    <input [value]="countryCurrencyCode" class="form-control sign-up-form form-control-prefix" type="text" disabled/>
+                    <input class="form-control sign-up-form form-control-affix form-control-no-float" (keyup)="autoFormatCompanyCurrentInstallment()" formControlName="companyCurrentInstallment"
+                      id="companyCurrentInstallment" name="companyCurrentInstallment" type="tel" />
+                  </div>
+                  <div class="form-group sign-up-group clearfix sign-up-check-box-container" [ngClass]="{ 'form-control-error': formModel.signUpBorrowerBusiness.validation && signUpBorrowerBusinessForm.controls.companyEverBankrupt.invalid }">
+                    <mat-checkbox [checked]="formModel.signUpBorrowerBusiness.everBankrupt" (change)="onSignUpBusinessEverBankruptCheck($event)"
+                      class="pull-left text-center font-size-12">
+                      {{ 'form.onboarding-borrower.business.placeholder.company-ever-bankrupt' | translate }}
+                    </mat-checkbox>
+                  </div>
+                </div>
+
+
+                <div class="col-xs-12 onboarding-footer">
+                  <button class="btn btn-primary-borrower" id="sign-up-borrower-financial-form-submit" name="sign-up-borrower-financial-form-submit"
+                    type="submit">
+                    <div class="block pull-left">
+                      {{ 'form.onboarding-borrower.business.placeholder.submit' | translate }}
+                    </div>
+                    <div class="white-right-arrow-icon arrow-icon pull-right">
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </ng-container>
+        <div *ngIf="isInvestorOnboardingCompleted" class="fs-signup-form text-center" #signUpInvestorSuccessfullView>
+          <div class="two-fa-icon activation-success-icon content-center"></div>
+          <div class="Gilroy-Regular two-fa-title">{{ 'form.otp.signed-up' | translate }}</div>
+          <p class="two-fa-paragraph">{{ 'form.otp.after-signed-up-borrower' | translate }}</p>
+          <div class="two-fa-steps">
+            <div class="step-container">
+              <div class="two-fa-step-icon two-fa-sign-up-icon"></div>
+              <div class="step-content">{{ 'form.otp.sign-up-step' | translate }}</div>
+            </div>
+            <div class="step-line step-line--completed"></div>
+            <div class="step-container">
+              <div class="two-fa-step-icon two-fa-apply-icon"></div>
+              <div class="step-content">{{ 'form.otp.new-loan' | translate }}</div>
+            </div>
+            <div class="step-line step-line--incomplete"></div>
+            <div class="step-container">
+              <div class="two-fa-step-icon two-fa-approve-icon"></div>
+              <div class="step-content">{{ 'form.otp.loan-approved' | translate }}</div>
+            </div>
+            <div class="step-line step-line--incomplete"></div>
+            <div class="step-container">
+              <div class="two-fa-step-icon two-fa-funds-icon"></div>
+              <div class="step-content">{{ 'form.otp.take-fund' | translate }}</div>
+            </div>
+          </div>
+          <div id="borrower-signup-otp-proceed-btn"
+            class="btn btn-primary-investor proceed-button margin-top-20" (click)="goToDashboard()">
+            {{ 'form.otp.go-borrower-dashboard' | translate }}
+          </div>
+        </div>
+      </div>
+      <app-onboarding-testimonial-swiper [memberType]="borrowerMemberTypeCode"></app-onboarding-testimonial-swiper>
+    </div>
+  </div>
+
+  <modal id="MyInfoErrorModal" class="fs-modal fs-modal__open fs-modal--hidden fs-callback-modal">
+    <div class="fs-modal__background"></div>
+    <div class="fs-modal__dialog fs-modal__dialog--centered">
+      <div class="fs-modal__content">
+        <div class="fs-modal__header fs-modal__header--noborder">
+          <div type="button" class="fs-modal__close" (click)="this.closeModal('MyInfoErrorModal')"></div>
+        </div>
+        <div class="fs-callback-modal__body">
+          <div class="flex-row">
+            <div class="error-logo">
+              <div class="error-shape">
+                X
+              </div>
+            </div>
+          </div>
+          <div class="flex-row fs-callback-modal__text"> {{ 'form.my-info.my-info-error-description' | translate }}</div>
+          <div class="flex-row">
+            <div class="btn btn-primary-investor" (click)="this.closeModal('MyInfoErrorModal')">{{ 'form.my-info.my-info-manual-text' | translate }}</div>
+          </div>
+          <div class="flex-row">
+            <a class="my-info-link" role="button" (click)="callAuthoriseApi()">{{ 'form.my-info.my-info-retry' | translate }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </modal>

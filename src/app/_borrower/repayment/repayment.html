@@ -1,0 +1,329 @@
+<div class="container-fluid brwRepayment">
+  <div class="row accountOverview">
+    <div class="accountOverviewCaption repayment">
+      <div class="Gilroy-SemiBold white-text font-size-30">{{ 'repayment.title' | translate }}</div>
+      <span class="Gilroy-Regular caption" [innerHtml]="('repayment.subtitle' | translate)"></span>
+    </div>
+  </div>
+  <div class="row fs-repayment-filter">
+    <div class="col-xs-5 padding-null">
+      <span>{{ 'repayment.placeholder.sort-by' | translate }}</span>
+      <mat-select placeholder="Due Date" [(value)]="sortDirection" (selectionChange)="sortFilterRepayments()"
+        class="form-control">
+        <mat-option value="asc">
+          <span>{{ 'repayment.placeholder.sort-option-earliest-to-latest' | translate }}</span>
+        </mat-option>
+        <mat-option value="desc">
+          <span>{{ 'repayment.placeholder.sort-option-latest-to-earliest' | translate }}</span>
+        </mat-option>
+      </mat-select>
+    </div>
+    <mat-checkbox [checked]="hideCompletedLoans" (change)="toggleHideCompletedLoans()" class="col-xs-7 col-sm-6 pull-right text-right fs-repayment-checkbox">
+      {{'repayment.placeholder.hide-completed-loans' | translate}}
+    </mat-checkbox>
+  </div>
+  <div class="row fs-repayment-box fs-box-shadow" *ngFor="let repayment of repayments">
+    <div class="col-xs-12 header">
+      <a class="Gilroy-SemiBold pull-left title" (click)="displayDialog('LOAN-DETAILS', repayment)">{{ repayment.loan_code }}</a>
+      <div *ngIf="repayment.upcomingRepayment" (click)="displayDialog('INSTALLMENTS', repayment)" class="Gilroy-SemiBold pull-right"
+        role="button" style="color:#9b9b9b">
+        {{ 'repayment.placeholder.button-view-installments' | translate }}
+      </div>
+    </div>
+    <div class="col-xs-12 body">
+      <div class="col-xs-12 pull-left clearfix">
+        <div class="col-xs-12 padding-null">
+          <div class="col-xs-5 pull-left padding-null">{{ 'repayment.placeholder.loan-code' | translate }}</div>
+          <div class="col-xs-7 pull-right">{{ repayment.loan_code }}</div>
+        </div>
+        <div class="col-xs-12 padding-null">
+          <div class="col-xs-5 pull-left padding-null">{{ 'repayment.placeholder.application-date' | translate }}</div>
+          <div class="col-xs-7 pull-right">{{ repayment.createdAt | date: dialogModel.dateTimeFormat }}</div>
+        </div>
+        <div class="col-xs-12 padding-null">
+          <div class="col-xs-5 pull-left padding-null">{{ 'repayment.placeholder.applied-amount' | translate }}</div>
+          <div class="col-xs-7 pull-right">{{ currency }}{{ repayment.applied_loan_amount | number: dialogModel.decimalFormat: dialogModel.localeDecimalFormat }}</div>
+        </div>
+        <div class="col-xs-12 padding-null" *ngIf="hideApprovedLabel(repayment.loan_stage)">
+          <div class="col-xs-5 pull-left padding-null">{{ 'repayment.placeholder.approved-amount' | translate }}</div>
+          <div class="col-xs-7 pull-right">{{ currency }}{{ repayment.loan_amount | number: dialogModel.decimalFormat: dialogModel.localeDecimalFormat }}</div>
+        </div>
+        <div class="col-xs-12 padding-null">
+          <div class="col-xs-5 pull-left padding-null">{{ 'repayment.placeholder.applied-tenor' | translate }}</div>
+          <div class="col-xs-7 pull-right">{{ repayment.applied_tenor_length }} {{ getTenorTypeLabel(repayment.tenor_type) }}
+          </div>
+        </div>
+        <div class="col-xs-12 padding-null" *ngIf="hideApprovedLabel(repayment.loan_stage)">
+          <div class="col-xs-5 pull-left padding-null">{{ 'repayment.placeholder.approved-tenor' | translate }}</div>
+          <div class="col-xs-7 pull-right">{{ repayment.tenor_length }} {{ getTenorTypeLabel(repayment.tenor_type) }}</div>
+        </div>
+        <div class="col-xs-12 padding-null" *ngIf="hideApprovedLabel(repayment.loan_stage)">
+          <div class="col-xs-5 pull-left padding-null">{{ 'repayment.placeholder.interest-rate' | translate }}</div>
+          <div class="col-xs-7 pull-right">{{ repayment.interest_rate }}%</div>
+        </div>
+        <div class="col-xs-12 padding-null">
+          <div class="col-xs-5 pull-left padding-null">{{ 'repayment.placeholder.status' | translate }}</div>
+          <div class="col-xs-7 pull-right">{{ repayment.loan_stage }} ({{repayment.loan_status_mapping }})</div>
+        </div>
+        <div class="col-xs-12 padding-null" *ngIf="repayment.loan_offer_dms">
+          <div class="col-xs-5 pull-left padding-null">{{ 'repayment.placeholder.loan-agreement' | translate }}</div>
+          <div class="col-xs-7 pull-right" (click)="downloadLoanOffer(repayment.loan_offer_dms, repayment.loan_code)" role="button"><a class="no-underline">{{ repayment.loan_code }}</a></div>
+        </div>
+      </div>
+      <div class="pull-right" *ngIf="showRepaymentDialogButton(repayment)">
+        <div class="btn btn-primary-white green confirm" (click)="displayDialog('LOAN-OFFER', repayment)">
+          {{ 'repayment.placeholder.button-view-loan-offer' | translate }}
+          <i class="fa fa-eye margin-left-5" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 body" *ngIf="repayment.upcomingRepayment">
+      <div class="col-xs-12 pull-left">
+        <div class="col-md-12 padding-null">
+          <div class="col-md-5 pull-left padding-null">{{ 'repayment.placeholder.upcoming-repayment' | translate }}</div>
+          <div class="col-md-7 pull-right">{{ repayment.upcomingRepayment.payment_deadline | date: dialogModel.dateFormat }}</div>
+        </div>
+
+        <div class="col-xs-12 padding-null">
+          <div class="col-md-5 pull-left padding-null">{{ 'repayment.placeholder.amount' | translate }}</div>
+          <div class="col-md-7 pull-right">{{ currency }}{{ repayment.upcomingRepayment.total_projected_payment | number: dialogModel.decimalFormat: dialogModel.localeDecimalFormat }}</div>
+        </div>
+
+        <div class="col-xs-12 padding-null">
+          <div class="col-md-5 pull-left padding-null">{{ 'repayment.placeholder.status' | translate }}</div>
+          <div class="col-md-7 pull-right">{{ repayment.upcomingRepayment.payment_status }}</div>
+        </div>
+      </div>
+      <div class="pull-right">
+        <div class="btn btn-primary-white green confirm" *ngIf="repayment.upcomingRepayment.payment_status === dialogModel.statuses?.paid">
+          {{ 'repayment.placeholder.button-repayment-made' | translate }}
+          <i class="fa fa-check margin-left-5" aria-hidden="true"></i>
+        </div>
+        <div class="btn btn-primary-white gray confirm" *ngIf="repayment.upcomingRepayment.payment_status !== dialogModel.statuses?.paid">
+          {{ 'repayment.placeholder.button-repayment-pending' | translate }}
+          <i class="fa fa-check margin-left-5" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 footer" *ngIf="false">
+      <div class="col-md-4 padding-null">
+        <div class="btn btn-primary-white gray pull-left font-size-12" style="padding:1em">
+          {{ 'repayment.placeholder.notes-available' | translate }}
+        </div>
+      </div>
+      <div class="col-md-8 padding-null">
+        <div class="btn btn-primary-borrower nohover pull-right">
+          {{ 'repayment.placeholder.button-add-note' | translate }}
+          <i class="fa fa-plus margin-left-5" aria-hidden="true"></i>
+        </div>
+        <div class="pull-right text-right font-size-11 margin-right-15" style="color:#9b9b9b" [innerHtml]="('repayment.placeholder.notes-remark' | translate)">
+        </div>
+      </div>
+    </div>
+  </div>
+  <modal id="LoanDetailDialog" class="fs-modal fs-modal__open fs-modal--hidden">
+    <div class="fs-modal__background" (click)="this.closeModal('LoanDetailDialog')"></div>
+    <div class="fs-modal__dialog fs-modal__dialog--centered loan-detail-dialog">
+      <div class="fs-modal__content" *ngIf="dialogModel.existing">
+        <div class="fs-modal__header fs-modal__header--noborder">
+          <h5 class="fs-modal__title fs-modal__title--centered">{{ 'repayment.placeholder.title-loan-details' | translate }}</h5>
+          <div type="button" class="fs-modal__close" (click)="this.closeModal('LoanDetailDialog')"></div>
+        </div>
+        <div class="loan-offer-container">
+          <div class="row installment-item">
+            <div class="col-xs-12">
+              <div class="pull-left">{{ 'repayment.placeholder.loan-code' | translate }}</div>
+              <div class="pull-right">{{ dialogModel.existing.loan_code }}</div>
+            </div>
+            <div class="col-xs-12">
+              <div class="pull-left">{{ 'repayment.placeholder.application-date' | translate }}</div>
+              <div class="pull-right">{{ dialogModel.existing.createdAt | date: dialogModel.dateTimeFormat }}</div>
+            </div>
+            <div class="col-xs-12">
+              <div class="pull-left">{{ 'repayment.placeholder.applied-amount' | translate }}</div>
+              <div class="pull-right">{{ currency }}{{ dialogModel.existing.applied_loan_amount | number: dialogModel.decimalFormat: dialogModel.localeDecimalFormat }}</div>
+            </div>
+            <div class="col-xs-12" *ngIf="hideApprovedLabel(dialogModel.existing.loan_stage)">
+              <div class="pull-left">{{ 'repayment.placeholder.approved-amount' | translate }}</div>
+              <div class="pull-right">{{ currency }}{{ dialogModel.existing.loan_amount | number: dialogModel.decimalFormat: dialogModel.localeDecimalFormat }}</div>
+            </div>
+            <div class="col-xs-12">
+              <div class="pull-left">{{ 'repayment.placeholder.applied-tenor' | translate }}</div>
+              <div class="pull-right">{{ dialogModel.existing.applied_tenor_length }} {{ getTenorTypeLabel(dialogModel.existing.tenor_type) }}
+              </div>
+            </div>
+            <div class="col-xs-12" *ngIf="hideApprovedLabel(dialogModel.existing.loan_stage)">
+              <div class="pull-left">{{ 'repayment.placeholder.approved-tenor' | translate }} </div>
+              <div class="pull-right">{{ dialogModel.existing.tenor_length }} {{ getTenorTypeLabel(dialogModel.existing.tenor_type) }}
+              </div>
+            </div>
+
+            <ng-container *ngIf="country_code === 'ID'">
+              <div class="col-xs-12">
+                <div class="pull-left">{{ 'repayment.placeholder.origination-fee' | translate }}</div>
+                <div class="pull-right">{{ currency }} {{ dialogModel.existing.origination_fee | number: dialogModel.decimalFormat: dialogModel.localeDecimalFormat }}
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <div class="pull-left">{{ 'repayment.placeholder.late-interest-fee' | translate }}</div>
+                <div class="pull-right">{{ (dialogModel.existing.late_interest_fee * 100) }}%
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <div class="pull-left">{{ 'repayment.placeholder.late-fee' | translate }}</div>
+                <div class="pull-right">{{ currency }} {{ dialogModel.existing.late_fee | number: dialogModel.decimalFormat: dialogModel.localeDecimalFormat }}
+                </div>
+              </div>
+            </ng-container>
+            <div class="col-xs-12" *ngIf="hideApprovedLabel(dialogModel.existing.loan_stage)">
+              <div class="pull-left">{{ 'repayment.placeholder.interest-rate' | translate }}</div>
+              <div class="pull-right">{{ dialogModel.existing.interest_rate }}%</div>
+            </div>
+            <div class="col-xs-12">
+              <div class="pull-left">{{ 'repayment.placeholder.status' | translate }}</div>
+              <div class="pull-right">{{ dialogModel.existing.loan_stage }}</div>
+            </div>
+
+
+            <div class="col-xs-12" *ngIf="country_code === 'ID'">
+              <div class="text-center installment-detail-title">
+                <b>{{ 'repayment.placeholder.instalment-table-title' | translate }}</b>
+              </div>
+              <table border="1" cellpadding="3" class="installment-detail-table full-width">
+                <tr>
+                  <th>{{ 'repayment.placeholder.month' | translate }}</th>
+                  <th>{{ 'repayment.placeholder.principal' | translate }} ({{ currency }})</th>
+                  <th>{{ 'repayment.placeholder.interest' | translate }} ({{ currency }})</th>
+                  <th>{{ 'repayment.placeholder.monthly-repayment' | translate }} ({{ currency }})</th>
+                </tr>
+                <tr *ngFor="let loanOffer of dialogModel.existing.loan_offer">
+                  <td>{{ loanOffer.time_series }}</td>
+                  <td>{{ loanOffer.principal  | number: dialogModel.decimalFormat: dialogModel.localeDecimalFormat }}</td>
+                  <td>{{ loanOffer.interest  | number: dialogModel.decimalFormat: dialogModel.localeDecimalFormat }}</td>
+                  <td>{{ (loanOffer.principal + loanOffer.interest)  | number: dialogModel.decimalFormat: dialogModel.localeDecimalFormat }}</td>
+                </tr>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </modal>
+
+  <modal id="LoanInstalmentsDialog" class="fs-modal fs-modal__open fs-modal--hidden">
+    <div class="fs-modal__background" (click)="closeModal('LoanInstalmentsDialog')"></div>
+    <div class="fs-modal__dialog fs-modal__dialog--centered loan-instalment-dialog">
+      <div class="fs-modal__content" *ngIf="dialogModel.existing">
+        <div class="fs-modal__header fs-modal__header--noborder">
+          <h5 class="fs-modal__title fs-modal__title--centered">{{ 'repayment.placeholder.title-instalment-details' | translate }}</h5>
+          <div type="button" class="fs-modal__close" (click)="closeModal('LoanInstalmentsDialog')"></div>
+        </div>
+        <div class="loan-offer-container">
+          <div class="row installment-item" *ngFor="let installment of dialogModel.existing.installments">
+            <div class="col-xs-12">
+              <div class="pull-left">{{ 'repayment.placeholder.deadline' | translate }}</div>
+              <div class="pull-right">{{ installment.payment_deadline | date: dialogModel.dateFormat }}</div>
+            </div>
+            <div class="col-xs-12">
+              <div class="pull-left">{{ 'repayment.placeholder.amount' | translate }}</div>
+              <div class="pull-right">{{ currency }}{{ installment.total_projected_payment | number: dialogModel.decimalFormat: dialogModel.localeDecimalFormat }}</div>
+            </div>
+            <div class="col-xs-12">
+              <div class="pull-left">{{ 'repayment.placeholder.status' | translate }}</div>
+              <div class="pull-right">{{ installment.payment_status }}</div>
+            </div>
+          </div>
+          <div class="margin-top-20 text-center button-container">
+            <div class="btn btn-primary-reject nohover" (click)="closeModal('LoanInstalmentsDialog')">
+              <div class="pull-left margin-right-10">
+                {{ 'repayment.placeholder.button-close' | translate }}
+              </div>
+              <i class="fa fa-times pull-left" aria-hidden="true" style="margin-top:3px"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </modal>
+
+  <modal id="LoanOfferDialog" class="fs-modal fs-modal__open fs-modal--hidden">
+    <div class="fs-modal__background" (click)="this.closeModal('LoanOfferDialog')"></div>
+    <div class="fs-modal__dialog fs-modal__dialog--centered loan-offer-dialog">
+        <div class="fs-modal__content" *ngIf="dialogModel.existing">
+          <div class="fs-modal__header fs-modal__header--noborder">
+            <h5 class="fs-modal__title fs-modal__title--centered">{{ 'repayment.placeholder.title-loan-details' | translate }}</h5>
+            <div type="button" class="fs-modal__close" (click)="this.closeModal('LoanOfferDialog')"></div>
+          </div>
+          <div class="loan-offer-container">
+              <div class="row installment-item">
+                <div class="col-xs-12">
+                  <div class="pull-left">{{ 'repayment.placeholder.loan-code' | translate }}</div>
+                  <div class="pull-right">{{ dialogModel.existing.loan_code }}</div>
+                </div>
+                <div class="col-xs-12">
+                  <div class="pull-left">{{ 'repayment.placeholder.application-date' | translate }}</div>
+                  <div class="pull-right">{{ dialogModel.existing.createdAt | date: dialogModel.dateTimeFormat }}</div>
+                </div>
+                <div class="col-xs-12">
+                  <div class="pull-left">{{ 'repayment.placeholder.applied-amount' | translate }}</div>
+                  <div class="pull-right">{{ currency }}{{ dialogModel.existing.applied_loan_amount | number: dialogModel.decimalFormat: dialogModel.localeDecimalFormat }}</div>
+                </div>
+                <div class="col-xs-12">
+                  <div class="pull-left">{{ 'repayment.placeholder.approved-amount' | translate }}</div>
+                  <div class="pull-right">{{ currency }}{{ dialogModel.existing.loan_amount | number: dialogModel.decimalFormat: dialogModel.localeDecimalFormat }}</div>
+                </div>
+                <div class="col-xs-12">
+                  <div class="pull-left">{{ 'repayment.placeholder.applied-tenor' | translate }}</div>
+                  <div class="pull-right">{{ dialogModel.existing.applied_tenor_length }} {{ getTenorTypeLabel(dialogModel.existing.applied_tenor_type) }}
+                  </div>
+                </div>
+
+                <div class="col-xs-12">
+                  <div class="pull-left">{{ 'repayment.placeholder.interest-rate' | translate }}</div>
+                  <div class="pull-right">{{ dialogModel.existing.interest_rate }}%</div>
+                </div>
+                <div class="col-xs-12">
+                  <div class="pull-left">{{ 'repayment.placeholder.status' | translate }}</div>
+                  <div class="pull-right">{{ dialogModel.existing.loan_stage }}</div>
+                </div>
+              </div>
+              <div class="row installment-item loan-offer-content" [innerHtml]="('repayment.placeholder.loan-offer' | translate)"></div>
+              <a class="loan-offer-document" (click)="downloadLoanOffer(dialogModel.existing?.loan_offer_dms, dialogModel.existing.loan_code)"
+                target="_blank">
+                <div class="pdf-icon content-center">
+                </div>
+                {{ 'repayment.placeholder.offering-letter' | translate }}
+              </a>
+              <div class="margin-top-20 text-center button-container">
+                <div class="btn btn-primary-referral nohover" (click)="respondLoanOffer(dialogModel.existing?.loan_id, dialogModel.existing?.product_id, true)">
+                  <div class="pull-left margin-right-10">
+                    {{ 'repayment.placeholder.button-accept-offer' | translate }}
+                  </div>
+                  <i class="fa fa-check pull-left" aria-hidden="true" style="margin-top:3px"></i>
+                </div>
+                <div class="btn btn-primary-reject nohover" (click)="respondLoanOffer(dialogModel.existing?.loan_id, dialogModel.existing?.product_id, false)">
+                  <div class="pull-left margin-right-10">
+                    {{ 'repayment.placeholder.button-reject-offer' | translate }}
+                  </div>
+                  <i class="fa fa-times pull-left" aria-hidden="true" style="margin-top:3px"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  </modal>
+  <modal id="digitalSignaturePopUp" class="fs-modal fs-modal__open fs-modal--hidden">
+    <div class="fs-modal__background" (click)="closeModal('digitalSignaturePopUp')"></div>
+    <div class="fs-modal__dialog fs-modal__dialog--centered">
+      <div class="fs-modal__content">
+        <div class="fs-modal__header fs-modal__header--noborder full-height">
+          <div type="button" class="fs-modal__close" (click)="closeModal('digitalSignaturePopUp')"></div>
+          <div class="col-md-12 full-height">
+            <iframe width="100%" height="100%" frameBorder="0" [srcdoc]="websiteContent"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </modal>
+</div>

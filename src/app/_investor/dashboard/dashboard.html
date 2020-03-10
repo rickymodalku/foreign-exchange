@@ -1,0 +1,471 @@
+<div class="container-fluid invDashboard">
+  <!-- Header -->
+  <div class="row investor-app-link hidden-sm hidden-md hidden-lg" *ngIf="showAppBanner" (click)="openMobileAppLink()">
+    <div class="col-xs-12 padding-null">
+      <div class="col-xs-1 padding-null">
+        <div class="app-logo" [ngClass]="{ 'app-store-black-logo' : deviceDetail.os !== listOfMobileOperatingSystem.android , 'google-play-black-logo' : deviceDetail.os === listOfMobileOperatingSystem.android }">
+        </div>
+      </div>
+      <div class="col-xs-9 padding-null text">
+        <span *ngIf="deviceDetail.os !== listOfMobileOperatingSystem.android">{{ 'investor-dashboard.ios-app-link' |
+          translate }}</span>
+        <span *ngIf="deviceDetail.os === listOfMobileOperatingSystem.android">{{ 'investor-dashboard.android-app-link'
+          | translate }}</span>
+      </div>
+      <div class="col-xs-1 padding-null">
+        <div class="close-icon-round margin-top-5 pull-right" (click)="closeAppBanner()">
+        </div>
+      </div>
+    </div>
+  </div>
+  <sg-reverification-banner *ngIf="countryCode === 'SG' && userAtActivatedStep"></sg-reverification-banner>
+  <div class="row fs-year-in-review-banner" *ngIf="showYearInReviewBanner">
+    <div class="col-xs-12 col-sm-2">
+      <div class="fs-banner-yir">
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-4 col-lg-6 padding-null year-in-review-description">
+      <span class="title Gilroy-SemiBold">{{ 'investor-dashboard.year-in-review.title' | translate }}</span>
+      <br />
+      <span class="caption">{{ 'investor-dashboard.year-in-review.caption' | translate }}</span>
+      <br />
+    </div>
+    <div class="col-xs-12 col-sm-4 padding-null button-row text-right">
+      <div class="btn btn-primary-investor">
+        <a href="{{ yearInReviewLink }}" target="_blank">
+          {{ 'investor-dashboard.year-in-review.button' | translate }}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-loyalty-row row" *ngIf="enableLoyaltyProgram && !institutionalFlag && false">
+    <div class="col-xs-1 margin-top-10 hidden-xs">
+      <div ngSwitch="{{ loyaltyDetailPoint?.tier }}" routerLink="/investor-loyalty" role="button">
+        <div *ngSwitchCase="'Blue'" class="loyalty-tier-logo loyalty-blue-tier-logo image-right">
+        </div>
+        <div *ngSwitchCase="'Silver'" class="loyalty-tier-logo loyalty-silver-tier-logo image-right">
+        </div>
+        <div *ngSwitchCase="'Gold'" class="loyalty-tier-logo loyalty-gold-tier-logo image-right">
+        </div>
+        <div *ngSwitchCase="'Platinum'" class="loyalty-tier-logo loyalty-platinum-tier-logo image-right">
+        </div>
+        <div *ngSwitchCase="'Prestige'" class="loyalty-tier-logo loyalty-prestige-tier-logo image-right">
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 padding-null">
+      <div class="current-status-row">{{ 'investor-dashboard.loyalty.current-status' | translate }}
+        <span class="text-bold Gilroy-SemiBold current-status-row-point">{{ loyaltyDetailPoint?.tier }}</span>
+      </div>
+      <div class="margin-top-5 current-status-caption">
+        <span *ngIf=" loyaltyDetailPoint?.tier !== 'Prestige'" [innerHtml]="( 'investor-dashboard.loyalty.non-prestige-caption' | translate )">
+        </span>
+        <span *ngIf=" loyaltyDetailPoint?.tier === 'Prestige'" [innerHtml]="( 'investor-dashboard.loyalty.prestige-caption' | translate )">
+        </span>
+      </div>
+      <div class="margin-top-5 learn-more-button" role="button">
+        <span routerLink="/investor-loyalty">
+          <u>{{ 'investor-dashboard.loyalty.learn-more' | translate }}</u>
+          <i class="fa fa-chevron-right transparant-text" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-5 loyalty-progress-bar-container">
+      <div [ngClass]="{ 'margin-bottom-5' :  loyaltyDetailPoint?.tier !== 'Prestige' , 'margin-top-20' :  loyaltyDetailPoint?.tier === 'Prestige' }">
+        <span class="Gilroy-Light">{{ 'investor-dashboard.loyalty.current-point' | translate }}</span>
+        <span class="text-bold current-point Gilroy-SemiBold">{{ loyaltyDetailPoint?.qualifying_points | number }}</span>
+      </div>
+      <div *ngIf=" loyaltyDetailPoint?.tier !== 'Prestige'">
+        <p-progressBar class="green" routerLink="/investor-loyalty" role="button" [value]="(loyaltyDetailPoint?.qualifying_points / (loyaltyDetailPoint?.qualifying_points + loyaltyDetailPoint?.next_tier_required_qualifying_points) * 100)"></p-progressBar>
+      </div>
+      <div *ngIf=" loyaltyDetailPoint?.tier !== 'Prestige'" class="margin-top-5 current-point-caption">{{ 'investor-dashboard.loyalty.earn' | translate }}
+        <span class="text-bold">{{ loyaltyDetailPoint?.next_tier_required_qualifying_points | number }}</span> {{ 'investor-dashboard.loyalty.point-to-unlock' | translate }}
+        <span class="text-bold" role="button" routerLink="/investor-loyalty" >
+          <u>{{ loyaltyDetailPoint?.next_tier }}</u>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="accredited-declaration-row row" *ngIf="showInvestorAccreditedDeclarationBanner">
+    <div class="col-xs-12 col-sm-2 col-md-1">
+      <div class="accredited-declaration-graphic">
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-9 accredited-declaration-content">
+      <div class="title">{{ 'investor-dashboard.accredited-declaration.title' | translate }}</div>
+      <div class="caption">{{ 'investor-dashboard.accredited-declaration.content' | translate }}</div>
+    </div>
+    <div class="col-xs-12 col-sm-2 accredited-declaration-button">
+      <div class="btn btn-primary-investor" (click)="goToAccreditedDeclaration()">
+        {{ 'investor-dashboard.accredited-declaration.button' | translate }}
+      </div>
+    </div>
+  </div>
+
+  <div class="row rdn-registration-row" *ngIf="showRDNBanner">
+    <div class="col-lg-2">
+      <div class="fs-lock-key">
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-10 col-lg-8 padding-null">
+      <div class="title Gilroy-SemiBold">
+        {{ 'investor-dashboard.rdn-title' | translate }}
+      </div>
+      <br />
+      <span class="caption">
+        {{ 'investor-dashboard.rdn-description' | translate }}
+      </span>
+    </div>
+    <div class="col-xs-12 col-md-2 col-lg-2 btn-container">
+      <div class="btn btn-primary-investor" routerLink="/admin-investor/rdn-activation">
+        {{ 'investor-dashboard.get-started' | translate }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Overview -->
+  <div class="row accountOverview">
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 pull-left accountOverviewCaption Gilroy-SemiBold">
+      <div class="title Gilroy-SemiBold font-size-32">{{ 'investor-dashboard.title' | translate }}</div>
+      <span class="caption Gilroy-Regular font-size-18" [innerHtml]="('investor-dashboard.subtitle' | translate)">
+      </span>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 pull-left text-center">
+      <div class="btn btn-primary-referral invDashboardBtn" (click)="openMenu()">
+        <div class="block pull-left">
+          {{ 'investor-dashboard.button-show-menu' | translate }}
+        </div>
+        <div class="white-right-arrow-icon arrow-icon pull-right margin-top-5 margin-left-10">
+        </div>
+      </div>
+      <div class="btn btn-primary-referral accountOverviewBtn" routerLink="/admin-investor/browse-loan">
+        <div class="block pull-left">
+          {{ 'investor-dashboard.button-browse-loan' | translate }}
+        </div>
+        <div class="white-right-arrow-icon arrow-icon pull-right margin-top-5 margin-left-10">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row statisticRow">
+    <div class="swiper-container one-slide" [swiper]="mobileSwiperConfiguration" *ngIf="isInvestorOverviewDataReady">
+      <div class="swiper-wrapper">
+        <div *ngFor="let investorlabel of investorLabel" class="swiper-slide" fxLayout="column" fxLayoutAlign="center center">
+          <div class="text-center white-text font-size-22">
+            {{ investorlabel.value }}
+          </div>
+          <div class="text-center white-text transparant-text">
+            {{ investorlabel.key }}
+          </div>
+        </div>
+      </div>
+      <div [hidden]="mobileSwiperConfiguration.pagination !== '.swiper-pagination'" class="swiper-pagination"></div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 detailRow">
+      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 pull-left leftStatistic">
+        <span class="pull-left">{{ 'investor-dashboard.label.total-deposit' | translate }}</span>
+        <span class="pull-right text-bold">{{ currency }}{{ accountSummary?.deposit_Amount | number: decimalFormat:
+          localeDecimalFormat }}</span>
+      </div>
+      <div class="col-xs-6 col-sm-8 col-md-6 col-lg-5 pull-right rightStatistic padding-null">
+        <span class="pull-left Gilroy-SemiBold font-size-16">{{ 'investor-dashboard.label.total-investment' | translate
+          }}</span>
+        <span class="pull-right font-size-30 Gilroy-Light">{{ currency }}{{ accountOverview?.funds_invested | number:
+          decimalFormat: localeDecimalFormat }}
+        </span>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 detailRow">
+      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 pull-left leftStatistic">
+        <span class="pull-left">{{ 'investor-dashboard.label.total-withdrawal' | translate }}</span>
+        <span class="pull-right text-bold">{{ currency }}{{ accountSummary?.withdrawal_Amount | number: decimalFormat:
+          localeDecimalFormat }}</span>
+      </div>
+      <div class="col-xs-6 col-sm-8 col-md-6 col-lg-5 pull-right rightStatistic padding-null">
+        <span class="pull-left Gilroy-SemiBold font-size-16">{{ 'investor-dashboard.label.yearly-interest-earned' |
+          translate }}</span>
+        <span class="pull-right font-size-30 Gilroy-Light">{{ annualisedPortfolioPerformance }}
+          <span class="font-size-18"> p.a</span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-10 col-lg-8 content-center padding-null">
+    <div class="row graphicRow fs-box-shadow">
+      <!-- Charts -->
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 graphicRowHeader">
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 pull-left title">
+          {{ 'investor-dashboard.portfolio-title' | translate }}
+        </div>
+        <div class="fs-graph-period col-xs-12 col-sm-2 col-md-2 col-lg-2 pull-left margin-bottom-10">
+          <mat-select placeholder="Months" [(ngModel)]="chartModel.selectedPeriod" name="period" (selectionChange)="onChartPeriodChange()">
+            <mat-option *ngFor="let period of chartModel.periods" [value]="period.key">
+              {{ period.value }}
+            </mat-option>
+          </mat-select>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+        </div>
+        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-7 text-right pull-right">
+          <label class="switchBtn investment">
+            <input type="checkbox" checked (click)="hideGraph(chartModel.labels.yourInvestment)">
+            <div class="slide text-left investment">{{ 'investor-dashboard.portfolio-label.your-investment' | translate
+              }}</div>
+          </label>
+          <label class="switchBtn investor">
+            <input type="checkbox" (click)="hideGraph(chartModel.labels.bestInvestor)">
+            <div class="slide text-left investor">{{ 'investor-dashboard.portfolio-label.best-investor' | translate }}</div>
+          </label>
+          <label class="switchBtn autobot">
+            <input type="checkbox" (click)="hideGraph(chartModel.labels.autobot)">
+            <div class="slide text-left autobot">{{ 'investor-dashboard.portfolio-label.autobot' | translate }}</div>
+          </label>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 graphicTitle">
+        {{ 'investor-dashboard.portfolio-subtitle' | translate }}
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 graphicContainer">
+        <chart [options]="chartModel.options" (load)="onLoadChart($event.context)"></chart>
+      </div>
+      <!-- Summary -->
+      <div class="col-xs-12 detailContainer">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 padding-null margin-right-20">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 information-title padding-null margin-right-20 margin-bottom-10 Gilroy-SemiBold">
+            {{ 'investor-dashboard.summary-label.title-2' | translate }}
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 left-side">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-15">
+              <div class="row">
+                <span class="highlight-caption">
+                  <strong>{{ 'investor-dashboard.summary-label.income-title' | translate }}</strong>
+                  <a class="tooltip-top" [attr.data-tooltip]="('investor-dashboard.tooltip.your-investment' | translate)">
+                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                  </a>
+                </span>
+                <span class="Gilroy-SemiBold number income">{{ currency }}{{ accountSummary?.totalIncome | number:
+                  decimalFormat: localeDecimalFormat
+                  }}
+                </span>
+              </div>
+              <div class="row detail-loan">
+                <span class="detail-loan-left">{{ 'investor-dashboard.summary-label.invested-loan' | translate }}</span>
+                <span class="detail-loan-right">{{ accountOverview?.invested_loans }}</span>
+              </div>
+              <div class="row detail-loan">
+                <span class="detail-loan-left">{{ 'investor-dashboard.summary-label.interest-received' | translate }}</span>
+                <span class="detail-loan-right">{{ currency }}{{ accountSummary?.interest_Received | number:
+                  decimalFormat: localeDecimalFormat }}</span>
+              </div>
+              <div class="row detail-loan">
+                <span class="detail-loan-left">{{ 'investor-dashboard.summary-label.early-payments' | translate }}</span>
+                <span class="detail-loan-right">{{ currency }}{{ accountSummary?.early_Received | number:
+                  decimalFormat: localeDecimalFormat }}</span>
+              </div>
+              <div class="row detail-loan">
+                <span class="detail-loan-left">{{ 'investor-dashboard.summary-label.late-payments' | translate }}</span>
+                <span class="detail-loan-right">{{ currency }}{{ accountSummary?.late_Interest_Received | number:
+                  decimalFormat: localeDecimalFormat }}</span>
+              </div>
+              <div class="row detail-loan">
+                <span class="detail-loan-left">{{ 'investor-dashboard.summary-label.bonus-received-title' | translate
+                  }}</span>
+                <span class="detail-loan-right">{{ currency }}{{ (accountSummary?.bonus_Received) | number:
+                  decimalFormat: localeDecimalFormat }}</span>
+              </div>
+
+
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-15">
+              <div class="row">
+                <span class="highlight-caption">
+                  <strong>
+                    {{ 'investor-dashboard.summary-label.expenses-title' | translate }}
+                  </strong>
+                </span>
+                <span class="Gilroy-SemiBold number expense Gilroy-SemiBold">{{ currency }}{{
+                  (accountSummary?.service_Fees + accountSummary?.litigation_Fees + accountSummary?.write_off
+                  + accountSummary?.witholding_Tax) | number: decimalFormat: localeDecimalFormat }}</span>
+              </div>
+              <div class="row detail-loan">
+                <span class="detail-loan-left">{{ 'investor-dashboard.summary-label.service-fees' | translate }}</span>
+                <span class="detail-loan-right">{{ currency }}{{ (accountSummary?.service_Fees) | number:
+                  decimalFormat: localeDecimalFormat }}</span>
+              </div>
+              <div *ngIf="accountSummary?.witholding_Tax !== 0" class="row detail-loan">
+                <span class="detail-loan-left">{{ 'investor-dashboard.summary-label.withholding-taxes' | translate }}</span>
+                <span class="detail-loan-right">{{ currency }}{{ (accountSummary?.witholding_Tax) | number:
+                  decimalFormat: localeDecimalFormat }}</span>
+              </div>
+              <div *ngIf="showGst" class="row detail-loan">
+                <span class="detail-loan-left">{{ 'investor-dashboard.summary-label.gst' | translate }}</span>
+                <span class="detail-loan-right">{{ currency }}{{ (accountSummary?.gst) | number: decimalFormat:
+                  localeDecimalFormat}}</span>
+                <a class="tooltip-right" [attr.data-tooltip]="('investor-dashboard.tooltip.gst' | translate)">
+                  <i class="fa fa-question-circle" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="row">
+                <span class="highlight-caption">
+                  <strong>{{ 'investor-dashboard.summary-label.net-income' | translate }}</strong>
+                </span>
+                <span class="number summary Gilroy-SemiBold">{{ currency }}{{ chartModel.data.netincome | number:
+                  decimalFormat: localeDecimalFormat }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 padding-null">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-10 information-title padding-null Gilroy-SemiBold">
+            {{ 'investor-dashboard.summary-label.title' | translate }}
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 right-side">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="row">
+                <span class="pull-left row-caption">{{ 'investor-dashboard.portfolio-label.best-investor' | translate
+                  }}
+                  <a class="tooltip-right" [attr.data-tooltip]="('investor-dashboard.tooltip.best-investor' | translate)">
+                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                  </a>
+                </span>
+                <span class="pull-right row-amount Gilroy-SemiBold">{{ currency }}{{
+                  chartModel.data.bestInvestor.investmentReturn | number: decimalFormat: localeDecimalFormat
+                  }}
+                </span>
+              </div>
+              <div class="row">
+                <span class="pull-left row-caption-month">{{ 'investor-dashboard.summary-label.invested-loan' |
+                  translate }}</span>
+                <span class="pull-right row-percent Gilroy-Regular">{{
+                  chartModel.data.bestInvestor.numberOfInvestedLoans }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 right-side">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="row">
+                <span class="pull-left row-caption">{{ 'investor-dashboard.portfolio-label.autobot' | translate }}
+                  <a class="tooltip-right" [attr.data-tooltip]="('investor-dashboard.tooltip.autobot' | translate)">
+                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                  </a>
+                </span>
+                <span class="pull-right row-amount Gilroy-SemiBold">{{ currency }}{{
+                  chartModel.data.autobot.investmentReturn | number: decimalFormat: localeDecimalFormat }}</span>
+              </div>
+              <div class="row">
+                <span class="pull-left row-caption-month">{{ 'investor-dashboard.summary-label.invested-loan' |
+                  translate }}</span>
+                <span class="pull-right row-percent Gilroy-Regular">{{ chartModel.data.autobot.numberOfInvestedLoans }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Recent Activities -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tableContainer fs-box-shadow">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tableContainerHeader">
+        <div class="col-sm-6 col-md-6 tableContainerTitle pull-left">
+          {{ 'activity.recent' | translate }}
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6  pull-right padding-null recent-activities-container">
+          <input id="toggle-investment" class="toggle toggle-right" name="activities" value="investment" type="radio"
+            (click)="changeActivityTab('investment')">
+          <label for="toggle-investment" class="btn">{{ 'activity.tabs.investment' | translate }}</label>
+          <input id="toggle-withdrawal" class="toggle toggle-right" name="activities" value="withdrawal" type="radio"
+            (click)="changeActivityTab('withdrawal')">
+          <label for="toggle-withdrawal" class="btn">{{ 'activity.tabs.withdrawal' | translate }}</label>
+          <input id="toggle-deposit" class="toggle toggle-left" name="activities" value="deposit" type="radio" checked
+            (click)="changeActivityTab('deposit')">
+          <label for="toggle-deposit" class="btn">{{ 'activity.tabs.deposit' | translate }}</label>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tableRow">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>{{ 'activity.table.date' | translate }}</th>
+              <th>{{ 'activity.table.amount' | translate }}</th>
+              <th>{{ 'activity.table.status' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="activityTabs.deposit">
+            <tr *ngFor="let activity of activityModel.deposits">
+              <td>{{ activity.dateTime | date: activity.dateTimeFormat }}</td>
+              <td>
+                <strong>{{ activity.currency }}{{ activity.amount }}</strong>
+              </td>
+              <td>
+                <strong>{{ activity.status }}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="activityModel.deposits.length === 0">
+              <td colspan="3" class="text-center">
+                <em>{{ 'activity.empty' | translate }}</em>
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="activityTabs.investment">
+            <tr *ngFor="let activity of activityModel.investments">
+              <td>{{ activity.dateTime | date: activity.dateTimeFormat }}</td>
+              <td>
+                <strong>{{ activity.currency }}{{ activity.amount }}</strong>
+              </td>
+              <td>
+                <strong>{{ activity.status }}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="activityModel.investments.length === 0">
+              <td colspan="3" class="text-center">
+                <em>{{ 'activity.empty' | translate }}</em>
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="activityTabs.withdrawal">
+            <tr *ngFor="let activity of activityModel.withdrawals">
+              <td>{{ activity.dateTime | date: activity.dateTimeFormat }}</td>
+              <td>
+                <strong>{{ activity.currency }}{{ activity.amount }}</strong>
+              </td>
+              <td>
+                <strong>{{ activity.status }}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="activityModel.withdrawals.length === 0">
+              <td colspan="3" class="text-center">
+                <em>{{ 'activity.empty' | translate }}</em>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+        <div class="btn btn-primary-investor nohover Gilroy-SemiBold btnActivities margin-bottom-20" routerLink="/admin-investor/activity">
+          <div class="block pull-left">
+            {{ 'investor-dashboard.button-all-activities' | translate }}
+          </div>
+          <div class="white-right-arrow-icon arrow-icon pull-right margin-top-5">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showLegalPopup" class="legal-notification" [ngClass]="{ 'sg': countryCode === 'SG', 'my': countryCode === 'MY' }">
+  <div *ngIf="countryCode === 'SG'" class="content-left" [innerHtml]="( 'notification.platform-agreement' | translate )"></div>
+  <div *ngIf="countryCode === 'MY'" class="content-left" [innerHtml]="( 'notification.platform-agreement-popup' | translate )"></div>
+  <div class="content-right">
+    <div (click)="closeLegalNotification()" class="fs-modal__close"></div>
+  </div>
+</div>
+<wootric-survey *ngIf="CONFIGURATION.enableWootric && isUserActivated"></wootric-survey>
+
+<app-two-fa-setup [isFirstSetup]="true" *ngIf="ENVIRONMENT.environment_name !== 'staging' && ENVIRONMENT.environment_name !== 'uat' && ENVIRONMENT.environment_name !== 'localhost'"></app-two-fa-setup>

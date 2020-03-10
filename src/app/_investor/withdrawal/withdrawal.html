@@ -1,0 +1,131 @@
+<div class="container-fluid fs-deposit-container withdrawal">
+    <div class="row title text-center">
+        <div class="title-container col-xs-12 col-sm-6 col-md-6 col-lg-6 text-left">
+            <div class="title-text text-bold">{{ 'withdrawal.title' | translate }}</div>
+            <div class="info margin-top-5">
+                <span>{{ 'withdrawal.caption-1' | translate }}</span><br />
+                <span>{{ 'withdrawal.caption-2' | translate }}
+                  <a *ngIf="enableZendesk" onclick="zE.activate();"><strong>{{ 'withdrawal.caption-3' | translate }}</strong></a>
+                  <a *ngIf="!enableZendesk" onclick="Intercom('show');"><strong>{{ 'withdrawal.caption-3' | translate }}</strong></a>
+                  {{ 'withdrawal.caption-4' | translate }}
+                </span><br />
+                <span>{{ 'withdrawal.caption-5' | translate }} <a [href]="('withdrawal.faq' | translate)" target="_blank"><strong>{{ 'withdrawal.caption-6' | translate }}</strong></a></span>.
+            </div>
+          </div>
+        <div class="title-container col-xs-12 col-sm-6 col-md-6 col-lg-6 hidden-xs">
+          <img class="title-image deposit-non-mobile" src="../../assets/img/investor/fs-investor-withdrawal.svg" alt="investor withdrawal image">
+        </div>
+    </div>
+    <div class="row withdrawalBox" *ngIf="!formModel.withdrawal.bank">
+        <div class="withdrawalInformation">
+            <div class="warning-circle-icon">
+            </div>
+            {{ 'withdrawal.no-bank' | translate }}
+        </div>
+    </div>
+    <div class="content-center withdrawalBox clearfix" *ngIf="formModel.withdrawal.bank">
+        <div class="withdrawalBoxLeftSection">
+            <font class="font-size-20">{{ 'withdrawal.title-bank' | translate }}</font>
+            <div class="contactDetailBox">
+                <div class="contactName"><strong>{{ formModel.withdrawal.bank.name }}</strong></div>
+                <div>
+                    {{ formModel.withdrawal.bank.bankName }}
+                    <mat-checkbox class="pull-right" [checked]="formModel.withdrawal.bank.isDefault" [disabled]="true"></mat-checkbox><br>
+                    {{ formModel.withdrawal.bank.number }}
+                </div>
+            </div>
+        </div>
+        <form
+            [formGroup]="withdrawalForm"
+            (ngSubmit)="onWithdrawalFormSubmit()"
+            class="pull-right withdrawalBoxRightSection"
+            id="withdrawal-form"
+            name="withdrawal-form">
+            <div class="withdrawalInformation">
+                <div class="time-icon" [ngClass]="{ 'id' : countryCode === 'ID'}">
+                </div>
+                {{ 'withdrawal.notes' | translate }}
+            </div>
+            <input
+                [ngClass]="{ 'form-control-error': formModel.withdrawal.validation && withdrawalForm.controls.amount.invalid }"
+                [placeholder]="('form.withdrawal.placeholder.amount' | translate)"
+                (keyup)="autoFormatAmount()"
+                autocomplete="off"
+                class="form-control sign-up-form"
+                formControlName="amount"
+                id="amount"
+                name="amount"
+                type="text" />
+                <mat-select
+                    [placeholder]="( 'form.withdrawal.placeholder.reason' | translate )"
+                    [ngClass]="{ 'form-control-error': formModel.withdrawal.validation && withdrawalForm.controls.reason.invalid }"
+                    class="form-control"
+                    formControlName="reason"
+                    id="reason"
+                    name="reason"
+                    (selectionChange)="onWithdrawalReasonChange()"
+                    [(ngModel)]="formModel.withdrawal.reason">
+                    <mat-option *ngFor="let withdrawalReason of masterData.withdrawalReasons" [value]="withdrawalReason">
+                      {{ withdrawalReason }}
+                    </mat-option>
+                </mat-select>
+            <input
+                *ngIf="formModel.withdrawal.showReasonOther"
+                [ngClass]="{ 'form-control-error': formModel.withdrawal.validation && (!formModel.withdrawal.reasonOtherValid || withdrawalForm.controls.reasonOther.invalid) }"
+                [placeholder]="('form.withdrawal.placeholder.reason-other' | translate)"
+                autocomplete="off"
+                class="form-control"
+                formControlName="reasonOther"
+                id="reasonOther"
+                name="reasonOther"
+                type="text" />
+
+              <ng-container *ngIf="showBankStatementUpload">
+                <dropzone [config]="formModel.withdrawal.uploadConfiguration" [message]="document.message" (error)="onFileUploadError($event)" (sending)="onFileUploadSending($event)"
+                (success)="onFileUploadSuccess($event)" class="investor">
+                </dropzone>
+                <span class="col-xs-12 text-right margin-bottom-20 withdrawal-box-upload-receipt">
+                    {{ 'withdrawal.upload-format' | translate }}
+                </span>
+
+                <div class="my-withdrawal-note-box col-xs-12 margin-top-10">
+                  <div class="col-xs-12 padding-null box-title">
+                    {{ 'withdrawal.note' | translate }}
+                  </div>
+                  <div class="col-xs-12 padding-null margin-bottom-10">
+                    {{ 'withdrawal.upload-screenshot' | translate }}
+                  </div>
+                  <div class="col-xs-12 padding-null margin-bottom-10">
+                    {{ 'withdrawal.join-bank-account' | translate }}
+                  </div>
+                  <div class="col-xs-12 padding-null margin-bottom-10">
+                    <ul>
+                      <li>
+                        {{ 'withdrawal.name-of-both-account' | translate }}
+                      </li>
+                      <li *ngIf="showICNumber()">
+                        {{ 'withdrawal.ic-number' | translate }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </ng-container>
+              <div class="col-xs-12 withdrawal-checkbox-container padding-null">
+                <mat-checkbox
+                    (change)="onWithdrawalFormAccept($event)"
+                    [checked]="formModel.withdrawal.accepted"
+                    class="font-size-12">
+                    {{ 'withdrawal.agreement' | translate }}
+                </mat-checkbox>
+            </div>
+            <button
+                *ngIf="formModel.withdrawal.accepted"
+                class="text-center font-size-16 pull-right btnSubmit"
+                id="withdrawal-form-submit"
+                name="withdrawal-form-submit"
+                type="submit">
+                {{ 'form.withdrawal.placeholder.submit' | translate }}
+            </button>
+        </form>
+    </div>
+</div>

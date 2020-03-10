@@ -1,0 +1,257 @@
+.no-scroll {
+  overflow: hidden;
+}
+
+.modal-open-fix-for-ios {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.fs-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+/* Layering issue when subcomponents are also a modal, don't use this */
+.fs-modal-layer-fix {
+  z-index: 1001;
+}
+
+.fs-modal--hidden {
+  display: none;
+}
+
+.fs-modal__open {
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.fs-modal__dialog {
+  position: relative;
+  margin: 8px;
+  pointer-events: none
+}
+
+.fs-modal__dialog--centered {
+  display: flex;
+  align-items: center;
+  float: none;
+  min-height: calc(100% - (15px * 2));
+}
+
+.fs-modal__dialog--full-height {
+  height: 100%;
+  margin: auto;
+
+  .fs-modal__content {
+    height: 100%;
+  }
+}
+
+.fs-modal__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  pointer-events: auto;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: 3px;
+  outline: 0;
+  margin: 0 auto;
+}
+
+.fs-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #e9ecef;
+  border-top-left-radius: .3rem;
+  border-top-right-radius: .3rem;
+}
+
+.fs-modal__title {
+  font-size: 18px;
+  margin-bottom: 0px;
+}
+
+.fs-modal__title--centered {
+  width: 100%;
+  text-align: center;
+}
+
+.fs-modal__header--noborder {
+  border: 0px;
+}
+
+.fs-modal__title {
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+.fs-modal__background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+// First refractoring of modal layout which
+// has the following structure
+// icon/body/title/paragraph/actions
+// refer to twoFaLoginSetupDialog
+//  we should create custom component for this
+.fs-modal__body {
+  position: relative;
+  flex: 1 1 auto;
+  padding: 16px;
+
+  .fs-modal__title {
+    margin-top: 12px;
+  }
+
+  .fs-modal__paragraph {
+    margin-top: 12px;
+  }
+
+  .fs-modal__actions {
+    position: absolute;
+    bottom: 2em;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    width: 30em;
+    .btn {
+      min-width: 132px;
+      width: 100%;
+
+      &:nth-child(2) {
+        margin-left: 8px;
+      }
+    }
+  }
+}
+
+.fs-modal__body--content-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fs-modal__close {
+  margin-left: auto;
+  width: 25px;
+  height: 25px;
+  background: url("../img/icon/close-icon.svg") no-repeat;
+  cursor: pointer;
+}
+
+.fs-modal__close-white {
+  width: 30px;
+  height: 30px;
+  background: url("../img/icon/close-icon-white.svg") no-repeat;
+  cursor: pointer;
+}
+
+
+.fs-modal.signup {
+  .modalHeader {
+    .signUpTitleBox {
+      font-size: $font-32;
+    }
+    .signUpCaptionBox {
+      font-size: $font-16;;
+    }
+    .signUpSwitchRoleBox {
+      text-align: left;
+      padding-left: 0px;
+    }
+  }
+}
+
+.fs-callback-modal {
+  .fs-modal__content {
+    max-width: 500px;
+  }
+
+  .fs-callback-modal__body {
+    & .flex-row {
+      padding: 10px 0;
+    }
+  }
+
+  .fs-callback-modal__text {
+    text-align: center;
+    color: $lightgray;
+  }
+}
+
+@media #{$phone} {
+  .fs-modal__dialog {
+    margin: 8px auto;
+    &.fs-modal__dialog--full-height {
+      margin: auto;
+    }
+  }
+}
+
+@media #{$phone} {
+  .fs-modal__content--small {
+    width: 320px;
+  }
+}
+
+#twoFaLoginSetupDialog,
+#changeNumberOtpModal {
+  .fs-modal__content {
+    background-color: #F3F5FD;
+  }
+}
+
+#changePhoneNumberModal {
+  .fs-modal__content {
+    max-height: 550px;
+  }
+}
+
+#changeNumberOtpModal,
+#TwoFaLoginModal {
+  .proceed-button,
+  #investor-signup-otp-verify-btn {
+    width: 21em;
+  }
+  .turn-off-spinner {
+    letter-spacing: 10px;
+    font-size:32px;
+  }
+}
+
+#TwoFaLoginModal {
+  .fs-modal__background {
+    background-color:$cornflower-blue;
+    .text-right {
+      position: absolute;
+      bottom: 3em;
+      right: 8em;
+      font-size:12px;
+      color:#7B7B7B;
+    }
+  }
+  .fs-modal__content {
+    border:none;
+    height: 90% !important;
+    background-color:$cornflower-blue;
+  }
+}

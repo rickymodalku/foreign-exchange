@@ -1,0 +1,133 @@
+<div class="container-fluid fs-investor-account-act-container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20 margin-top-20 text-center">
+      <div class="Gilroy-SemiBold font-size-32">
+        {{ 'investor-account-activation.title' | translate }}
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-10 col-md-6 col-lg-6 col-md-offset-3 col-sm-offset-1 col-lg-offset-3 text-center transparant-text">
+      <span>{{ 'investor-account-activation.caption' | translate }}</span>
+    </div>
+  </div>
+  <!--  STEP 1 -->
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6 content-center fs-box-shadow margin-top-20 fs-account-activation-box fs-account-activation-box-my">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 title-row">
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 padding-null">
+          <div class="circle margin-top-5" [ngClass]="{ 'success' : lastStep >= 1 }">
+            <label class="white-text" *ngIf="lastStep < 1">1</label>
+            <i *ngIf="lastStep >= 1" class="fa fa-check" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="col-xs-11 col-sm-7 col-md-6 col-lg-6 Gilroy-SemiBold sub-title padding-null">
+          {{ 'investor-account-activation.subscription-agreement.title' | translate }}
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-5 col-lg-5 padding-null">
+          <div class="btn btn-primary-investor pull-right btn-activation-box-small-padding" routerLink="/admin-investor/subscription-agreement" *ngIf="lastStep == 0">
+            {{ 'investor-account-activation.subscription-agreement.button' | translate }}
+          </div>
+          <div class="btn btn-primary-referral pull-right btn-activation-box-small-padding" *ngIf="lastStep >= 1">
+            {{ 'investor-account-activation.completed' | translate }}
+          </div>
+          <div class="btn btn-primary-investor accountOverviewBtn pull-right btn-activation-box-small-padding" routerLink="/admin-investor/browse-loan">
+            {{ 'investor-dashboard.button-browse-loan' | translate }}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-top-20 text-justify padding-null">
+        {{ 'investor-account-activation.subscription-agreement.description' | translate }}
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null text-right">
+        <div role="button" (click)="downloadSADocument()">
+          <span class="margin-right-10">
+            <u>{{ fileName }}</u>
+          </span>
+          <div class="glyphicon glyphicon-download font-size-30">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  STEP 2 -->
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6 content-center fs-box-shadow margin-top-20 fs-account-activation-box fs-account-activation-box-my" [ngClass]="{ 'in-active' : lastStep < 1 } ">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 title-row">
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 padding-null">
+          <div class="circle margin-top-5" [ngClass]="{ 'success' : lastStep > 2 }">
+            <label class="white-text" *ngIf="lastStep <= 2">2</label>
+            <i *ngIf="lastStep > 2" class="fa fa-check" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 Gilroy-SemiBold sub-title padding-null">
+          {{ 'investor-account-activation.making-deposit.title' | translate }}
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-null">
+          <div class="btn btn-primary-investor pull-right" routerLink="/admin-investor/deposit" *ngIf="lastStep === 1">
+            {{ 'investor-account-activation.making-deposit.button' | translate }}
+          </div>
+          <div class="btn-processing pull-right" *ngIf="lastStep === 2">
+            {{ 'investor-account-activation.escrow-agent.button' | translate }}
+          </div>
+          <div class="btn-primary-referral pull-right" *ngIf="lastStep === 3">
+            {{ 'investor-account-activation.completed' | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-top-20 text-justify padding-null">
+        {{ 'investor-account-activation.making-deposit.description' | translate }}
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6 content-center fs-box-shadow margin-top-20 fs-account-activation-box fs-account-activation-box-my" [ngClass]="{ 'in-active' : lastStep < 2 } ">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 title-row">
+          <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 padding-null">
+            <div class="circle margin-top-5" [ngClass]="{ 'success' : lastStep > 3 }">
+              <label class="white-text" *ngIf="lastStep <= 3">3</label>
+              <i *ngIf="lastStep > 3" class="fa fa-check" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 Gilroy-SemiBold sub-title padding-null">
+            {{ 'investor-account-activation.escrow-agent.title' | translate }}
+          </div>
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-null">
+            <div class="btn-processing pull-right"  *ngIf="lastStep == 3">
+              {{ 'investor-account-activation.escrow-agent.button' | translate }}
+            </div>
+            <div class="btn-primary-referral pull-right" *ngIf="lastStep >= 4">
+              {{ 'investor-account-activation.completed' | translate }}
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-top-20 text-justify padding-null">
+          {{ 'investor-account-activation.escrow-agent.description' | translate }}
+        </div>
+
+      </div>
+    </div>
+
+  <!-- CROWDFUNDTALKS -->
+    <div class="row" *ngIf="lastStep >= 3">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6 content-center fs-box-shadow margin-top-20 fs-account-activation-box fs-account-activation-box-my">
+        <div class="col-xs-12 title-row">
+          <div class="col-xs-7 Gilroy-SemiBold activation-title padding-null">
+            {{ 'investor-account-activation.crowdfundtalks.title' | translate }}
+          </div>
+          <div class="col-xs-5 padding-null">
+            <a id="fsmy-crowdfundtalks-btn" target="_blank" [href]="crowdfundtalkLink" class="btn btn-primary-investor pull-right">
+              {{ 'investor-account-activation.crowdfundtalks.button' | translate }}
+            </a>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-top-20 text-justify padding-null">
+          {{ 'investor-account-activation.crowdfundtalks.description' | translate }}
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-top-20 text-center box-crowdfundtalks">
+          <a id="fsmy-crowdfundtalks" target="_blank" [href]="crowdfundtalkLink"><img class="crowdfundtalks-logo" src="../../assets/img/investor/logo-ct.png" /></a>
+        </div>
+      </div>
+    </div>
+</div>

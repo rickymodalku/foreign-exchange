@@ -1,0 +1,32 @@
+.fs-response {
+  padding: 20px;
+}
+
+@media #{$phone} {
+    .fs-response-rating-box {
+        text-align: center;
+    }
+}
+
+@media #{$desktop} {
+    .fs-response-rating-box {
+        text-align: inherit;
+        margin-left: 30%;
+    }
+}
+
+.fs-response-rating-box {
+    margin-top: 30px;
+    .title{
+        color:#777777;
+    }
+}
+
+.rating {
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.rating-active {
+    color: #e6c64d;
+}

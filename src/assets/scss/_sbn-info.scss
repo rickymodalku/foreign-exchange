@@ -1,0 +1,548 @@
+@media #{$largephone} {
+  .sbn-simulation-box{
+    padding: 2em 2em 2em 0;
+  }
+}
+
+@media #{$phone} {
+  .videoWrapper {
+    video {
+      padding-bottom: 200px;
+    }
+  }
+  .fs-simulation-blue-text{
+    &.box{
+      font-size:$font-20;
+    }
+  }
+  .fs-simulation-bold-text{
+    font-size:$font-20;
+  }
+  .return-field{
+    font-size: $font-16;
+    line-height: 3em;
+  }
+  .calculation-row{
+    margin-bottom:2em;
+  }
+  .sbn-simulation-box{
+    padding: 1em 1em 1em 0;
+  }
+  .sbn-banner{
+    min-width: initial;
+  }
+
+  .sbn-partner-container{
+    padding:0;
+  }
+  .sbn-process-container{
+    padding: 4em 5em;
+    background-color:$fs-blue;
+    color:$white;
+  }
+  .sbn-process-caption{
+    margin-bottom:4em;
+  }
+  .sbn-faq-container{
+    padding:5em 0;
+    .arrow-icon {
+      margin-right: 10px;
+    }
+  }
+  .sbn-partner-container{
+    padding:1em;
+  }
+  .sbn-partner-box{
+    padding:2em;
+  }
+  .sbn-description-caption-text{
+    font-size: $font-16;
+    font-weight: bold;
+  }
+  .sbn-description-highlight-text {
+    color:$fs-blue;
+    font-size: $font-16;
+    font-weight: bold;
+    &.green {
+      color: $fs-green-500;
+    }
+  }
+  .sbn-referral-box{
+    border:1px solid #E0E0E0;
+    border-radius:1em;
+    padding:2em;
+    margin-bottom:2em;
+  }
+  .sbn-simulation-container-title{
+    font-size: $font-28;
+    margin-top:-4em;
+    color:$white;
+    font-family: $gilroy-semibold-font-stack;
+  }
+}
+
+@media #{$tablet} {
+  .videoWrapper {
+    video {
+      padding-bottom: 0;
+    }
+  }
+  .fs-simulation-blue-text{
+    &.box{
+      font-size:$font-16;
+    }
+  }
+  .fs-simulation-bold-text{
+    font-size:$font-28;
+  }
+  .fs-simulation-gray-text{
+    font-size:$font-16;
+  }
+  .return-field{
+    line-height: 0;
+    margin-bottom:0.5em;
+  }
+  .calculation-row{
+    margin-bottom:0;
+  }
+  .sbn-simulation-box{
+    padding:3em;
+  }
+  .sbn-description-highlight-text{
+    font-size: $font-28;
+  }
+  .sbn-partner-container{
+    padding: 5em 20em;
+  }
+  .sbn-process-container{
+    padding: 4em 10em 12em;
+  }
+  .sbn-process-caption{
+    margin-bottom:0;
+  }
+  .sbn-faq-container{
+    padding:5em 10em;
+  }
+  .sbn-partner-container{
+    padding: 5em 10em;
+  }
+
+  .sbn-partner-box{
+    padding:2em 5em;
+  }
+}
+
+.sbn-banner-information-box{
+  padding: 150px 50px 100px;
+  height:100%;
+}
+
+.sbn-banner{
+  background-size: cover;
+  object-fit: cover;
+  height: 55em;
+  overflow: hidden;
+}
+
+.sbn-hashtag{
+  font-size: $font-32;
+  color: $fs-blue;
+  margin-bottom: 10px;
+}
+
+.sbn-description{
+  font-size: 60px;
+  color: $ink-light;
+}
+
+.sbn-highlight-text{
+  color:$burnt-sienna;
+}
+
+.sbn-period-information {
+  font-size: $font-24;
+}
+
+.sbn-register-button {
+  border-radius: 10px;
+  padding:10px;
+  margin-top:30px;
+  float: left;
+}
+
+.sbn-logo-container{
+  margin-top:50px;
+  .kemenkeu-logo{
+    margin-right:10px;
+  }
+  .sbr-logo{
+    margin-top:10px;
+  }
+  .esbn-logo{
+    margin-top:10px;
+  }
+}
+
+.sbn-benefit-container {
+  background-color: $ink;
+  &.green {
+    background: $fs-green-500;
+  }
+}
+
+.benefit-text{
+  color:$white;
+  margin-top:20px;
+  font-weight: 600;
+  font-size: $font-16;
+}
+
+.benefit-caption-text{
+  color: $white;
+  margin-top: 10px;
+  font-size: $font-16;
+}
+
+.sbn-process-title{
+  font-size:$font-24;
+  margin-top:20px;
+}
+
+.sbn-partner-container{
+  background-color: $white;
+}
+
+.sbn-partner-box{
+  border: 1px solid #E0E0E0;
+  margin-top:3em;
+  .esbn-logo{
+    height: 3em;
+  }
+  .sbr-logo{
+    height: 5em;
+  }
+  .partner-text{
+    margin-top:20px;
+  }
+}
+
+.sbn-faq-title{
+  font-size:$font-28;
+  margin-bottom:2em;
+}
+
+.sbn-table-row{
+  overflow: scroll;
+}
+
+.referral-box-title{
+  font-size: $font-28;
+  color: #08C0A6;
+}
+
+.sbn-description-text{
+  margin-top:5em;
+  margin-bottom:2em;
+  p {
+    text-align: left;
+  }
+
+}
+
+.sbn-benefit-container{
+  padding: 3em 14em;
+  .item{
+    margin-bottom: 0;
+  }
+}
+
+.sbn-description-container{
+  background-color: $white;
+  padding: 3em 14em;
+}
+
+.sbn-play-video {
+  float: left;
+  margin: 35px 0 0 30px;
+  width: 150px;
+  cursor: pointer;
+  .sbn-icon-play {
+    float: left;
+    margin-right: 10px;
+  }
+  .sbn-play-caption {
+    color: $fs-blue;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 5px;
+  }
+}
+
+.sbr005-top-section {
+  cursor: pointer;
+  img {
+    width: 100%;
+  }
+}
+
+.sbn-term-condition {
+  margin-top:50px;
+  text-align: left;
+  .left {
+    width: 30%;
+    float: left;
+    margin-right: 30px;
+    margin-top: 50px;
+    img {
+      width: 100%;
+    }
+    @media only screen and (max-width: 768px) {
+      text-align: center;
+      width: 100%;
+      float: none;
+      margin-right: 0;
+      margin-bottom: 30px;
+      img {
+        max-width: 250px;
+      }
+    }
+  }
+  .right{
+    width: 60%;
+    float: left;
+    .caption {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    @media only screen and (max-width: 768px) {
+      width: 100%;
+      float: none;
+      padding: 20px;
+    }
+  }
+}
+
+.sbn-about-container {
+  padding: 100px 0 40px;
+  background-color: $white;
+  .item {
+    margin-bottom: 50px;
+    img {
+      width: 120px;
+      margin-bottom: 20px;
+    }
+    p {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .fs-text-input-borderless{
+    font-size:$font-18;
+  }
+  .currency-input{
+    font-size:$font-18;
+  }
+  .fs-simulation-blue-text{
+    &.box{
+      font-size:$font-16;
+    }
+  }
+  .sbn-simulation-box{
+    padding:2em;
+  }
+  .fs-simulation-bold-text {
+    &.box{
+      font-size: $font-18;
+    }
+  }
+  .sbn-banner-information-box{
+    padding: 100px 20px;
+  }
+  .sbn-benefit-container{
+    padding: 3em 8em;
+  }
+  .sbn-description-container{
+    background-color: $white;
+    padding: 5em 8em;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .sbn-description-highlight-text{
+    font-size: $font-24;
+  }
+  .sbn-banner-information-box{
+    padding: 150px 50px;
+  }
+  .sbn-process-caption{
+    margin-bottom:30px;
+  }
+  .sbn-benefit-container{
+    padding: 3em 1em;
+  }
+  .sbn-description-container{
+    padding: 5em 1em;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .sbn-banner-information-box{
+    padding: 40px 20px 0;
+  }
+  .sbn-benefit-container{
+    padding: 4em 1em;
+    .item{
+      margin-bottom: 15px;
+    }
+  }
+  .sbn-description-container{
+    background-color: $white;
+    padding: 5em 2em;
+    .item {
+      margin-bottom: 20px;
+    }
+  }
+  .sbn-description-text{
+    margin-top:2em;
+    margin-bottom:2em;
+  }
+  .sbn-process-container{
+    padding: 4em 1em 12em;
+  }
+  .sbn-hashtag{
+    font-size: $font-28;
+  }
+  .sbn-period-information{
+    font-size: $font-24;
+  }
+  .sbn-description {
+    font-size: $font-40;
+  }
+  .sbn-referral-box{
+    padding: 2em 1em;
+  }
+  .referral-logo {
+    background-position: center;
+  }
+  .referral-box-title{
+    font-size: $font-24;
+  }
+  .sbn-play-video{
+    margin: 35px 0 0 15px;
+    width: 130px;
+  }
+}
+
+.videoWrapper {
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+	padding-top: 25px;
+  height: 0;
+}
+.videoWrapper iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.fs-simulation-blue-text{
+  font-family: $gilroy-semibold-font-stack;
+  font-size:$font-20;
+  color:$fs-blue;
+  &.bottom-box{
+    margin-bottom:1.5em;
+  }
+}
+
+.fs-simulation-gray-text{
+  color:$ink-lightest;
+  font-family: $gilroy-font-stack;
+  &.information{
+    margin-top: 2em;
+    font-size: $font-14;
+  }
+}
+
+.sbn-simulation-container{
+  background-color:$white;
+}
+
+.sbn-simulation-box{
+  &.border{
+    margin-top:-4em;
+    background-color:$white;
+  }
+  .currency-input{
+    font-family: $gilroy-semibold-font-stack;
+    margin-top: 0.35em;
+  }
+}
+
+.fs-simulation-bold-text{
+  font-family: $gilroy-semibold-font-stack;
+  margin-top:0.25em;
+  .currency{
+    font-size: $font-16;
+    vertical-align: top;
+  }
+  .net-text{
+    font-size: $font-16;
+    font-weight: 100;
+    color:$ink-lightest;
+  }
+}
+
+.sbn-process-container-title{
+  font-size:$font-28;
+  background-color: $white;
+  padding-top: 50px;
+}
+
+.video-container {
+  background: linear-gradient(to bottom, $white 0%, $white 50%, $fs-blue 50%, $fs-blue 100%);
+  &.green {
+    background: linear-gradient(to bottom, $white 0%, $white 50%, $fs-green 50%, $fs-green 100%);
+  }
+}
+@media #{$widescreen} {
+  .currency-input{
+    font-size:$font-26;
+  }
+}
+
+@media #{$desktop} {
+  .sukuk-modal {
+    width: 560px;
+  }
+}
+
+.sbn-confirm-investment {
+  @media #{$desktop} {
+    width: 50%;
+  }
+  .mat-checkbox-layout {
+    display: inline-block;
+  }
+}
+
+.checkbox-sbn {
+  font-size: 12px;
+}
+
+.fs-sbn-success-invest {
+  @media #{$desktop} {
+    width: 50% !important;
+  }
+}
+
+.tokopedia-info {
+  background-color: $white;
+  height: 70px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}

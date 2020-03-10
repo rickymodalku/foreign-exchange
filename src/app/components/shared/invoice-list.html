@@ -1,0 +1,17 @@
+<span *ngIf="statementDates.length !== 0" >
+    <div *ngFor="let statementDate of statementDates" class="list-box__item">
+      <div class="list-box__descriptions">
+        <div>
+          <strong>{{ statementDate | date:'MMMM' }}</strong> {{ statementDate | date:'yyyy' }}</div>
+        <div role="button" class="list-box__link" (click)="printTaxInvoice(statementDate)">
+          {{ 'statement.btn-download-tax-invoice' | translate }}
+        </div>
+      </div>
+      <div role="button" class="list-box__icon glyphicon glyphicon-download" (click)="printTaxInvoice(statementDate)"></div>
+    </div>
+  </span>
+  <div *ngIf="statementDates.length === 0" class="list-box__item text-center">
+    <div class="list-box__descriptions">
+      <em>{{ 'statement.no-statements' | translate }}</em>
+    </div>
+  </div>

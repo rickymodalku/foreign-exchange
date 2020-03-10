@@ -1,0 +1,25 @@
+<section class="newsletter-container container" id="expertSection">
+    <div class="row-fluid">
+        <div id="subscribeSection" class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+            <div class="text-center">
+                <img src="assets/img/_public/home/folded-newspaper.svg">
+            </div>
+            <h3 class="text-center Gilroy-Light" [innerHtml]="('form.subscribe.placeholder.title' | translate )"></h3>
+            <div class="text-center light-gray-text" [innerHtml]="('form.subscribe.placeholder.description' | translate )">
+            </div>
+            <form [formGroup]="subscribeForm" (ngSubmit)="onSubscribeFormSubmit()" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 subscribe-form"
+                id="subscribe-form" name="subscribe-form">
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 padding-null">
+                    <input [ngClass]="{ 'form-control-error': formModel.subscribe.validation && subscribeForm.controls.email.invalid }" [placeholder]="('form.subscribe.placeholder.email' | translate)"
+                        autocomplete="off" class="form-control gray-border" formControlName="email" name="email" type="email"
+                    />
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 subscribe-form-submit padding-null fs-box-shadow">
+                    <button [innerHtml]="('form.subscribe.placeholder.submit' | translate )" class="btn Gilroy-SemiBold" id="subscribe-form-submit"
+                        name="subscribe-form-submit" type="submit">
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

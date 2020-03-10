@@ -1,0 +1,44 @@
+:host {
+  display: block;
+  float: none;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center !important;
+  padding-bottom: 16px;
+
+  & .verify-email-icon,
+  .two-fa-icon {
+    margin-bottom: 16px;
+  }
+
+  & .two-fa-title {
+    margin-bottom: 4px;
+  }
+
+  & .two-fa-otp {
+    margin-top: 40px;
+  }
+
+  & .two-fa-error-subtitle {
+    margin-top: 4px;
+  }
+
+  & .two-fa-instructions {
+    margin-top: 8px;
+  }
+
+  & .proceed-button {
+    float:none;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    line-height: 2.5;
+    font-size: 16px;
+  }
+}
+
+.two-fa-otp {
+  .turn-off-spinner {
+    letter-spacing: 10px;
+    font-size: 32px;
+  }
+}

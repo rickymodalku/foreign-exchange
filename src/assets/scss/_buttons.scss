@@ -1,0 +1,85 @@
+//LINK BUTTON
+a.btn-link {
+  cursor: pointer;
+  &::hover {
+    text-decoration: underline;
+    color: $fs-blue;
+  }
+}
+// INVESTMENT PROFILE BUTTON
+.select-profile-button{
+  cursor: pointer;
+  color:#3e7eff;
+  text-align: center;
+  padding: 1em 0;
+  &:hover{
+    color:#2C50FF;
+  }
+}
+
+.read-more-less{
+  cursor: pointer;
+  text-align: center;
+  padding:0.5em 0 1em;
+  color:#8f8f8f;
+}
+// END OF INVESTMENT PROFILE BUTTON
+
+.btn-tertiary {
+  background-color: $white;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+  color: $ink-lighter;
+  font-size: $font-14;
+
+  &:hover {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.22);
+  }
+
+  &:active {
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.32);
+  }
+}
+
+.btn-secondary {
+  background-color: $white;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+  color: $fs-blue;
+  border: 1px solid $fs-blue;
+  font-size: $font-14;
+  text-align: center;
+
+  &:hover {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.22);
+  }
+
+  &:active {
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.32);
+  }
+}
+
+.btn-tertiary--disabled {
+  background: $gray-000;
+  border: 1px solid $silver;
+  box-sizing: border-box;
+  border-radius: 2px;
+}
+
+// INVESTOR AUTO INVESTMENT
+.aa-link-more-info {
+  cursor: pointer;
+  color: $fs-blue;
+  text-decoration: underline;
+}
+.confirm-delete-bot {
+  .btn {
+    width: 47%;
+    margin: 0 1%;
+    &.btn-primary-white {
+      @media #{$phone} {
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+      }
+    }
+  }
+}

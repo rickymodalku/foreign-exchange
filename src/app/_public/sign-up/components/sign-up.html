@@ -1,0 +1,328 @@
+<div class="container-fluid standalone-signup">
+  <div class="container">
+    <div class="row">
+      <div class="text-center" *ngIf="countryCode === 'ID' && activeView === 'brw' && enableFormStackId">
+        <iframe [src]="idFormStackUrl" title="borrow-id" width="100%" height="1500" style="border: none"></iframe>
+      </div>
+      <div class="col-md-6 col-md-offset-3" *ngIf="countryCode !== 'ID' || activeView !== 'brw' || !enableFormStackId">
+        <div class="sign-up-white-box">
+          <div class="row" *ngIf="activeView === 'sign-up'">
+            <div class="col-md-12" *ngIf="highlightInvestorAndBorrower()">
+              <div class="title">
+                {{ 'form.sign-up.placeholder.button-investor-title' | translate }}
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div [innerHtml]="('form.sign-up.placeholder.description' | translate)" class="caption margin-bottom-20">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <a id="signup-investor-btn" name="signup-investor-btn" routerLink="/sign-up-investor"
+                class="btn btn-signup-investor margin-bottom-10 fs-sign-up-button Gilroy-SemiBold fs-box-shadow">
+                {{ 'form.sign-up.placeholder.button-investor' | translate }}
+              </a>
+            </div>
+            <div class="col-md-12">
+              <h4 class="line-text-middle">
+                <span>{{ 'form.sign-up.placeholder.or' | translate }}</span>
+              </h4>
+            </div>
+            <div class="col-md-12" *ngIf="highlightInvestorAndBorrower()">
+              <div class="title">
+                {{ 'form.sign-up.placeholder.button-borrower-title' | translate }}
+              </div>
+            </div>
+            <div class="col-md-12">
+              <a id="signup-borrower-btn" name="signup-borrower-btn" routerLink="/sign-up-borrower"
+                class="btn btn-signup-borrower margin-bottom-20 fs-sign-up-button Gilroy-SemiBold fs-box-shadow">
+                {{ 'form.sign-up.placeholder.button-borrower' | translate }}
+              </a>
+            </div>
+          </div>
+          <div class="row signup-borrower-investor" *ngIf="activeView === 'inv'">
+            <div class="col-xs-12">
+              <div class="header">
+                <h3 [ngClass]="{ 'Gilroy-SemiBold' : !highlightInvestorAndBorrower() }">
+                  {{ 'form.sign-up-investor.placeholder.title' | translate }}
+                  <span [ngClass]="{ 'Gilroy-SemiBold' : highlightInvestorAndBorrower() }">{{ 'form.sign-up-investor.placeholder.type' | translate }}</span>
+                </h3>
+                <span
+                  class="switch-borrower-investor">{{ 'form.sign-up-investor.placeholder.header-caption' | translate }}</span>
+                <a class="link"
+                  routerLink="/sign-up-borrower">{{ 'form.sign-up-investor.placeholder.header-button' | translate }}</a>
+              </div>
+              <form [formGroup]="signUpInvestorForm" (ngSubmit)="onSignUpInvestorFormSubmit()" class="sign-up-form"
+                id="sign-up-investor-form" name="sign-up-investor-form">
+                <div class="row">
+                  <div class="col-xs-12 sign-up-form-field__wrapper">
+                    <input
+                      [ngClass]="{ 'form-control-error': formModel.signUpInvestor.validation && signUpInvestorForm.controls.fullName.invalid }"
+                      [placeholder]="('form.sign-up-investor.placeholder.fullname' | translate)" autocomplete="off"
+                      class="form-control fs-form-control" formControlName="fullName" id="investorFullName"
+                      name="investorFullName" type="text" />
+                  </div>
+                  <div class="col-xs-12 sign-up-form-field__wrapper">
+                    <input
+                      [ngClass]="{ 'form-control-error': formModel.signUpInvestor.validation && signUpInvestorForm.controls.email.invalid }"
+                      [placeholder]="('form.sign-up-investor.placeholder.email' | translate)" autocomplete="off"
+                      class="form-control fs-form-control" formControlName="email" id="investorEmail"
+                      name="investorEmail" type="email" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12 sign-up-form-field__wrapper">
+                    <div class="password-information password-restriction">
+                      {{ 'form.password.password-should-contain' | translate }}
+                      <ul>
+                        <li [ngClass]="{ 'password-restriction-error': !passwordRestriction.valid }"
+                          *ngFor="let passwordRestriction of formModel.signUpInvestor.passwordRestrictions">
+                          {{ passwordRestriction.label }}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 sign-up-form-field__wrapper">
+                    <input
+                      [ngClass]="{ 'form-control-error': !formModel.signUpInvestor.passwordValid || (formModel.signUpInvestor.validation && signUpInvestorForm.controls.password.invalid) }"
+                      [placeholder]="('form.sign-up-investor.placeholder.password' | translate)"
+                      (keyup)="onSignUpInvestorTypePassword()" autocomplete="off" class="form-control fs-form-control"
+                      formControlName="password" id="investorPassword" name="investorPassword" type="password" />
+                  </div>
+                  <div class="col-xs-12 sign-up-form-field__wrapper">
+                    <input
+                      [ngClass]="{ 'form-control-error': formModel.signUpInvestor.validation && (!formModel.signUpInvestor.retypedPasswordMatches || signUpInvestorForm.controls.retypedPassword.invalid) }"
+                      [placeholder]="('form.sign-up-investor.placeholder.re-enter-password' | translate)"
+                      (keyup)="onSignUpInvestorRetypePassword()" autocomplete="off" class="form-control fs-form-control"
+                      formControlName="retypedPassword" id="investorRetypedPassword" name="investorRetypedPassword"
+                      type="password" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12 sign-up-form-field__wrapper">
+                    <int-telp-input [config]="investorPhoneNumberConfig"
+                      (getValidation)="getInvestorMobilePhoneValidation($event)"
+                      (patchPhoneNumber)="patchPhoneNumber($event,CONFIGURATION.member_type_code.investor)"
+                      [showValidation]="formModel.signUpInvestor.validation && signUpInvestorForm.controls.mobilePhoneNumber.invalid">
+                    </int-telp-input>
+                  </div>
+                  <div class="col-xs-12 sign-up-form-field__wrapper">
+                    <input
+                      [ngClass]="{ 'form-control-error': formModel.signUpInvestor.validation && signUpInvestorForm.controls.referralRemark.invalid }"
+                      [placeholder]="('form.sign-up-investor.placeholder.referral-remark' | translate)"
+                      autocomplete="off" class="form-control fs-form-control" formControlName="referralRemark"
+                      id="referralRemark" name="referralRemark" type="text" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12 sign-up-form-field__wrapper">
+                    <mat-form-field class="full-width">
+                      <mat-select
+                        [placeholder]="( 'form.sign-up-investor.placeholder.how-did-you-find-us' | translate )"
+                        class="form-control fs-form-control text-left"
+                        [ngClass]="{ 'form-control-error': formModel.signUpInvestor.validation && signUpInvestorForm.controls.howDidYouFindUs.invalid }"
+                        (selectionChange)="onInvestorHowDidYouFindUsChange(formModel.signUpInvestor.howDidYouFindUsOtherValue)"
+                        [(ngModel)]="formModel.signUpInvestor.howDidYouFindUsOtherValue"
+                        formControlName="howDidYouFindUs" id="howDidYouFindUs" name="howDidYouFindUs" [disabled]="disabledInvestorHowDidYouFindUs">
+                        <mat-option *ngFor="let howDidYouFindUsSourceInvestor of howDidYouFindUsSourcesInvestor"
+                          [value]="howDidYouFindUsSourceInvestor.key" ngDefaultControl [disabled]="disabledInvestorHowDidYouFindUs">
+                          {{ howDidYouFindUsSourceInvestor.value }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div *ngIf="formModel.signUpInvestor.showHowDidYouFindUsOther"
+                    class="col-xs-12 col-md-6 sign-up-form-field__wrapper full-width">
+                    <input
+                      [ngClass]="{ 'form-control-error': formModel.signUpInvestor.validation && (!formModel.signUpInvestor.howDidYouFindUsOtherValid || signUpInvestorForm.controls.howDidYouFindUsOther.invalid) }"
+                      [placeholder]="('form.sign-up-investor.placeholder.how-did-you-find-us-other' | translate)"
+                      autocomplete="off" class="form-control" formControlName="howDidYouFindUsOther"
+                      name="howDidYouFindUsOther" type="text" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <mat-checkbox [checked]="formModel.signUpInvestor.accepted"
+                      (change)="onSignUpInvestorFormAccept($event)" class="pull-left margin-right-10">
+                    </mat-checkbox>
+                    <div class="checkbox-label">
+                      <ng-container *ngIf="highlightInvestorAndBorrower()">
+                        {{ 'form.borrow.placeholder.agreement' | translate }}
+                        <a href="./terms-of-service"
+                          target="_blank">{{ 'form.borrow.placeholder.terms-of-service' | translate }}</a>,
+                        <a href="./privacy-notice"
+                          target="_blank">{{ 'form.borrow.placeholder.privacy-notice' | translate }}</a>
+                        &amp;
+                        <a href="./rdp2p-notice"
+                          target="_blank">{{ 'form.sign-up-investor.placeholder.rdp2p-term-condition' | translate }}</a>
+                      </ng-container>
+                      <ng-container *ngIf="countryCode === 'SG'">
+                        {{ 'form.borrow.placeholder.agreement-1-sg' | translate }}
+                        <a href="./privacy-notice"
+                          target="_blank">{{ 'form.borrow.placeholder.privacy-notice' | translate }}</a>
+                        {{ 'form.borrow.placeholder.agreement-2-sg' | translate }}
+                      </ng-container>
+                      <ng-container *ngIf="countryCode === 'MY'">
+                        {{ 'form.consent-1' | translate }}
+                        <a href="./privacy-notice"
+                          target="_blank">{{ 'form.borrow.placeholder.privacy-notice' | translate }}</a>
+                        {{ 'form.consent-2' | translate }}
+                      </ng-container>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 sign-up-form-field__wrapper signup-button-container">
+                    <button *ngIf="formModel.signUpInvestor.accepted"
+                      class="form-group btn btn-signup-investor-borrower Gilroy-SemiBold"
+                      id="investor-signup-register-btn" name="investor-signup-register-btn" type="submit">
+                      {{ 'form.sign-up-investor.placeholder.submit' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="row signup-borrower-investor" *ngIf="activeView === 'brw'">
+            <div class="col-xs-12">
+              <div class="header">
+                <h3 [ngClass]="{ 'Gilroy-SemiBold' : !highlightInvestorAndBorrower() }">
+                  {{ 'form.sign-up-borrower.placeholder.title' | translate }}
+                  <span [ngClass]="{ 'Gilroy-SemiBold' : highlightInvestorAndBorrower() }">{{ 'form.sign-up-borrower.placeholder.type' | translate }}</span>
+                </h3>
+                <span
+                  class="switch-borrower-investor">{{ 'form.sign-up-borrower.placeholder.header-caption' | translate }}</span>
+                <a class="link"
+                  routerLink="/sign-up-investor">{{ 'form.sign-up-borrower.placeholder.header-button' | translate }}</a>
+              </div>
+              <form [formGroup]="signUpBorrowerForm" (ngSubmit)="onSignUpBorrowerFormSubmit()" class="sign-up-form"
+                id="sign-up-borrower-form" name="sign-up-borrower-form">
+                <div class="row">
+                  <div class="col-xs-12 sign-up-form-field__wrapper">
+                    <input
+                      [ngClass]="{ 'form-control-error': formModel.signUpBorrower.validation && signUpBorrowerForm.controls.fullName.invalid }"
+                      [placeholder]="('form.sign-up-borrower.placeholder.fullname' | translate)" autocomplete="off"
+                      class="form-control fs-form-control" formControlName="fullName" id="borrowerFullName"
+                      name="borrowerFullName" type="text" />
+                  </div>
+                  <div class="col-xs-12 sign-up-form-field__wrapper">
+                    <input
+                      [ngClass]="{ 'form-control-error': formModel.signUpBorrower.validation && signUpBorrowerForm.controls.email.invalid }"
+                      [placeholder]="('form.sign-up-borrower.placeholder.email' | translate)" autocomplete="off"
+                      class="form-control fs-form-control" formControlName="email" id="borrowerEmail" name="email"
+                      type="email" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12 sign-up-form-field__wrapper">
+                    <div class="password-information password-restriction">
+                      {{ 'form.password.password-should-contain' | translate }}
+                      <ul>
+                        <li [ngClass]="{ 'password-restriction-error': !passwordRestriction.valid }"
+                          *ngFor="let passwordRestriction of formModel.signUpBorrower.passwordRestrictions">
+                          {{ passwordRestriction.label }}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 sign-up-form-field__wrapper">
+                    <input
+                      [ngClass]="{ 'form-control-error': !formModel.signUpBorrower.passwordValid || (formModel.signUpBorrower.validation && signUpBorrowerForm.controls.password.invalid) }"
+                      [placeholder]="('form.sign-up-borrower.placeholder.password' | translate)"
+                      (keyup)="onSignUpBorrowerTypePassword()" autocomplete="off" class="form-control fs-form-control"
+                      formControlName="password" id="borrowerPassword" name="borrowerPassword" type="password" />
+                  </div>
+                  <div class="col-xs-12 sign-up-form-field__wrapper">
+                    <input
+                      [ngClass]="{ 'form-control-error': formModel.signUpBorrower.validation && (!formModel.signUpBorrower.retypedPasswordMatches || signUpBorrowerForm.controls.retypedPassword.invalid) }"
+                      [placeholder]="('form.sign-up-borrower.placeholder.re-enter-password' | translate)"
+                      (keyup)="onSignUpBorrowerRetypePassword()" autocomplete="off" class="form-control fs-form-control"
+                      formControlName="retypedPassword" id="borrowerRetypedPassword" name="borrowerRetypedPassword"
+                      type="password" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12 sign-up-form-field__wrapper">
+                    <int-telp-input [config]="borrowerPhoneNumberConfig"
+                      (getValidation)="getBorrowerMobilePhoneValidation($event)"
+                      (patchPhoneNumber)="patchPhoneNumber($event, CONFIGURATION.member_type_code.borrower)"
+                      [showValidation]="formModel.signUpBorrower.validation && signUpBorrowerForm.controls.mobilePhoneNumber.invalid && !this.formModel.signUpBorrower.mobilePhoneValidation">
+                    </int-telp-input>
+                  </div>
+                  <div class="col-xs-12 sign-up-form-field__wrapper">
+                    <mat-form-field class="full-width">
+                      <mat-select
+                        [placeholder]="( 'form.sign-up-borrower.placeholder.how-did-you-find-us' | translate )"
+                        class="form-control fs-form-control text-left"
+                        [ngClass]="{ 'form-control-error': formModel.signUpBorrower.validation && signUpBorrowerForm.controls.howDidYouFindUs.invalid }"
+                        (selectionChange)="onBorrowerHowDidYouFindUsChange(formModel.signUpBorrower.howDidYouFindUsOtherValue)"
+                        [(ngModel)]="formModel.signUpBorrower.howDidYouFindUsOtherValue"
+                        formControlName="howDidYouFindUs" id="howDidYouFindUs" name="howDidYouFindUs">
+                        <mat-option *ngFor="let howDidYouFindUsSourceBorrower of howDidYouFindUsSourcesBorrower"
+                          [value]="howDidYouFindUsSourceBorrower.key" ngDefaultControl>
+                          {{ howDidYouFindUsSourceBorrower.value }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div *ngIf="formModel.signUpBorrower.showHowDidYouFindUsOther"
+                    class="col-xs-12 sign-up-form-field__wrapper">
+                    <input
+                      [ngClass]="{ 'form-control-error': formModel.signUpBorrower.validation && (!formModel.signUpBorrower.howDidYouFindUsOtherValid || signUpBorrowerForm.controls.howDidYouFindUsOther.invalid) }"
+                      [placeholder]="('form.sign-up-borrower.placeholder.how-did-you-find-us-other' | translate)"
+                      autocomplete="off" class="form-control" formControlName="howDidYouFindUsOther"
+                      id="howDidYouFindUsOther" name="howDidYouFindUsOther" type="text" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <mat-checkbox [checked]="formModel.signUpBorrower.accepted"
+                      (change)="onSignUpBorrowerFormAccept($event)" class="pull-left margin-right-10">
+                    </mat-checkbox>
+                    <div class="checkbox-label">
+                      <ng-container *ngIf="highlightInvestorAndBorrower()">
+                        {{ 'form.borrow.placeholder.agreement' | translate }}
+                        <a href="./terms-of-service"
+                          target="_blank">{{ 'form.borrow.placeholder.terms-of-service' | translate }}</a>
+                        &amp;
+                        <a href="./privacy-notice"
+                          target="_blank">{{ 'form.borrow.placeholder.privacy-notice' | translate }}</a>
+                      </ng-container>
+                      <ng-container *ngIf="countryCode === 'SG'">
+                        {{ 'form.borrow.placeholder.agreement-1-sg' | translate }}
+                        <a href="./privacy-notice"
+                          target="_blank">{{ 'form.borrow.placeholder.privacy-notice' | translate }}</a>
+                        {{ 'form.borrow.placeholder.agreement-2-sg' | translate }}
+                      </ng-container>
+                      <ng-container *ngIf="countryCode === 'MY'">
+                        {{ 'form.consent-1' | translate }}
+                        <a href="./privacy-notice"
+                          target="_blank">{{ 'form.borrow.placeholder.privacy-notice' | translate }}</a>
+                        {{ 'form.consent-2' | translate }}
+                      </ng-container>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 sign-up-form-field__wrapper signup-button-container">
+                    <button *ngIf="formModel.signUpBorrower.accepted"
+                      class="form-group btn btn-signup-investor-borrower Gilroy-SemiBold"
+                      id="borrower-signup-register-btn" name="borrower-signup-register-btn" type="submit">
+                      {{ 'form.sign-up-borrower.placeholder.submit' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <h4 class="line-text-middle"></h4>
+            </div>
+            <div class="col-md-12 logInBox">
+              <div class="logInCaption pull-left">
+                {{ 'form.sign-up.placeholder.footer-caption' | translate }}</div>
+              <a id="signup-dialog-login-btn" name="signup-dialog-login-btn" routerLink="/log-in"
+                class="logIn btn pull-right fs-box-shadow">{{ 'form.sign-up.placeholder.footer-button' | translate }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

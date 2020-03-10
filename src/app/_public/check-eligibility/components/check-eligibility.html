@@ -1,0 +1,176 @@
+<div class="container-fluid standalone-signup" *ngIf="masterData">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="sign-up-white-box">
+          <div class="signup-borrower-investor check-eligibility" *ngIf="!showResult">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="header">
+                  <h3 class="Gilroy-SemiBold">
+                    {{ 'borrow.check-eligibility-modal.title' | translate}}
+                  </h3>
+                </div>
+                <span class="caption">{{ 'borrow.check-eligibility-modal.caption' | translate}}</span>
+              </div>
+            </div>
+            <form [formGroup]="borrowForm" (ngSubmit)="onBorrowFormSubmit()" id="eligibility-form"
+              name="eligibility-form" class="sign-up-form">
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 sign-up-form-field__wrapper">
+                  <input (keyup)="autoFormatBorrowFormLoanAmount()" autocomplete="off"
+                    [placeholder]="('borrow.check-eligibility-modal.placeholder.loan-amount' | translate)"
+                    class="form-control fs-form-control" formControlName="loanAmount" id="loanAmount" name="loanAmount"
+                    [ngClass]="{ 'form-control-error': borrowFormModel.validation && borrowForm.controls.loanAmount.invalid }"
+                    type="tel" />
+                </div>
+                <div class="col-xs-12 col-sm-6 sign-up-form-field__wrapper">
+                  <mat-select placeholder="{{ 'borrow.check-eligibility-modal.placeholder.loan-duration' | translate }}"
+                    formControlName="loanTenor" id="loanTenor" name="loanTenor" class="form-control fs-form-control"
+                    [ngClass]="{ 'form-control-error': borrowFormModel.validation && borrowForm.controls.loanTenor.invalid }">
+                    <mat-option *ngFor="let tenor of masterData.tenors" [value]="tenor.value" ngDefaultControl>
+                      {{ tenor.label }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 sign-up-form-field__wrapper">
+                  <input class="form-control" formControlName="fullName" id="fullName" name="fullName" type="text"
+                    [placeholder]="('borrow.check-eligibility-modal.placeholder.full-name' | translate)"
+                    class="form-control fs-form-control"
+                    [ngClass]="{ 'form-control-error': borrowFormModel.validation && borrowForm.controls.fullName.invalid }">
+                </div>
+                <div class="col-xs-12 sign-up-form-field__wrapper">
+                  <input autocomplete="off" class="form-control fs-form-control" formControlName="email" id="email"
+                    [placeholder]="('borrow.check-eligibility-modal.placeholder.email' | translate)" name="email"
+                    [ngClass]="{ 'form-control-error': borrowFormModel.validation && borrowForm.controls.email.invalid }"
+                    type="email">
+                </div>
+                <div class="col-xs-12 sign-up-form-field__wrapper">
+                    <int-telp-input [config]="borrowerPhoneNumberConfig"
+                      (getValidation)="getBorrowerMobilePhoneValidation($event)"
+                      (patchPhoneNumber)="patchBorrowerMobilePhoneNumber($event)"
+                      [showValidation]="borrowFormModel.validation && (borrowFormModel.mobilePhoneValidation && borrowForm.controls.mobilePhoneNumber.invalid)">
+                    </int-telp-input>
+                </div>
+                <div class="col-xs-12 sign-up-form-field__wrapper">
+                  <input type="text" class="form-control fs-form-control" formControlName="companyName" id="companyName"
+                    [placeholder]="('borrow.check-eligibility-modal.placeholder.company-name' | translate)"
+                    [ngClass]="{ 'form-control-error': borrowFormModel.validation && borrowForm.controls.companyName.invalid }"
+                    name="companyName" type="text">
+                </div>
+                <div class="col-xs-12 sign-up-form-field__wrapper">
+                  <mat-select placeholder="{{ 'borrow.check-eligibility-modal.placeholder.company-type' | translate }}"
+                    formControlName="companyType" id="companyType" name="companyType" class="form-control fs-form-control"
+                    [ngClass]="{ 'form-control-error': borrowFormModel.validation && borrowForm.controls.companyType.invalid }">
+                    <mat-option *ngFor="let companyType of masterData.companyTypes" [value]="companyType.value"
+                      ngDefaultControl>
+                      {{companyType.label}}
+                    </mat-option>
+                  </mat-select>
+                </div>
+                <div class="col-xs-12 sign-up-form-field__wrapper">
+                  <input (keyup)="autoFormatBorrowFormCompanyRevenue()" autocomplete="off"
+                    class="form-control fs-form-control" formControlName="companyRevenue" id="companyRevenue"
+                    [placeholder]="('borrow.check-eligibility-modal.placeholder.company-revenue' | translate)"
+                    [ngClass]="{ 'form-control-error': borrowFormModel.validation && borrowForm.controls.companyRevenue.invalid }"
+                    name="companyRevenue" type="tel" />
+                </div>
+                <div class="col-xs-12 sign-up-form-field__wrapper">
+                  <mat-select class="form-control fs-form-control" (change)="onHowDidYouFindUsChange()"
+                    [(ngModel)]="borrowFormModel.howDidYouFindUs"
+                    (change)="onHowDidYouFindUsChange(borrowFormModel.howDidYouFindUs)"
+                    placeholder="{{ 'borrow.check-eligibility-modal.placeholder.how-did-you-find-us' | translate }}"
+                    [ngClass]="{ 'form-control-error': borrowFormModel.validation && borrowForm.controls.howDidYouFindUs.invalid }"
+                    formControlName="howDidYouFindUs" id="howDidYouFindUs" name="howDidYouFindUs">
+                    <mat-option *ngFor="let howdidyoufindussource of masterData.howDidYouFindUsSources"
+                      [value]="howdidyoufindussource.value" ngDefaultControl>
+                      {{ howdidyoufindussource.label }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+                <div class="col-xs-12 sign-up-form-field__wrapper" *ngIf="borrowFormModel.showHowDidYouFindUsOther">
+                  <input type="text" class="form-control fs-form-control" formControlName="howDidYouFindUsOther"
+                    [placeholder]="('borrow.check-eligibility-modal.placeholder.please-specify' | translate)"
+                    [ngClass]="{ 'form-control-error': borrowFormModel.validation && (!borrowFormModel.howDidYouFindUsOtherValid || borrowForm.controls.howDidYouFindUsOther.invalid) }"
+                    id="howDidYouFindUsOther" name="howDidYouFindUsOther" type="text">
+                </div>
+                <div class="col-xs-12 sign-up-form-field__wrapper">
+                  <span class="disclaimer">
+                    {{ 'borrow.check-eligibility-modal.placeholder.submit-caption' | translate }}
+                  </span>
+                </div>
+                <div class="col-xs-12 signup-button-container">
+                  <button
+                    class="form-group btn btn-signup-investor-borrower Gilroy-SemiBold"
+                    id="btn-submit-eligibility" name="bbtn-submit-eligibility" type="submit">
+                    {{ 'borrow.check-eligibility-modal.placeholder.submit-button-dialog' | translate }}
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="signup-borrower-investor check-eligibility" *ngIf="showResult">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="header">
+                  <h3 class="Gilroy-SemiBold">
+                    {{ 'borrow.check-eligibility-modal.result.title' | translate }}
+                  </h3>
+                </div>
+                <span class="result-caption">
+                  {{ 'borrow.check-eligibility-modal.result.caption-1' | translate }}
+                  {{ currency }}{{ loanAmount | number: decimalFormat: localeDecimalFormat }}
+                  {{ 'borrow.check-eligibility-modal.result.caption-2' | translate }}
+                  {{ loanTenor }}
+                  {{ 'borrow.check-eligibility-modal.result.caption-3' | translate }}
+                </span>
+                <div class="result-box">
+                  <div class="result-content">
+                    <span class="caption">
+                      {{ 'borrow.check-eligibility-modal.result.monthly-repayment' | translate }}
+                    </span>
+                    <span class="value Gilroy-SemiBold">
+                      {{ currency }}{{ borrowFormModel.valueFrom}} - {{ currency }}{{ borrowFormModel.valueTo }}
+                    </span>
+                  </div>
+                  <div class="white-line"></div>
+                  <div class="result-content">
+                    <span class="caption">
+                      {{ 'borrow.check-eligibility-modal.result.tentative-interest-rate' | translate }}
+                    </span>
+                    <span class="value Gilroy-SemiBold">
+                      {{ getFromValue() | percent }} - {{ getToValue() | percent }}
+                    </span>
+                  </div>
+                </div>
+                <span class="disclaimer">
+                  {{ 'borrow.check-eligibility-modal.result.information' | translate }}
+                </span>
+              </div>
+              <div class="col-xs-12 signup-button-container sign-up-form-field__wrapper">
+                <div routerLink="/sign-up-borrower"
+                  class="form-group btn btn-signup-investor-borrower Gilroy-SemiBold"
+                  id="btn-apply-eligibility" name="btn-apply-eligibility" >
+                  {{ 'borrow.check-eligibility-modal.result.apply-now' | translate }}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <h4 class="line-text-middle"></h4>
+              </div>
+              <div class="col-md-12 logInBox">
+                <div class="logInCaption pull-left">
+                  {{ 'form.sign-up.placeholder.footer-caption' | translate }}</div>
+                <a id="eligibility-dialog-login-btn" name="eligibility-dialog-login-btn" routerLink="/log-in"
+                  class="logIn btn pull-right fs-box-shadow">{{ 'form.sign-up.placeholder.footer-button' | translate }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

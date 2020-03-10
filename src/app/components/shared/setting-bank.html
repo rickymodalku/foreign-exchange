@@ -1,0 +1,146 @@
+<div class="fs-signup-form setting">
+  <div class="fs-setting-content">
+    <div class="col-md-8 content-center">
+      <div class="fs-setting-box fs-box-shadow d-inline-block full-width">
+        <div>
+          <form
+            [formGroup]="settingBankForm"
+            (ngSubmit)="onSettingBankFormSubmit()"
+            class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null"
+            id="setting-bank-form"
+            name="setting-bank-form">
+            <div class="fs-signup-title font-size-20 Gilroy-SemiBold">{{ 'form.setting-bank.placeholder.title-bank' | translate }}</div>
+            <div class="fs-signup-caption margin-bottom-10 password-restriction">{{ 'form.setting-bank.placeholder.subtitle-bank' | translate }}</div>
+            <div class="fs-signup-caption margin-bottom-10 password-restriction">{{ 'form.setting-bank.placeholder.subtitle-changeBankInfo' | translate }}</div>
+            <div class="form-inline margin-bottom-10">
+              <div
+                class="form-group sign-up-group full-width form-disabled"
+                [ngClass]="{ 'form-control-error': formModel.settingBank.validation && settingBankForm.controls.bankId.invalid }">
+                <label>{{ 'form.setting-bank.placeholder.bank-id' | translate }}</label>
+                <select
+                  (change)="onBankIdChange($event.target.value)"
+                  class="form-control sign-up-form"
+                  formControlName="bankId"
+                  id="bankId"
+                  name="bankId">
+                  <option disabled hidden [value]="null">{{ 'form.setting-bank.placeholder.bank-id-default' | translate }}</option>
+                  <option *ngFor="let bank of masterData.banks" [value]="bank.id">{{ bank.name }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10" *ngIf="formModel.settingBank.showBankOther">
+              <div
+                class="form-group sign-up-group full-width form-disabled"
+                [ngClass]="{ 'form-control-error': formModel.settingBank.validation && (!formModel.settingBank.bankOtherValid || settingBankForm.controls.bankOther.invalid) }">
+                <label>{{ 'form.setting-bank.placeholder.bank-other' | translate }}</label>
+                <input
+                  autocomplete="off"
+                  class="form-control sign-up-form"
+                  formControlName="bankOther"
+                  id="bankOther"
+                  name="bankOther"
+                  type="text" />
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10">
+              <div
+                class="form-group sign-up-group form-disabled"
+                [ngClass]="{ 'form-control-error': formModel.settingBank.validation && settingBankForm.controls.number.invalid }">
+                <label>{{ 'form.setting-bank.placeholder.bank-account-number' | translate }}</label>
+                <input
+                  autocomplete="off"
+                  class="form-control sign-up-form"
+                  formControlName="number"
+                  id="number"
+                  name="number"
+                  type="text" />
+              </div>
+              <div
+                class="form-group sign-up-group form-disabled"
+                [ngClass]="{ 'form-control-error': formModel.settingBank.validation && settingBankForm.controls.name.invalid }">
+                <label>{{ 'form.setting-bank.placeholder.bank-account-name' | translate }}</label>
+                <input
+                  autocomplete="off"
+                  class="form-control sign-up-form"
+                  formControlName="name"
+                  id="name"
+                  name="name"
+                  type="text" />
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10">
+              <div
+                class="form-group sign-up-group form-disabled"
+                [ngClass]="{ 'form-control-error': formModel.settingBank.validation && settingBankForm.controls.bankAccountTypeId.invalid }">
+                <label>{{ 'form.setting-bank.placeholder.bank-account-type-id' | translate }}</label>
+                <select
+                  class="form-control sign-up-form"
+                  formControlName="bankAccountTypeId"
+                  id="bankAccountTypeId"
+                  name="bankAccountTypeId">
+                  <option disabled hidden [value]="null">{{ 'form.setting-bank.placeholder.bank-account-type-id-default' | translate }}</option>
+                  <option *ngFor="let bankAccountType of masterData.bankAccountTypes" [value]="bankAccountType.id">{{ bankAccountType.name }}</option>
+                </select>
+              </div>
+              <div
+                class="form-group sign-up-group form-disabled"
+                [ngClass]="{ 'form-control-error': formModel.settingBank.validation && settingBankForm.controls.branch.invalid }">
+                <label>{{ 'form.setting-bank.placeholder.branch' | translate }}</label>
+                <input
+                  autocomplete="off"
+                  class="form-control sign-up-form"
+                  formControlName="branch"
+                  id="branch"
+                  name="branch"
+                  type="text" />
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10">
+              <div
+                class="form-group sign-up-group form-disabled"
+                [ngClass]="{ 'form-control-error': formModel.settingBank.validation && settingBankForm.controls.address.invalid }">
+                <label>{{ 'form.setting-bank.placeholder.address' | translate }}</label>
+                <input
+                  autocomplete="off"
+                  class="form-control sign-up-form"
+                  formControlName="address"
+                  id="address"
+                  name="address"
+                  type="text" />
+              </div>
+              <div
+                class="form-group sign-up-group form-disabled"
+                [ngClass]="{ 'form-control-error': formModel.settingBank.validation && settingBankForm.controls.swiftCode.invalid }">
+                <label>{{ 'form.setting-bank.placeholder.swift-code' | translate }}</label>
+                <input
+                  autocomplete="off"
+                  class="form-control sign-up-form"
+                  formControlName="swiftCode"
+                  id="swiftCode"
+                  name="swiftCode"
+                  type="text" />
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10">
+              <div
+                class="form-group sign-up-group form-disabled"
+                [ngClass]="{ 'form-control-error': formModel.settingBank.validation && settingBankForm.controls.currency.invalid }">
+                <label>{{ 'form.setting-bank.placeholder.currency' | translate }}</label>
+                <select
+                  class="form-control sign-up-form"
+                  formControlName="currency"
+                  id="currency"
+                  name="currency">
+                  <option disabled hidden [value]="null">{{ 'form.setting-bank.placeholder.currency-default' | translate }}</option>
+                  <option *ngFor="let currency of masterData.currencies" [value]="currency.code">{{ currency.code }} - {{ currency.name }}</option>
+                </select>
+              </div>
+            </div>
+          </form>
+          <div class="col-xs-12 padding-null margin-top-10" [innerHTML]="( 'form.setting-bank.add-new-bank' | translate )">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

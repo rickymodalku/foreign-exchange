@@ -1,0 +1,75 @@
+.notification-item {
+    position: fixed;
+    top: 80px;
+    display: table;
+    width: 100%;
+    margin: 0 auto;
+    z-index: 99999;
+    text-align: center;
+    cursor: pointer;
+}
+.notification-item-dashboard {
+    top: 100px !important;
+}
+@media screen and (max-width:768px) {
+    .notification-item {
+        top: 58px;
+    }
+    .notification-item-dashboard {
+        top: 58px !important;
+    }
+}
+.notification-success {
+    background-color: #d3efec;
+    color: #017361;
+    border: 1px solid #99e1d7;
+    padding: 10px;
+}
+.notification-success::after {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    content: "\f057";
+    position: relative;
+    left: auto;
+    margin-left: 0.5em;
+    color: #017361;
+}
+.notification-info {
+    background-color: #fcf4e3;
+    border: 1px solid #eed2a0;
+    color: #735200;
+    padding: 10px;
+}
+.notification-info::after {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    content: "\f057";
+    position: relative;
+    left: auto;
+    margin-left: 0.5em;
+    color: #735200;
+}
+.notification-error {
+    background-color: #f2dede;
+    border: 1px solid #e39999;
+    color: #a94442;
+    padding: 10px;
+}
+.notification-error::after {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    content: "\f057";
+    position: relative;
+    left: auto;
+    margin-left: 0.5em;
+    color: #a94442;
+}

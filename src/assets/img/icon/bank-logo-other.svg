@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="30" viewBox="0 0 128 30">
+    <g fill="#4A4A4A" fill-rule="evenodd">
+        <path fill-rule="nonzero" d="M3.333 12.778V22.5H7.5v-9.722H3.333zm8.334 0V22.5h4.166v-9.722h-4.166zM.556 29.444h26.388v-4.166H.556v4.166zM20 12.778V22.5h4.167v-9.722H20zM13.75.278L.556 7.222V10h26.388V7.222L13.75.278z"/>
+        <text font-family="Gilroy-Bold" font-size="16" font-weight="bold" letter-spacing="-.1">
+            <tspan x="38.44" y="22">Other </tspan> <tspan x="84.768" y="22" font-family="Gilroy-Regular" font-weight="normal">Banks</tspan> <tspan x="121.296" y="22" font-family="Gilroy-Regular" font-weight="normal"></tspan>
+        </text>
+    </g>
+</svg>

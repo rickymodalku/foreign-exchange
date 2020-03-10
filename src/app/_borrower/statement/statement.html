@@ -1,0 +1,18 @@
+<div class="container-fluid">
+  <div class="row fs-container-statement-header">
+    <div class="pull-left statement-header-title col-md-4">
+      <strong class="font-size-28">{{ 'statement.title' | translate }}</strong>
+      <div class="statement-header-subtitle">
+          {{ 'statement.sub-title' | translate }}
+      </div>
+    </div>
+    <!-- <div class="inv-activity-icon content-center">
+        </div> -->
+  </div>
+  <div class="row statement-menu-row">
+    <span  *ngIf="CONFIGURATION.showTaxInvoice" role="button" [ngClass]="{ 'active' : activeTab==='invoice' }" (click)="changeTab('invoice')">{{ 'statement.tabs.tax-invoice' | translate }}</span>
+  </div>
+  <div class="row list-box col-xs-12 col-sm-12 col-md-6 col-lg-6 content-center" >
+    <invoice-list *ngIf="activeTab==='invoice'"></invoice-list>
+  </div>
+</div>

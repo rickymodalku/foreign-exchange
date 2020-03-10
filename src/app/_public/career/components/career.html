@@ -1,0 +1,296 @@
+<div class="container-fluid careerContainer" *ngIf="!jobDetailPage">
+  <div class="row careerHeader">
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <div class="col-xs-12 col-sm-6 col-md-12 col-sm-offset-4 col-md-offset-0">
+        <div class="career-exploration">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 pull-right text-right white-text careerHeaderCaption">
+      <div class="font-size-38 margin-bottom-20">
+        <font class="Gilroy-SemiBold"> {{ 'career.header.title' | translate }} </font>
+        <br>
+        <font class="Gilroy-Light"> {{ 'career.header.title-2' | translate }} </font>
+      </div>
+      <div class="margin-top-10 margin-bottom-20 transparant-text">
+        {{ 'career.header.caption' | translate }}
+      </div>
+      <div class="btn btn-primary-white borrower margin-bottom-20 Gilroy-SemiBold" (click)="goTocurrentOpportunities()">
+        {{ 'career.header.button' | translate }}
+      </div>
+    </div>
+  </div>
+
+  <div class="row text-center white-text careerHeaderTextRow">
+    <div class="font-size-30 Gilroy-SemiBold">{{ 'career.company-culture.title' | translate }}</div>
+    <div class="col-xs-12 col-md-12">
+      <div class="col-xs-12 col-md-12">
+        <div class="col-xs-12 col-md-4 margin-top-10 content-center transparant-text">
+          {{ 'career.company-culture.caption' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row careerOpinionBox content-center">
+    <div class="col-md-12 padding-null">
+      <div class="col-md-4 careerOpinionCommentBox">
+        <div class="font-size-18 Gilroy-Light">
+          {{ 'career.testimonial.0.comment' | translate }}
+        </div>
+        <div class="font-size-14">
+          <div>
+          </div>
+          <div class="careerOpinionName">
+            <font class="Gilroy-SemiBold font-size-16">{{ 'career.testimonial.0.name' | translate }}</font>
+            <br> {{ 'career.testimonial.0.title' | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8 padding-null">
+        <img src="{{ imageBaseUrl }}/career/c-1.jpg">
+      </div>
+    </div>
+    <div class="col-md-12 padding-null">
+      <img class="height-initial" src="{{ imageBaseUrl }}/career/c-2.jpg">
+    </div>
+    <div class="col-md-12 padding-null">
+      <div class="col-md-8  padding-null">
+        <img src="{{ imageBaseUrl }}/career/c-3.jpg">
+      </div>
+      <div class="col-md-4 careerOpinionCommentBox">
+        <div class="font-size-18 Gilroy-Light">
+          {{ 'career.testimonial.1.comment' | translate }}
+        </div>
+        <div class="font-size-14">
+          <div>
+          </div>
+          <div class="careerOpinionName">
+            <font class="Gilroy-SemiBold font-size-16">{{ 'career.testimonial.1.name' | translate }} </font>
+            <br> {{ 'career.testimonial.1.title' | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 padding-null">
+      <div class="col-md-4 careerOpinionCommentBox lastChild">
+        <div class="font-size-18 Gilroy-Light">
+          {{ 'career.testimonial.2.comment' | translate }}
+        </div>
+        <div class="font-size-14">
+          <div>
+          </div>
+          <div class="careerOpinionName">
+            <font class="Gilroy-SemiBold font-size-16">{{ 'career.testimonial.2.name' | translate }}</font>
+            <br> {{ 'career.testimonial.2.title' | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8  padding-null">
+        <img src="{{ imageBaseUrl }}/career/c-4.jpg">
+      </div>
+    </div>
+  </div>
+
+  <div class="row careerSocMedRow">
+    <div class="col-xs-12 col-md-6 pull-left margin-top-20">
+      <div>
+        <font class="font-size-26 Gilroy-SemiBold">
+          {{ 'career.connect-with-us.title' | translate }}
+        </font>
+      </div>
+      <div class="col-xs-12 col-md-12 margin-bottom-20 margin-top-20 transparant-text padding-null">
+        <div class="col-md-10 padding-null">
+          {{ 'career.connect-with-us.caption' | translate }}
+        </div>
+      </div>
+      <div class="d-inline-block">
+        <div role="button" class="pull-left facebook-icon margin-right-10">
+        </div>
+        <div role="button" class="pull-left linkedin-icon margin-right-10">
+        </div>
+        <div role="button" class="pull-left twitter-icon margin-right-10">
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 pull-right">
+      <div class="career-connect">
+      </div>
+    </div>
+  </div>
+
+  <div class="row showJobCategory" *ngIf="hideJobCategory">
+    <div class="careerVacancyHeader text-center">
+      <div class="font-size-28 margin-top-20 margin-bottom-10" id="careerVacancyTitle">
+        <font class="Gilroy-SemiBold">{{ 'career.current-openings.title' | translate }}</font>
+      </div>
+      <div class="col-xs-12 col-md-4 content-center text-center row transparant-text">
+        {{ 'career.current-openings.caption' | translate }}
+      </div>
+    </div>
+    <div class="row margin-top-20 margin-bottom-20 text-center careerCountrySubMenuContainer">
+      <div *ngFor="let jobcountry of jobCountry" class="margin-right-20 careerCountrySubMenu" (click)="filterJobByCountry(jobcountry)"
+        [ngClass]="{active : jobcountry.active === true }" role="button">{{ jobcountry.name }}</div>
+    </div>
+
+    <div class="row vacancyContainer margin-top-20">
+      <div *ngFor="let jobcategory of jobCategory; let i = index" class="pull-left margin-right-20 margin-bottom-20 vacancyBox"
+        role="button" (click)="goToListJob(jobcategory)">
+        <div ngSwitch="{{jobcategory.category}}">
+          <div *ngSwitchCase="'Technology & Product'" class="careerBox q1 text-center">
+            <img src="assets/img/_public/career/q-1.png">
+          </div>
+          <div *ngSwitchCase="'Sales & Risk'" class="careerBox q2 text-center">
+            <img src="assets/img/_public/career/q-2.png">
+          </div>
+          <div *ngSwitchCase="'Marketing'" class="careerBox q3 text-center">
+            <img src="assets/img/_public/career/q-3.png">
+          </div>
+          <div *ngSwitchCase="'Ops & Finance'" class="careerBox q4 text-center">
+            <img src="assets/img/_public/career/q-4.png">
+          </div>
+          <div *ngSwitchCase="'HR & legal'" class="careerBox q5 text-center">
+            <img src="assets/img/_public/career/q-5.png">
+          </div>
+          <div *ngSwitchCase="'Internship'" class="careerBox q6 text-center">
+            <img src="assets/img/_public/career/q-6.png">
+          </div>
+        </div>
+        <div>{{jobcategory.company}}</div>
+        <div class="Gilroy-SemiBold">{{jobcategory.category}}</div>
+        <div class="font-size-10">{{jobcategory.jobopen}} {{ 'career.job-opening.job-opening' | translate }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+<newsletter *ngIf="!jobDetailPage"></newsletter>
+
+<div class="container-fluid careerContainer detail" *ngIf="jobDetailPage">
+  <div class="row">
+    <div class="text-center title">
+      <div class="pull-right btn btn-primary-investor" (click)="jobDetailPage = false">
+        {{ 'career.current-openings.button-back' | translate }}
+      </div>
+      <div class="col-xs-12 title text-center Gilroy-SemiBold font-size-28 margin-bottom-15">
+        {{ 'career.current-openings.title' | translate }}
+      </div>
+      <div class="col-xs-12 transparant-text black margin-bottom-20">
+        {{ 'career.current-openings.caption' | translate }}
+      </div>
+    </div>
+
+    <div class="Gilroy-SemiBold font-size-20 margin-bottom-20 margin-top-20">
+      {{selectedJobDetail}}
+    </div>
+  </div>
+
+  <ng-template #emailJobTemplate let-job="job" let-emailJob="emailJob" >
+    <div class="btn btn-primary-borrower btnApplyJob" (click)="emailJob(job.email, job.position, job.country)">
+      <div class="block pull-left">
+        {{ 'career.current-openings.button' | translate }}
+      </div>
+      <div class="white-right-arrow-icon arrow-icon pull-right margin-top-5">
+      </div>
+    </div>
+    <div class="hr-email">{{ 'career.current-openings.email-text' | translate }}
+      <strong>{{ job.email}}</strong>
+    </div>
+  </ng-template>
+  <ng-template #openExternalSiteTemplate let-job="job">
+    <a href="{{job.externalLink}}" target="_career" class="btn btn-primary-borrower btnApplyJob">
+      <div class="block pull-left">
+        {{ 'career.current-openings.button' | translate }}
+      </div>
+      <div class="white-right-arrow-icon arrow-icon pull-right margin-top-5">
+      </div>
+    </a>
+  </ng-template>
+
+  <div class="row">
+    <div *ngFor="let job of filteredJobs; let i = index" id="{{job.id}}">
+      <label class="collapsed" for="job{{i}}" [ngClass]="{' active': job.expand }">
+        <div class="pull-left faq-arrow-right" [ngClass]="{' faq-arrow-right': !job.expand, 'faq-arrow-bottom margin-top-5 ': job.expand}"></div>
+        <div class="pull-left font-size-16">{{job.position}}</div>
+        <div class="col-xs-12 col-sm-1 text-right pull-right margin-right-20 font-size-14">{{job.country}}</div>
+      </label>
+      <input id="job{{i}}" type="checkbox" [checked]="job.expand" (change)="job.expand = !job.expand">
+      <div class="well-lg">
+        <div class="margin-bottom-20" [innerHTML]="job.description"></div>
+        <ng-container *ngIf="job.externalLink !== ''">
+          <ng-container *ngTemplateOutlet="openExternalSiteTemplate; context: { $implicit: this, job: job }"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="job.externalLink === ''">
+          <ng-container *ngTemplateOutlet="emailJobTemplate; context: { $implicit: this, job: job, emailJob:emailJob.bind(this) }"></ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+<newsletter *ngIf="jobDetailPage"></newsletter>
+<modal id="ApplyJobModal" class="fs-modal fs-modal__open fs-modal--hidden">
+  <div class="fs-modal__background" (click)="this.closeModal('ApplyJobModal')"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered repayment-dialog">
+    <div class="fs-modal__content">
+      <div class="fs-modal__header fs-modal__header--noborder">
+        <h5 class="fs-modal__title fs-modal__title--centered">
+          {{ 'form.apply-for-job.title' | translate }}
+        </h5>
+        <div type="button" class="fs-modal__close" (click)="this.closeModal('ApplyJobModal')"></div>
+      </div>
+      <div class="text-center transparant-text light-gray-text margin-bottom-20 font-size-12">
+        {{ 'career.current-openings.position' | translate }} : (Modalku) Senior Back-End Developer
+      </div>
+      <div class="Gilroy-SemiBold font-size-18" style="color:#4a4a4a">
+        {{ 'form.apply-for-job.personal-information' | translate }}
+      </div>
+      <div class="light-gray-text font-size-12 margin-bottom-15">
+        {{ 'form.apply-for-job.personal-information-caption' | translate }}
+      </div>
+      <div class="form-group sign-up-group pull-left">
+        <label>{{ 'form.apply-for-job.placeholder.first-name' | translate }}</label>
+        <input type="text" class="form-control sign-up-form">
+      </div>
+      <div class="form-group sign-up-group pull-right">
+        <label>{{ 'form.apply-for-job.placeholder.last-name' | translate }}</label>
+        <input type="text" class="form-control sign-up-form">
+      </div>
+
+      <div class="col-xs-12 col-md-12 padding-null">
+        <div class="col-xs-12 form-group sign-up-group full-width">
+          <label>{{ 'form.apply-for-job.placeholder.email' | translate }}</label>
+          <input type="text" class="form-control sign-up-form">
+        </div>
+        <div class="col-xs-12 form-group sign-up-group full-width">
+          <label>{{ 'form.apply-for-job.placeholder.mobile-number' | translate }}</label>
+          <input type="text" class="form-control sign-up-form">
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-12 padding-null">
+        <div class="form-group sign-up-group full-width">
+          <label class="resume-upload-label">{{ 'form.apply-for-job.resume-upload' | translate }}</label>
+          <div class="form-control sign-up-form">
+            <div class="col-md-1 padding-null">
+              <div class="file-upload-icon pull-left">
+              </div>
+            </div>
+            <div class="resume-upload-file-accepted-label col-md-10 font-size-12">
+              {{ 'form.apply-for-job.file-accepted' | translate }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 padding-null Gilroy-SemiBold margin-bottom-20">
+          <div class="btn pull-left" style="background-color: #4a4a4a;color: #ffffff;border-radius:0">
+            {{ 'form.apply-for-job.button-resume-upload' | translate }}
+          </div>
+        </div>
+        <div class="col-md-12 padding-null">
+          <div class="btn btn-primary-investor full-width">
+            {{ 'form.apply-for-job.application-submit' | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>

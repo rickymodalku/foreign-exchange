@@ -1,0 +1,55 @@
+<div class="container-fluid fs-response">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+      <div class="Gilroy-SemiBold font-size-32">
+        {{ 'response.title' | translate }}
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+      <div class="transparant-text">
+        {{ 'response.caption' | translate }}
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-10 col-md-6 col-lg-6 fs-response-rating-box">
+      <div class="col-xs-12 hidden-sm hidden-md hidden-lg text-bold title">
+        Rate by Category
+      </div>
+      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-7 hidden-xs">
+        <div class="text-bold margin-bottom-20 title">
+          {{ 'response.feedback-category' | translate }}
+        </div>
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 hidden-xs">
+        <div class="text-bold margin-bottom-20 title">
+          {{ 'response.rating' | translate }}
+        </div>
+      </div>
+      <div *ngFor="let feedback of feedbackList">
+        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-7">
+          {{ feedback.title }}
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+          <i class="fa fa-star fa-fw rating" [ngClass]="{ 'rating-active': feedback.value >= 1 }" (click)="selectRating(feedback, 1)"></i>
+          <i class="fa fa-star fa-fw rating" [ngClass]="{ 'rating-active': feedback.value >= 2 }" (click)="selectRating(feedback, 2)"></i>
+          <i class="fa fa-star fa-fw rating" [ngClass]="{ 'rating-active': feedback.value >= 3 }" (click)="selectRating(feedback, 3)"></i>
+          <i class="fa fa-star fa-fw rating" [ngClass]="{ 'rating-active': feedback.value >= 4 }" (click)="selectRating(feedback, 4)"></i>
+          <i class="fa fa-star fa-fw rating" [ngClass]="{ 'rating-active': feedback.value >= 5 }" (click)="selectRating(feedback, 5)"></i>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 margin-top-20">
+        <textarea id="responseText" type="text" class="form-control" rows="5" style="resize:none;" [(ngModel)]="responseModel.comment"></textarea>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 margin-top-20 text-center">
+        <div *ngIf="showFeedbackButton" class="btn btn-primary-investor" (click)="saveFeedback()">
+          {{ 'response.button' | translate }}
+        </div>
+        <div *ngIf="showOverviewButton" class="btn btn-primary-investor" (click)="goOverview()">
+          <div class="btn-text-arrow">
+            {{ 'response.overview-button' | translate }}
+          </div>
+          <div class="white-right-arrow-icon arrow-icon pull-right margin-top-5"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

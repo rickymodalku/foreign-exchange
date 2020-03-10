@@ -1,0 +1,20 @@
+<div class="container-fluid padding-null">
+  <div class="row-fluid fs-container-statement-header">
+    <div class="pull-left statement-header-title col-md-4">
+      <strong class="font-size-28">{{ 'statement.title' | translate }}</strong>
+      <div class="statement-header-subtitle">
+        {{ 'statement.sub-title' | translate }}
+      </div>
+    </div>
+  </div>
+  <div class="row-fluid statement-menu-row">
+    <span role="button" [ngClass]="{ 'active' : activeTab==='monthly' }" (click)="changeTab('monthly')">{{ 'statement.tabs.monthly' | translate}}</span>
+    <span role="button" *ngIf="CONFIGURATION.showTaxInvoice" [ngClass]="{ 'active' : activeTab==='invoice' }" (click)="changeTab('invoice')">{{ 'statement.tabs.tax-invoice' | translate }}</span>
+  </div>
+  <div class="row list-box col-xs-12 col-sm-12 col-md-12 col-lg-12 content-center padding-null" *ngIf="activeTab==='monthly'">
+    <statement-list></statement-list>
+  </div>
+  <div class="row list-box col-xs-12 col-sm-12 col-md-6 col-lg-6 content-center" *ngIf="activeTab==='invoice'">
+    <invoice-list></invoice-list>
+  </div>
+</div>

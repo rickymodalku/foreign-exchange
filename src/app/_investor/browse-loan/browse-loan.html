@@ -1,0 +1,672 @@
+<div class="container-fluid browse-loan-container">
+  <sg-reverification-banner *ngIf="countryCode === 'SG'"></sg-reverification-banner>
+  <div *ngIf="showInvestorExposureBanner && showInvestorBanner"
+    class="row fs-investor-exposure-banner fs-box-shadow warning d-flex"
+    [ngClass]="{ 'alert' : showSecondWarningMessage }">
+    <div class="col-xs-2 col-sm-1 padding-null d-flex justify-content-center align-items-center">
+      <div class="banner-icon pull-right" [ngClass]="{ 'small' : !isExposureWarningExpanded }">
+        <i class="fa fa-exclamation" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="col-xs-11">
+      <span class="banner-title Gilroy-SemiBold font-size-24">
+        {{ 'browse-loan.investor-exposure.title' | translate }}
+      </span>
+      <br>
+      <span class="banner-caption"
+        *ngIf="!showSecondWarningMessage ||
+              (showSecondWarningMessage && isExposureWarningExpanded)"
+        [ngClass]=" { 'light-gray-text' : !showSecondWarningMessage }"
+        [innerHtml]="investorExposureBannerCaption">
+      </span>
+    </div>
+    <div class="d-flex"
+          role="button"
+          (click)="isExposureWarningExpanded = !isExposureWarningExpanded"
+          *ngIf="showSecondWarningMessage">
+      <i class="fa  d-flex justify-content-center align-items-center"
+          [ngClass]="{ 'fa-chevron-down' : !isExposureWarningExpanded, 'fa-chevron-up' : isExposureWarningExpanded  }">
+      </i>
+    </div>
+  </div>
+
+  <div class="row fs-browse-loan-header-container">
+    <div class="title">
+      {{ 'browse-loan.header.title' | translate }}
+    </div>
+    <div class="caption">
+      {{ totalAllLoans }} {{ 'browse-loan.header.funding-opportunity' | translate }}
+    </div>
+  </div>
+
+  <div class="row fs-browse-loan-header-container sticky">
+    <div class="col-xs-12 col-sm-11 d-flex padding-null">
+      <div class="fs-browse-loan-type-selection" *ngFor="let loanType of loanTypes"
+        [ngClass]="{ 'selected': loanType.active }" (click)="changeLoanType(loanType.identifier)" role="button">
+        <span>{{ loanType.label }}</span>
+        <div class="circle-number-information d-inline-block">
+          {{ loanType.fundedLoanCount }}</div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-1 d-flex justify-content-flex-end">
+      <div class="btn fs-refresh-button fs-box-shadow" role="button" (click)="changeLoanType(currentLoanType,true)">
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="row loan-card-container padding-null">
+    <div class="loan-card-view" *ngIf="activeLoan?.fundedLoanCount > 0">
+      <div class="row" *ngIf="getfilterLoanLength(displayedLoan, loanStatusFilter.FUNDING)">
+        <div class=" col-xs-12 padding-null">
+          <div class="circle-text blue d-inline-block">
+            <i class="fa fa-dollar"></i>
+          </div>
+          <span><b>{{ 'browse-loan.loan-card.crowdfunding-now' | translate }}</b></span>
+        </div>
+        <div class="fs-loan-card col-sm-6 col-xs-12 padding-null"
+          [ngClass]="{ 'with-extra-column' : countryCode === 'ID' }"
+          *ngFor="let data of filterLoan(displayedLoan, loanStatusFilter.FUNDING)">
+          <ng-container *ngTemplateOutlet="loancard;context:{ data: data }"></ng-container>
+        </div>
+      </div>
+      <div class="row" *ngIf="getfilterLoanLength(displayedLoan, loanStatusFilter.PRECF) > 0">
+        <div class="col-xs-12 padding-null">
+          <div class="circle-text yellow d-inline-block">
+            <i class="fa fa-clock-o"></i>
+          </div>
+          <span><b>{{ 'browse-loan.loan-card.starting-soon' | translate }}</b></span>
+        </div>
+        <div class="fs-loan-card col-sm-6 col-xs-12 padding-null"
+          [ngClass]="{ 'with-extra-column' : countryCode === 'ID' }"
+          *ngFor="let data of filterLoan(displayedLoan, loanStatusFilter.PRECF)">
+          <ng-container *ngTemplateOutlet="loancard;context:{ data: data }"></ng-container>
+        </div>
+      </div>
+      <div class="row" *ngIf="getfilterLoanLength(displayedLoan, loanStatusFilter.SUCCESS) > 0">
+        <div class="col-xs-12 padding-null">
+          <div class="circle-text gray d-inline-block">
+            <i class="fa fa-check"></i>
+          </div>
+          <span><b>{{ 'browse-loan.loan-card.completed' | translate }}</b></span>
+        </div>
+        <div class="fs-loan-card col-sm-6 col-xs-12 padding-null"
+          [ngClass]="{ 'with-extra-column' : countryCode === 'ID' }"
+          *ngFor="let data of filterLoan(displayedLoan, loanStatusFilter.SUCCESS)">
+          <ng-container *ngTemplateOutlet="loancard;context:{ data: data }"></ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="loan-card-view empty-loan" *ngIf="activeLoan?.fundedLoanCount === 0">
+      <ng-container *ngTemplateOutlet="EmptyLoan"></ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #loancard let-data="data">
+  <div class="fs-loan-card__wrap col-xs-12 padding-null fs-box-shadow">
+    <div class="fs-loan-card__body col-xs-12">
+      <div [ngClass]="{ 'pull-right' : data?.simulate_loan , 'pull-left' : !data?.simulate_loan }">
+        <div class="d-flex column-direction">
+          <span class="d-flex row-direction">
+            <div *ngIf="data?.is_exclusive" class="exclusive-loan-icon tooltip-top tooltip-exclusive-loan" [attr.data-tooltip]="('browse-loan.loan-card.tooltip.exclusive-loan' | translate)">
+            </div>
+            {{ data.loan_code }}
+            <ng-container *ngIf="checkFactSheetDownloadable(data.factsheet,data.show_factsheet) && accountActivated">
+              <div class="pull-right pdf-icon margin-left-10"
+                (click)="download(data.factsheet, '(FACTSHEET) ' + data.loan_code)"></div>
+            </ng-container>
+          </span>
+          <span *ngIf="data.grade && countryCode === 'ID'" class="loan-grade">
+            {{ 'browse-loan.loan-card.loan-grade' | translate }}: {{ data.grade }}
+          </span>
+        </div>
+      </div>
+      <div *ngIf="data.funding_status !== 3"
+        [ngClass]="{ 'pull-right' : !data?.simulate_loan , 'pull-left' : data?.simulate_loan }" role="button"
+        (click)="data.simulate_loan = !data.simulate_loan">
+        <span *ngIf="!data?.simulate_loan">{{ 'browse-loan.loan-card.simulate-returns' | translate }}</span>
+        <i class="fa margin-left-5"
+          [ngClass]="{ 'fa-chevron-right ' : !data?.simulate_loan , 'fa-chevron-left' : data?.simulate_loan }"></i>
+      </div>
+    </div>
+    <div class="fs-loan-card__investment-caption col-xs-12 d-flex">
+      <span *ngIf="data.loan_card_caption_type === this.loanCardCaptionType.DEFAULT">
+        {{ 'browse-loan.loan-card.you-have-invested' | translate }}
+        <span
+          class="fs-browse-loan-green-text">{{ currency }}{{ data.past_invested  | number: decimalFormat: localeDecimalFormat }}</span>
+        {{ 'browse-loan.loan-card.in-this-loan' | translate }}
+      </span>
+      <span *ngIf="data.loan_card_caption_type === this.loanCardCaptionType.PRECF">
+        {{ 'browse-loan.loan-card.the-crowdfund-will-start-at' | translate }}
+        <span class="fs-loan-card__investment-caption-crowdfund-time">
+          {{ data.crowdFundingTime | date: 'dd MMM yyyy HH:mm' }}
+        </span>
+      </span>
+      <ng-container *ngIf="data.loan_card_caption_type === this.loanCardCaptionType.DEPOSIT">
+        <div>
+          {{ 'browse-loan.loan-card.your-balance-is-too-low' | translate }}
+        </div>
+        <div routerLink="/admin-investor/deposit" role="button">
+          <a>{{ 'navigation.deposit' | translate }}</a>
+        </div>
+      </ng-container>
+    </div>
+    <ng-container *ngIf="data?.has_opt_out">
+      <div class="col-xs-12 auto-invest-rejection--title border-bottom-gray-100">
+        <div class="pull-left d-flex column-direction col-xs-12 padding-null">
+          <span class="title">{{ 'browse-loan.grid.auto-invest-opt-out' | translate }}</span>
+          <span class="caption">{{ 'browse-loan.grid.opt-out-confirmation' | translate }}</span>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="data?.can_opt_out">
+      <div class="col-xs-12 auto-invest-rejection--title">
+        <div class="pull-left opt-out">
+          {{ 'browse-loan.grid.autobot' | translate }}
+          <br>
+          <div>
+            <b>
+              {{ currency }}
+              {{ data.auto_CF_Amount | number: '': browseLoanModel.localeDecimalFormat }}
+            </b>
+          </div>
+        </div>
+        <div *ngIf="showOptOutOption" class="pull-right btn btn-tertiary" (click)="optOutAutoInvestment($event, data)">
+          {{ 'browse-loan.grid.btn-opt-out' | translate }}
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngTemplateOutlet="autoInvestRejectionReasonsTemplate; context:{ 'loan': data }"></ng-container>
+    <!-- Setup if there is no auto-invest setting and there is no previous auto investment rejection reason -->
+    <ng-container
+      *ngIf="!isExistAutoInvestment(data) && data['auto_investment_rejection_reason']['translation'] === '' ">
+      <ng-container *ngTemplateOutlet="autoInvestSetupTemplate"></ng-container>
+    </ng-container>
+    <ng-container *ngIf="!data?.simulate_loan">
+      <div class="col-xs-12 fs-loan-card__body">
+        <!-- <div class="col-xs-6 padding-null d-flex column-direction">
+          <div class="fs-loan-card__body-caption padding-null"> {{ 'browse-loan.loan-card.borrower-id' | translate }} </div>
+          <div class="fs-loan-card__body-value padding-null"> {{ data?.borrower_id }} </div>
+        </div> -->
+        <div class="col-xs-12 padding-null d-flex column-direction"
+          *ngIf="data?.loan_status === loanStatusFilter.FUNDING">
+          <div class="fs-loan-card__body-caption padding-null"> {{ 'browse-loan.loan-card.day-left' | translate }}
+          </div>
+          <div class="fs-loan-card__body-value padding-null"> {{ data.crowdFundingTime_Left }}
+            {{ 'browse-loan.loan-card.days' | translate }}
+          </div>
+        </div>
+        <div class="col-xs-6 padding-null d-flex column-direction min-h-75">
+          <div class="fs-loan-card__body-caption margin-top padding-null">
+            {{ 'browse-loan.loan-card.type' | translate }} </div>
+          <div class="fs-loan-card__body-value padding-null"> {{ getLoanName(data?.loan_type) }} </div>
+        </div>
+        <div class="col-xs-6 padding-null d-flex column-direction min-h-75">
+          <div class="fs-loan-card__body-caption margin-top padding-null">
+            {{ 'browse-loan.loan-card.industry' | translate }}
+          </div>
+          <div class="fs-loan-card__body-value padding-null"> {{ data.industry ? data.industry : '-' }}
+          </div>
+        </div>
+        <div class="col-xs-6 padding-null d-flex column-direction">
+          <div class="fs-loan-card__body-caption margin-top padding-null">
+            {{ 'browse-loan.loan-card.funded' | translate }} ({{ currency }}) </div>
+          <div class="fs-loan-card__body-value padding-null">
+            {{ data.totalinvested | number: '' : browseLoanModel.localeDecimalFormat }} </div>
+        </div>
+        <div class="col-xs-6 padding-null d-flex column-direction">
+          <div class="fs-loan-card__body-caption margin-top padding-null">
+            {{ 'browse-loan.loan-card.goal' | translate }} ({{ currency }})
+          </div>
+          <div class="fs-loan-card__body-value padding-null">
+            {{ data.loan_amount | number: '' : browseLoanModel.localeDecimalFormat }}
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <div class="col-xs-12 padding-null" *ngIf="data?.fundingProgress > 0 && !data?.simulate_loan">
+      <div class="fs-loan-card__loan-progress" [style.width.%]="data?.fundingProgress">
+      </div>
+    </div>
+    <div class="fs-loan-card__body col-xs-12" [ngClass]="{ 'gray': !data?.simulate_loan }">
+      <ng-container>
+        <div class="col-xs-6 padding-null d-flex column-direction">
+          <div class="fs-loan-card__body-caption padding-null">{{ 'browse-loan.loan-card.per-annum' | translate }}
+          </div>
+          <div class="fs-loan-card__body-value padding-null"> {{ data?.interest_rate }}% </div>
+        </div>
+        <div class="col-xs-6 padding-null d-flex column-direction">
+          <div class="fs-loan-card__body-caption padding-null"> {{ getTenorTypeLabel(data.tenor_type) }} </div>
+          <div class="fs-loan-card__body-value padding-null"> {{ data.tenor_length }} </div>
+        </div>
+        <div class="col-xs-6 padding-null d-flex column-direction">
+          <div class="fs-loan-card__body-caption margin-top padding-null">
+            {{ 'browse-loan.loan-card.min-investment' | translate }} ({{ currency }}) </div>
+          <div class="fs-loan-card__body-value padding-null">
+            {{ data.min_invest | number: '' : browseLoanModel.localeDecimalFormat }}
+          </div>
+        </div>
+        <div class="col-xs-6 padding-null d-flex column-direction">
+          <div class="fs-loan-card__body-caption margin-top padding-null">
+            {{ 'browse-loan.loan-card.max-investment' | translate }} ({{ currency }}) </div>
+          <div class="fs-loan-card__body-value padding-null">
+            {{ data.max_invest | number: '' : browseLoanModel.localeDecimalFormat }}
+          </div>
+        </div>
+        <div class="col-xs-6 padding-null d-flex column-direction" *ngIf="data?.loan_type === productGroupId?.businessTermLoan">
+          <div class="fs-loan-card__body-caption margin-top padding-null">
+            {{ 'browse-loan.loan-card.effective-interest-rate' | translate }}</div>
+          <div class="fs-loan-card__body-value padding-null">
+            {{ data.interest_rate_effective }}%
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <ng-container *ngIf="data?.simulate_loan">
+      <div class="fs-loan-card__body col-xs-12 gray">
+        <div class="fs-loan-card__body-simulate-loan-caption col-xs-12 padding-null">
+          <span *ngIf="!data.simulate_loan_amount_result || !data.simulate_loan_amount">
+            {{ 'browse-loan.loan-card.simulate-returns-caption' | translate }}
+          </span>
+          <span *ngIf="data.simulate_loan_amount_result && data.simulate_loan_amount">
+            {{ 'browse-loan.loan-card.in' | translate }} {{ data.tenor_length }}
+            {{ getTenorTypeLabel(data.tenor_type) }},
+            {{ 'browse-loan.loan-card.you-will-receive-principal' | translate }} {{ currency }}
+            {{ data.simulate_loan_amount }}
+            {{ 'browse-loan.loan-card.and-a' | translate }}
+            <span class="fs-browse-loan-green-text">
+              {{ 'browse-loan.loan-card.total-interest' | translate }} {{ currency }}
+              {{ data.simulate_loan_amount_result }}
+              ({{ 'browse-loan.loan-card.before-fee' | translate }})
+            </span>
+          </span>
+        </div>
+        <div class="fs-loan-card__body-simulate-loan-input col-xs-12 padding-null">
+          <input class="textbox-no-border full-width" type="text" [(ngModel)]="data.simulate_loan_amount"
+            (keyup)="autoFormatAmount(data.simulate_loan_amount,data.loan_id)"
+            (ngModelChange)='getSimulateLoanAmount(data.simulate_loan_amount,data.interest_rate,data.tenor_length,data.tenor_type,data.loan_id)' />
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="data.funding_status === 1 && data.loan_status === loanStatusFilter.FUNDING">
+      <div class="fs-loan-card__footer col-xs-12">
+        <div *ngIf="data.crowdFundingTime_Left > 0 && accountActivated;else browse_loan_disabled"
+          class="btn btn-primary-investor full-width" (click)="openInvestmentDialog(data)">
+          {{ 'browse-loan.loan-card.invest' | translate }}
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #browse_loan_disabled>
+      <div class="btn btn-primary-investor full-width btn-disabled">
+        {{ 'browse-loan.grid.button' | translate }}
+      </div>
+    </ng-template>
+    <div class="fs-loan-card__footer" [ngClass]="{ 'col-xs-12' : data.loan_status === loanStatusFilter.PRECF }"
+      *ngIf="data?.history_number_of_investment > 0 && !data.simulate_loan">
+      <span class="fs-loan-card__body-footer-exposure">
+        {{ 'browse-loan.grid.invested' | translate }}
+        {{ currency }}{{ data?.history_total_investment_amount | number: browseLoanModel.decimalFormat: browseLoanModel.localeDecimalFormat }}
+        {{ 'browse-loan.grid.in-this-borrower' | translate }} {{ data?.history_number_of_investment }}
+        {{ 'browse-loan.grid.times-before' | translate }}.<br />
+        {{ 'browse-loan.grid.of-which' | translate }}
+        {{ currency }}{{ data?.exposure | number: browseLoanModel.decimalFormat: browseLoanModel.localeDecimalFormat }}
+        {{ 'browse-loan.grid.is-outstanding-in' | translate }} {{ data?.loan_number_with_exposure }}
+        {{ 'browse-loan.grid.loans' | translate }}.
+      </span>
+    </div>
+    <div class="fs-loan-card__footer" *ngIf="data.simulate_loan">
+      <span class="fs-loan-card__body-footer-simulate-loan">
+        {{ 'browse-loan.loan-card.by-using-this-service' | translate }}
+        <span class="fs-loan-card__body-footer-simulate-loan-highlighted"
+          (click)="openModal('simulateReturnDisclaimer')" role="button">
+          {{ 'browse-loan.loan-card.disclaimer-for-simulate-returns' | translate }}
+        </span>
+      </span>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #EmptyLoan>
+  <div class="row">
+    <div class="fs-browse-loan__empty-loan col-xs-12">
+      <div class="col-xs-12 col-sm-4  ">
+        <div class="fs-money-icon">
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <div class="title Gilroy-SemiBold">
+          {{ 'browse-loan.no-loan.section-1-title' | translate }}
+        </div>
+        <div class="caption">
+          {{ 'browse-loan.no-loan.section-1-caption' | translate }}
+          <ul class="aligned-padding-inline">
+            <li>
+              {{ 'browse-loan.no-loan.section-1-list-2-go-to' | translate }}
+              <a href="{{ blogUrl }}" target="_blank">{{ 'browse-loan.no-loan.section-1-list-2-blog' | translate }}</a>
+              {{ 'browse-loan.no-loan.section-1-list-2-recent-post' | translate }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="fs-browse-loan__empty-loan padding-top col-xs-12">
+      <div class="col-xs-12 col-sm-4">
+        <div class="fs-people-talk-icon">
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-5">
+        <div class="title Gilroy-SemiBold">
+          {{ 'browse-loan.no-loan.section-2-title' | translate }}
+        </div>
+        <div class="caption margin-bottom">
+          {{ 'browse-loan.no-loan.section-2-caption' | translate }}
+        </div>
+        <div class="btn btn-primary-referral">
+          {{ 'browse-loan.no-loan.section-2-button' | translate }}
+          <i class="fa fa-arrow-right">
+          </i>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- AUTO INVEST REJECTION TEMPLATES -->
+<ng-template #autoInvestDepositTemplate let-loan="loan">
+  <div class="col-xs-12 auto-invest-rejection--title">
+    <div class="pull-left d-flex column-direction col-xs-9 padding-null">
+      <span class="title">{{ 'browse-loan.grid.auto-invest-unsuccessful' | translate }}</span>
+      <span class="caption">{{ 'browse-loan.grid.insufficient-account-balance' | translate }}</span>
+      <a role="button" class="no-underline" (click)="goToAALearnMore()" *ngIf="learnMoreAALink !==''">
+        {{ 'browse-loan.grid.learn-more' | translate }}
+      </a>
+    </div>
+    <div id="auto-invest-deposit" class="pull-right btn btn-tertiary d-flex justify-content-flex-end"
+      routerLink="/admin-investor/deposit">
+      {{ 'browse-loan.grid.btn-deposit' | translate }}
+    </div>
+  </div>
+</ng-template>
+<ng-template #autoInvestWrongSettingsSetupTemplate let-loan="loan">
+  <div class="col-xs-12 auto-invest-rejection--title">
+    <div class="pull-left d-flex column-direction col-xs-9 padding-null">
+      <span class="title">{{ 'browse-loan.grid.auto-invest-unsuccessful' | translate }}</span>
+      <span class="caption">{{ loan?.auto_investment_rejection_reason.translation }}</span>
+      <a role="button" class="no-underline" (click)="goToAALearnMore()" *ngIf="learnMoreAALink !==''">
+        {{ 'browse-loan.grid.learn-more' | translate }}
+      </a>
+    </div>
+    <div id="auto-invest-setup" class="pull-right btn btn-tertiary d-flex justify-content-flex-end"
+      routerLink="/admin-investor/setting/auto-investment">
+      {{ 'browse-loan.grid.btn-setup' | translate }}
+    </div>
+  </div>
+</ng-template>
+<ng-template #autoInvestSetupTemplate>
+  <div class="col-xs-12 auto-invest-rejection--title">
+    <div class="pull-left d-flex column-direction">
+      <span [ngClass]="{ 'margin-top-10' : learnMoreAALink ==='' }">
+        {{ 'browse-loan.grid.auto-invest-not-setup' | translate }}
+      </span>
+    </div>
+    <div id="auto-invest-setup" class="pull-right btn btn-tertiary d-flex justify-content-flex-end"
+      routerLink="/admin-investor/setting/auto-investment">
+      {{ 'browse-loan.grid.btn-setup' | translate }}
+    </div>
+  </div>
+</ng-template>
+<ng-template #autoInvestRejectionTemplate let-loan="loan">
+  <div class="col-xs-12 auto-invest-rejection--title">
+    <div class="pull-left d-flex column-direction">
+      <span class="title">{{ 'browse-loan.grid.auto-invest-unsuccessful' | translate }}</span>
+      <span class="caption">{{ loan?.auto_investment_rejection_reason.translation }}</span>
+      <a role="button" class="no-underline" (click)="goToAALearnMore()" *ngIf="learnMoreAALink !==''">
+        {{ 'browse-loan.grid.learn-more' | translate }}
+      </a>
+    </div>
+  </div>
+</ng-template>
+<ng-template #autoInvestRejectionReasonsTemplate let-loan="loan">
+  <!-- Auto-invest rejection reason -->
+  <ng-container *ngIf="loan['auto_investment_rejection_reason']['translation'] !== ''
+      && loan['auto_investment_rejection_reason']['raw']
+      && loan['auto_investment_rejection_reason']['raw']['message'] !== ''
+    ">
+    <ng-container [ngSwitch]="loan.auto_investment_rejection_reason['raw']['message']">
+      <!-- Deposit if there is not enough balance -->
+      <ng-container
+        *ngSwitchCase="[
+            'auto_allocation_insufficient_balance_for_prorated_amount',
+            'auto_allocation_insufficient_balance_for_minimum',
+            'auto_allocation_insufficient_balance_for_preference'
+            ].includes(loan.auto_investment_rejection_reason['raw']['message']) ? loan.auto_investment_rejection_reason['raw']['message']: ''">
+        <ng-container *ngTemplateOutlet="autoInvestDepositTemplate; context:{ 'loan': loan }"></ng-container>
+      </ng-container>
+      <!-- Setup if the settings are not correct -->
+      <ng-container
+        *ngSwitchCase="[
+            'auto_allocation_invalid_amount_preference',
+            'auto_allocation_preferred_amount_less_than_minimum',
+            'auto_allocation_unsupported_amount_preference'
+          ].includes(loan.auto_investment_rejection_reason['raw']['message'])? loan.auto_investment_rejection_reason['raw']['message']: ''">
+        <ng-container *ngTemplateOutlet="autoInvestWrongSettingsSetupTemplate; context:{ 'loan': loan }">
+        </ng-container>
+      </ng-container>
+      <!-- Other rejection reason -->
+      <ng-container *ngSwitchDefault>
+        <ng-container *ngTemplateOutlet="autoInvestRejectionTemplate; context:{ 'loan': loan}"></ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="loan['auto_investment_rejection_reason']['translation'] === ''
+      && loan['auto_investment_rejection_reason']['raw']
+      && loan['auto_investment_rejection_reason']['raw']['message'] === ''
+    ">
+    <div class="col-xs-12 auto-invest-rejection--title">
+      <div class="pull-left d-flex column-direction">
+        <span class="title">{{ 'browse-loan.grid.auto-invest-unsuccessful' | translate }}</span>
+        <span class="caption">{{ 'browse-loan.grid.not-allocated' | translate }}</span>
+      </div>
+    </div>
+  </ng-container>
+
+</ng-template>
+<!-- AUTO INVEST REJECTION TEMPLATES -->
+
+
+<modal id="simulateReturnDisclaimer" class="fs-modal fs-modal__open fs-modal--hidden">
+  <div class="fs-modal__background" (click)="closeModal('simulateReturnDisclaimer')"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered repayment-dialog">
+    <div class="fs-modal__content">
+      <div class="fs-modal__header fs-modal__header--noborder">
+        <div type="button" class="fs-modal__close" (click)="closeModal('simulateReturnDisclaimer')"></div>
+      </div>
+      <div class="col-xs-12 simulate-return-disclaimer__container">
+        <div class="col-xs-12 simulate-return-disclaimer__title">
+          <b>{{ 'browse-loan.simulate-returns.title' | translate }}</b>
+        </div>
+        <div class="col-xs-12 simulate-return-disclaimer__content"
+          [innerHtml]="('browse-loan.simulate-returns.content' | translate)">
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+
+
+<modal id="investmentConfirm" class="fs-modal fs-modal__open fs-modal--hidden">
+  <div class="fs-modal__background" (click)="closeModal('investmentConfirm')"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered repayment-dialog">
+    <div class="fs-modal__content">
+      <div class="fs-modal__content--wapper">
+        <div class="fs-modal__header fs-modal__header--noborder">
+          <div class="col-xs-12 text-center d-flex justify-content-center column-direction">
+            <div class="fs-modal__header--balance"><b>{{ currency }}{{ browseLoanModel.balance | number:'': countryCode === 'ID' ? 'id' : 'en' }}</b></div>
+            <div class="fs-modal__header--caption">{{ 'browse-loan.loan-card.balance-amount' | translate }}</div>
+          </div>
+          <div type="button" class="fs-modal__close" (click)="closeModal('investmentConfirm')"></div>
+        </div>
+        <div class="col-xs-12 fs-modal__content--invested-loan"
+          *ngIf="browseLoanModel?.selectedLoan?.history_total_investment_amount > 0">
+          {{ 'browse-loan.grid.invested' | translate }}
+          {{ currency }}{{ browseLoanModel?.selectedLoan?.history_total_investment_amount | number: browseLoanModel.decimalFormat: browseLoanModel.localeDecimalFormat }}
+          {{ 'browse-loan.grid.in-this-borrower' | translate }}
+          {{ browseLoanModel?.selectedLoan?.history_number_of_investment }}
+          {{ 'browse-loan.grid.times-before' | translate }}.
+          {{ 'browse-loan.grid.of-which' | translate }}
+          {{ currency }}{{ browseLoanModel?.selectedLoan?.exposure | number: browseLoanModel.decimalFormat: browseLoanModel.localeDecimalFormat }}
+          {{ 'browse-loan.grid.is-outstanding-in' | translate }}
+          {{ browseLoanModel?.selectedLoan?.loan_number_with_exposure }}
+          {{ 'browse-loan.grid.loans' | translate }}.
+        </div>
+        <div class="col-xs-12 fs-modal__content--investment-information">
+          <div class="d-flex justify-content-space-between">
+            <span
+              class="fs-modal__content--investment-caption">{{ 'browse-loan.loan-card.min-investment' | translate }}</span>
+            <span>{{ browseLoanModel?.selectedLoan?.min_invest | number: browseLoanModel.decimalFormat: browseLoanModel.localeDecimalFormat }}</span>
+          </div>
+          <div class="d-flex justify-content-space-between">
+            <span
+              class="fs-modal__content--investment-caption">{{ 'browse-loan.loan-card.max-investment' | translate }}</span>
+            <span>{{ browseLoanModel?.selectedLoan?.max_invest | number: browseLoanModel.decimalFormat: browseLoanModel.localeDecimalFormat }}</span>
+          </div>
+        </div>
+        <div class="col-xs-12 fs-modal__content--investment-validation-message">
+          <span *ngIf="!investmentValidationMessage.show">
+            {{ 'browse-loan.loan-card.please-enter-a-multiple-amount' | translate }}
+            {{ browseLoanModel?.selectedLoan?.multiple_investment | number: browseLoanModel.decimalFormat: browseLoanModel.localeDecimalFormat }}
+          </span>
+          <span class="fs-modal__content--investment-validation-error" *ngIf="investmentValidationMessage.show">
+            <i class="fa fa-exclamation-circle margin-right-5" aria-hidden="true"></i>
+            {{ investmentValidationMessage.message }}
+          </span>
+        </div>
+        <div class="col-xs-12">
+          <form [formGroup]="investmentForm">
+            <div class="form-group sign-up-group" [ngClass]="{ 'error' : investmentValidationMessage.show }">
+              <label>{{ 'browse-loan.investment-confirm.placeholder.amount' | translate }} ({{ currency }})</label>
+              <input (keyup)="autoFormatInvestmentAmount()" autocomplete="off" class="form-control sign-up-form"
+                formControlName="amount" id="amount" name="amount" type="text">
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-xs-12 fs-modal__content--investment-check-box" *ngIf="powerOfAttorney.show">
+        <mat-checkbox *ngIf="powerOfAttorney.show" [(ngModel)]="powerOfAttorney.checked"
+          class="power-of-attorney-checkbox">
+        </mat-checkbox>
+        <div class="mat-checkbox-label">
+          {{ 'browse-loan.investment-confirm.power-of-attorney-1' | translate }}
+          <a class="no-underline" role="button"
+            (click)="onPowerOfAttorneyDisplay(browseLoanModel?.selectedLoan?.loan_id)">
+            {{ 'browse-loan.investment-confirm.power-of-attorney' | translate }}
+          </a>
+          {{ 'browse-loan.investment-confirm.power-of-attorney-2' | translate }}
+        </div>
+      </div>
+      <div class="col-xs-12 fs-modal__content--investment-check-box" *ngIf="satCheckbox.show">
+        <mat-checkbox class="pull-left padding-null col-xs-12" [(ngModel)]="satCheckbox.checked">
+          <div class="fs-modal__content--investment-check-box-label">
+            <span [innerHTML]="( 'browse-loan.investment-confirm.disclaimer-suitability-assessment' | translate )">
+            </span>
+          </div>
+        </mat-checkbox>
+      </div>
+      <div class="col-xs-12 fs-modal__content--investment-check-box" *ngIf="rdsCheckbox.show">
+        <mat-checkbox class="pull-left padding-null col-xs-12" [(ngModel)]="rdsCheckbox.checked">
+          <div class="fs-modal__content--investment-check-box-label">
+            <span [innerHTML]="( 'browse-loan.investment-confirm.risk-disclosure-statement' | translate )">
+            </span>
+          </div>
+        </mat-checkbox>
+      </div>
+      <div class="fs-modal__content--footer">
+        <div class="col-xs-12">
+          <div class="btn btn-primary-investor full-width" [ngClass]="{ 'btn-disabled': (satCheckbox.show && !satCheckbox.checked)
+                                        || (powerOfAttorney.show && !powerOfAttorney.checked)
+                                        || (rdsCheckbox.show && !rdsCheckbox.checked) }" (click)="confirmInvestment()">
+            {{ 'browse-loan.loan-card.confirm-investment' | translate }}
+          </div>
+        </div>
+        <div class="col-xs-12 fs-modal__content--footer-caption" *ngIf="!rdsCheckbox.show">
+          {{ 'browse-loan.loan-card.acknowledge-investment-risk' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+
+
+<modal id="investSuccessDialog" class="fs-investment-success-dialog fs-modal fs-modal__open fs-modal--hidden">
+  <div class="fs-modal__background" (click)="closeModal('investSuccessDialog')"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered">
+    <div class="fs-modal__content">
+      <div class="fs-modal__header fs-modal__header--noborder ">
+        <div type="button" class="fs-modal__close" (click)="closeModal('investSuccessDialog')"></div>
+      </div>
+      <div class="modalPopupBody">
+        <div class="successInvestmentPopup text-center">
+          <div class="successInvestmentPopupHeader d-inline-block">
+            <div class="queue-icon text-center"></div>
+          </div>
+          <div class="successInvestmentPopupBody">
+            <span class="text-bold">
+              {{ 'browse-loan.investment-success.congratulation' | translate }}
+            </span>
+            <br /> {{ 'browse-loan.investment-success.caption-queue' | translate }}
+            <br />
+            <span class="text-bold">{{ browseLoanModel.investedLoanCode }}</span>
+          </div>
+          <div class="Gilroy-SemiBold btn btn-primary-investor full-width margin-top-10"
+            (click)="closeModal('investSuccessDialog')">
+            {{ 'browse-loan.investment-success.close' | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+
+<modal id="powerOfAttorneyModal" class="fs-modal fs-modal__open fs-modal--hidden">
+  <div class="fs-modal__background" (click)="closeModal('powerOfAttorneyModal')"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered">
+    <div class="fs-modal__content">
+      <div class="fs-modal__header fs-modal__header--noborder full-height">
+        <div type="button" class="fs-modal__close" (click)="closeModal('powerOfAttorneyModal')"></div>
+        <div class="col-md-12 full-height">
+          <iframe width="100%" height="100%" frameBorder="0" [srcdoc]="powerOfAttorneyContent"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+
+<modal id="optOutDialog" class="fs-modal fs-modal__open fs-modal--hidden optOutDialog">
+  <div class="fs-modal__background" (click)="closeModal('optOutDialog')"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered">
+    <div class="fs-modal__content opt-out-dialog-content">
+      <div class="fs-modal__header fs-modal__header--noborder ">
+        <div type="button" class="fs-modal__close" (click)="closeModal('optOutDialog')"></div>
+      </div>
+      <div class="d-flex column-direction text-center">
+        <div class="delete-aa-bot-confirmation"></div>
+        <div class="title">
+          <b> {{ 'browse-loan.opt-out.title' | translate }} </b>
+        </div>
+        <div class="caption">
+          {{ 'browse-loan.opt-out.caption' | translate }}
+        </div>
+        <div class="col-xs-12 d-flex justify-content-space-between padding-null">
+          <div class="col-xs-6 btn btn-primary-white investor" (click)="confirmOptOut()">
+            {{ 'browse-loan.opt-out.opt-out' | translate }}
+          </div>
+          <div class="col-xs-6 btn btn-primary-investor" (click)="closeModal('optOutDialog')">
+            {{ 'browse-loan.opt-out.cancel' | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>

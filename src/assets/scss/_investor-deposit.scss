@@ -1,0 +1,494 @@
+.bank-account-dropdown-2 {
+    padding: 0.5em 1em;
+    height: initial !important;
+    line-height: 1.5em !important;
+    display: block;
+}
+
+.deposit-slider-mobile {
+    height: 150px;
+}
+
+.fs-deposit-container {
+    background-color: $universalgray;
+
+    & .subtitle-text {
+        display: none;
+    }
+
+    & .info {
+        color: $lightgray;
+        display: none;
+    }
+
+    & .title {
+        color: black;
+        text-align: left;
+        font-size: $font-32;
+        padding: 8px;
+        background-color: white;
+
+        strong {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+
+    .fs-deposit-box {
+        .mat-select-value {
+            padding-top: 8px;
+        }
+
+        .depositBoxLeftSection {
+            .escrow-detail-box {
+                border-radius: 2px;
+                background-color: #fafbfc;
+                padding: 2em;
+            }
+
+            .columnTitle {
+                border-bottom: solid 1px rgba(196, 196, 196, 0.4);
+            }
+
+            .depositCaption {
+                padding-top: 20px;
+                padding-bottom: 30px;
+                color: #4a4a4a;
+
+                ul {
+                    padding: 0;
+                }
+
+                li {
+                    list-style: none;
+                }
+            }
+        }
+
+        .depositBoxRightSection {
+            .fa-exclamation-triangle{
+                font-size:15em;
+                margin-top:0.3em;
+            }
+            .circle-information {
+                @include circle-text(2em, #252B36, #3d7eff, 14px, white);
+            }
+
+            .depositInformationBox {
+                background-color: #faf2cc;
+                line-height: 1.29;
+                height: auto;
+                padding: 1em 1.2em;
+                margin-bottom: 1em;
+
+                .warning-icon {
+                    display: inline-block;
+                }
+
+                .depositInformationCaption {
+                    color: #8a6d3b;
+                    display: inline-block;
+                }
+            }
+
+            .bankBoxTitle {
+                margin-left: 20px;
+                margin-bottom: 5px;
+                margin-top: 20px;
+            }
+
+            .bankBox {
+                width: 130px;
+                height: 150px;
+                border-radius: 1.8px;
+                background-color: #ffffff;
+                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+                color: inherit;
+                cursor: pointer;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: none;
+                }
+
+                .bankBoxLogo {
+                    width: 80%;
+                    height: 70%;
+                    margin: auto;
+                }
+
+                .bankBoxName {
+                    background-color: #fafafa;
+                    height: 30%;
+                    padding: 10px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+
+    .deposit-upload-box {
+        margin-top: 2em;
+        text-align: center;
+        padding: 3em;
+        background-color: rgba(227, 236, 255, 0.4);
+        border: dashed 2px rgba(61, 126, 255, 0.5);
+
+        .btn {
+            border-radius: 10px !important;
+
+            &.success {
+                background-color: #24c08a;
+            }
+        }
+    }
+
+    .deposit-success-image {
+        box-shadow: inset 0px -200px 233px -32px rgba(255, 255, 255, 1);
+        position: relative;
+
+        .deposit-success-information {
+            right: 0;
+            bottom: 2em;
+            left: 0;
+            margin: auto;
+            position: absolute;
+        }
+    }
+
+    .form-control {
+        height: 50px;
+    }
+
+    mat-select {
+        &.form-control {
+            height: 50px;
+            margin-bottom: 10px;
+            background-color: #fafbfc;
+            border: 1px solid $referral-textbox-gray;
+        }
+    }
+}
+
+.fs-id-deposit-box{
+    background-color:white;
+    border-radius:4px;
+    padding: 2em 2.5em;
+    display: grid;
+    .information-box{
+        padding-bottom:20px;
+        padding-left:0px;
+        padding-right:0px;
+        .title-box{
+            .fs-signup-form{
+                padding:1.5em 0em;
+                background-color:inherit;
+            }
+        }
+        .transfer-way-container {
+          line-height: 2em;
+        }
+        label{
+            font-weight:400 !important;
+            color:#4a4a4a;
+        }
+        &.fs-signup-form{
+          padding: 1.5em 0em;
+          background-color: inherit;
+          height: inherit;
+        }
+    }
+}
+
+.fs-id-deposit-box-info{
+  &.fs-signup-form{
+    padding: 1.5em 0em;
+    background-color: inherit;
+    height: inherit;
+  }
+  .title{
+    font-size: $font-20;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+}
+
+.fpx-benefits {
+  padding: 10px;
+}
+
+.fpx-deposit-header {
+  padding: 10px;
+}
+
+.fpx-transation-detail {
+  padding: 10px;
+}
+
+.fpx-deposit-subtitle {
+  color: $lightgray;
+}
+
+.fs-deposit-options {
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.fs-deposit-option {
+  border-radius: 4px;
+  border: solid 1px #ececec;
+  background-color: white;
+  flex: 1 1 auto;
+  margin: 5px;
+  height: 100px;
+  width: 200px;
+  text-align: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(74, 74, 74, 0.1);
+  }
+
+  &:active {
+    background-color: rgba(74, 74, 74, 0.2);
+  }
+
+  >.fs-deposit-option-logo {
+    width: 100px;
+  }
+
+  >.wallet-balance-logo {
+    height: 50px;
+    margin: 11px auto;
+  }
+
+  >.fpx-logo {
+    height: 70px;
+  }
+}
+
+.fs-deposit-options-title {
+  font-weight: bold;
+  margin: 10px 5px 5px 0px;
+}
+
+.fs-deposit-option-logo {
+  margin: 0 auto;
+}
+
+.fs-deposit-option--selected {
+  border: solid 2px #aaaaaa;
+}
+
+@media #{$phone} {
+    .fs-deposit-box {
+        .dropzone{
+            .dz-preview{
+                display:none;
+            }
+        }
+        .depositBoxContent {
+            .depositBoxLeftSection {
+                border: 1px solid rgba(151, 151, 151, 0.2);
+                border-radius: 10px;
+                margin-top: 20px;
+                background-color: white;
+                .fs-deposit-information-box{
+                    background-color: #fcf8e3;
+                    padding: 0.5em 1em;
+                    font-size:12px;
+                }
+                .caption{
+                    line-height: 3em;
+                    font-size:12px;
+                }
+            }
+
+            .depositBoxRightSection {
+                border: 1px solid rgba(151, 151, 151, 0.2);
+                border-radius: 10px;
+                margin-top: 20px;
+                padding-top: 2em;
+                margin-bottom: 2em;
+                background-color: white;
+                padding-bottom: 15px;
+                .fs-deposit-note-box{
+                    border-radius: 2px;
+                    background-color: #fafbfc;
+                    font-size: 12px;
+                    text-align: justify;
+                    border: solid 1px $referral-textbox-gray;
+                    padding: 1em;
+                    margin-bottom: 15px;
+                }
+                .fs-deposit-upload-information-text{
+                    font-size: 12px;
+                    margin-top: -10px;
+                }
+                .fs-deposit-name-box{
+                    padding-left:0;
+                    padding-right:0;
+                    margin-bottom:10px;
+                }
+                .fs-deposit-nominal-box{
+                    background-color: #fafbfc;
+                    border: 1px solid $referral-textbox-gray;
+                    padding: 0 1em;
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+@media #{$largephone} {
+    .fs-deposit-box{
+        .depositBoxContent {
+            .depositBoxRightSection {
+                .caption{
+                    line-height: 2.5em;
+                    font-size:14px;
+                    padding-left: 10px !important;
+                }
+            }
+        }
+    }
+}
+
+
+@media #{$tablet} {
+    .deposit-slider-mobile {
+        display: none;
+    }
+
+    .fs-deposit-container {
+        & .title {
+            background: white;
+            padding: 1em 1em 0 1em;
+        }
+
+        & .subtitle-text {
+            font-size: $font-16;
+            display: block;
+        }
+
+        & .title-text {
+            font-size: $font-32;
+        }
+
+        & .title-image {
+            height: 5em;
+        }
+
+        & .info {
+            & a {
+                color: $lightgray;
+            }
+
+            font-size: $font-16;
+            display: block;
+        }
+
+        .fs-deposit-box {
+            margin: 3em auto;
+            width: 100%;
+
+            .depositBoxContent {
+                display: flex;
+                flex-direction: row;
+                border-radius: 0 0 4px 4px;
+            }
+
+            .depositBoxLeftSection {
+                background-color: #ffffff;
+                border-radius: 4px;
+                margin-right: 0.25em;
+                padding: 1em;
+                margin-top: 0;
+            }
+
+            .depositBoxRightSection {
+                background-color: #ffffff;
+                margin-left: 0.25em;
+                border-radius: 4px;
+                padding: 1em;
+                margin-top: 0;
+                margin-bottom: 0;
+
+                .caption{
+                    padding-left:0 !important;
+                }
+
+                .bankBoxes {
+                    padding-left: 6px;
+                }
+
+                .depositInformationBox {
+                    background-color: #faf2cc;
+                    line-height: 1.29;
+                    height: auto;
+                    padding: 1em 1em 0 1em;
+                    .warning-icon {
+                        display: inline-block;
+                    }
+
+                    .depositInformationCaption {
+                        color: #8a6d3b;
+                        display: inline-block;
+                    }
+                }
+
+                .bankBoxTitle {
+                    margin-left: 20px;
+                    margin-bottom: 5px;
+                    margin-top: 20px;
+                }
+            }
+        }
+    }
+
+    .depositForm {
+        width: 100%;
+        display: flex;
+    }
+}
+
+@media (min-width: 1024px) {
+    .fs-deposit-box{
+        .depositBoxContent{
+            .depositBoxLeftSection{
+            }
+        }
+    }
+    .fs-deposit-container{
+        .title{
+            padding: 1em 3em 0 5em;
+        }
+        .fs-deposit-box{
+            .depositBoxRightSection{
+               .fs-deposit-name-box{
+                padding-right:10px;
+               }
+               .caption{
+                font-size:16px;
+               }
+            }
+        }
+    }
+}
+
+@media #{$widescreen} {
+    .fs-deposit-container {
+        .depositBoxRightSection {
+            .caption {
+                line-height: 3em;
+            }
+        }
+
+        .fs-deposit-box {
+            width: 80em;
+        }
+    }
+}

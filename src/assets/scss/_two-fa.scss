@@ -1,0 +1,209 @@
+.two-fa-title {
+  color: $ink;
+  font-size: $font-22;
+  font-family: $gilroy-semibold-font-stack;
+  letter-spacing: normal;
+  line-height: normal;
+  text-align: center;
+}
+
+.two-fa-paragraph {
+  color: $ink-lighter;
+}
+
+.two-fa-digits {
+  margin: 0 auto;
+
+  & input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  & input[type='text'], input[type='number'] {
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    width: 42px;
+    height: 60px;
+    border-radius: 2px;
+    background-color: #fafbfc;
+    border: solid 1px #cccccc;
+    line-height: 50px;
+    font-size: 2em;
+    text-align: center;
+
+    &.form-input-error {
+     border-color: $error-red;
+    }
+
+    &:disabled {
+      background-color: $soft-white;
+    }
+
+  }
+
+}
+
+.two-fa-error-subtitle {
+  & .icon {
+    margin-right: 8px;
+  }
+}
+
+.two-fa-instructions-container {
+  display: flex;
+  justify-content: center;
+}
+
+.two-fa-instructions {
+  list-style: none;
+  padding: 0;
+
+  & li {
+    text-align: left;
+    color: $ink-lighter;
+    font-size: $font-14;
+    height: 20px;
+    line-height: 1.43;
+
+    &::before {
+      content: '•';
+      color: $silver;
+      margin-right: 8px;
+    }
+  }
+}
+
+.two-fa-modal {
+  & h2 {
+    font-family: $gilroy-font-stack;
+    height: 20px;
+    font-size: $font-22;
+    font-weight: 600;
+    color: $ink;
+  }
+
+  & h3 {
+    height: 40px;
+    font-size: 14px;
+    line-height: 1.43;
+    color: $ink-lighter;
+  }
+
+  .fs-modal__dialog {
+    height: 100%;
+    margin: auto;
+  }
+
+  .fs-modal__content{
+    height: 100%;
+    max-height: 500px;
+    max-width: 448px;
+  }
+
+  .two-fa-modal-content {
+    margin: auto 0;
+
+    & > .two-fa-title {
+      margin-top: 8px;
+    }
+  }
+
+
+
+  & form {
+    & .form-group {
+      border-radius: 2px;
+      border: solid 1px $silver;
+      padding: 8px 12px;
+    }
+     & label {
+      height: 18px;
+      line-height: 18px;
+    }
+
+    & input {
+      height: 20px;
+      line-height: 20px;
+    }
+  }
+}
+
+.btn-two-fa-modal-update {
+  height: 48px;
+  font-size: $font-16;
+  line-height: 2;
+  margin-top: 100px;
+  @media only screen and (max-height: 480px) {
+    margin-top: 30px;
+  }
+}
+
+.two-fa-steps {
+  position: relative;
+  padding: 2% 1%;
+  width: 270px;
+  margin: 0 auto;
+
+  & .steps-container {
+    display: block;
+    margin: 0 auto;
+  }
+
+  & .step-container {
+    display: flex;
+    & .two-fa-step-icon {
+      display: inline-block;
+      margin-right: 8px;
+    }
+
+    & .step-content {
+      position: relative;
+      display: inline-block;
+      color: $ink-lightest;
+      line-height: 24px;
+
+    }
+  }
+
+  .step-line {
+    border-left: 2px;
+    border-right: 0;
+    border-bottom: 0;
+    border-top: 0;
+    border-style: solid;
+    border-color: $silver;
+    height: 18px;
+    margin-left: 12px;
+  }
+
+  .step-line--incomplete {
+    border-style: dashed;
+  }
+
+  .step-line--completed {
+    border-color: $fs-green;
+  }
+}
+
+@media #{$largephone} {
+  .fs-modal__dialog {
+   &.two-fa-dialog {
+      max-width: 384px;
+    }
+  }
+}
+
+.intl-tel-input {
+  .flag-container {
+    right: auto;
+    left: 0;
+  }
+  .intl-phone-form {
+    padding-left: 52px;
+  }
+}
+
+#investor-signup-otp-verify-btn {
+  padding: 0 9em;
+}

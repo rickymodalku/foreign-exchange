@@ -1,0 +1,364 @@
+  @media #{$phone} {
+    .investorDashboard {
+      .investorDashboardHeader {
+        z-index: 1;
+        background-size: cover;
+        background-position: center;
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+        img{
+          background-size: cover;
+          background-position: center;
+          width: 100%;
+        }
+      }
+      .investorInfoBox {
+        display: none;
+      }
+      .investmentInformation {
+        padding: 0;
+      }
+      .fs-investor-slide-container {
+        display: none;
+      }
+    }
+    .investMenuContainer {
+      display: none;
+    }
+    .row-fluid {
+      .investmentImgContainer {
+        display: none;
+      }
+    }
+    .investmentInformation,
+    .investMenuContainer,
+    .investmentStatistic,
+    .investor-wall-3,
+    .investor-wall-2 {
+      display: none;
+    }
+    .investor-wall-3-mobile,
+    .investor-wall-2-mobile,
+    .fs-investor-info-box-mobile,
+    .fs-investor-accordion-menu,
+    .fs-investor-slider-mobile {
+      display: block;
+    }
+    .investor-wall-3-mobile{
+      background-position-y: 93px;
+    }
+    .fs-investor-accordion-menu{
+      padding-bottom: 2em;
+    }
+    .fs-investor-info-box-mobile {
+      .col-xs-12 {
+        padding: 1em 1em 1em 2em;
+      }
+    }
+    .fs-investor-footer-mobile-caption {
+      height: 15em;
+      background-color: #3d7eff;
+      margin-bottom: -1px;
+      display: block;
+      &.left{
+        padding: 2em 1em 0em 2em;
+      }
+      &.right{
+        background-color: #4D22E7;
+        padding: 2em 2em 0em 1em;
+        .text{
+          margin-bottom:1em;
+          padding-left:2em;
+        }
+      }
+    }
+  }
+
+  @media#{$tablet}{
+    .fs-skin-in-container{
+      background-color: #f7f7f9;
+    }
+  }
+
+  @media #{$desktop} {
+    .investorDashboard {
+      .investorDashboardHeader {
+        z-index: 1;
+        height: 100%;
+        background-size: cover;
+        -moz-transform: scaleX(1);
+        -o-transform: scaleX(1);
+        -webkit-transform: scaleX(1);
+        transform: scaleX(1);
+        img{
+          background-size: contain;
+          background-position: 50%;
+          width:100%;
+        }
+      }
+      .investorInfoBox {
+        display: inline-table;
+      }
+      .fs-investor-slide-container {
+        display: block;
+        margin-top: 2em;
+        .swiper-slide-container {
+          .swiper-container {
+            display: block;
+            .swiper-wrapper {
+              height: 90% !important;
+              .swiper-slide {
+                background-color: initial;
+                box-shadow: none;
+                height: 100% !important;
+                .img {
+                  img {
+                    height: 11.2em;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .investMenuContainer {
+      display: block;
+    }
+    .row-fluid {
+      .investmentImgContainer {
+        display: block;
+      }
+    }
+    .investmentInformation,
+    .investMenuContainer,
+    .investmentStatistic,
+    .investor-wall-3,
+    .investor-wall-2 {
+      display: block;
+    }
+    .investor-wall-3-mobile,
+    .investor-wall-2-mobile,
+    .fs-investor-info-box-mobile,
+    .fs-investor-accordion-menu,
+    .fs-investor-slider-mobile,
+    .fs-investor-footer-mobile-caption {
+      display: none;
+    }
+    .fs-investor-accordion-menu {
+      .title{
+        font-size: 30px;
+      }
+      .description {
+        color: #9b9b9b;
+        margin-bottom: 2em;
+        line-height: 1.5;
+      }
+    }
+    .fs-skin-in-container{
+      padding: 5em 1em 5em 5em;
+    }
+  }
+
+
+  @media #{$widescreen} {
+    .fs-skin-in-container{
+      padding: 5em 1em 5em 12em;
+    }
+
+    .investorInfoBox {
+      max-width: 32em;
+    }
+  }
+
+  .investorDashboard {
+    .investmentStatistic {
+      padding: 1.5em;
+      background-color: #2850ff;
+      color: white;
+    }
+    .investmentInformation {
+      .investmentInformationBox {
+        color:#777777;
+      }
+    }
+    .investMenuContainer {
+      background-color: #f7f7f9;
+      padding: 1.5em 0em 0em 0em;
+      .investInfoSubMenu {
+        margin-right: 0.5em;
+        padding-bottom: 5px;
+        font-family: Gilroy-Light;
+        display: inline-block;
+        color:#5d5d5d;
+        font-size:16px;
+        &.active {
+          border-bottom: 3px solid #4a4a4a;
+          font-family: Gilroy-SemiBold;
+        }
+      }
+    }
+    .investmentImgContainer>div:first-of-type {
+      padding: 2em;
+    }
+    .btnInvestLearn {
+      background-color: #ffffff;
+      color: #4900ec;
+      border-radius: 0;
+      font-size: 13px;
+    }
+    .investorInfoBox {
+      padding: 1.5em 0 1.5em 1.5em;
+      margin: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      margin-left: 100px;
+      max-height: 450px;
+      background-color: white;
+      &.id {
+        max-height: 480px;
+      }
+    }
+    .seeBenefit {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #000000;
+      margin-top: 25px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .referralCaption {
+      background-color: #00b196;
+      padding-bottom: 100px;
+      padding-left: 100px;
+      h1 {
+        font-size: 32px;
+        font-weight: 500;
+        color: #ffffff;
+      }
+      .referralcaptionDescription {
+        font-size: 16px;
+        line-height: 1.38;
+        color: #ffffff;
+      }
+    }
+    .referralBenefit {
+      background-color: #00b196;
+      padding-top: 10px;
+      padding-bottom: 30px;
+      font-size: 16px;
+      font-weight: 500;
+      text-align: center;
+      color: #ffffff;
+      height: 140px;
+    }
+    .rewardMenuContainer {
+      margin-top: 20px;
+      margin-left: 100px;
+      width: 90%;
+      height: 23px;
+      font-family: Gilroy;
+      font-size: 18px;
+      line-height: 1.28;
+      letter-spacing: 0.2px;
+      text-align: center;
+      border-bottom: solid 1px #e9e9e9;
+      padding-bottom: 10px;
+      box-sizing: content-box;
+      .rewardSubMenu {
+        margin-right: 20px;
+        cursor: pointer;
+        padding-bottom: 10px;
+        box-sizing: content-box;
+        &.active {
+          font-weight: 600;
+          color: #009688;
+          border-bottom: solid 5px #009688;
+          padding-bottom: 10px;
+          box-sizing: content-box;
+        }
+      }
+    }
+    .rewardContainer {
+      padding-left: 100px;
+      margin-top: 80px;
+      .rewardCaption {
+        font-size: 16px;
+        color: #9b9b9b;
+      }
+    }
+    .selectedMenuContainer {
+      height: 500px;
+      margin-left: 100px;
+      .SelectedMenuTitle {
+        margin-top: 40px;
+        margin-bottom: 20px;
+        font-size: 36px;
+        font-weight: 300;
+        line-height: 1;
+        color: #000000;
+      }
+      .selectedMenuCaption {
+        font-size: 19px;
+        line-height: 1.11;
+        letter-spacing: 0.2px;
+        color: #838383;
+      }
+      .selectedMenuList {
+        font-size: 15px;
+        line-height: 1.47;
+        color: #000000;
+        margin-top: 20px;
+      }
+      .selectedBtn {
+        width: 210px;
+        height: 50px;
+        line-height: 50px;
+        background-color: #009688;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+        font-size: 18px;
+        font-weight: 600;
+        color: #ffffff;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+    }
+    .referralBanner {
+      background-color: #13b196;
+      height: 80px;
+      line-height: 80px;
+      padding-left: 100px;
+      padding-right: 100px;
+      .referralBannerCaption {
+        font-size: 22px;
+        font-weight: 500;
+        line-height: 80px;
+        letter-spacing: -0.3px;
+        color: #ffffff;
+      }
+      .referralBannerBtn {
+        font-weight: 600;
+        width: 150px;
+        margin-top: 10px;
+        line-height: 50px;
+        color: #009688;
+        height: 50px;
+        background-color: #ffffff;
+        cursor: pointer;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+      }
+    }
+  }
+
+  .fs-accordion {
+    .fa-caret-right,
+    .fa-caret-down {
+      @include circle-text(20px, #92b7ff, #92b7ff, 14px, white);
+    }
+  }

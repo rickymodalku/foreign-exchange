@@ -1,2 +1,9 @@
-<foreign-exchange>
-</foreign-exchange>
+<ng-container *ngIf="!isMaintenanceMode" >
+  <loading></loading>
+  <notification></notification>
+  <header-section ></header-section>
+  <div><router-outlet></router-outlet></div>
+  <div><footer-section *ngIf="!showFooter"></footer-section></div>
+  <app-two-fa-setup [isFirstSetup]="true" *ngIf="ENVIRONMENT.environment_name !== 'staging' && ENVIRONMENT.environment_name !== 'uat' && ENVIRONMENT.environment_name !== 'localhost'"></app-two-fa-setup>
+</ng-container>
+<maintenance  *ngIf="isMaintenanceMode || isServiceDownMode"></maintenance>

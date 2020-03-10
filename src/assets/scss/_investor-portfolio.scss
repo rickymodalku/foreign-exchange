@@ -1,0 +1,961 @@
+@media #{$phone} {
+    .fs-investor-portfolio-container {
+        .fs-investor-portfolio-statistic-row {
+            padding-left: 1.5em;
+            padding-bottom: 3em;
+        }
+
+        .fs-investor-portfolio-table-row {
+            .btn-switch-style {
+                border-radius: 10px;
+                width: 100%;
+                padding: 1em 0em;
+
+                &.left {
+                    margin-bottom: 15px;
+                }
+            }
+        }
+
+        .fs-investor-portfolio-repayment-row {
+            .repayment-info-box {
+                background-color: #ffffff;
+                padding: 0.5em 1em;
+                border-bottom: 1px solid rgba(151, 151, 151, 0.3);
+                display: flex;
+                order: 2;
+
+                .repayment-date-text {
+                    .year, .month {
+                        float: left;
+                        text-align: left;
+                    }
+                }
+
+                .repayment-number-text {
+                    order: 1;
+                    text-align: right;
+                }
+            }
+        }
+
+        .fs-portfolio-legend-row {
+            padding:0;
+            padding-top: 1em;
+            .title {
+                width: 100%;
+                display: block;
+            }
+        }
+    }
+    .calendar-block {
+        width: 15em;
+    }
+    .fs-investor-portfolio-detail-swiper {
+        .swiper-slide {
+            .dark-purple-text {
+                font-size: 12px;
+            }
+            .value{
+                font-size: 18px;
+            }
+            .detail-value{
+                font-size: 12px;
+            }
+            .text {
+                position: relative;
+                bottom: -15px;
+                font-size: 12px;
+            }
+        }
+    }
+
+    .circle-legend {
+        vertical-align: middle;
+
+        &.gray {
+            @include circle-text(1em, #969696, #969696, 14px, $white);
+        }
+
+        &.light-blue {
+            @include circle-text(1em, #3e7eff, #3e7eff, 14px, $white);
+        }
+
+        &.dark-blue {
+            @include circle-text(1em, #2746ce, #2746ce, 14px, $white);
+        }
+
+        &.corn-flower-blue {
+            @include circle-text(1em, #6495ed, #6495ed, 14px, $white);
+        }
+
+        &.orange {
+            @include circle-text(1em, #ea5a29, #ea5a29, 14px, $white);
+        }
+
+        &.yellow {
+            @include circle-text(1em, #ffb50d, #ffb50d, 14px, $white);
+        }
+
+        &.purple {
+            @include circle-text(1em, #691fff, #691fff, 14px, $white);
+        }
+
+        &.crimson {
+            @include circle-text(1em, #dc0e0e, #dc0e0e, 14px, $white);
+        }
+
+        &.green {
+            @include circle-text(1em, #00c9ac, #00c9ac, 14px, $white);
+        }
+
+        &.green-aquamarine {
+            @include circle-text(1em, #08c0a6, #08c0a6, 14px, $white);
+        }
+
+        &.green-turquoise {
+          @include circle-text(1em, #1f9989, #1f9989, 14px, $white);
+        }
+
+        &.brown {
+            @include circle-text(1em, #cc6810, #cc6810, 14px, $white);
+        }
+    }
+    .legend-text {
+        font-size: 11px;
+    }
+
+    .portfolio-filter-dialog {
+      width: 350px;
+    }
+
+    .portfolio-default-info-dialog {
+      width: 700px;
+    }
+
+    .padding-left-right-3em {
+       padding-left: 3em;
+       padding-right: 3em;
+    }
+
+    .padding-left-right-2em {
+      padding-left: 2em;
+      padding-right: 2em;
+    }
+    .dotted-underline {
+      text-decoration: none;
+      border-bottom: 1px dotted;
+    }
+
+    .left-15px {
+      left:15px;
+    }
+
+    .left-5px {
+      left: 5px;
+    }
+    .bottom-5 {
+      bottom: 5% !important;
+    }
+    .fs-portfolio-legend-container{
+      margin-top:5px;
+      text-align:center;
+    }
+    .fs-portfolio-filter-container{
+      text-align: center;
+    }
+    .fs-portfolio-button-container{
+      margin-left: auto;
+      margin-right: auto;
+      float: none;
+      border-top: 2px solid $gray-gallery;
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+    }
+    .fs-portfolio-filter-row {
+      text-align: center;
+    }
+}
+
+@media #{$largephone} {
+    .circle-legend {
+        vertical-align: middle;
+        margin-bottom: 5px;
+        &.gray {
+            @include circle-text(1.5em, #969696, #969696, 14px, $white);
+        }
+
+        &.light-blue {
+            @include circle-text(1.5em, #3e7eff, #3e7eff, 14px, $white);
+        }
+
+        &.dark-blue {
+            @include circle-text(1.5em, #2746ce, #2746ce, 14px, $white);
+        }
+
+        &.corn-flower-blue {
+            @include circle-text(1.5em, #6495ed, #6495ed, 14px, $white);
+        }
+
+        &.orange {
+            @include circle-text(1.5em, #ea5a29, #ea5a29, 14px, $white);
+        }
+
+        &.yellow {
+            @include circle-text(1.5em, #ffb50d, #ffb50d, 14px, $white);
+        }
+
+        &.purple {
+            @include circle-text(1.5em, #691fff, #691fff, 14px, $white);
+        }
+
+        &.crimson {
+            @include circle-text(1.5em, #dc0e0e, #dc0e0e, 14px, $white);
+        }
+
+        &.green {
+            @include circle-text(1.5em, #00c9ac, #00c9ac, 14px, $white);
+        }
+
+        &.green-aquamarine {
+            @include circle-text(1.5em, #08c0a6, #08c0a6, 14px, $white);
+        }
+
+        &.green-turquoise {
+          @include circle-text(1.5em, #1f9989, #1f9989, 14px, $white);
+        }
+
+        &.brown {
+            @include circle-text(1.5em, #cc6810, #cc6810, 14px, $white);
+        }
+    }
+    .legend-text {
+        font-size: 12px;
+    }
+    .fs-portfolio-legend-row {
+        padding: 1.25em;
+    }
+}
+
+@media #{$tablet} {
+    .fs-investor-portfolio-container {
+        .progress-row {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .fs-investor-portfolio-statistic-row {
+            padding-left: 5em;
+            padding-bottom: 5em;
+        }
+
+        .fs-investor-portfolio-repayment-row {
+            padding-left: 5em;
+        }
+
+        .fs-investor-portfolio-repayment-row {
+            .repayment-info-box {
+                width: 225px;
+                border: solid 1px #cccccc;
+                border-radius: 7px;
+                padding: 2em 0.5em 1em;
+                height: 8vw;
+                min-height: 150px;
+                margin-bottom: 20px;
+                display: block;
+
+                .repayment-date-text {
+                    .year, .month {
+                        float: none;
+                        text-align: center;
+                    }
+
+                    .month {
+                        margin-top: 20px;
+                    }
+                }
+
+                .repayment-number-text {
+                    text-align: center;
+                }
+            }
+        }
+
+        .fs-investor-portfolio-table-row {
+            .btn-switch-style {
+                width: auto;
+                padding: 1em 4em;
+
+                &.left {
+                    margin-bottom: 0;
+                    border-radius: 10px 0px 0px 10px;
+                    margin-right: -5px;
+                }
+
+                &.right {
+                    border-radius: 0px 10px 10px 0px;
+                }
+            }
+        }
+    }
+    .calendar-block {
+        width: 100%;
+    }
+    .fs-portfolio-legend-container{
+      text-align:center;
+    }
+    .fs-portfolio-filter-container{
+      text-align: left;
+    }
+    .fs-portfolio-button-container{
+      border: none;
+    }
+    .fs-portfolio-filter-row {
+      text-align: left;
+    }
+}
+
+@media #{$desktop} {
+    .detail-box{
+        width: 22%;
+    }
+    .repayment-dialog {
+      width: 1200px;
+    }
+
+    .fs-investor-portfolio-container {
+        .progress-row {
+            padding-left: 5vw;
+            padding-right: 5vw;
+        }
+
+        .fs-investor-portfolio-table-row {
+            .btn-switch-style {
+                width: auto;
+                border-radius: 10px;
+                padding: 1em 7em;
+            }
+        }
+
+        .fs-investor-portfolio-repayment-row {
+            .title {
+                padding: 0;
+            }
+            .repayment-info-box {
+                width: 10vw;
+                min-width: 9em;
+            }
+        }
+
+        .fs-investor-portfolio-repayment-row {
+            padding-left: 0;
+        }
+
+        .fs-portfolio-legend-row {
+            padding:1em;
+            .title {
+                display: inline;
+            }
+        }
+    }
+    .fs-portfolio-button-container{
+      padding: 0;
+    }
+}
+
+@media #{$widescreen} {
+    .fs-investor-portfolio-container {
+        .progress-row {
+            padding-left: 5vw;
+            padding-right: 5vw;
+            .progress-row-caption {
+                margin-top: 30px;
+            }
+        }
+    }
+    .fs-portfolio-legend-container{
+      text-align:left;
+    }
+    .fs-portfolio-button-container{
+      float: inherit;
+    }
+}
+
+.fs-investor-portfolio-container {
+    background-color: #eceff1;
+
+    .progress-row {
+        background-color: #f3f7ff;
+        height: 145px;
+
+        .progress-row-caption {
+            .title {
+                font-size: 24px;
+                text-align: left;
+                color: #4a4a4a;
+            }
+
+            .caption {
+                font-size: 16px;
+                text-align: left;
+            }
+
+            .link {
+                color: #000000;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: bold;
+                text-align: left;
+                text-decoration: underline;
+            }
+
+            i {
+                margin-left: 3px;
+                opacity: 70%;
+            }
+        }
+
+        .progress-row-bar {
+            height: 100%;
+            padding-top: 70px;
+        }
+    }
+
+    .fs-investor-portfolio-statistic-row {
+        background-color: #374ce5;
+
+        .accountOverviewCaption {
+            padding: 2.5em 0em;
+        }
+
+        .monthStatistic {
+            background-color: $white;
+            border-radius: 20px;
+            padding-bottom: 5px;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 5px;
+            width: auto;
+
+            .light-blue {
+                color: #92b7ff;
+            }
+
+            .dark-blue {
+                color: #314ce7;
+            }
+        }
+
+        .fs-investor-portfolio-detail-row {
+            margin-top: 25px;
+
+            .detail-box {
+                position: relative;
+                border-radius: 7px;
+                background-color: #3e7eff;
+                padding: 2em 1em;
+                height: 7vw;
+                min-height: 150px;
+                margin-right: 25px;
+
+                .statistic-number {
+                    color: $white;
+                    font-family: Gilroy-Light;
+                }
+
+                .statistic-caption {
+                    position: absolute;
+                    left: 50%;
+                    top: 6.5em;
+                    transform: translate3d(-50%, -50%, 0);
+                    bottom: 100%;
+                    width: 90%;
+                    color: #92b7ff;
+                }
+
+                .statistic-sub-caption {
+                  position: absolute;
+                  left: 50%;
+                  top: 2em;
+                  transform: translate3d(-50%, -50%, 0);
+                  bottom: 100%;
+                  width: 90%;
+                  color: #92b7ff;
+                }
+                .statistic-vertical-line {
+                  border-left: 1px solid white;
+                  height: 40px;
+                  top: 2em;
+                  left:24px;
+                }
+                .statistic-sub-col {
+                  top: 2em;
+                }
+                .top-5 {
+                  top: 5em;
+                }
+            }
+        }
+    }
+
+    .fs-investor-portfolio-repayment-row {
+        .title {
+            color: #3e7eff;
+        }
+
+        .repayment-info-box {
+            .repayment-number-text {
+                color: #2746ce;
+                font-size: 20px;
+            }
+
+            .repayment-date-text {
+                color: #3e7eff;
+            }
+        }
+    }
+
+    .fs-investor-portfolio-table-row {
+        background-color: $white;
+        margin-bottom: 100px;
+
+        .loan-code-col {
+            width: 12.5%;
+        }
+
+        .tenor-col {
+            width: 8%;
+        }
+
+        .btn-switch-style {
+            background-color: $white;
+            border: solid 1px rgba(39, 70, 206, 30%);
+            color: #2648d3;
+
+            &.active {
+                border: solid 1px #2746ce;
+                background-color: rgb(39, 70, 206);
+                color: $white;
+                font-weight: bold;
+            }
+        }
+
+        .portfolioTableTitle {
+            border-bottom: solid 1px #979797;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: $white;
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: -0.1px;
+            text-align: center;
+            color: #485465;
+        }
+
+        .fs-investor-portfolio-table {
+            padding: 0;
+            background-color: $white;
+            overflow: auto;
+
+            &.repayment {
+                .blue-stripped-table {
+                    thead {
+                        tr {
+                            th:nth-child(1) {
+                                width: 10%;
+                            }
+
+                            th:nth-child(3) {
+                                width: 10%;
+                            }
+
+                            th:last-child {
+                                width: 50%;
+                            }
+                        }
+                    }
+
+                    tbody {
+                        tr {
+                            td:nth-child(2) {
+                                color: #3e7eff;
+                            }
+
+                            td {
+                                .calendar-block {
+                                    .year-block {
+                                        background-color: #bed4ff;
+                                        color: #2743ca;
+                                    }
+
+                                    .month-block {
+                                        color: #2743ca;
+                                        background-color: $white;
+                                        border: solid 1px #bed4ff;
+                                        padding: 1em 0;
+
+                                        .disabled {
+                                            color: rgba(39, 67, 202, 0.2);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .fs-portfolio-expanded-row {
+        background-color: #173573;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+
+        .fs-portfolio-expanded-table {
+            margin: 0 auto;
+            .fa-question-circle {
+              color: #c4c4c4;
+            }
+            .deadline{
+              [data-tooltip]:after, .tooltip:after, .tooltip-top:after {
+                margin-left: -70px;
+              }
+              .tooltip:after, [data-tooltip]:after {
+                width: 140px;
+                padding: 10px 3px;
+                font-size: $font-12;
+                text-align: center;
+                color: $white;
+                background-color: #070e28;
+                border-color: #070e28;
+              }
+              .tooltip-top:before {
+                border-top-color: #070e28;
+              }
+            }
+            thead {
+                color: rgba(255, 255, 255, 0.46);
+                background-color: #173573 !important;
+
+                tr:first-child {
+                    color: rgba(255, 255, 255, 0.46);
+                    background-color: #173573 !important;
+                }
+
+                tr {
+                    th:nth-child(2) {
+                        width: 150px;
+                    }
+
+                    th:nth-child(3) {
+                        width: inherit;
+                    }
+
+                    th:nth-child(4) {
+                        width: inherit;
+                    }
+                }
+            }
+
+            tbody {
+                tr:nth-child(odd) {
+                    background-color: rgba(242, 245, 254, 0.15) !important;
+                }
+
+                tr {
+                    background-color: #234178 !important;
+                    color: $white;
+                    padding-left: 0;
+                    padding-right: 0;
+                    text-align: right;
+
+                    td {
+                        padding: 15px 10px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.loan-details-circle {
+    border: solid 1px #979797;
+    border-radius: 19px;
+    display: inline-block;
+    margin-top: 10%;
+
+    .inner {
+        border-radius: 15px;
+        margin: 3px;
+        height: 30px;
+        width: 30px;
+
+        &.lightgreen {
+            background-color: #07c0a6;
+        }
+
+        &.orange {
+            background-color: #f6a623;
+        }
+
+        &.darkgray {
+            background-color: #3d7eff;
+        }
+
+        &.purple {
+            background-color: #6c81ff;
+        }
+
+        &.white {
+            background-color: $white;
+        }
+    }
+}
+
+.visible {
+    display: none;
+    transition: opacity 1s ease-out;
+    opacity: 0;
+}
+
+.circle {
+    margin: 5px auto;
+    &.purple {
+        @include circle-text(30px, #691fff, #691fff, 14px, $white);
+    }
+
+    &.early-pay {
+        @include circle-text(30px, #3d7eff, #3d7eff, 14px, $white);
+    }
+
+    &.dark-blue {
+        @include circle-text(30px, #2746ce, #2746ce, 14px, $white);
+    }
+
+    &.corn-flower-blue {
+        @include circle-text(30px, #6495ed, #6495ed, 14px, $white);
+    }
+
+    &.light-blue {
+        @include circle-text(30px, #3e7eff, #3e7eff, 14px, $white);
+    }
+
+    &.orange {
+        @include circle-text(30px, #ea5a29, #ea5a29, 14px, $white);
+    }
+
+    &.yellow {
+        @include circle-text(30px, #ffb50d, #ffb50d, 14px, $white);
+    }
+
+    &.red {
+        @include circle-text(30px, #dc0e0e, #dc0e0e, 14px, $white);
+    }
+
+    &.disabled {
+        @include circle-text(30px, solid 2px $white, $white, 14px, $white);
+    }
+
+    &.green-aquamarine {
+        @include circle-text(30px, #08c0a6, #08c0a6, 14px, $white);
+    }
+
+    &.green-turquoise {
+        @include circle-text(30px, #1f9989, #1f9989, 14px, $white);
+    }
+
+    &.brown {
+        @include circle-text(30px, #cc6810, #cc6810, 14px, $white);
+    }
+}
+
+.legend-text {
+    font-weight: 500;
+
+    &.gray {
+        color: #747474;
+    }
+
+    &.light-blue {
+        color: #3e7eff;
+    }
+
+    &.dark-blue {
+        color: #2746ce;
+    }
+
+    &.corn-flower-blue {
+        color: #6495ed;
+    }
+
+    &.orange {
+        color: #ea5a29;
+    }
+
+    &.yellow {
+        color: #c78a00;
+    }
+
+    &.purple {
+        color: #691fff;
+    }
+
+    &.crimson {
+        color: #c90000;
+    }
+
+    &.green {
+        color: #00c9ac;
+    }
+
+    &.green-aquamarine {
+        color: #08c0a6;
+    }
+
+    &.green-turquoise {
+        color: #1f9989;
+    }
+}
+
+.fs-portfolio-filter-row {
+    border-bottom: 1px solid #e6e6e6;
+    border-top: 1px solid #e6e6e6;
+    padding: 1em;
+    margin-bottom: 20px;
+
+    .filter-text {
+        color: #3d7eff;
+    }
+
+    .btn-primary-white {
+        border: 1px solid rgba(151, 151, 151, 0.3);
+    }
+}
+
+.fs-portfolio-legend-row {
+    border-top: 1px solid rgba(151, 151, 151, 0.3);
+    border-bottom: 1px solid rgba(151, 151, 151, 0.3);
+}
+
+.fs-portfolio-date-text {
+    font-size: 16px;
+}
+
+.fs-loan-code {
+    color: black;
+    font-weight: 600;
+
+    &.gray {
+        color: #747474;
+    }
+
+    &.light-blue {
+        color: #3e7eff;
+    }
+
+    &.dark-blue {
+        color: #2746ce;
+    }
+
+    &.corn-flower-blue {
+        color: #6495ed;
+    }
+
+    &.orange {
+        color: #ea5a29;
+    }
+
+    &.yellow {
+        color: #c78a00;
+    }
+
+    &.purple {
+        color: #691fff;
+    }
+
+    &.crimson {
+        color: #c90000;
+    }
+
+    &.green {
+        color: #00c9ac;
+    }
+
+    &.green-aquamarine {
+        color: #08c0a6;
+    }
+
+    &.green-turquoise {
+        color: #1f9989;
+    }
+}
+
+.fs-investor-portfolio-detail-swiper {
+    .swiper-slide {
+        height: 8em !important;
+        padding: 1em !important;
+        opacity: 1 !important;
+        color: white;
+        background-color: #3e7eff !important;
+        .text {
+            position: relative;
+            bottom: -15px;
+            font-size: 12px;
+        }
+    }
+    .swiper-pagination{
+        position: initial;
+        margin-top: 1em;
+        .swiper-pagination-bullet-active{
+            background: white!important;
+        }
+
+    }
+}
+
+.export-csv{
+  border-radius: 2px;
+  background-color: $white;
+  box-shadow: 0 2px 4px 0 $silver;
+  color: $fs-blue;
+}
+
+.fs-portfolio-empty-box{
+  width:60px;
+}
+
+.month-block {
+  [data-tooltip]:after, .tooltip:after, .tooltip-top:after {
+    margin-left: -35px;
+  }
+  .tooltip:after, [data-tooltip]:after {
+    width: 70px;
+    padding: 10px 3px;
+    font-size: $font-12;
+  }
+}
+
+.hide-legend {
+  display: none;
+}
+
+.sticky-legend {
+  display: block !important;
+  position: fixed;
+  top: 100px;
+  overflow: hidden;
+  z-index: 1;
+  width: 100%;
+  background-color: $white;
+  margin-top: 0;
+  @media (max-width: 480px) {
+    padding-top: 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .sticky-legend-force-top {
+    top: 0 !important;
+  }
+}

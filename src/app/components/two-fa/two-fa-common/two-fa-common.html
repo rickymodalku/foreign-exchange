@@ -1,0 +1,160 @@
+<ng-container *ngIf="twoFaOptions.mode === 'LOG-IN'">
+  <div class="two-fa-otp-verify-icon content-center"></div>
+</ng-container>
+<ng-container *ngIf="otpInProgress">
+  <ng-template #oneTimePasswordTitle>
+    <div class="Gilroy-Regular two-fa-title">{{ 'form.otp.otp-title' | translate }}</div>
+  </ng-template>
+  <ng-template #smsOtpVerification>
+    <ng-container *ngIf="twoFaOptions.mode === 'SIGN-UP'">
+      <div class="verify-mobile-icon content-center"></div>
+      <div class="Gilroy-Regular two-fa-title">{{ 'form.otp.verify-phone-number' | translate }}</div>
+      <div class="two-fa-paragraph">
+        {{ 'form.otp.otp-caption' | translate }}
+      </div>
+      <div>
+        <a class="link" (click)="onClickGetOtp()"
+          *ngIf="disableOtpInput">{{ 'form.otp.btn-resend' | translate }}</a>
+        <span *ngIf="!disableOtpInput">{{ 'form.otp.btn-resend' | translate }}</span>
+        {{ 'form.otp.to' | translate }}
+        <b *ngIf="otpBySMS">{{ otpUserPhoneNumber }}</b>
+        <b *ngIf="!otpBySMS">{{ otpUserName }}</b>
+        {{ 'form.otp.in' | translate }} {{ otpCountDownTimer }}
+      </div>
+    </ng-container>
+    <ng-container *ngIf="twoFaOptions.mode === 'LOG-IN'">
+      <ng-container *ngTemplateOutlet="oneTimePasswordTitle"></ng-container>
+      <div class="two-fa-paragraph">
+        <div>{{ 'form.otp.otp-caption' | translate }}</div>
+        <div>
+          <span *ngIf="!disableOtpInput">{{ 'form.otp.btn-resend' | translate }}</span>
+          <a *ngIf="disableOtpInput" class="link"
+             (click)="onClickGetOtp('sms')">{{ 'form.otp.btn-resend' | translate }}</a>
+          {{ 'form.otp.to' | translate }}
+          <b>{{ otpUserPhoneNumber }} </b> {{ 'form.otp.or' | translate }}
+          <span *ngIf="!disableOtpInput">{{ 'form.otp.call' | translate }}</span>
+          <a *ngIf="disableOtpInput" class="link" (click)="onClickGetOtp('voice')">{{ 'form.otp.call' | translate }}</a>
+          <b>{{ otpUserPhoneNumber }} </b> <span *ngIf="!disableOtpInput">{{ 'form.otp.in' | translate }} {{otpCountDownTimer}}</span>
+
+
+
+          <a *ngIf="showChangeNumberLink" class="link"
+             (click)="twoFaPhoneNumberModal.open()">{{ 'form.otp.btn-change' | translate }}</a>
+        </div>
+      </div>
+    </ng-container>
+  </ng-template>
+  <ng-template #emailOtpVerification>
+    <ng-container *ngIf="twoFaOptions.mode === 'SIGN-UP'">
+      <div class="verify-email-icon content-center"></div>
+      <div class="Gilroy-Regular two-fa-title">{{ 'form.otp.verify-email' | translate }}</div>
+      <div class="two-fa-paragraph">
+        {{ 'form.otp.otp-caption' | translate }}
+      </div>
+      <div>
+        <a class="link" (click)="onClickGetOtp()"
+          *ngIf="disableOtpInput">{{ 'form.otp.btn-resend' | translate }}</a>
+        <span *ngIf="!disableOtpInput">{{ 'form.otp.btn-resend' | translate }}</span>
+        {{ 'form.otp.to' | translate }}
+        <b *ngIf="otpBySMS">{{ otpUserPhoneNumber }}</b>
+        <b *ngIf="!otpBySMS">{{ otpUserName }}</b>
+        {{ 'form.otp.in' | translate }} {{ otpCountDownTimer }}
+      </div>
+    </ng-container>
+    <ng-container *ngIf="twoFaOptions.mode === 'LOG-IN'">
+      <ng-container *ngTemplateOutlet="oneTimePasswordTitle"></ng-container>
+    </ng-container>
+  </ng-template>
+  <ng-container *ngIf="otpBySMS; then smsOtpVerification else emailOtpVerification"></ng-container>
+
+  <div class="two-fa-otp" *ngIf="twoFaOptions.mode === 'SIGN-UP'">
+      <input (keyup)="onInputOtp()" [(ngModel)]="otpInput" class="turn-off-spinner text-center"
+        maxlength={{numberOfOtpDigits}} type="tel" [disabled]="disableOtpInput" />
+    <div *ngIf="showOtpError" class="d-flex align-items-center justify-content-center two-fa-error-subtitle">
+      <span class="icon error-icon-exclamation">!</span>
+      <span class="form-error-text">{{ errorMessage }}</span>
+    </div>
+    <span class="two-fa-error"></span>
+  </div>
+
+  <div class="two-fa-otp" *ngIf="twoFaOptions.mode === 'LOG-IN'">
+      <input (keyup)="onInputOtpTextbox()" [(ngModel)]="otpInput" class="turn-off-spinner text-center" maxlength={{numberOfOtpDigits}} type="tel" [disabled]="disableOtpInput"/>
+      <div *ngIf="showOtpError" class="d-flex align-items-center justify-content-center two-fa-error-subtitle">
+        <span class="icon error-icon-exclamation">!</span>
+        <span class="form-error-text">{{ errorMessage }}</span>
+      </div>
+    </div>
+
+
+  <div id="investor-signup-otp-verify-btn" class="btn btn-primary-investor proceed-button margin-top-20" (click)="onClickVerifyButton()">
+    {{ 'form.otp.btn-verify' | translate }}
+  </div>
+  <!-- We will always allow user to verify the otp as there are cases where the user is struggling with the otp input
+    <div id="investor-signup-otp-verify-btn" [ngClass]="{ disabled: disableVerifyingOtp }" class="btn btn-primary-investor proceed-button margin-top-20 col-xs-12" (click)="onClickVerifyButton()">
+    {{ 'form.otp.btn-verify' | translate }}
+  </div> -->
+</ng-container>
+
+<ng-container *ngIf="otpSucceeded && signUpCredential.memberTypeCode === 'INV'">
+  <div class="two-fa-icon activation-success-icon content-center"></div>
+  <div class="Gilroy-Regular two-fa-title">{{ 'form.otp.signed-up' | translate }}</div>
+
+  <p class="two-fa-paragraph">{{ 'form.otp.after-signed-up-investor' | translate }}</p>
+  <div class="two-fa-steps">
+    <div class="step-container">
+      <div class="two-fa-step-icon two-fa-sign-up-icon"></div>
+      <div class="step-content">{{ 'form.otp.sign-up-step' | translate }}</div>
+    </div>
+    <div class="step-line step-line--completed"></div>
+    <div class="step-container">
+      <div class="two-fa-step-icon two-fa-profile-icon"></div>
+      <div class="step-content">{{ 'form.otp.investor-profile' | translate }}</div>
+    </div>
+    <div class="step-line step-line--incomplete"></div>
+    <div class="step-container">
+      <div class="two-fa-step-icon two-fa-deposit-icon"></div>
+      <div class="step-content">{{ 'form.otp.first-deposit' | translate }}</div>
+    </div>
+  </div>
+  <div *ngIf="enableAutoLogin" id="investor-signup-otp-proceed-btn" class="btn btn-primary-investor proceed-button margin-top-20" (click)="onClickProgress()">
+      {{ 'form.otp.go-investor-profile' | translate }}
+  </div>
+  <div *ngIf="!enableAutoLogin" id="investor-signup-otp-login-proceed-btn" class="btn btn-primary-investor proceed-button margin-top-20" routerLink="/log-in">
+      {{ 'form.otp.login' | translate }}
+  </div>
+</ng-container>
+
+<ng-container *ngIf="otpSucceeded && signUpCredential.memberTypeCode === 'BRW'">
+    <div class="two-fa-icon activation-success-icon content-center"></div>
+    <div class="Gilroy-Regular two-fa-title">{{ 'form.otp.signed-up' | translate }}</div>
+    <p class="two-fa-paragraph">{{ 'form.otp.after-signed-up-borrower' | translate }}</p>
+    <div class="two-fa-steps">
+      <div class="step-container">
+        <div class="two-fa-step-icon two-fa-sign-up-icon"></div>
+        <div class="step-content">{{ 'form.otp.sign-up-step' | translate }}</div>
+      </div>
+      <div class="step-line step-line--completed"></div>
+      <div class="step-container">
+        <div class="two-fa-step-icon two-fa-apply-icon"></div>
+        <div class="step-content">{{ 'form.otp.new-loan' | translate }}</div>
+      </div>
+      <div class="step-line step-line--incomplete"></div>
+      <div class="step-container">
+        <div class="two-fa-step-icon two-fa-approve-icon"></div>
+        <div class="step-content">{{ 'form.otp.loan-approved' | translate }}</div>
+      </div>
+      <div class="step-line step-line--incomplete"></div>
+      <div class="step-container">
+        <div class="two-fa-step-icon two-fa-funds-icon"></div>
+        <div class="step-content">{{ 'form.otp.take-fund' | translate }}</div>
+      </div>
+    </div>
+    <div *ngIf="enableAutoLogin" id="borrower-signup-otp-proceed-btn" class="btn btn-primary-investor proceed-button margin-top-20" (click)="onClickProgress()">
+      {{ 'form.otp.go-borrower-dashboard' | translate }}
+    </div>
+    <div *ngIf="!enableAutoLogin" id="borrower-signup-otp-login-proceed-btn" class="btn btn-primary-investor proceed-button margin-top-20" routerLink="/log-in">
+      {{ 'form.otp.login' | translate }}
+    </div>
+</ng-container>
+
+<two-fa-phone-number #twoFaPhoneNumberModal [config]="phoneNumberConfig" (onPhoneNumberChangeSuccess)="onPhoneNumberChanged($event)"></two-fa-phone-number>

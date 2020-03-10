@@ -1,0 +1,22 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "module": "es2015",
+    "baseUrl": "",
+    "types": ["node"]
+  },
+  "angularCompilerOptions": {
+    "preserveWhitespaces": true
+  },
+  "include": [
+    "./app/**/**/*.ts",
+    "./*.ts",
+  ],
+  "exclude": [
+    "test.ts",
+    "./app/**/**/*.spec.ts",
+    "./app/test-helper/stub/*.ts",
+    "./app/test-helper/mock-modules/*.ts",
+  ]
+}

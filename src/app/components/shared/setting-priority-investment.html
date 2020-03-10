@@ -1,0 +1,73 @@
+<div class="container-fluid priority-content">
+  <div class="row">
+    <div class="col-xs-12 col-md-3">
+      <h4>{{ 'form.setting-priority-investment.left-info.head' | translate }}</h4>
+      <ul>
+        <li>{{ 'form.setting-priority-investment.left-info.list-item-1' | translate }}</li>
+        <li>{{ 'form.setting-priority-investment.left-info.list-item-2' | translate }}
+          <a *ngIf="investEmail" href="mailto:{{investEmail}}">{{investEmail}}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-xs-12 col-md-9">
+      <h4>{{ 'form.setting-priority-investment.right-form.head' | translate }}</h4>
+      <p class="padding-bottom-16">{{ 'form.setting-priority-investment.right-form.product-desc' | translate }}
+        <strong>{{ 'form.setting-priority-investment.right-form.product-names' | translate }}</strong>
+      </p>
+      <div class="fs-setting-box fs-box-shadow d-inline-block full-width">
+        <form [formGroup]="investmentSettingsGroup" (submit)="investmentSubmit()">
+          <div formArrayName="investmentSettingsForm">
+            <div class="product-content" *ngFor="let product of products; let productIndex=index;"
+                 [formGroupName]="productIndex">
+            <h4>{{ product.title | translate }}</h4>
+            <div class="ckbox">
+              <input type="checkbox" [id]="'enabled_'+productIndex" [name]="'enabled_'+productIndex"
+                     formControlName="enabled">
+              <label [for]="'enabled_'+productIndex">
+                {{ 'form.setting-priority-investment.right-form.opt-in-text' | translate }}</label>
+            </div>
+            <div class="div-highlight-lightgray container-fluid">
+              <div class="row">
+                <div class="col-md-5 col-xs-6">
+                  <p class="head">
+                    {{ 'form.setting-priority-investment.right-form.interest-rate-text' | translate }}</p>
+                  <p>{{ product.interestRateText }}</p>
+                </div>
+                <div class="col-md-5 col-xs-6">
+                  <p class="head">{{ 'form.setting-priority-investment.right-form.tenor-text' | translate }}</p>
+                  <p>{{ product.tenorText }}</p>
+                </div>
+              </div>
+            </div>
+            <p class="hd1 text-16">
+              {{ 'form.setting-priority-investment.right-form.max-invoice-amount' | translate }}</p>
+            <div class="control-inline">
+              <input type="text" formControlName="amount"
+                     placeholder="{{ 'form.setting-priority-investment.right-form.placeholder.invest-amount'
+                     | translate }}" />
+            </div>
+          </div>
+          </div>
+          <div *ngIf="showBottomNote">
+            <div class="alert alert-info alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                      (click)="showBottomNote = false">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <strong>{{ 'form.setting-priority-investment.right-form.note-banner.head' | translate }}:</strong>
+              <ol>
+                <li>{{ 'form.setting-priority-investment.right-form.note-banner.1' | translate }}</li>
+                <li>{{ 'form.setting-priority-investment.right-form.note-banner.2' | translate }}</li>
+                <li>{{ 'form.setting-priority-investment.right-form.note-banner.3' | translate }}</li>
+              </ol>
+            </div>
+          </div>
+          <div class="button-contain pull-right">
+            <button class="azure-blue-btn">
+              {{ 'form.setting-priority-investment.right-form.save-btn' | translate }}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

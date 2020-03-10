@@ -1,0 +1,82 @@
+<referral *ngIf="!showVIPReferralPage()">
+</referral>
+
+<ng-container *ngIf="showVIPReferralPage()">
+  <div class="container-fluid fs-container referral-hnwi">
+    <div class="row hnwi-image hidden-xs">
+    </div>
+    <div class="row hnwi-header">
+      <div class="content-center">
+        <div class="amount-information">
+          <div class="col-xs-12 currency">
+            {{ 'referral.refer-get' | translate }}
+          </div>
+          <div class="col-xs-12 Gilroy-SemiBold text-bold amount">
+            {{ 'referral.refer-get-amount' | translate }}
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 caption">
+          {{ 'referral.refer-get-caption' | translate }}
+        </div>
+        <div class="col-xs-12">
+          <div class="ref-header-button-row margin-top-20">
+            <input [placeholder]="getMemberTypeCode() === memberTypeCodes.investor ? referralModel.investorLink + referralModel.code : referralModel.borrowerLink + referralModel.code"
+              [value]="getMemberTypeCode() === memberTypeCodes.investor ? referralModel.investorLink + referralModel.code : referralModel.borrowerLink + referralModel.code"
+              class="col-sm-12 referral-input col-xs-12 col-md-8 col-lg-8"/>
+            <div [cbContent]="getMemberTypeCode() === memberTypeCodes.investor ? referralModel.investorLink + referralModel.code : referralModel.borrowerLink + referralModel.code"
+              (cbOnSuccess)="onCopyToClipboard()" class="btn referral-button col-sm-12 col-xs-12 col-md-3 col-lg-3" ngxClipboard>
+              {{ 'referral.button' | translate }}
+            </div>
+          </div>
+        </div>
+        <div class="term-condition-referral col-xs-12">
+          {{ 'referral.hnwi-term-condition-title' | translate }}
+        </div>
+      </div>
+    </div>
+    <div class="content-center body">
+      <div class="col-xs-12 padding-null margin-bottom-20">
+        <div class="col-xs-12 col-sm-6 padding-null">
+          <div class="col-xs-12 padding-null margin-bottom-15 step-information step-1">{{ 'referral.step-1' | translate }}</div>
+          <div class="col-xs-12 amount-information padding-null">
+            <span class="Gilroy-SemiBold text-bold padding-null currency">{{ 'referral.step-currency' | translate }}</span>
+            <span class="Gilroy-SemiBold text-bold padding-null amount">{{ 'referral.step-1-amount' | translate }}</span>
+            <span class="Gilroy-SemiBold text-left text-bold padding-null description d-inline-block">
+              {{ 'referral.for-you' | translate }}
+              <br> {{ 'referral.your-friend' | translate }}
+            </span>
+          </div>
+          <div class="col-xs-12 col-sm-10 margin-top-10 padding-null step-caption">
+            {{ 'referral.step-1-caption' | translate }}
+          </div>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-6 padding-null">
+          <div class="col-xs-12 padding-null margin-bottom-15 step-information step-2">{{ 'referral.step-2' | translate }}</div>
+          <div class="col-xs-12 amount-information padding-null">
+            <span class="Gilroy-SemiBold text-bold padding-null currency">{{ 'referral.step-currency' | translate }}</span>
+            <span class="Gilroy-SemiBold text-bold padding-null amount">{{ 'referral.step-2-amount' | translate  }}</span>
+            <span class="Gilroy-SemiBold text-left text-bold padding-null description d-inline-block">
+              <br> {{ 'referral.for-you' | translate }}
+            </span>
+          </div>
+          <div class="col-xs-12 col-sm-10 margin-top-10 padding-null step-caption">
+              {{ 'referral.step-2-caption' | translate }}
+          </div>
+        </div>
+
+      </div>
+      <div class="term-condition-title col-xs-12 margin-bottom-15 margin-top-20">
+      {{ 'referral.hnwi-term-condition-2' | translate }}
+    </div>
+      <div class="term-condition-list-container col-xs-12 padding-null">
+        <ol type="number" class="text-justify">
+          <li  *ngFor="let termCondition of referralModel.hnwiTermCondition" class="margin-bottom-10">{{ termCondition }}</li>
+          <li>{{ 'referral.hnwi-term-condition-list-5' | translate }}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</ng-container>
+

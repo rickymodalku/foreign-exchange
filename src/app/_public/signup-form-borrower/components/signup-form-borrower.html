@@ -1,0 +1,26 @@
+<div class="container-fluid fs-signup padding-null">
+  <div class="onboarding">
+    <div class="onboarding-content borrower padding-null col-xs-12 col-md-8">
+      <div class="fs-signup-form">
+        <div class="col-xs-12 padding-null two-fa-container">
+          <ng-container *ngIf="CONFIGURATION.enable2Fa">
+            <two-fa-common [twoFaOptions]="twoFaOptions"></two-fa-common>
+          </ng-container>
+          <ng-container *ngIf="!CONFIGURATION.enable2Fa">
+            <div class="completed content-center text-center">
+              <div class="progress-image content-center"></div>
+              <div class="font-size-38 Gilroy-SemiBold">
+                {{ 'form.onboarding-borrower.completed.placeholder.title' | translate }}</div>
+              <div [innerHtml]="('form.onboarding-borrower.completed.placeholder.subtitle' | translate)"></div>
+              <div class="btn btn-primary-white borrower proceed-button font-size-18 margin-top-20"
+                (click)="sendActivationLink()">
+                {{ 'form.onboarding-borrower.completed.placeholder.submit' | translate }}
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <app-onboarding-testimonial-swiper [memberType]="borrowerMemberTypeCode"></app-onboarding-testimonial-swiper>
+  </div>
+</div>

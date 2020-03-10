@@ -1,0 +1,31 @@
+<div class="maintenance">
+  <div class="background-cover"></div>
+  <section class="cover-view background-{{CONFIGURATION.country_code.toLowerCase()}}">
+    <div class="caption container">
+      <div class="center-block text-center">
+        <img id="logo" class="img-responsive maintenance-logo" src="{{logoSrc}}" alt="FS Logo">
+        <ng-container *ngIf="mode === 'serviceDown' ">
+          <h1>Our services are facing some issues</h1>
+            <hr class="maintenance--title-divider">
+            <p>We are sorry for the inconvenience and working on fixing them.</p>
+        </ng-container>
+        <ng-container *ngIf="mode === 'maintenance'">
+          <h1>Our website is under
+            <br>scheduled maintenance</h1>
+          <hr class="maintenance--title-divider">
+          <p>We are sorry for the inconvenience, but our website is currently
+            <br>undergoing system maintenance in order to bring you
+            <br>the best service experience
+          </p>
+        </ng-container>
+        <p>For urgent matters, please contact us at</p>
+        <p>
+          {{ 'footer.address.email' | translate }}
+        </p>
+        <p>or
+        </p>
+        <p [innerHTML]="('footer.address.contact' | translate )"></p>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,18 @@
+<div class="row" *ngIf="reverificationContent.content">
+  <div class="notification-banner">
+    <div class="icon-notification">
+        <img src="assets/img/investor/risk-disclosure-icon.png">
+    </div>
+    <div class="text-notification">
+      <span class="title Gilroy-SemiBold">{{ reverificationContent.content.title }}</span>
+      <span>{{ reverificationContent.content.description }}</span>
+    </div>
+    <div class="button-notification">
+      <button (click)="openPopup()" class="btn btn-primary-investor">
+        {{ reverificationContent.content.button }}
+      </button>
+    </div>
+  </div>
+</div>
+<sg-risk-disclosure #riskDisclosure></sg-risk-disclosure>
+<sg-suitability-assessment #suitabilityAssessment></sg-suitability-assessment>

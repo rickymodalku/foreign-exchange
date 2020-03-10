@@ -1,0 +1,51 @@
+<div class="container-fluid">
+  <div class="row fs-setting-header">
+    <div class="col-md-12 col-md-12 col-sm-12 padding-null">
+      <div class="col-md-6 col-sm-6 col-xs-6 setting-header-title">
+        <div class="Gilroy-SemiBold font-size-32">
+          {{ 'setting.title' | translate }}
+        </div>
+        <div class="light-gray-text font-size-14" [innerHtml]="('setting.subtitle' | translate)"></div>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-6">
+        <div class="setting-header-image"></div>
+      </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 tabs">
+      <mat-tab-group (selectedTabChange)="onTabChange($event)" [(selectedIndex)]="selectedTab">
+        <mat-tab label="{{ 'setting.tabs.auto-investment' | translate }}">
+        </mat-tab>
+        <mat-tab *ngIf="countryCode === 'MY' && showPriorityInvestmentTab"
+                 label="{{ 'setting.tabs.priority-investment' | translate }}"></mat-tab>
+        <mat-tab *ngIf="countryCode === 'SG' && showInvestorAccreditedDeclarationBanner" label="{{ 'setting.tabs.accredited-declaration' | translate }}">
+        </mat-tab>
+        <mat-tab label="{{ 'setting.tabs.bank' | translate }}">
+        </mat-tab>
+        <mat-tab label="{{ 'setting.tabs.personal' | translate }}" class="personal">
+        </mat-tab>
+        <mat-tab label="{{ 'setting.tabs.password' | translate }}">
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <ng-container *ngIf="countryCode !== 'MY'">
+              {{ 'setting.tabs.account-agreement' | translate }} <span *ngIf="showWarning" class="fa fa-exclamation-circle warning-agreement" aria-hidden="true"></span>
+            </ng-container>
+            <ng-container *ngIf="countryCode === 'MY'">
+              {{ 'setting.tabs.platform-agreement' | translate }}
+            </ng-container>
+          </ng-template>
+        </mat-tab>
+        <!-- <mat-tab label="{{ 'setting.tabs.subscription-agreement' | translate }}">
+        </mat-tab> -->
+      </mat-tab-group>
+    </div>
+  </div>
+  <setting-auto-investment *ngIf="menu[selectedTab] === 'auto-investment'"></setting-auto-investment>
+  <app-setting-priority-investment
+    *ngIf="menu[selectedTab] === 'priority-investment'"></app-setting-priority-investment>
+  <setting-accredited-declaration *ngIf="menu[selectedTab] === 'accredited-declaration'"></setting-accredited-declaration>
+  <setting-bank *ngIf="menu[selectedTab] === 'bank'"></setting-bank>
+  <setting-personal *ngIf="menu[selectedTab] === 'personal'"></setting-personal>
+  <setting-password *ngIf="menu[selectedTab] === 'change-password'"></setting-password>
+  <setting-subscription-agreement *ngIf="menu[selectedTab] === 'subscription-agreement' || menu[selectedTab] === 'user-agreement'"></setting-subscription-agreement>
+</div>

@@ -1,0 +1,123 @@
+@media #{$phone} {
+    .fs-partner-container {
+        .fs-partner-header {
+            .title-section {
+                padding: 2em;
+
+                .Gilroy-SemiBold, .Gilroy-Light {
+                    font-size: 24px;
+                }
+            }
+        }
+
+        .fs-partner-content-container {
+            .fs-partner-box {
+                min-height: 32em;
+                width: 100%;
+                margin-bottom: 3em;
+            }
+
+            margin-top: 2.5em;
+        }
+    }
+}
+
+@media #{$largephone} {
+    .fs-partner-container {
+        .fs-partner-header {
+            .title-section {
+                .Gilroy-SemiBold, .Gilroy-Light {
+                    font-size: 28px;
+                }
+            }
+        }
+    }
+}
+
+@media #{$tablet} {
+    .fs-partner-container {
+        .fs-partner-header {
+            padding: 1em;
+
+            .title-section {
+                padding: 5em 1em;
+                height: 20em;
+
+                .Gilroy-SemiBold, .Gilroy-Light {
+                    font-size: 24px;
+                }
+            }
+        }
+    }
+}
+
+@media #{$desktop} {
+    .fs-partner-container {
+        .fs-partner-header {
+            padding: 2em 4em;
+
+            .title-section {
+                padding: 5em 1em;
+
+                .Gilroy-SemiBold, .Gilroy-Light {
+                    font-size: 28px;
+                }
+            }
+        }
+
+        .fs-partner-content-container {
+            .fs-partner-box {
+                width: 30%;
+                height: 30em;
+                margin-bottom: 2em;
+                margin-right: 2em;
+            }
+        }
+    }
+}
+
+@media (min-width: 1024px) {
+    .fs-partner-container {
+        .fs-partner-content-container {
+            .fs-partner-box {
+                width: 46.5%;
+            }
+        }
+    }
+}
+
+@media #{$widescreen} {
+    .fs-partner-container {
+        .fs-partner-content-container {
+            .fs-partner-box {
+                width: 30%;
+            }
+        }
+    }    
+}
+
+    
+.fs-partner-container {
+    .fs-partner-header {
+        background-color: #3e7eff;
+    }
+
+    .fs-partner-content-container {
+        .fs-partner-box {
+            background-color: white;
+
+            .image-container {
+                background-color: #fafafa;
+                padding: 2em;
+
+                img {
+                    height: 50px;
+                }
+            }
+
+            .Gilroy-SemiBold {
+                font-size: 18px;
+            }
+        }
+    }
+}

@@ -1,0 +1,24 @@
+<div class="fs-signup-image col-xs-12 col-md-4 hidden-xs hidden-sm padding-null">
+  <div class="swiper-container sign-up-swipper testimonial" [swiper]="swiperConfiguration"
+    *ngIf="testimonialContentFlag">
+    <div class="swiper-wrapper">
+      <div *ngFor="let testimonialcontent of testimonialContent" class="swiper-slide" fxLayout="column"
+        fxLayoutAlign="center center">
+        <div class="text-right col-md-11 testimonial_text">
+          <div class="col-md-12 pull-right margin-bottom-20 font-size-16">
+            <span>{{ testimonialcontent.testimonial }}</span></div>
+          <div class="col-md-12 text-bold"><span>{{ testimonialcontent.name }}</span></div>
+          <div class="col-md-12"><span>{{ testimonialcontent.title }}</span></div>
+          <div class="col-md-12"><span>{{ testimonialcontent.company }}</span></div>
+        </div>
+        <div class="img">
+          <img src="{{imageBaseUrl}}/{{ testimonialcontent.image }}" class="paralaxImg" />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-11 padding-null">
+      <div [hidden]="swiperConfiguration.pagination !== '.swiper-pagination'"
+        class=" swiper-pagination text-right col-md-12"></div>
+    </div>
+  </div>
+</div>

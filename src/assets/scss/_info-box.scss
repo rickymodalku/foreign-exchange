@@ -1,0 +1,48 @@
+@media #{$phone} {
+  .info-box-mobile,
+  .slider-mobile {
+    display: block;
+  }
+}
+
+@media #{$desktop} {
+  .info-box-mobile,
+  .slider-mobile {
+    display: none;
+  }
+}
+
+.info-box-mobile__title {
+  margin-bottom: 10px;
+  font-size: 9vw;
+}
+
+.info-box-mobile__description {
+  font-size: 4vw;
+}
+
+.info-box-mobile__btn {
+  font-size: 4vw;
+}
+
+.info-box {
+  padding-left: 30px;
+  padding-top: 30px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  margin-left: 100px;
+  height: 400px;
+  background-color: white;
+  max-width: 450px;
+
+  .title {
+    line-height: 40px;
+  }
+
+  .caption {
+    color: #4a4a4a;
+  }
+}

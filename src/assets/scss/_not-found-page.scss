@@ -1,0 +1,13 @@
+@media #{$desktop} {
+    .not-found-page {
+        padding-left: 100px;
+    }
+}
+
+.not-found-page {
+    padding-bottom: 50px;
+    padding-top: 50px;
+    .left-section {
+        padding-top: 50px;
+    }
+}

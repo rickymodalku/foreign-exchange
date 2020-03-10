@@ -1,0 +1,164 @@
+<div class="container-fluid aboutUsContainer">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center font-size-36 padding-null aboutUsHeader">
+      <div class="title">
+        <font class="Gilroy-SemiBold">{{ 'about-us.header.title' | translate }}</font>
+        <br>
+        <font class="Gilroy-Light" [innerHTML]="( 'about-us.header.title-2' | translate )"></font>
+      </div>
+      <div class="font-size-14 margin-top-20 transparant-text" [innerHTML]="( 'about-us.header.caption' | translate )">
+      </div>
+      <div class="handshake-image">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center aboutUsBody">
+      <div [innerHTML]="( 'about-us.body.title' | translate )">
+      </div>
+      <div class="transparant-text margin-top-20 margin-bottom-20"
+        [innerHTML]="( 'about-us.body.caption' | translate )">
+      </div>
+      <div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-top-20 margin-bottom-20 padding-null">
+          <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-2 col-lg-offset-2">
+            <div class="col-xs-12 col-md-3">
+              <div class="no-politics-icon">
+              </div>
+              <div class="font-size-18 black-text">
+                {{ 'about-us.key-values.0.title' | translate }}
+              </div>
+              <div class="font-size-12 light-gray-text">
+                {{ 'about-us.key-values.0.caption' | translate }}
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-3">
+              <div class="test-measure-icon">
+              </div>
+              <div class="font-size-18 black-text">
+                {{ 'about-us.key-values.1.title' | translate }}
+              </div>
+              <div class="font-size-12 light-gray-text">
+                {{ 'about-us.key-values.1.caption' | translate }}
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-3">
+              <div class="push-your-limit-icon">
+              </div>
+              <div class="font-size-18 black-text">
+                {{ 'about-us.key-values.2.title' | translate }}
+              </div>
+              <div class="font-size-12 light-gray-text">
+                {{ 'about-us.key-values.2.caption' | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-8 col-md-offset-3 col-lg-offset-3 margin-top-20 padding-null">
+          <div class="col-xs-12 col-md-4">
+            <div class="maximize-impact-icon">
+            </div>
+            <div class="font-size-18 black-text">
+              {{ 'about-us.key-values.3.title' | translate }}
+            </div>
+            <div class="font-size-12 light-gray-text">
+              {{ 'about-us.key-values.3.caption' | translate }}
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-4">
+            <div class="user-win-icon">
+            </div>
+            <div class="font-size-18 black-text">
+              {{ 'about-us.key-values.4.title' | translate }}
+            </div>
+            <div class="font-size-12 light-gray-text">
+              {{ 'about-us.key-values.4.caption' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="false">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center padding-null profileContainer">
+      <div class="city-silhouette">
+      </div>
+      <div class="detailprofileContainer">
+        <div class="fsmk-circle-icon content-center" align="center"></div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="font-size-32 Gilroy-SemiBold">
+            {{ 'about-us.our-leadership.title' | translate }}
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 profileCaption content-center margin-top-5 profileCaption">
+            {{ 'about-us.our-leadership.caption' | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row leadership-info-container" *ngIf="countryCode === 'ID'">
+    <div class="col-xs-12 title text-center">
+      {{ 'about-us.c-leadership.title' | translate }}
+    </div>
+    <div class="col-sm-12 hidden-xs" style="padding: 2.5em 5em;">
+      <div class="col-xs-3" *ngFor="let cleadershiplist of cLeadershipList;let i = index">
+        <div role="button" (click)="selectCLeadProfile(i)">
+          <img class="c-lead-profile-photo" src="{{ cleadershiplist.photo }}" />
+        </div>
+        <div class="name text-center">
+          {{ cleadershiplist.name }}
+        </div>
+        <div class="role text-center">
+          {{ cleadershiplist.role }}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12 hidden-xs text-center c-lead-description-box">
+      <div class="title margin-bottom-10">
+        {{ selectedLeader?.name }}
+      </div>
+      <span [innerHtml]="( selectedLeader?.description )">
+      </span>
+    </div>
+
+
+    <div class="swiper-container one-slide visible-xs-block" [swiper]="swiperConfiguration"
+      *ngIf="cLeadershipList.length > 0">
+      <div class="swiper-wrapper">
+        <div *ngFor="let cleadershiplist of cLeadershipList" class="swiper-slide cLeadershipSwiperContainer"
+          fxLayout="column" fxLayoutAlign="center center">
+          <div class="text-center">
+            <img class="c-lead-profile-photo" src="{{ cleadershiplist.photo }}" />
+          </div>
+          <div class="text-center name text-bold margin-top-15">
+            {{ cleadershiplist.name }}
+          </div>
+          <div class="text-center role margin-bottom-15">
+            {{ cleadershiplist.role }}
+          </div>
+          <span class="text-center" [innerHtml]="( cleadershiplist?.description )">
+          </span>
+        </div>
+      </div>
+      <div [hidden]="swiperConfiguration.pagination !== '.swiper-pagination'" class="swiper-pagination"></div>
+    </div>
+
+    <div class="col-xs-12 company-shareholder-title text-center">
+      {{ 'about-us.company-shareholder.title' | translate }}
+    </div>
+
+    <div class="col-xs-12 company-shareholder-container">
+      <div class="col-xs-12 col-sm-6">
+        <img src="/assets/img/_public/about-us/fag-logo.png" class="full-width">
+        <div class="text-center margin-bottom-10 margin-top-20">{{ 'about-us.company-shareholder.shareholder-list.0.description' | translate }}</div>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <img src="/assets/img/_public/about-us/mim-logo.png" class="full-width">
+        <div class="text-center margin-bottom-10 margin-top-20">{{ 'about-us.company-shareholder.shareholder-list.1.description' | translate }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+<newsletter></newsletter>

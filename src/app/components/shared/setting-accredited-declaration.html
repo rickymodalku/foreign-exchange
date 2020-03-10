@@ -1,0 +1,273 @@
+<div class="fs-setting-content autobot-section autobot-section-new">
+  <div class="col-xs-12 col-md-5">
+    <div class="accredited-declaration--title">
+      <b>
+        {{ 'form.setting-accredited-declaration.declaring-as-accredited-investor' | translate }}
+      </b>
+    </div>
+    <ul class="accredited-declaration--step">
+      <li>
+        {{ 'form.setting-accredited-declaration.declaring-benefit-1' | translate }}
+      </li>
+      <li>
+        {{ 'form.setting-accredited-declaration.declaring-benefit-2' | translate }}
+      </li>
+      <li>
+        {{ 'form.setting-accredited-declaration.declaring-benefit-3' | translate }}
+      </li>
+    </ul>
+    <div class="accredited-declaration--progress-title">
+      <div class="accredited-declaration--progress-step">
+        {{ 'form.setting-accredited-declaration.your-progress' | translate }}
+      </div>
+      <div class="group-step-container">
+        <div class="step-container">
+          <div class="step-circle"
+            [ngClass]="{ 'step-circle--completed' : currentStep > 1, 'step-circle--incomplete' : currentStep > 1, 'step-circle--in-progress' : currentStep <= 1 }">
+            <i *ngIf="currentStep > 1" class="fa fa-check" aria-hidden="true"></i>
+            <span *ngIf="currentStep <= 1">1</span>
+          </div>
+          <div class="step-title"
+            [ngClass]="{ 'step-title--incomplete' : currentStep < 1, 'step-title--completed' : currentStep >= 1 }">
+            {{ 'form.setting-accredited-declaration.step-1' | translate }}
+          </div>
+        </div>
+        <div class="step-line"
+          [ngClass]="{ 'step-line--completed' : currentStep > 2, 'step-line--incomplete' : currentStep === 1 }"></div>
+        <div class="step-container">
+          <div class="step-circle"
+            [ngClass]="{ 'step-circle--completed' : currentStep > 2, 'step-circle--incomplete' : currentStep <= 2 , 'step-circle--in-progress' : currentStep === 2 }">
+            <i *ngIf="currentStep > 2" class="fa fa-check" aria-hidden="true"></i>
+            <span *ngIf="currentStep <= 2">2</span>
+          </div>
+          <div class="step-title"
+            [ngClass]="{ 'step-title--incomplete' : currentStep < 2, 'step-title--completed' : currentStep >= 2 }">
+            {{ 'form.setting-accredited-declaration.step-2' | translate }}
+          </div>
+        </div>
+        <div class="step-line"
+          [ngClass]="{ 'step-line--completed' : currentStep > 3, 'step-line--incomplete' : currentStep <= 3 }"></div>
+        <div class="step-container">
+          <div class="step-circle"
+            [ngClass]="{ 'step-circle--completed' : currentStep >= 3, 'step-circle--incomplete' : currentStep < 3, 'step-circle--in-progress' : currentStep === 3  }">
+            <i *ngIf="currentStep >= 3" class="fa fa-check" aria-hidden="true"></i>
+            <span *ngIf="currentStep < 3">3</span>
+          </div>
+          <div class="step-title"
+            [ngClass]="{ 'step-title--incomplete' : currentStep < 3, 'step-title--completed' : currentStep >= 3 }">
+            {{ 'form.setting-accredited-declaration.step-3' | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-md-7">
+    <ng-container *ngIf="currentStep === 1">
+      <div class="accredited-declaration--process-container d-inline-block">
+        <div class="accredited-declaration--process-step">
+          {{ 'form.setting-accredited-declaration.declaration' | translate }}
+        </div>
+        <div class="accredited-declaration--process-title">
+          {{ 'form.setting-accredited-declaration.accredited-criteria' | translate }}
+        </div>
+        <div class="accredited-declaration--process-caption">
+          {{ 'form.setting-accredited-declaration.select-criteria' | translate }}
+        </div>
+
+        <div class="accredited-declaration--mat-container col-xs-12 padding-null">
+          <mat-radio-group class="col-xs-12 padding-null" [(ngModel)]="isAnnualIncomeAccreditedCriteria">
+            <mat-radio-button [value]="true"
+              class="col-xs-12 col-sm-6 mat-container-group--float-left margin accredited-declaration--mat-checkbox margin">
+              <div>
+                <span class="title">{{ 'form.setting-accredited-declaration.annual-income' | translate }}
+                </span><br>
+                <span
+                  class="caption">{{ 'form.setting-accredited-declaration.annual-income-description' | translate }}</span>
+              </div>
+            </mat-radio-button>
+            <mat-radio-button [value]="false"
+              class="col-xs-12 col-sm-6 mat-container-group--float-left accredited-declaration--mat-checkbox">
+              <div>
+                <span class="title">{{ 'form.setting-accredited-declaration.net-worth' | translate }}</span><br>
+                <span
+                  class="caption">{{ 'form.setting-accredited-declaration.net-worth-description' | translate }}</span>
+              </div>
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div class="accredited-declaration--process-title">
+          {{ 'form.setting-accredited-declaration.document' | translate }}
+        </div>
+        <div class="accredited-declaration--process-caption">
+          {{ 'form.setting-accredited-declaration.upload-document' | translate }}
+        </div>
+
+        <ng-container *ngIf="isAnnualIncomeAccreditedCriteria">
+          <ng-container *ngFor="let annualIncomeDocDetail of annualIncomeDocDetail">
+            <ng-container *ngIf="annualIncomeDocDetail.annualIncomeDoc">
+              <div class="accredited-declaration--uploader-box">
+                <div class="accredited-declaration--uploader-box-title">
+                  {{ annualIncomeDocDetail.displayText }}
+                </div>
+                <div class="form-group grey-border upload full-width show-preview-image">
+                  <dropzone [config]="annualIncomeDocDetail.config" [message]="annualIncomeDocDetail.message"
+                    (error)="onFileUploadError($event, annualIncomeDocDetail.label)"
+                    (sending)="onFileUploadSending($event, annualIncomeDocDetail.type)"
+                    (success)="onFileUploadSuccess($event, annualIncomeDocDetail.type)" class="investor">
+                  </dropzone>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="!isAnnualIncomeAccreditedCriteria">
+          <ng-container *ngFor="let annualIncomeDocDetail of annualIncomeDocDetail">
+            <ng-container *ngIf="!annualIncomeDocDetail.annualIncomeDoc">
+              <div class="accredited-declaration--uploader-box">
+                <div class="accredited-declaration--uploader-box-title">
+                  {{ annualIncomeDocDetail.displayText }}
+                </div>
+                <div class="form-group grey-border upload full-width show-preview-image">
+                  <dropzone [config]="annualIncomeDocDetail.config" [message]="annualIncomeDocDetail.message"
+                    (error)="onFileUploadError($event, annualIncomeDocDetail.label)"
+                    (sending)="onFileUploadSending($event, annualIncomeDocDetail.type)"
+                    (success)="onFileUploadSuccess($event, annualIncomeDocDetail.type)" class="investor">
+                  </dropzone>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+
+
+      </div>
+      <div class="accredited-declaration--process-button-container">
+        <div class="btn btn-primary-investor full-width" (click)="onAccreditedDeclarationSubmit()">
+          {{ 'form.setting-accredited-declaration.submit' | translate }}
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="currentStep === 2">
+      <div class="accredited-declaration--information-container">
+        {{ 'form.setting-accredited-declaration.step-2-information' | translate }}
+      </div>
+    </ng-container>
+    <ng-container *ngIf="currentStep === 3">
+      <ng-container *ngIf="canOptOutFlag">
+        <div class="col-xs-12 accredited-declaration--opt-out-container">
+          <div class="col-xs-12 col-sm-8 padding-null">
+            <span
+              class="accredited-declaration--opt-out-green-text">{{ 'form.setting-accredited-declaration.accredited-investor' | translate }}</span><br>
+            {{ 'form.setting-accredited-declaration.successfully-declared' | translate }} {{ memberChangeRequestEntity?.verified_at | date : dateFormat }}
+          </div>
+          <div class="col-xs-12 col-sm-4 padding-null">
+            <div class="btn btn-primary-investor pull-right" (click)="showAccreditedInvestorPopUp()">
+              {{ 'form.setting-accredited-declaration.opt-out' | translate }}
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 accredited-declaration--opt-out-container">
+          <div class="accredited-declaration--opt-out-information">
+            {{ 'form.setting-accredited-declaration.step-3-information' | translate }}
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!canOptOutFlag">
+        <div class="col-xs-12 accredited-declaration--opt-out-container">
+          <div class="col-xs-12 col-sm-9 padding-null">
+            <div>{{ 'form.setting-accredited-declaration.declaring-as-accredited-investor' | translate }}</div>
+            <div class="caption">{{ 'form.setting-accredited-declaration.you-can-only-declare' | translate }}
+              {{ memberChangeRequestEntity?.next_request_at | date : dateFormat }}</div>
+          </div>
+          <div class="col-xs-12 col-sm-3 padding-null text-right">
+            <div class="btn btn-primary-white full-width disabled">
+              {{ 'form.setting-accredited-declaration.opt-out' | translate }}
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+
+<modal id="accreditedInvestorOptOutDialog" class="fs-modal fs-modal__open fs-modal--hidden">
+  <div class="fs-modal__background" (click)="closeModal('accreditedInvestorOptOutDialog')"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered">
+    <div class="fs-modal__content">
+      <div class="fs-modal__header fs-modal__header--noborder">
+        <div type="button" clas s="fs-modal__close" (click)="closeModal('accreditedInvestorOptOutDialog')"></div>
+      </div>
+      <div class="text-center accredited-declaration-opt-out-modal-container">
+        <div class="accredited-declaration-notification content-center">
+        </div>
+        <div class="accredited-declaration-opt-out-modal-title">
+          <b> {{ 'form.setting-accredited-declaration.opt-out-accredited-investor' | translate }}
+          </b>
+        </div>
+        <div class="accredited-declaration-opt-out-modal-caption">
+          {{ 'form.setting-accredited-declaration.opt-out-caption' | translate }}
+        </div>
+        <div class="btn-container">
+          <div class="btn btn-primary-white" (click)="updateEntityDetail(entityCode.retail)">
+            {{ 'form.setting-accredited-declaration.opt-out' | translate }}
+          </div>
+          <div class="btn btn-primary-investor" (click)="closeModal('accreditedInvestorOptOutDialog')">
+            {{ 'form.setting-accredited-declaration.cancel' | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+
+
+<modal id="accreditedDeclarationSuccess" class="fs-modal fs-modal__open fs-modal--hidden">
+  <div class="fs-modal__background" (click)="closeModal('accreditedDeclarationSuccess')"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered">
+    <div class="fs-modal__content">
+      <div class="fs-modal__header fs-modal__header--noborder">
+        <div type="button" clas s="fs-modal__close" (click)="closeModal('accreditedDeclarationSuccess')"></div>
+      </div>
+      <div class="text-center accredited-declaration-success-modal-container">
+        <div class="subscription-agreement-success content-center">
+        </div>
+        <div class="accredited-declaration-success-modal-title">
+          <b> {{ 'form.setting-accredited-declaration.declaration-received' | translate }}</b>
+        </div>
+        <div class="accredited-declaration-success-modal-caption">
+          {{ 'form.setting-accredited-declaration.get-back-with-assessment' | translate }}
+        </div>
+        <div class="btn-container">
+          <div class="btn btn-primary-investor full-width" (click)="closeModal('accreditedDeclarationSuccess')">
+            {{ 'form.setting-accredited-declaration.got-it' | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+
+<modal id="optOutDialogSuccess" class="fs-modal fs-modal__open fs-modal--hidden">
+    <div class="fs-modal__background" (click)="closeModal('optOutDialogSuccess')"></div>
+    <div class="fs-modal__dialog fs-modal__dialog--centered">
+      <div class="fs-modal__content">
+        <div class="fs-modal__header fs-modal__header--noborder">
+          <div type="button" clas s="fs-modal__close" (click)="closeModal('optOutDialogSuccess')"></div>
+        </div>
+        <div class="text-center accredited-declaration-success-modal-container">
+          <div class="subscription-agreement-success content-center">
+          </div>
+          <div class="accredited-declaration-success-modal-title">
+            <b>{{ 'form.setting-accredited-declaration.opt-out-successfully' | translate }}</b>
+          </div>
+          <div class="btn-container">
+            <div class="btn btn-primary-investor full-width" (click)="closeModal('optOutDialogSuccess')">
+              {{ 'form.setting-accredited-declaration.got-it' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </modal>

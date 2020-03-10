@@ -1,0 +1,309 @@
+<div class="container-fluid white referralDashboard">
+  <div class="row">
+    <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12 referralDashboardHeader">
+      <div class="col-md-4 col-lg-4 info-box">
+        <div class="font-size-38 margin-bottom-20 title">
+          <font class="Gilroy-SemiBold">{{ 'refer.header.title' | translate }}</font>
+          <font class="Gilroy-Light">{{ 'refer.header.title-2' | translate }}</font>
+        </div>
+        <div class="font-size-16 caption" [innerHTML]="( 'refer.header.caption' | translate )">
+        </div>
+        <div *ngIf="countryCode !== 'SG'" class="btn btn-primary-referral font-size-18 fs-services-button" (click)="goToReferralPage()">
+          <div class="pull-left">
+            {{ 'refer.header.refer-now' | translate }}
+          </div>
+          <div class="white-right-arrow-icon arrow-icon pull-right margin-top-5 margin-left-10">
+          </div>
+        </div>
+        <div class="fs-services-container">
+          <div *ngIf="countryCode === 'SG'" class="btn btn-primary-referral font-size-18 btn-primary-referral-full" (click)="openModal('referralBorrower')">
+            <div class="pull-left">
+              {{ 'refer.header.refer-smes' | translate }}
+            </div>
+            <div class="white-right-arrow-icon arrow-icon pull-right margin-top-5 margin-left-10">
+            </div>
+          </div>
+          <div *ngIf="countryCode === 'SG'" class="btn btn-primary-referral font-size-18 btn-primary-referral-full" (click)="scrollDown('rewardContainer')">
+            <div class="pull-left">
+              {{ 'refer.header.refer-investors' | translate }}
+            </div>
+            <div class="white-right-arrow-icon arrow-icon pull-right margin-top-5 margin-left-10">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row info-box-mobile margin-bottom-20 padding-1em">
+    <div class="col-xs-12">
+      <div class="info-box-mobile__title">
+        <strong>{{ 'refer.header.title' | translate }}</strong>
+        <br> {{ 'refer.header.title-2' | translate }}
+      </div>
+      <div class="info-box-mobile__description">
+        {{ 'refer.header.caption' | translate }}
+      </div>
+      <div *ngIf="countryCode !== 'SG'" class="btn btn-primary-referral font-size-18 fs-services-button" (click)="goToReferralPage()">
+        <div class="block pull-left">
+          {{ 'refer.header.button' | translate }}
+        </div>
+        <div class="white-right-arrow-icon arrow-icon pull-right margin-top-5">
+        </div>
+      </div>
+      <div *ngIf="countryCode === 'SG'" class="btn btn-primary-referral font-size-18 btn-primary-referral-full" (click)="openModal('referralBorrower')">
+        <div class="block pull-left">
+          {{ 'refer.header.refer-smes' | translate }}
+        </div>
+        <div class="white-right-arrow-icon arrow-icon pull-right margin-top-5">
+        </div>
+      </div>
+      <div *ngIf="countryCode === 'SG'" class="btn btn-primary-referral font-size-18 btn-primary-referral-full" routerLink="/sign-up-investor">
+        <div class="block pull-left">
+          {{ 'refer.header.refer-investors' | translate }}
+        </div>
+        <div class="white-right-arrow-icon arrow-icon pull-right margin-top-5">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row slider-mobile">
+    <div class="swiper-container" *ngIf="benefits.length > 0" [swiper]="mobileSwipeConfig">
+      <div class="swiper-wrapper">
+        <div *ngFor="let benefit of benefits" class="swiper-slide">
+          <div class="text-center">
+            <img src="{{benefit.logo}}" />
+          </div>
+          <br>
+          <div class="text-center white-text">
+            <span class="Gilroy-SemiBold">{{benefit.desc}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row referralBenefit">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center" *ngFor="let benefit of benefits">
+      <img src="{{ benefit.logo }}" />
+      <br>
+      <span class="Gilroy-SemiBold">{{ benefit.desc }}</span>
+    </div>
+  </div>
+  <div class="row rewardContainer" id="rewardContainer">
+    <font class="col-xs-12 col-sm-12 col-md-12 col-lg-12 rewardTitle Gilroy-SemiBold">{{ 'refer.reward-offer.title' | translate }}</font>
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 rewardCaption" [innerHTML]="( 'refer.reward-offer.caption' | translate )"></div>
+  </div>
+
+  <div class="row fs-investor-accordion-menu padding-1em">
+    <div class="col-sm-12 Gillroy-SemiBold rewardTitle">{{ 'refer.reward-offer.title' | translate }}</div>
+    <p-accordion [multiple]="true" *ngIf="rewards.length > 0" class="fs-accordion">
+      <p-accordionTab header="{{reward.header}}" *ngFor="let reward of rewards">
+        <span class="Gilroy-SemiBold font-size-18">{{reward.title}}</span>
+        <div class="description light-gray-text margin-bottom-20 margin-top-10">
+          {{ reward.description }}
+        </div>
+        <div *ngIf="countryCode !== 'SG'">
+          <ol type="1">
+            <li *ngFor="let step of reward.steps">{{step}}</li>
+          </ol>
+        </div>
+        <div *ngIf="countryCode === 'SG'">
+          <ol *ngIf="!reward.caption" type="1">
+            <li *ngFor="let step of reward.steps">{{step}}</li>
+          </ol>
+          <div *ngIf="reward.caption">
+            <div *ngIf="countryCode === 'SG'" class="btn btn-primary-referral font-size-18 btn-primary-referral" (click)="openModal('referralBorrower')">
+              <div class="block pull-left">
+                {{ reward.caption }}
+              </div>
+              <div class="white-right-arrow-icon arrow-icon pull-right margin-top-5">
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+  <div class="row rewardMenuContainer">
+    <div class="pull-left rewardSubMenu" [ngClass]="{ 'active': selectedBonus }" (click)="changeRewardOffer('bonus')">
+      {{ 'refer.reward-offer.reward.0.header' | translate }}
+    </div>
+    <div class="pull-left rewardSubMenu" [ngClass]="{ 'active': selectedNewUser }" (click)="changeRewardOffer('newuser')">
+      {{ 'refer.reward-offer.reward.1.header' | translate }}
+    </div>
+  </div>
+
+  <div class="row selectedMenuContainer">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-right">
+      <img src="assets/img/_public/dashboard/referral-wall-2.png" />
+    </div>
+
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <div class="swiper-container" *ngIf="rewards.length > 0" #rewardSwiper [swiper]="rewardSwiperConfig">
+        <div class="swiper-wrapper">
+          <div *ngFor="let reward of rewards" class="swiper-slide">
+            <span class="pull-left padding-null">
+              <div class="SelectedMenuTitle">
+                {{reward.title}}
+              </div>
+              <div class="selectedMenuCaption">
+                {{ reward.description }}
+              </div>
+              <div class="selectedMenuList" *ngIf="countryCode !== 'SG'">
+                <ol type="1">
+                  <li *ngFor="let step of reward.steps">{{step}}</li>
+                </ol>
+              </div>
+              <ng-container *ngIf="countryCode === 'MY'">
+                <div class="term-condition-title">
+                  {{ reward['term-condition-title'] }}
+                </div>
+                <div>
+                  <ol class="list-disc-style">
+                    <li *ngFor="let termCondition of reward['term-condition']">{{ termCondition }}</li>
+                  </ol>
+                </div>
+              </ng-container>
+
+              <div class="selectedMenuList" *ngIf="countryCode === 'SG'">
+                <ol *ngIf="!reward.caption" type="1">
+                  <li *ngFor="let step of reward.steps">{{step}}</li>
+                </ol>
+                <div *ngIf="reward.caption">
+                  <div *ngIf="countryCode === 'SG'" class="btn btn-primary-referral font-size-18 btn-primary-referral" (click)="openModal('referralBorrower')">
+                    <div class="block pull-left">
+                      {{ reward.caption }}
+                    </div>
+                    <div class="white-right-arrow-icon arrow-icon pull-right margin-top-5">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="countryCode !== 'SG'" class="row referralBanner">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 pull-left Gilroy-Light referralBannerCaption">
+      <span>{{ 'refer.banner.description' | translate }}</span>
+      <br>
+      <span class="fs-refferal-banner-email-caption" *ngIf="showBorrowerReferralText">
+        {{ 'refer.banner.drop-email' | translate }}
+        <a role="button" (click)="emailBorrowerReferral()">{{ borrowerReferralEmail }}</a>
+      </span>
+    </div>
+    <div class="btn btn-primary-white referral font-size-18 pull-right fs-services-button margin-top-10" (click)="goToReferralPage()">
+      <div class="pull-left">
+        {{ 'refer.header.refer-now' | translate }}
+      </div>
+      <div class="green-right-arrow-icon arrow-icon pull-right margin-top-5 margin-left-10">
+      </div>
+    </div>
+  </div>
+</div>
+<div id="refer-signup-updates" *ngIf="countryCode === 'SG'" class="referral-update-container container-fluid">
+  <div class="row-fluid">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+      <h3 class="text-center Gilroy-SemiBold">{{ 'form.referral-signup.title' | translate }}</h3>
+      <div class="text-center light-gray-text">{{ 'form.referral-signup.subTitle' | translate }}
+      </div>
+      <form [formGroup]="subscribeReferralForm" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 subscribe-form" id="subscribe-form"
+        name="subscribe-form">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sign-up-form-field__wrapper">
+            <input [ngClass]="{ 'form-control-error': formModel.subscribeReferral.validation && subscribeReferralForm.controls.fullName.invalid }"
+              [placeholder]="('form.referral-signup.placeholder.name' | translate)" autocomplete="off" class="form-control fs-form-control"
+              formControlName="fullName" id="fullName" name="fullName" type="text" />
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sign-up-form-field__wrapper">
+            <input [ngClass]="{ 'form-control-error': formModel.subscribeReferral.validation && subscribeReferralForm.controls.email.invalid }"
+              [placeholder]="('form.referral-signup.placeholder.email' | translate)" autocomplete="off" class="form-control fs-form-control"
+              formControlName="email" id="email" name="email" type="email" />
+          </div>
+        </div>
+        <div class="btn btn-primary-referral font-size-18 btn-subscribe-referral" (click)="onReferralSubscribe()">
+          <div class="block text-center">
+            {{ 'form.referral-signup.placeholder.submit' | translate }}
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<newsletter *ngIf="countryCode !== 'SG'"> </newsletter>
+<modal id="referralBorrower" class="fs-modal fs-modal__open fs-modal--hidden referralBorrowerDialog">
+  <div class="fs-modal__background" (click)="closeModal('referralBorrower')"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered">
+    <div class="fs-modal__content">
+      <div class="fs-modal__header fs-modal__header--noborder ">
+        <div type="button" class="fs-modal__close" (click)="closeModal('referralBorrower')"></div>
+      </div>
+      <div class="modalPopupBody">
+        <form [formGroup]="referralBorrowerForm" (ngSubmit)="onReferralBorrowerFormSubmit()" class="fs-signup-form" id="referral-borrower-form"
+          name="referral-borrower-form">
+          <div class="fs-signup-title form-referralTitle Gilroy-SemiBold">{{ 'form.referral.referralTitle' | translate }}</div>
+          <div class="form-inline">
+            <div class="form-group sign-up-group full-width" [ngClass]="{ 'form-control-error': formModel.referralBorrower.validation && referralBorrowerForm.controls.referralCompany.invalid }">
+              <label>{{ 'form.referral.label.referralCompany' | translate }}</label>
+              <input autocomplete="off" class="form-control sign-up-form" formControlName="referralCompany" id="referralCompany" name="referralCompany"
+                type="text" />
+            </div>
+          </div>
+          <div class="form-inline">
+            <div class="form-group sign-up-group" [ngClass]="{ 'form-control-error': formModel.referralBorrower.validation && referralBorrowerForm.controls.referralFullName.invalid }">
+              <label>{{ 'form.referral.label.referralName' | translate }}</label>
+              <input autocomplete="off" class="form-control sign-up-form" formControlName="referralFullName" id="referralFullName" name="referralFullName"
+                type="text" />
+            </div>
+            <div class="form-group sign-up-group" [ngClass]="{ 'form-control-error': formModel.referralBorrower.validation && referralBorrowerForm.controls.referralMobilePhoneNumber.invalid }">
+              <label>{{ 'form.referral.label.referralContactNumber' | translate }}</label>
+              <input autocomplete="off" class="form-control sign-up-form" formControlName="referralMobilePhoneNumber" id="referralMobilePhoneNumber"
+                name="referralMobilePhoneNumber" type="text" />
+            </div>
+          </div>
+          <div class="form-inline">
+            <div class="form-group sign-up-group full-width" [ngClass]="{ 'form-control-error': formModel.referralBorrower.validation && referralBorrowerForm.controls.referralEmail.invalid }">
+              <label>{{ 'form.referral.label.referralEmail' | translate }}</label>
+              <input autocomplete="off" class="form-control sign-up-form" formControlName="referralEmail" id="referralEmail" name="referralEmail"
+                type="text" />
+            </div>
+          </div>
+          <div class="fs-signup-title form-referralTitle Gilroy-SemiBold">{{ 'form.referral.referrerTitle' | translate }}</div>
+          <div class="form-inline">
+            <div class="form-group sign-up-group" [ngClass]="{ 'form-control-error': formModel.referralBorrower.validation && referralBorrowerForm.controls.referrerFullName.invalid }">
+              <label>{{ 'form.referral.label.referrerName' | translate }}</label>
+              <input autocomplete="off" class="form-control sign-up-form" formControlName="referrerFullName" id="referrerFullName" name="referrerFullName"
+                type="text" />
+            </div>
+            <div class="form-group sign-up-group" [ngClass]="{ 'form-control-error': formModel.referralBorrower.validation && referralBorrowerForm.controls.referrerMobilePhoneNumber.invalid }">
+              <label>{{ 'form.referral.label.referrerContactNumber' | translate }}</label>
+              <input autocomplete="off" class="form-control sign-up-form" formControlName="referrerMobilePhoneNumber" id="referrerMobilePhoneNumber"
+                name="referrerMobilePhoneNumber" type="text" />
+            </div>
+          </div>
+          <div class="form-inline">
+            <div class="form-group sign-up-group full-width" [ngClass]="{ 'form-control-error': formModel.referralBorrower.validation && referralBorrowerForm.controls.referrerEmail.invalid }">
+              <label>{{ 'form.referral.label.referrerEmail' | translate }}</label>
+              <input autocomplete="off" class="form-control sign-up-form" formControlName="referrerEmail" id="referrerEmail" name="referrerEmail"
+                type="text" />
+            </div>
+          </div>
+          <div class="form-inline">
+            <div class="form-group sign-up-group full-width" [ngClass]="{ 'form-control-error': formModel.referralBorrower.validation && referralBorrowerForm.controls.referrerCompany.invalid }">
+              <label>{{ 'form.referral.label.referrerCompany' | translate }}</label>
+              <input autocomplete="off" class="form-control sign-up-form" formControlName="referrerCompany" id="referrerCompany" name="referrerCompany"
+                type="text" />
+            </div>
+          </div>
+          <p class="light-gray-text disclaimer" [innerHTML]="( 'form.referral.disclaimer' | translate )"></p>
+          <button type="submit" class="font-size-14 btn btn-primary-referral btn-primary-referral-full" (click)="openModal('referralBorrower')">
+            {{ 'form.referral.submit' | translate }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</modal>

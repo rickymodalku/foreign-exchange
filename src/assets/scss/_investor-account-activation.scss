@@ -1,0 +1,77 @@
+.fs-investor-account-act-container {
+  .title{
+    font-size:$font-32;
+  }
+  padding-bottom: 100px;
+  .fs-account-activation-box {
+    background-color: white;
+    border-radius: 4px;
+    display: grid;
+    padding: 2em 2.5em;
+    &.in-active {
+        opacity: 0.5;
+    }
+    .title-row {
+      border-bottom: solid 1px #e6e6e6;
+      padding-bottom: 20px;
+      padding-left: 0;
+      padding-right: 0;
+      .activation-title {
+        font-size: $font-28;
+      }
+    }
+    }
+    .btn-primary-referral {
+      padding:6px 12px;
+    }
+    .btn-processing {
+      background-color: #e6e6e6 !important;
+      color: #777777;
+      padding: 0.5em 2em;
+    }
+    .box-crowdfundtalks{
+      border: 1px solid #e6e6e6;
+      padding:30px;
+      .crowdfundtalks-logo{
+        width:100%;
+        max-width: 300px;
+      }
+    }
+    .fs-account-activation-box-my {
+      padding: 1.5em 1em;
+      .btn-activation-box-small-padding {
+        padding: 6px;
+        margin: 0 0 5px 5px;
+      }
+      .sub-title {
+        font-size: $font-28;
+      }
+    }
+  .circle {
+    @include circle-text(30px, #818a91, #818a91, 14px, white);
+    &.success {
+      @include circle-text(30px, #08c0a6, #08c0a6, 14px, white);
+    }
+    @media (max-width: 480px) {
+      margin: 6px 0;
+      @include circle-text(23px, #818a91, #818a91, 14px, white);
+      &.success {
+        @include circle-text(23px, #08c0a6, #08c0a6, 14px, white);
+      }
+    }
+  }
+  span {
+    color: #4a4a4a;
+  }
+  .fs-upload-box {
+    &.in-active {
+      pointer-events: none;
+   }
+  }
+}
+
+#digitalSignaturePopUp {
+  .full-height{
+    height:90vh !important;
+  }
+}

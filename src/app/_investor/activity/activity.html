@@ -1,0 +1,130 @@
+<div class="container-fluid">
+    <div class="row fs-container-act-header">
+        <div class="pull-left white-text font-size-16 act-header-title">
+            <strong class="font-size-28">{{ 'activity.title' | translate }}</strong>
+            <div [innerHtml]="( 'activity.subtitle' | translate)">
+            </div>
+        </div>
+        <div class="inv-activity-icon content-center">
+        </div>
+    </div>
+    <div class="row act-menu-row">
+        <span class="col-xs-12 col-sm-2 title"><strong>{{ 'activity.filter' | translate }}</strong></span>
+        <span class="col-xs-12 col-sm-10">
+            <span role="button" [ngClass]="{ 'active' : tabs.all }" (click)="changeTab('all')">{{ 'activity.tabs.all' | translate }}</span>
+            <span role="button" [ngClass]="{ 'active' : tabs.deposit }" (click)="changeTab('deposit')">{{ 'activity.tabs.deposit' | translate }}</span>
+            <span role="button" [ngClass]="{ 'active' : tabs.investment }" (click)="changeTab('investment')">{{ 'activity.tabs.investment' | translate }}</span>
+            <span role="button" [ngClass]="{ 'active' : tabs.withdrawal }" (click)="changeTab('withdrawal')">{{ 'activity.tabs.withdrawal' | translate }}</span>
+        </span>
+    </div>
+    <div class="row act-list-row" *ngIf="tabs.all">
+        <div class="act-box" *ngFor="let activity of allActivities">
+            <div
+                [ngClass]="{ 'deposit-icon': activity.type === 'Deposit' || activity.type === 'Investment', 'withdrawal-icon': activity.type === 'Withdrawal' }"
+                class="pull-left">
+            </div>
+            <div><strong>{{ activity.word }}</strong> | {{ activity.dateTime | date: activity.dateTimeFormat }}</div>
+            <div class="margin-top-5">
+                <font>{{ activity.description }}</font>
+            </div>
+        </div>
+        <div class="act-box text-center" *ngIf="allActivities.length === 0">
+            <em>{{ 'activity.empty-all' | translate }}</em>
+        </div>
+        <div class="row loadMoreContainer" *ngIf="activityModel.all.displayLoadMore">
+            <div class="loadMoreButton">
+                <i class="fa fa-plus" (click)="getAllActivities()"></i><br />
+                <span class="loadMoreTitle" (click)="getAllActivities()">
+                    {{ 'activity.next' | translate }} {{ activityModel.all.recordsPerPage }}
+                </span>
+            </div>
+            <div class="loadMoreButton">
+                <i class="fa fa-bars" (click)="getAllActivities(false)"></i><br />
+                <span class="loadMoreTitle" (click)="getAllActivities(false)">
+                    {{ 'activity.all' | translate }}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row act-list-row" *ngIf="tabs.deposit">
+        <div class="act-box" *ngFor="let activity of depositActivities">
+            <div class="pull-left deposit-icon">
+            </div>
+            <div><strong>{{ activity.word }}</strong> | {{ activity.dateTime | date: activity.dateTimeFormat }}</div>
+            <div class="margin-top-5">
+                <font>{{ activity.description }}</font>
+            </div>
+        </div>
+        <div class="act-box text-center" *ngIf="depositActivities.length === 0">
+            <em>{{ 'activity.empty' | translate }}</em>
+        </div>
+        <div class="row loadMoreContainer" *ngIf="activityModel.deposit.displayLoadMore">
+            <div class="loadMoreButton">
+                <i class="fa fa-plus" (click)="getDepositActivities()"></i><br />
+                <span class="loadMoreTitle" (click)="getDepositActivities()">
+                    {{ 'activity.next' | translate }} {{ activityModel.deposit.recordsPerPage }}
+                </span>
+            </div>
+            <div class="loadMoreButton">
+                <i class="fa fa-bars" (click)="getDepositActivities(false)"></i><br />
+                <span class="loadMoreTitle" (click)="getDepositActivities(false)">
+                    {{ 'activity.all' | translate }}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row act-list-row" *ngIf="tabs.investment">
+        <div class="act-box" *ngFor="let activity of investmentActivities">
+            <div class="pull-left deposit-icon">
+            </div>
+            <div><strong>{{ activity.word }}</strong> | {{ activity.dateTime | date: activity.dateTimeFormat }}</div>
+            <div class="margin-top-5">
+                <font>{{ activity.description }}</font>
+            </div>
+        </div>
+        <div class="act-box text-center" *ngIf="investmentActivities.length === 0">
+            <em>{{ 'activity.empty' | translate }}</em>
+        </div>
+        <div class="row loadMoreContainer" *ngIf="activityModel.investment.displayLoadMore">
+            <div class="loadMoreButton">
+                <i class="fa fa-plus" (click)="getInvestmentActivities()"></i><br />
+                <span class="loadMoreTitle" (click)="getInvestmentActivities()">
+                    {{ 'activity.next' | translate }} {{ activityModel.investment.recordsPerPage }}
+                </span>
+            </div>
+            <div class="loadMoreButton">
+                <i class="fa fa-bars" (click)="getInvestmentActivities(false)"></i><br />
+                <span class="loadMoreTitle" (click)="getInvestmentActivities(false)">
+                    {{ 'activity.all' | translate }}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row act-list-row" *ngIf="tabs.withdrawal">
+        <div class="act-box" *ngFor="let activity of withdrawalActivities">
+            <div class="pull-left withdrawal-icon">
+            </div>
+            <div><strong>{{ activity.word }}</strong> | {{ activity.dateTime | date: activity.dateTimeFormat }}</div>
+            <div class="margin-top-5">
+                <font>{{ activity.description }}</font>
+            </div>
+        </div>
+        <div class="act-box text-center" *ngIf="withdrawalActivities.length === 0">
+            <em>{{ 'activity.empty' | translate }}</em>
+        </div>
+        <div class="row loadMoreContainer" *ngIf="activityModel.withdrawal.displayLoadMore">
+            <div class="loadMoreButton">
+                <i class="fa fa-plus" (click)="getWithdrawalActivities()"></i><br />
+                <span class="loadMoreTitle" (click)="getWithdrawalActivities()">
+                    {{ 'activity.next' | translate }} {{ activityModel.withdrawal.recordsPerPage }}
+                </span>
+            </div>
+            <div class="loadMoreButton">
+                <i class="fa fa-bars" (click)="getWithdrawalActivities(false)"></i><br />
+                <span class="loadMoreTitle" (click)="getWithdrawalActivities(false)">
+                    {{ 'activity.all' | translate }}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

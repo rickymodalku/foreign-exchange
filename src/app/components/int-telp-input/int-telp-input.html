@@ -1,0 +1,7 @@
+<div id="int-tel-input">
+  <div class="full-width home-page-lead" [ngClass]="{ 'form-control-error': changePhoneNumberForm.error || showValidation }">
+    <input #mobilePhoneNumber [attr.disabled]="disabledInput" class="form-control fs-form-control sign-up-form"
+      type="text" telInput [telInputOptions]="telInputOptions" (isValid)="mobileNumberIsValid($event)"
+      (telOutput)="setNumber($event)" (intlTelInputObject)="telInputObject($event)" [(ngModel)]="phoneNumber"/>
+  </div>
+</div>

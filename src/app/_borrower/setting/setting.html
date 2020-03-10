@@ -1,0 +1,30 @@
+<div class="container-fluid">
+  <div class="row fs-setting-header">
+    <div class="col-md-12 padding-null">
+      <div class="col-md-6 col-sm-6 col-xs-6 setting-header-title">
+        <div class="Gilroy-SemiBold font-size-32">
+          {{ 'setting.title' | translate }}
+        </div>
+        <div class="light-gray-text font-size-14" [innerHtml]="('setting.subtitle' | translate)">
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-6 ">
+        <div class="setting-header-image">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 tabs" >
+        <mat-tab-group (selectedTabChange)="changeTab($event)">
+            <mat-tab label="{{ 'setting.tabs.password' | translate }}">
+            </mat-tab>
+            <mat-tab label="{{ 'setting.tabs.bank' | translate }}">
+            </mat-tab>
+            <mat-tab label="{{ 'setting.tabs.personal' | translate }}" class="personal">
+            </mat-tab>
+          </mat-tab-group>
+      </div>
+  </div>
+  <setting-personal *ngIf="menu.personal"></setting-personal>
+  <setting-password *ngIf="menu.password"></setting-password>
+  <setting-bank *ngIf="menu.bank"></setting-bank>
+</div>

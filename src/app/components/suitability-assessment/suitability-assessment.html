@@ -1,0 +1,204 @@
+<div class="overlay-form-container" *ngIf="showOverlayForm">
+  <div class="outer-container retake-suitability-assessment">
+    <div class="close-overlay-form">
+      <div class="fs-modal__close" (click)="closeSuitabilityAssessment()" type="button"></div>
+    </div>
+    <div class="container inner-container fs-investor-agreement">
+      <div class="row left-section">
+        <div class="col-xs-12 investment-profile">
+          <div class="Gilroy-SemiBold font-size-18">
+            {{ 'investor-dashboard.reverification.popup-suitability-assessment.title' | translate }}
+          </div>
+          <div class="font-size-12 text-justify margin-bottom-10 margin-top-10 fs-investment-profile-box-description">
+            {{ 'investor-dashboard.reverification.popup-suitability-assessment.description' | translate }}
+          </div>
+          <div class="latest-suitability-assessment">
+            {{ 'investor-dashboard.reverification.popup-suitability-assessment.latest-sat' | translate }} {{ currentProfile.assessmentDate | date: dateFormat }}:
+            <span class="profile-type">{{ currentProfile.profile }}</span>
+          </div>
+          <div class="conservative-warning" *ngIf="selectedInvestmentProfile?.value === 'conservative'">
+            <div class="left"><i class="fa fa-exclamation-circle warning-agreement"></i></div>
+            <div class="right">
+              {{ 'investor-dashboard.reverification.popup-suitability-assessment.conservative-caption' | translate }}
+            </div>
+          </div>
+          <div class="font-size-12 margin-bottom-10 ">
+            {{ 'investor-dashboard.reverification.popup-suitability-assessment.please-select' | translate }}
+          </div>
+          <div class="col-xs-12 fs-investment-profile-box-container padding-null">
+            <div class="fs-investment-profile-box conservative col-xs-12 col-sm-4"
+              [ngClass]="{ 'in-active' :  clickedInvestmentProfileType != 'conservative','active': clickedInvestmentProfileType == 'conservative' }">
+              <div
+                [ngClass]="{ 'in-active-box' :  clickedInvestmentProfileType != 'conservative','active-box': clickedInvestmentProfileType == 'conservative' }">
+                <div class="title Gilroy-SemiBold">
+                  {{ 'investor-agreement.assessment.investment-profile.content.0.value' | translate }}
+                </div>
+                <div class="content"
+                  [ngClass]="{ 'expand-profile' :  expandInvestmentProfile === 'conservative','hide-profile': expandInvestmentProfile !== 'conservative' }">
+                  <ul>
+                    <li *ngFor="let investmentProfileConservativeListData of investmentProfileConservativeListData;">
+                      {{ investmentProfileConservativeListData.value }}
+                    </li>
+                  </ul>
+                </div>
+                <div *ngIf="expandInvestmentProfile !== 'conservative'"
+                  class="hidden-lg hidden-sm hidden-md font-size-12 read-more-less"
+                  (click)="expandInvestmentProfile = 'conservative'">
+                  {{ 'investor-agreement.assessment.investment-profile.read-more' | translate }} <i
+                    class="fa fa-angle-down" aria-hidden="true"></i>
+                </div>
+                <div *ngIf="expandInvestmentProfile === 'conservative'"
+                  class="hidden-lg hidden-sm hidden-md font-size-12 read-more-less"
+                  (click)="expandInvestmentProfile = ''">
+                  {{ 'investor-agreement.assessment.investment-profile.read-less' | translate }} <i
+                    class="fa fa-angle-up" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div *ngIf="clickedInvestmentProfileType !== 'conservative'"
+                (click)="onSuitabilityAssessmentDescriptionPopup('conservative')" class="select-profile-button">
+                <strong>{{ 'investor-agreement.button.select' | translate }}</strong>
+              </div>
+              <div *ngIf="clickedInvestmentProfileType === 'conservative'" class="selected-profile">
+                <strong>{{ 'investor-agreement.button.selected' | translate }}</strong>
+                <i class="fa fa-check-circle" aria-hidden="true"></i>
+              </div>
+            </div>
+            <div class="fs-investment-profile-box conservative col-xs-12 col-sm-4 col-md-4 col-lg-4"
+              [ngClass]="{ 'in-active' :  clickedInvestmentProfileType != 'balanced','active': clickedInvestmentProfileType == 'balanced' }">
+              <div
+                [ngClass]="{ 'in-active-box' :  clickedInvestmentProfileType != 'balanced','active-box': clickedInvestmentProfileType == 'balanced' }">
+                <div class="title Gilroy-SemiBold">
+                  {{ 'investor-agreement.assessment.investment-profile.content.1.value' | translate }}
+                </div>
+                <div class="content"
+                  [ngClass]="{ 'expand-profile' :  expandInvestmentProfile === 'balanced','hide-profile': expandInvestmentProfile !== 'balanced' }">
+                  <ul>
+                    <li *ngFor="let investmentProfileBalancedListData of investmentProfileBalancedListData">
+                      {{ investmentProfileBalancedListData.value }}
+                    </li>
+                  </ul>
+                </div>
+                <div *ngIf="expandInvestmentProfile !== 'balanced'"
+                  class="hidden-lg hidden-sm hidden-md font-size-12 read-more-less"
+                  (click)="expandInvestmentProfile = 'balanced'">
+                  {{ 'investor-agreement.assessment.investment-profile.read-more' | translate }} <i
+                    class="fa fa-angle-down" aria-hidden="true"></i>
+                </div>
+                <div *ngIf="expandInvestmentProfile === 'balanced'"
+                  class="hidden-lg hidden-sm hidden-md font-size-12 read-more-less"
+                  (click)="expandInvestmentProfile = ''">
+                  {{ 'investor-agreement.assessment.investment-profile.read-less' | translate }} <i
+                    class="fa fa-angle-up" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div *ngIf="clickedInvestmentProfileType !== 'balanced'"
+                (click)="onSuitabilityAssessmentDescriptionPopup('balanced')" class="select-profile-button">
+                <strong>{{ 'investor-agreement.button.select' | translate }}</strong>
+              </div>
+              <div *ngIf="clickedInvestmentProfileType === 'balanced'" class="selected-profile">
+                <strong>{{ 'investor-agreement.button.selected' | translate }}</strong>
+                <i class="fa fa-check-circle" aria-hidden="true"></i>
+              </div>
+            </div>
+            <div class="fs-investment-profile-box conservative col-xs-12 col-sm-4 col-md-4 col-lg-4"
+              [ngClass]="{ 'in-active' :  clickedInvestmentProfileType != 'aggressive','active': clickedInvestmentProfileType == 'aggressive' }">
+              <div
+                [ngClass]="{ 'in-active-box' :  clickedInvestmentProfileType != 'aggressive','active-box': clickedInvestmentProfileType == 'aggressive' }">
+                <div class="title Gilroy-SemiBold">
+                  {{ 'investor-agreement.assessment.investment-profile.content.2.value' | translate }}
+                </div>
+                <div class="content"
+                  [ngClass]="{ 'expand-profile' :  expandInvestmentProfile === 'aggressive','hide-profile': expandInvestmentProfile !== 'aggressive' }">
+                  <ul>
+                    <li *ngFor="let investmentProfileAggressiveListData of investmentProfileAggressiveListData">
+                      {{ investmentProfileAggressiveListData.value }}
+                    </li>
+                  </ul>
+                </div>
+                <div *ngIf="expandInvestmentProfile !== 'aggressive'"
+                  class="hidden-lg hidden-sm hidden-md font-size-12 read-more-less"
+                  (click)="expandInvestmentProfile = 'aggressive'">
+                  {{ 'investor-agreement.assessment.investment-profile.read-more' | translate }} <i
+                    class="fa fa-angle-down" aria-hidden="true"></i>
+                </div>
+                <div *ngIf="expandInvestmentProfile === 'aggressive'"
+                  class="hidden-lg hidden-sm hidden-md font-size-12 read-more-less"
+                  (click)="expandInvestmentProfile = ''">
+                  {{ 'investor-agreement.assessment.investment-profile.read-less' | translate }} <i
+                    class="fa fa-angle-up" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div *ngIf="clickedInvestmentProfileType !== 'aggressive'"
+                (click)="onSuitabilityAssessmentDescriptionPopup('aggressive')" class="select-profile-button">
+                <strong>{{ 'investor-agreement.button.select' | translate }}</strong>
+              </div>
+              <div *ngIf="clickedInvestmentProfileType === 'aggressive'" class="selected-profile">
+                <strong>{{ 'investor-agreement.button.selected' | translate }}</strong>
+                <i class="fa fa-check-circle" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 fs-investor-agreement-footer">
+          <div class="col-sm-6">
+            <button (click)="onAssessmentSubmit()" class="btn btn-primary-investor pull-left save-assessment"
+              id="investor-activation-assessment-btn" name="investor-activation-assessment-btn" type="submit">
+              {{ 'investor-dashboard.reverification.popup-suitability-assessment.save-button' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<modal class="fs-modal fs-modal__open fs-modal--hidden suitability-assessment-modal" id="suitabilityAssessmentModal">
+  <div class="fs-modal__background"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered suitability-assesment-modal">
+    <div class="fs-modal__content statement-dialog__content">
+      <div class="col-xs-12 suitability-assesment-modal-content">
+        <div *ngIf="selectedInvestmentProfileType === 'conservative'">
+          <h4>
+            <strong>{{ 'investor-agreement.assessment.investment-profile.content.0.value' | translate }}</strong>
+          </h4>
+          <span
+            [innerHtml]="( 'investor-agreement.assessment.investment-profile.content.0.conservative-profile' | translate)"></span>
+          <div class="modal-confirm">
+            <button class="pull-right btn btn-primary-investor"
+              (click)="this.onSuitabilityAssessmentSubmit('conservative');this.closeModal('suitabilityAssessmentModal');clickedInvestmentProfileType = 'conservative'">{{ 'investor-agreement.assessment.investment-profile.btn-confirm' | translate }}</button>
+            <button class="pull-right btn btn-primary-white"
+              (click)="this.closeModal('suitabilityAssessmentModal');">{{ 'investor-agreement.assessment.investment-profile.btn-cancel' | translate }}</button>
+          </div>
+        </div>
+
+        <div *ngIf="selectedInvestmentProfileType === 'balanced'">
+          <h4>
+            <strong>{{ 'investor-agreement.assessment.investment-profile.content.1.value' | translate }}</strong>
+          </h4>
+          <span
+            [innerHtml]="( 'investor-agreement.assessment.investment-profile.content.1.balanced-profile' | translate)"></span>
+          <div class="modal-confirm">
+            <button class="pull-right btn btn-primary-investor"
+              (click)="this.onSuitabilityAssessmentSubmit('balanced');this.closeModal('suitabilityAssessmentModal');clickedInvestmentProfileType = 'balanced'">{{ 'investor-agreement.assessment.investment-profile.btn-confirm' | translate }}</button>
+            <button class="pull-right btn btn-primary-white"
+              (click)="this.closeModal('suitabilityAssessmentModal');">{{ 'investor-agreement.assessment.investment-profile.btn-cancel' | translate }}</button>
+          </div>
+        </div>
+
+        <div *ngIf="selectedInvestmentProfileType === 'aggressive'">
+          <h4>
+            <strong>{{ 'investor-agreement.assessment.investment-profile.content.2.value' | translate }}</strong>
+          </h4>
+          <span
+            [innerHtml]="( 'investor-agreement.assessment.investment-profile.content.2.aggressive-profile' | translate)"></span>
+          <div class="modal-confirm">
+            <button class="pull-right btn btn-primary-investor"
+              (click)="this.onSuitabilityAssessmentSubmit('aggressive');this.closeModal('suitabilityAssessmentModal');clickedInvestmentProfileType = 'aggressive'">{{ 'investor-agreement.assessment.investment-profile.btn-confirm' | translate }}</button>
+            <button class="pull-right btn btn-primary-white"
+              (click)="this.closeModal('suitabilityAssessmentModal');">{{ 'investor-agreement.assessment.investment-profile.btn-cancel' | translate }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>

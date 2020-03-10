@@ -1,0 +1,1002 @@
+<div class="container-fluid fs-investor-agreement padding-null">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 left-section">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 fs-investor-agreement-header padding-null">
+        <div
+          *ngFor="let step of steps"
+          class="text-center"
+          [ngClass]="{ 'active': currentStep >= step.index,
+                        'col-xs-2': step.index !== 3 && step.index !== 4,
+                        'col-sm-2': step.index !== 3 && step.index !== 4,
+                        'col-md-2': step.index !== 3 && step.index !== 4,
+                        'col-lg-2': step.index !== 3 && step.index !== 4,
+                        'col-xs-3': step.index === 3 || step.index === 4,
+                        'col-sm-3': step.index === 3 || step.index === 4,
+                        'col-md-3': step.index === 3 || step.index === 4,
+                        'col-lg-3': step.index === 3 || step.index === 4 }">
+          <span
+            [ngClass]="{ 'active' : currentStep >= step.index }"
+            class="fs-investor-header-flag">
+            <font>{{ step.index }}</font>
+          </span>
+          {{ step.label }}
+        </div>
+      </div>
+      <div id="investor-detail" *ngIf="currentStep === 1">
+        <div class="fs-signup-form">
+            <div class="margin-bottom-10" style="color:#4a4a4a">
+              <div class="Gilroy-SemiBold font-size-18">
+                {{ 'investor-agreement.investor-detail.title' | translate }}
+              </div>
+            </div>
+            <mat-checkbox
+                [(ngModel)]="formModel.isInsitutional"
+                (change)="onInstitutionalChange()"
+                class="pull-left padding-null col-xs-12 col-sm-12 col-md-12 col-lg-12 font-size-12">
+                {{ 'investor-agreement.investor-detail.placeholder.investor-type-checkbox' | translate }}
+            </mat-checkbox>
+            <form *ngIf="formModel.isInsitutional === false"
+            [formGroup]="investorIndividualDetail"
+            (ngSubmit)="onInvestorFormSubmit()"
+            class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null"
+            id="agreement-investor-detail-form"
+            name="agreement-investor-detail-form">
+            <div class="form-inline margin-bottom-10 margin-top-10">
+                <div
+                    class="form-group sign-up-group"
+                    [ngClass]="{ 'form-control-error': formModel.investorIndividualDetail.validation && investorIndividualDetail.controls.name.invalid }">
+                    <label>{{ 'investor-agreement.investor-detail.placeholder.individual-full-name' | translate }}</label>
+                    <input
+                    class="form-control sign-up-form"
+                    formControlName="name"
+                    id="name"
+                    name="name"
+                    type="text" />
+                </div>
+                <div
+                    class="form-group sign-up-group"
+                    [ngClass]="{ 'form-control-error': formModel.investorIndividualDetail.validation && investorIndividualDetail.controls.birthDate.invalid }">
+                    <label>{{ 'investor-agreement.investor-detail.placeholder.individual-birth-date' | translate }}</label>
+                    <p-calendar
+                        [monthNavigator]="true"
+                        [yearNavigator]="true"
+                        formControlName="birthDate"
+                        id="birthDate"
+                        inputStyleClass="form-control sign-up-form"
+                        name="birthDate"
+                        [baseZIndex]="10001"
+                        yearRange="1900:2030">
+                    </p-calendar>
+                </div>
+            </div>
+
+            <div class="form-inline margin-bottom-10">
+                <div
+                  class="form-group sign-up-group"
+                  [ngClass]="{ 'form-control-error': formModel.investorIndividualDetail.validation && investorIndividualDetail.controls.citizenship.invalid }">
+                  <label>{{ 'investor-agreement.investor-detail.placeholder.individual-citizenship' | translate }}</label>
+                  <mat-select
+                  [(ngModel)]="formModel.investorIndividualDetail.citizenship"
+                  formControlName="citizenship"
+                  id="citizenship"
+                  name="citizenship">
+                  <mat-option *ngFor="let country of masterData.countries" [value]="country.code" ngDefaultControl>
+                    {{ country.name }}
+                  </mat-option>
+                </mat-select>
+            </div>
+                <div
+                    class="form-group sign-up-group"
+                    [ngClass]="{ 'form-control-error': formModel.investorIndividualDetail.validation && investorIndividualDetail.controls.phoneNumber.invalid }">
+                    <label>{{ 'investor-agreement.investor-detail.placeholder.individual-phone-number' | translate }}</label>
+                    <input
+                    class="form-control sign-up-form"
+                    formControlName="phoneNumber"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    type="text" />
+                </div>
+            </div>
+
+            <div class="form-inline margin-bottom-10">
+                <div
+                    class="form-group sign-up-group"
+                    [ngClass]="{ 'form-control-error': formModel.investorIndividualDetail.validation && investorIndividualDetail.controls.email.invalid }">
+                    <label>{{ 'investor-agreement.investor-detail.placeholder.individual-email' | translate }}</label>
+                    <input
+                    class="form-control sign-up-form"
+                    formControlName="email"
+                    id="email"
+                    name="email"
+                    type="text" />
+                </div>
+                <div
+                  class="form-group sign-up-group"
+                  [ngClass]="{ 'form-control-error': formModel.investorIndividualDetail.validation && investorIndividualDetail.controls.idCardNumber.invalid }">
+                  <label>{{ 'investor-agreement.investor-detail.placeholder.individual-id-card-number' | translate }}</label>
+                  <input
+                  class="form-control sign-up-form"
+                  formControlName="idCardNumber"
+                  id="idCardNumber"
+                  name="idCardNumber"
+                  type="text" />
+                  </div>
+            </div>
+
+
+            <div class="form-inline margin-bottom-10">
+                <div
+                    class="form-group sign-up-group full-width"
+                    [ngClass]="{ 'form-control-error': formModel.investorIndividualDetail.validation && investorIndividualDetail.controls.address1.invalid }">
+                    <label>{{ 'investor-agreement.investor-detail.placeholder.individual-address' | translate }}</label>
+                    <input
+                    class="form-control sign-up-form"
+                    formControlName="address1"
+                    id="address1"
+                    name="address1"
+                    type="text" />
+                </div>
+            </div>
+
+            <div class="form-inline margin-bottom-10">
+                <div
+                    class="form-group sign-up-group full-width"
+                    [ngClass]="{ 'form-control-error': formModel.investorIndividualDetail.validation && investorIndividualDetail.controls.address2.invalid }">
+                    <label>{{ 'investor-agreement.investor-detail.placeholder.individual-address-corespond' | translate }}</label>
+                    <input
+                    class="form-control sign-up-form"
+                    formControlName="address2"
+                    id="address2"
+                    name="address2"
+                    type="text" />
+                </div>
+            </div>
+
+
+            <div class="col-xs-12 fs-investor-agreement-footer">
+                <button
+                    class="btn btn-primary-investor"
+                    id="investor-activation-individual-form-btn"
+                    name="investor-activation-individual-form-btn"
+                    type="submit">
+                    {{ 'investor-agreement.button.continue' | translate }}
+                </button>
+            </div>
+          </form>
+
+          <form *ngIf="formModel.isInsitutional === true"
+          [formGroup]="investorCompanyDetail"
+          (ngSubmit)="onInvestorFormSubmit()"
+          class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null"
+          id="agreement-investor-detail-form"
+          name="agreement-investor-detail-form">
+          <div class="form-inline margin-bottom-10 margin-top-10">
+            <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.investorCompanyDetail.validation && investorCompanyDetail.controls.companyName.invalid }">
+                <label>{{ 'investor-agreement.investor-detail.placeholder.company-name' | translate }}</label>
+                <input
+                class="form-control sign-up-form"
+                formControlName="companyName"
+                id="companyName"
+                name="companyName"
+                type="text" />
+            </div>
+          </div>
+
+
+          <div class="form-inline margin-bottom-10 margin-top-10">
+            <div
+                class="form-group sign-up-group"
+                [ngClass]="{ 'form-control-error': formModel.investorCompanyDetail.validation && investorCompanyDetail.controls.companyBirthDate.invalid }">
+                <label>{{ 'investor-agreement.investor-detail.placeholder.company-birth-date' | translate }}</label>
+                <p-calendar
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    formControlName="companyBirthDate"
+                    id="companyBirthDate"
+                    [baseZIndex]="10001"
+                    inputStyleClass="form-control sign-up-form"
+                    name="companyBirthDate"
+                    placeholder="{{ 'investor-agreement.investor-detail.placeholder.company-birth-date-default' | translate }}"
+                    yearRange="1900:2030">
+                </p-calendar>
+            </div>
+            <div
+                class="form-group sign-up-group"
+                [ngClass]="{ 'form-control-error': formModel.investorCompanyDetail.validation && investorCompanyDetail.controls.companyBirthPlace.invalid }">
+                <label>{{ 'investor-agreement.investor-detail.placeholder.company-birth-place' | translate }}</label>
+                <input
+                class="form-control sign-up-form"
+                formControlName="companyBirthPlace"
+                id="companyBirthPlace"
+                name="companyBirthPlace"
+                type="text" />
+            </div>
+            </div>
+
+
+          <div class="form-inline margin-bottom-10 margin-top-10">
+            <div
+                class="form-group sign-up-group"
+                [ngClass]="{ 'form-control-error': formModel.investorCompanyDetail.validation && investorCompanyDetail.controls.companyPhoneNumber.invalid }">
+                <label>{{ 'investor-agreement.investor-detail.placeholder.company-phone-number' | translate }}</label>
+                <input
+                class="form-control sign-up-form"
+                formControlName="companyPhoneNumber"
+                id="companyPhoneNumber"
+                name="companyPhoneNumber"
+                type="text" />
+            </div>
+            <div
+                class="form-group sign-up-group"
+                [ngClass]="{ 'form-control-error': formModel.investorCompanyDetail.validation && investorCompanyDetail.controls.companyEmail.invalid }">
+                <label>{{ 'investor-agreement.investor-detail.placeholder.company-email' | translate }}</label>
+                <input
+                class="form-control sign-up-form"
+                formControlName="companyEmail"
+                id="companyEmail"
+                name="companyEmail"
+                type="text" />
+            </div>
+          </div>
+
+          <div class="form-inline margin-bottom-10">
+            <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.investorCompanyDetail.validation && investorCompanyDetail.controls.companyAddress.invalid }">
+                <label>{{ 'investor-agreement.investor-detail.placeholder.company-address' | translate }}</label>
+                <input
+                class="form-control sign-up-form"
+                formControlName="companyAddress"
+                id="companyAddress"
+                name="companyAddress"
+                type="text" />
+            </div>
+          </div>
+
+
+          <div class="form-inline margin-bottom-10">
+            <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.investorCompanyDetail.validation && investorCompanyDetail.controls.companyAddress2.invalid }">
+                <label>{{ 'investor-agreement.investor-detail.placeholder.company-address-corespond' | translate }}</label>
+                <input
+                class="form-control sign-up-form"
+                formControlName="companyAddress2"
+                id="companyAddress2"
+                name="companyAddress2"
+                type="text" />
+            </div>
+          </div>
+
+          <div class="form-inline margin-bottom-10">
+            <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.investorCompanyDetail.validation && investorCompanyDetail.controls.companydirectoridNumber.invalid }">
+                <label>{{ 'investor-agreement.investor-detail.placeholder.company-director-id-card-number' | translate }}</label>
+                <input
+                class="form-control sign-up-form"
+                formControlName="companydirectoridNumber"
+                id="companydirectoridNumber"
+                name="companydirectoridNumber"
+                type="text" />
+            </div>
+        </div>
+
+        <div class="col-xs-12 fs-investor-agreement-footer">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <button
+                    class="btn btn-primary-investor btn-agreement-process"
+                    id="investor-activation-institutional-form-btn"
+                    name="investor-activation-institutional-form-btn"
+                    type="submit">
+                    {{ 'investor-agreement.button.continue' | translate }}
+                </button>
+            </div>
+        </div>
+
+        </form>
+        </div>
+      </div>
+      <div id="bank-detail" *ngIf="currentStep === 2">
+        <div class="fs-signup-form">
+                <form
+                    [formGroup]="bankForm"
+                    (ngSubmit)="onBankFormSubmit()"
+                    class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null"
+                    id="agreement-bank-form"
+                    name="agreement-bank-form">
+                    <div class="margin-bottom-10" style="color:#4a4a4a">
+                    <div class="Gilroy-SemiBold font-size-18">
+                        {{ 'investor-agreement.bank-detail.deposit.title' | translate }}
+                    </div>
+                    <div class="font-size-12">
+                        {{ 'investor-agreement.bank-detail.deposit.caption' | translate }}
+                    </div>
+                    </div>
+                    <div class="form-inline margin-bottom-10">
+                    <div
+                        class="form-group sign-up-group full-width"
+                        [ngClass]="{ 'form-control-error': formModel.bank.validation && bankForm.controls.bankId.invalid }">
+                        <label>{{ 'form.setting-bank.placeholder.bank-id' | translate }}</label>
+                        <p-dropdown placeholder="{{ 'form.setting-bank.select.bank-id' | translate }}" (onChange)="onBankIdChange($event.value.id)" [options]="masterData.banks" formControlName="bankId" [(ngModel)]="selectedBank" [filter]="true" filterBy="label"></p-dropdown>
+                    </div>
+                    </div>
+                    <div class="form-inline margin-bottom-10" *ngIf="formModel.bank.showBankOther">
+                    <div
+                        class="form-group sign-up-group full-width"
+                        [ngClass]="{ 'form-control-error': formModel.bank.validation && (!formModel.bank.bankOtherValid || bankForm.controls.bankOther.invalid) }">
+                        <label>{{ 'form.setting-bank.placeholder.bank-other' | translate }}</label>
+                        <input
+                        autocomplete="off"
+                        class="form-control sign-up-form"
+                        formControlName="bankOther"
+                        id="bankOther"
+                        name="bankOther"
+                        type="text" />
+                    </div>
+                    </div>
+                    <div class="form-inline margin-bottom-10">
+                    <div
+                        class="form-group sign-up-group"
+                        [ngClass]="{ 'form-control-error': formModel.bank.validation && bankForm.controls.number.invalid }">
+                        <label>{{ 'form.setting-bank.placeholder.bank-account-number' | translate }}</label>
+                        <input
+                        autocomplete="off"
+                        class="form-control sign-up-form"
+                        formControlName="number"
+                        id="number"
+                        name="number"
+                        type="text" />
+                    </div>
+                    <div
+                        class="form-group sign-up-group"
+                        [ngClass]="{ 'form-control-error': formModel.bank.validation && bankForm.controls.name.invalid }">
+                        <label>{{ 'form.setting-bank.placeholder.bank-account-name' | translate }}</label>
+                        <input
+                        autocomplete="off"
+                        class="form-control sign-up-form"
+                        formControlName="name"
+                        id="name"
+                        name="name"
+                        type="text" />
+                    </div>
+                    </div>
+                    <div class="form-inline margin-bottom-10">
+                    <div
+                        class="form-group sign-up-group"
+                        [ngClass]="{ 'form-control-error': formModel.bank.validation && bankForm.controls.bankAccountTypeId.invalid }">
+                        <label>{{ 'form.setting-bank.placeholder.bank-account-type-id' | translate }}</label>
+                        <mat-select
+                          placeholder="{{ 'form.setting-bank.select.bank-account-type-id' | translate }}"
+                          formControlName="bankAccountTypeId"
+                          id="bankAccountTypeId"
+                          name="bankAccountTypeId">
+                          <mat-option *ngFor="let bankAccountType of masterData.bankAccountTypes" [value]="bankAccountType.id">{{ bankAccountType.name }}</mat-option>
+                        </mat-select>
+                    </div>
+                    <div
+                        class="form-group sign-up-group"
+                        [ngClass]="{ 'form-control-error': formModel.bank.validation && bankForm.controls.branch.invalid }">
+                        <label>{{ 'form.setting-bank.placeholder.branch' | translate }}</label>
+                        <input
+                        autocomplete="off"
+                        class="form-control sign-up-form"
+                        formControlName="branch"
+                        id="branch"
+                        name="branch"
+                        type="text" />
+                    </div>
+                    </div>
+                    <div class="form-inline margin-bottom-10">
+                    <div
+                        class="form-group sign-up-group"
+                        [ngClass]="{ 'form-control-error': formModel.bank.validation && bankForm.controls.address.invalid }">
+                        <label>{{ 'form.setting-bank.placeholder.address' | translate }}</label>
+                        <input
+                        autocomplete="off"
+                        class="form-control sign-up-form"
+                        formControlName="address"
+                        id="address"
+                        name="address"
+                        type="text" />
+                    </div>
+                    <div
+                        class="form-group sign-up-group"
+                        [ngClass]="{ 'form-control-error': formModel.bank.validation && bankForm.controls.swiftCode.invalid }">
+                        <label>{{ 'form.setting-bank.placeholder.swift-code' | translate }}</label>
+                        <input
+                        autocomplete="off"
+                        class="form-control sign-up-form"
+                        formControlName="swiftCode"
+                        id="swiftCode"
+                        name="swiftCode"
+                        type="text" />
+                    </div>
+                    </div>
+                    <div class="form-inline margin-bottom-10">
+                    <div
+                        class="form-group sign-up-group"
+                        [ngClass]="{ 'form-control-error': formModel.bank.validation && bankForm.controls.currency.invalid }">
+                        <label>{{ 'form.setting-bank.placeholder.currency' | translate }}</label>
+                        <mat-select
+                          placeholder="{{ 'form.setting-bank.select.currency' | translate }}"
+                          formControlName="currency"
+                          id="currency"
+                          name="currency">
+                          <mat-option *ngFor="let currency of masterData.currencies" [value]="currency.code">{{ currency.code }} - {{ currency.name }}</mat-option>
+                        </mat-select>
+                    </div>
+                    </div>
+
+                    <div class="col-xs-12 fs-investor-agreement-footer">
+                      <div class="btn btn-primary-white btn-agreement-back" (click)="changeStep(1)" *ngIf="!isReverification">
+                        {{ 'investor-agreement.button.go-back' | translate }}
+                      </div>
+                      <button
+                        class="btn btn-primary-investor btn-agreement-process"
+                        id="investor-activation-bank-details-btn"
+                        name="investor-activation-bank-details-btn"
+                        type="submit">
+                        {{ 'investor-agreement.button.continue' | translate }}
+                      </button>
+                    </div>
+                </form>
+                </div>
+    </div>
+      <div id="declaration" *ngIf="currentStep === 3">
+        <div class="fs-signup-form">
+          <form
+            [formGroup]="sourceOfWealthForm"
+            (ngSubmit)="onSourceOfWealthFormSubmit()"
+            class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null"
+            id="agreement-source-of-wealth-form"
+            name="agreement-source-of-wealth-form">
+            <div class="margin-bottom-10" style="color:#4a4a4a">
+              <div class="Gilroy-SemiBold font-size-18">
+                {{ 'investor-agreement.declaration.tax-residency.title' | translate }}
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10" style="display: inline-block; width: 100%;">
+              <mat-checkbox
+                (change)="onTaxResidencyChange($event.checked)"
+                id="taxResidency"
+                name="taxResidency"
+                class="pull-left padding-null col-xs-12 col-sm-12 col-md-12 col-lg-12 font-size-12">
+                {{ 'form.source-of-wealth.placeholder.tax-residency' | translate }}
+              </mat-checkbox>
+            </div>
+            <div class="margin-top-20 margin-bottom-10" style="color:#4a4a4a">
+              <div class="Gilroy-SemiBold font-size-18">
+                {{ 'investor-agreement.declaration.declaration.title' | translate }}
+              </div>
+              <div class="font-size-12">
+                {{ 'investor-agreement.declaration.declaration.caption' | translate }}
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10">
+              <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.sourceOfWealth.validation && sourceOfWealthForm.controls.employmentStatus.invalid }">
+                <label>{{ 'form.source-of-wealth.placeholder.employment-status' | translate }}</label>
+                <mat-select
+                  [(ngModel)]="formModel.sourceOfWealth.employmentStatus"
+                  (selectionChange)="onEmploymentStatusChange(formModel.sourceOfWealth.employmentStatus)"
+                  placeholder="{{ 'form.source-of-wealth.select.employment-status' | translate }}"
+                  formControlName="employmentStatus"
+                  id="employmentStatus"
+                  name="employmentStatus">
+                  <mat-option *ngFor="let employmentStatus of masterData.employmentStatuses" [value]="employmentStatus.id">{{ employmentStatus.label }}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10" *ngIf="formModel.sourceOfWealth.toggleDisplay.employment || formModel.sourceOfWealth.toggleDisplay.past">
+              <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.sourceOfWealth.validation && (!formModel.sourceOfWealth.valid.employment || sourceOfWealthForm.controls.employmentJobCategory.invalid) }">
+                <label *ngIf="formModel.sourceOfWealth.toggleDisplay.employment">
+                  {{ 'form.source-of-wealth.placeholder.employment-employer' | translate }}
+                </label>
+                <label *ngIf="formModel.sourceOfWealth.toggleDisplay.past">
+                  {{ 'form.source-of-wealth.placeholder.past-employment-employer' | translate }}
+                </label>
+                <mat-select
+                  placeholder="{{ 'form.source-of-wealth.select.employment-employer' | translate }}"
+                  formControlName="employmentJobCategory"
+                  id="employmentJobCategory"
+                  name="employmentJobCategory">
+                  <mat-option *ngFor="let jobCategory of masterData.jobCategories" [value]="jobCategory">{{ jobCategory }}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10" *ngIf="formModel.sourceOfWealth.toggleDisplay.employment || formModel.sourceOfWealth.toggleDisplay.past">
+              <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.sourceOfWealth.validation && (!formModel.sourceOfWealth.valid.employment || sourceOfWealthForm.controls.employmentTitle.invalid) }">
+                <label *ngIf="formModel.sourceOfWealth.toggleDisplay.employment">
+                  {{ 'form.source-of-wealth.placeholder.employment-title' | translate }}
+                </label>
+                <label *ngIf="formModel.sourceOfWealth.toggleDisplay.past">
+                  {{ 'form.source-of-wealth.placeholder.past-employment-title' | translate }}
+                </label>
+                <mat-select
+                  placeholder="{{ 'form.source-of-wealth.select.employment-title' | translate }}"
+                  formControlName="employmentTitle"
+                  id="employmentTitle"
+                  name="employmentTitle">
+                  <mat-option *ngFor="let jobTitle of masterData.jobTitles" [value]="jobTitle">{{ jobTitle }}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10" *ngIf="formModel.sourceOfWealth.toggleDisplay.employment || formModel.sourceOfWealth.toggleDisplay.past">
+              <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.sourceOfWealth.validation && (!formModel.sourceOfWealth.valid.employment || sourceOfWealthForm.controls.employmentPeriod.invalid) }">
+                <label *ngIf="formModel.sourceOfWealth.toggleDisplay.employment">
+                  {{ 'form.source-of-wealth.placeholder.employment-period' | translate }}
+                </label>
+                <label *ngIf="formModel.sourceOfWealth.toggleDisplay.past">
+                  {{ 'form.source-of-wealth.placeholder.past-employment-period' | translate }}
+                </label>
+                <mat-select
+                  placeholder="{{ 'form.source-of-wealth.select.employment-period' | translate }}"
+                  formControlName="employmentPeriod"
+                  id="employmentPeriod"
+                  name="employmentPeriod">
+                  <mat-option *ngFor="let employmentPeriod of masterData.employmentPeriods" [value]="employmentPeriod">{{ employmentPeriod }}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10" *ngIf="formModel.sourceOfWealth.toggleDisplay.employment || formModel.sourceOfWealth.toggleDisplay.past">
+              <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.sourceOfWealth.validation && (!formModel.sourceOfWealth.valid.employment || sourceOfWealthForm.controls.employmentAnnualIncome.invalid) }">
+                <label *ngIf="formModel.sourceOfWealth.toggleDisplay.employment">
+                  {{ 'form.source-of-wealth.placeholder.monthly-income' | translate }}
+                </label>
+                <label *ngIf="formModel.sourceOfWealth.toggleDisplay.past">
+                  {{ 'form.source-of-wealth.placeholder.monthly-income' | translate }}
+                </label>
+                <mat-select
+                  placeholder="{{ 'form.source-of-wealth.select.employment-annual-income' | translate }}"
+                  formControlName="employmentAnnualIncome"
+                  id="employmentAnnualIncome"
+                  name="employmentAnnualIncome">
+                  <mat-option *ngFor="let monthlyIncome of masterData.monthlyIncome" [value]="monthlyIncome">{{ monthlyIncome }}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10" *ngIf="formModel.sourceOfWealth.toggleDisplay.business">
+              <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.sourceOfWealth.validation && (!formModel.sourceOfWealth.valid.business || sourceOfWealthForm.controls.businessJobCategory.invalid) }">
+                <label>
+                  {{ 'form.source-of-wealth.placeholder.business-name' | translate }}
+                </label>
+                <mat-select
+                  placeholder="{{ 'form.source-of-wealth.select.business-name' | translate }}"
+                  formControlName="businessJobCategory"
+                  id="businessJobCategory"
+                  name="businessJobCategory">
+                  <mat-option *ngFor="let jobCategory of masterData.jobCategories" [value]="jobCategory">{{ jobCategory }}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10" *ngIf="formModel.sourceOfWealth.toggleDisplay.business">
+              <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.sourceOfWealth.validation && (!formModel.sourceOfWealth.valid.business || sourceOfWealthForm.controls.businessAnnualRevenue.invalid) }">
+                <label>
+                  {{ 'form.source-of-wealth.placeholder.monthly-sales' | translate }}
+                </label>
+                <mat-select
+                  placeholder="{{ 'form.source-of-wealth.select.business-annual-revenue' | translate }}"
+                  formControlName="businessAnnualRevenue"
+                  id="businessAnnualRevenue"
+                  name="businessAnnualRevenue">
+                  <mat-option *ngFor="let monthlyIncome of masterData.monthlyIncome" [value]="monthlyIncome">{{ monthlyIncome }}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10" *ngIf="formModel.sourceOfWealth.toggleDisplay.business">
+              <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.sourceOfWealth.validation && (!formModel.sourceOfWealth.valid.business || sourceOfWealthForm.controls.businessAnnualProfit.invalid) }">
+                <label>
+                  {{ 'form.source-of-wealth.placeholder.monthly-revenue' | translate }}
+                </label>
+                <mat-select
+                  placeholder="{{ 'form.source-of-wealth.select.business-annual-profit' | translate }}"
+                  formControlName="businessAnnualProfit"
+                  id="businessAnnualProfit"
+                  name="businessAnnualProfit">
+                  <mat-option *ngFor="let monthlyIncome of masterData.monthlyIncome" [value]="monthlyIncome">{{ monthlyIncome }}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10" *ngIf="formModel.sourceOfWealth.toggleDisplay.business || formModel.sourceOfWealth.toggleDisplay.employment">
+                <div
+                  class="form-group sign-up-group full-width"
+                  [ngClass]="{ 'form-control-error': formModel.sourceOfWealth.validation && (!formModel.sourceOfWealth.valid.employment || !formModel.sourceOfWealth.valid.business || sourceOfWealthForm.controls.companyCountryId.invalid) }">
+                  <label>
+                    {{ 'form.source-of-wealth.placeholder.company-country-location' | translate }}
+                  </label>
+                  <mat-select
+                    placeholder="{{ 'form.source-of-wealth.select.business-annual-revenue' | translate }}"
+                    formControlName="companyCountryId"
+                    id="companyCountryId"
+                    name="companyCountryId">
+                    <mat-option *ngFor="let country of masterData.countries" [value]="country.code">{{ country.name }}</mat-option>
+                  </mat-select>
+                </div>
+              </div>
+            <div class="form-inline margin-bottom-10" *ngIf="formModel.sourceOfWealth.toggleDisplay.business || formModel.sourceOfWealth.toggleDisplay.employment">
+              <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.sourceOfWealth.validation && (!formModel.sourceOfWealth.valid.employment || !formModel.sourceOfWealth.valid.business || sourceOfWealthForm.controls.companyAddress.invalid) }">
+                <label>
+                  {{ 'form.source-of-wealth.placeholder.company-address' | translate }}
+                </label>
+                  <input
+                  class="form-control sign-up-form"
+                  formControlName="companyAddress"
+                  id="companyAddress"
+                  name="companyAddress"
+                  type="text" />
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10" *ngIf="formModel.sourceOfWealth.toggleDisplay.business || formModel.sourceOfWealth.toggleDisplay.employment">
+              <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.sourceOfWealth.validation && (!formModel.sourceOfWealth.valid.employment || !formModel.sourceOfWealth.valid.business || sourceOfWealthForm.controls.companyZipCode.invalid) }">
+                <label>
+                  {{ 'form.source-of-wealth.placeholder.company-zip-code' | translate }}
+                </label>
+                  <input
+                  class="form-control sign-up-form"
+                  formControlName="companyZipCode"
+                  (ngModelChange)='companyAddressKeyUpEvent($event)'
+                  id="companyZipCode"
+                  name="companyZipCode"
+                  type="text" />
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10" *ngIf="formModel.sourceOfWealth.toggleDisplay.business || formModel.sourceOfWealth.toggleDisplay.employment">
+                <div
+                  class="form-group sign-up-group full-width"
+                  [ngClass]="{ 'form-control-error': formModel.sourceOfWealth.validation && (!formModel.sourceOfWealth.valid.employment || !formModel.sourceOfWealth.valid.business || sourceOfWealthForm.controls.companyAreaName.invalid) }">
+                  <label>
+                    {{ 'form.source-of-wealth.placeholder.company-area-name' | translate }}
+                  </label>
+                  <mat-select
+                    placeholder="{{ 'form.source-of-wealth.select.business-annual-revenue' | translate }}"
+                    formControlName="companyAreaName"
+                    id="companyAreaName"
+                    name="companyAreaName">
+                    <mat-option *ngFor="let companyAddressNameList of companyAddressNameList" [value]="companyAddressNameList.area_id" ngDefaultControl>
+                        {{ companyAddressNameList.area_name }},{{ companyAddressNameList.district_name }},
+                        {{ companyAddressNameList.city_name }}, {{ companyAddressNameList.province_name }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+            </div>
+            <div class="form-inline margin-bottom-10" *ngIf="formModel.sourceOfWealth.toggleDisplay.business || formModel.sourceOfWealth.toggleDisplay.employment">
+              <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.sourceOfWealth.validation && (!formModel.sourceOfWealth.valid.business || sourceOfWealthForm.controls.companyAreaCode.invalid) }">
+                <label>
+                  {{ 'form.source-of-wealth.placeholder.company-area-code' | translate }} {{ 'form.optional' | translate }}
+                </label>
+                  <input
+                  class="form-control sign-up-form"
+                  formControlName="companyAreaCode"
+                  id="companyAreaCode"
+                  name="companyAreaCode"
+                  type="text" />
+              </div>
+            </div>
+            <div class="margin-top-20 margin-bottom-10" style="color:#4a4a4a">
+              <div class="Gilroy-SemiBold font-size-18">
+                {{ 'investor-agreement.declaration.other-source.title' | translate }}
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10" style="display: inline-block; width: 100%;">
+              <mat-checkbox
+                [(ngModel)]="formModel.sourceOfWealthFlag.inheritance"
+                (change)="onSourceOfWealthChange('inheritance', $event.checked)"
+                [ngModelOptions]="{ standalone: true }"
+                class="pull-left padding-null col-xs-12 col-sm-12 col-md-12 col-lg-12 font-size-12">
+                {{ 'form.source-of-wealth.placeholder.from-inheritance' | translate }}
+              </mat-checkbox>
+            </div>
+            <div class="form-inline margin-bottom-10" *ngIf="formModel.sourceOfWealth.display.inheritance">
+              <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.sourceOfWealth.validation && (!formModel.sourceOfWealth.valid.inheritance || sourceOfWealthForm.controls.inheritanceLineage.invalid) }">
+                <label>
+                  {{ 'form.source-of-wealth.placeholder.inheritance-lineage' | translate }}
+                </label>
+                <input
+                  autocomplete="off"
+                  class="form-control sign-up-form"
+                  formControlName="inheritanceLineage"
+                  id="inheritanceLineage"
+                  name="inheritanceLineage"
+                  type="text" />
+              </div>
+            </div>
+
+            <div class="form-inline margin-bottom-10" *ngIf="formModel.sourceOfWealth.display.inheritance">
+              <div
+              class="form-group sign-up-group full-width"
+              [ngClass]="{ 'form-control-error': formModel.sourceOfWealth.validation && (!formModel.sourceOfWealth.valid.inheritance || sourceOfWealthForm.controls.inheritanceAmount.invalid) }">
+              <label>
+                {{ 'form.source-of-wealth.placeholder.gift-amount' | translate }}
+              </label>
+              <input
+                autocomplete="off"
+                class="form-control sign-up-form"
+                formControlName="inheritanceAmount"
+                id="inheritanceAmount"
+                name="inheritanceAmount"
+                type="text" />
+              </div>
+            </div>
+
+            <div class="form-inline margin-bottom-10" style="display: inline-block; width: 100%;">
+              <mat-checkbox
+                [(ngModel)]="formModel.sourceOfWealthFlag.gift"
+                (change)="onSourceOfWealthChange('gift', $event.checked)"
+                [ngModelOptions]="{ standalone: true }"
+                class="pull-left padding-null col-xs-12 col-sm-12 col-md-12 col-lg-12 font-size-12">
+                {{ 'form.source-of-wealth.placeholder.from-gift' | translate }}
+              </mat-checkbox>
+            </div>
+            <div class="form-inline margin-bottom-10" *ngIf="formModel.sourceOfWealth.display.gift">
+              <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.sourceOfWealth.validation && (!formModel.sourceOfWealth.valid.gift || sourceOfWealthForm.controls.giftGiver.invalid) }">
+                <label>
+                  {{ 'form.source-of-wealth.placeholder.gift-giver' | translate }}
+                </label>
+                <input
+                  autocomplete="off"
+                  class="form-control sign-up-form"
+                  formControlName="giftGiver"
+                  id="giftGiver"
+                  name="giftGiver"
+                  type="text" />
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10" *ngIf="formModel.sourceOfWealth.display.gift">
+              <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.sourceOfWealth.validation && (!formModel.sourceOfWealth.valid.gift || sourceOfWealthForm.controls.giftReason.invalid) }">
+                <label>
+                  {{ 'form.source-of-wealth.placeholder.gift-reason' | translate }}
+                </label>
+                <input
+                  autocomplete="off"
+                  class="form-control sign-up-form"
+                  formControlName="giftReason"
+                  id="giftReason"
+                  name="giftReason"
+                  type="text" />
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-20" *ngIf="formModel.sourceOfWealth.display.gift">
+              <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.sourceOfWealth.validation && (!formModel.sourceOfWealth.valid.gift || sourceOfWealthForm.controls.giftAmount.invalid) }">
+                <label>
+                  {{ 'form.source-of-wealth.placeholder.gift-amount' | translate }}
+                </label>
+                <mat-select
+                  placeholder="{{ 'form.source-of-wealth.select.gift-amount' | translate }}"
+                  formControlName="giftAmount"
+                  id="giftAmount"
+                  name="giftAmount">
+                  <mat-option *ngFor="let wealthAmount of masterData.wealthAmounts" [value]="wealthAmount">{{ wealthAmount }}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10" style="display: inline-block; width: 100%;">
+              <mat-checkbox
+                [(ngModel)]="formModel.sourceOfWealthFlag.asset"
+                (change)="onSourceOfWealthChange('asset', $event.checked)"
+                [ngModelOptions]="{ standalone: true }"
+                class="pull-left padding-null col-xs-12 col-sm-12 col-md-12 col-lg-12 font-size-12">
+                {{ 'form.source-of-wealth.placeholder.from-asset' | translate }}
+              </mat-checkbox>
+            </div>
+            <div class="form-inline margin-bottom-10" *ngIf="formModel.sourceOfWealth.display.asset">
+              <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.sourceOfWealth.validation && (!formModel.sourceOfWealth.valid.asset || sourceOfWealthForm.controls.assetDescription.invalid) }">
+                <label>
+                  {{ 'form.source-of-wealth.placeholder.asset-description' | translate }}
+                </label>
+                <input
+                  autocomplete="off"
+                  class="form-control sign-up-form"
+                  formControlName="assetDescription"
+                  id="assetDescription"
+                  name="assetDescription"
+                  type="text" />
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-20" *ngIf="formModel.sourceOfWealth.display.asset">
+              <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.sourceOfWealth.validation && (!formModel.sourceOfWealth.valid.asset || sourceOfWealthForm.controls.assetValue.invalid) }">
+                <label>
+                  {{ 'form.source-of-wealth.placeholder.asset-value' | translate }}
+                </label>
+                <mat-select
+                  placeholder="{{ 'form.source-of-wealth.select.asset-value' | translate }}"
+                  formControlName="assetValue"
+                  id="assetValue"
+                  name="assetValue">
+                  <mat-option *ngFor="let wealthAmount of masterData.wealthAmounts" [value]="wealthAmount">{{ wealthAmount }}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10" style="display: inline-block; width: 100%;">
+              <mat-checkbox
+                [(ngModel)]="formModel.sourceOfWealthFlag.other"
+                (change)="onSourceOfWealthChange('other', $event.checked)"
+                [ngModelOptions]="{ standalone: true }"
+                class="pull-left padding-null col-xs-12 col-sm-12 col-md-12 col-lg-12 font-size-12">
+                {{ 'form.source-of-wealth.placeholder.from-other' | translate }}
+              </mat-checkbox>
+            </div>
+            <div class="form-inline margin-bottom-10" *ngIf="formModel.sourceOfWealth.display.other">
+              <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.sourceOfWealth.validation && (!formModel.sourceOfWealth.valid.other || sourceOfWealthForm.controls.otherDescription.invalid) }">
+                <label>
+                  {{ 'form.source-of-wealth.placeholder.other-description' | translate }}
+                </label>
+                <input
+                  autocomplete="off"
+                  class="form-control sign-up-form"
+                  formControlName="otherDescription"
+                  id="otherDescription"
+                  name="otherDescription"
+                  type="text" />
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-20" *ngIf="formModel.sourceOfWealth.display.other">
+              <div
+                class="form-group sign-up-group full-width"
+                [ngClass]="{ 'form-control-error': formModel.sourceOfWealth.validation && (!formModel.sourceOfWealth.valid.other || sourceOfWealthForm.controls.otherValue.invalid) }">
+                <label>
+                  {{ 'form.source-of-wealth.placeholder.other-value' | translate }}
+                </label>
+                <mat-select
+                  placeholder="{{ 'form.source-of-wealth.select.other-value' | translate }}"
+                  formControlName="otherValue"
+                  id="otherValue"
+                  name="otherValue">
+                  <mat-option *ngFor="let wealthAmount of masterData.wealthAmounts" [value]="wealthAmount">{{ wealthAmount }}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+
+            <div class="col-xs-12 fs-investor-agreement-footer">
+              <div class="btn btn-primary-white btn-agreement-back" (click)="changeStep(2)">
+                {{ 'investor-agreement.button.go-back' | translate }}
+              </div>
+              <button
+                  class="btn btn-primary-investor btn-agreement-process"
+                  id="investor-activation-wealth-declaration-btn"
+                  name="investor-activation-wealth-declaration-btn"
+                  type="submit">
+                {{ 'investor-agreement.button.continue' | translate }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div id="term-condition" *ngIf="currentStep === 4">
+        <div class="row id-term-condition">
+            <div class="col-sm-12 Gilroy-SemiBold font-size-18">
+              {{ 'investor-agreement.term-condition.title' | translate }}
+            </div>
+             <div class="col-sm-12 text-justify term-condition-paragraph">
+              {{ 'investor-agreement.term-condition.new-paragraph-1' | translate }}
+            </div>
+            <div class="col-sm-12 text-justify term-condition-paragraph">
+              <ul>
+                <li><a class="no-underline" role="button" (click)="downloadLatestBlankSA()">{{ 'setting.tabs.subscription-agreement' | translate }}</a></li>
+                <li><a class="no-underline" role="button" href="./terms-of-service" target="_blank"> {{ 'footer.navigation.term-of-service' | translate }}</a></li>
+                <li><a class="no-underline" role="button" href="./privacy-notice" target="_blank">{{ 'footer.navigation.privacy-notice' | translate }}</a></li>
+                <li><a class="no-underline" role="button" href="./rdp2p-notice" target="_blank">{{ 'form.sign-up-investor.placeholder.rdp2p-term-condition' | translate }}</a></li>
+              </ul>
+            </div>
+            <div class="col-sm-12 text-justify term-condition-paragraph">
+              {{ 'investor-agreement.term-condition.new-paragraph-2' | translate }}
+            </div>
+            <div class="col-xs-12 fs-investor-agreement-footer">
+              <div class="btn btn-primary-white btn-agreement-back" (click)="changeStep(3)">
+                {{ 'investor-agreement.button.go-back' | translate }}
+              </div>
+              <button
+                    class="btn btn-primary-investor btn-agreement-process"
+                    id="investor-activation-term-condition-agreement-btn"
+                    name="investor-activation-term-condition-agreement-btn"
+                    type="button" (click)="onTermConditionSubmit()">
+                {{ 'investor-agreement.button.continue' | translate }}
+              </button>
+            </div>
+        </div>
+    </div>
+      <div id="completed" *ngIf="currentStep === 5">
+        <div class="subscription-agreement-success margin-bottom-20">
+        </div>
+        <div class="col-lg-12 margin-top-20 text-center">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-md-offset-3 col-lg-offset-3">
+            <div class="Gilroy-SemiBold font-size-32">
+              {{ 'investor-agreement.completed.title' | translate }}
+            </div>
+            <div style="color: #777777;" *ngIf="!isReverification">
+              {{ 'investor-agreement.completed.caption' | translate }}
+            </div>
+            <div  id="investor-activation-complete-btn" name="investor-activation-complete-btn" class="btn btn-primary-white investor proceed-button font-size-18 margin-top-20" (click)="onAgreementComplete()">
+              <span *ngIf="!isReverification">{{ 'investor-agreement.completed.button' | translate }}</span>
+              <span *ngIf="isReverification"> {{ 'investor-agreement.completed.go-to-dashboard' | translate }}</span>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class="fs-signup-image-investor col-xs-12 col-sm-12 col-md-4 col-lg-4 padding-null hidden-xs hidden-sm">
+        <div class="swiper-container sign-up-swipper testimonial" [swiper]="swiperConfiguration" *ngIf="testimonialContentFlag">
+            <div class="swiper-wrapper">
+                <div *ngFor="let testimonialcontent of testimonialContent" class="swiper-slide" fxLayout="column" fxLayoutAlign="center center">
+                <div class="text-right col-md-11 testimonial_text">
+                    <div class="col-md-12 pull-right margin-bottom-20 font-size-16">
+                    <span>{{ testimonialcontent.testimonial }}</span>
+                    </div>
+                    <div class="col-md-12 text-bold">
+                    <span>{{ testimonialcontent.name }}</span>
+                    </div>
+                    <div class="col-md-12">
+                    <span>{{ testimonialcontent.company }}</span>
+                    </div>
+                </div>
+                <div class="img">
+                    <img src="{{imageBaseUrl}}/{{ testimonialcontent.image }}" class="paralaxImg" />
+                </div>
+                </div>
+            </div>
+            <div class="col-md-11 padding-null">
+                <div [hidden]="swiperConfiguration.pagination !== '.swiper-pagination'" class=" swiper-pagination text-right col-md-12"></div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <modal id="informationPopUp" class="fs-modal fs-modal__open fs-modal--hidden">
+    <div class="fs-modal__background" (click)="closeModal('informationPopUp')"></div>
+    <div class="fs-modal__dialog fs-modal__dialog--centered">
+      <div class="fs-modal__content">
+        <div class="fs-modal__header fs-modal__header--noborder padding-null">
+          <div type="button" class="fs-modal__close" (click)="closeModal('informationPopUp')"></div>
+        </div>
+        <div class="d-flex column-direction text-center">
+          <div class="letter-renewal-icon"></div>
+          <div class="title">
+            <b> {{ 'investor-agreement.reverification.title' | translate }} </b>
+          </div>
+          <div class="caption" [innerHtml]="( 'investor-agreement.reverification.content' | translate )">
+          </div>
+          <div class="col-xs-12 d-flex justify-content-space-between padding-null btn-container">
+            <div class="btn btn-primary-investor content-center full-width" (click)="closeModal('informationPopUp')">
+              {{ 'investor-agreement.reverification.button' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </modal>

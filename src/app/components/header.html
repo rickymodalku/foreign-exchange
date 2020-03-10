@@ -1,0 +1,797 @@
+<!-- ENVIRONMENT -->
+<div class="environment-configurations" *ngIf="!headerModel.isProduction || headerModel.showReviewApp">
+  <ng-container *ngIf="headerModel.showReviewApp">
+    <div class="environment-configurations__ribbon">
+      <select id="countrySelection" (change)="onCountrySelectionChange($event)">
+        <option *ngFor="let country of countries" [value]="country.code" [selected]="_countryCode === country.code">
+          {{country.value}}</option>
+      </select>
+    </div>
+    <select id="environmentSelection" (change)="onEnvironmentSelectionChange($event)">
+      <option *ngFor="let environment of environments" [value]="environment" [selected]="_environment === environment">
+        {{ environment }}</option>
+    </select>
+  </ng-container>
+</div>
+<!-- PUBLIC NAVIGATION -->
+<nav class="header-container" [ngClass]="{'header-container-expand' : showMobileHeaderMenu}"
+  *ngIf="showPublicNavigationBar">
+  <!-- DESKTOP -->
+  <!-- Menu -->
+  <div id="scrollAffix" class="mainMenu">
+    <div class="container">
+      <div class="boxLogo {{headerLogoClassNamePrefix}}-logo" routerLink="/"
+        [ngClass]="{ 'id' : countryCode === 'ID' }">
+        <a class="navbar-brand" href="#" routerLink="/"></a>
+      </div>
+      <div class="boxMenu d-flex align-items-center h-100">
+        <ul class="nav navbar-nav navbar-right d-flex align-items-center h-100">
+          <li class="Gilroy-SemiBold d-flex align-items-center h-100" (click)="toggleServiceBox()" style="cursor:pointer" *ngIf="false">
+            <a>{{ 'navigation.services.caption' | translate }}
+              <div class="glyphicon"
+                [ngClass]="{ 'glyphicon-triangle-bottom' : !showServiceBox,'glyphicon-triangle-top' : showServiceBox }"
+                style="margin-left: 10px;cursor:pointer">
+              </div>
+            </a>
+          </li>
+          <li class="d-flex align-items-center h-100">
+            <a *ngIf="countryCode === 'SG'" class="nav--bold d-flex align-items-center h-100" href="/borrow" routerLinkActive="active"
+              routerLinkActiveOptions="exact:true">
+              {{ 'navigation.borrow' | translate }}
+            </a>
+            <a *ngIf="countryCode !== 'SG'" class="nav--bold d-flex align-items-center h-100" href="#" routerLink="/borrow" routerLinkActive="active"
+              routerLinkActiveOptions="exact:true">
+              {{ 'navigation.borrow' | translate }}
+            </a>
+          </li>
+          <li class="d-flex align-items-center h-100">
+            <a *ngIf="countryCode === 'SG'" class="nav--bold d-flex align-items-center h-100" href="/invest" routerLinkActive="active" routerLinkActiveOptions="exact:true">
+              {{ 'navigation.invest' | translate }}
+            </a>
+            <a *ngIf="countryCode !== 'SG'" class="nav--bold d-flex align-items-center h-100" href="#" routerLink="/invest" routerLinkActive="active" routerLinkActiveOptions="exact:true">
+              {{ 'navigation.invest' | translate }}
+            </a>
+          </li>
+          <li class="nav-separator"></li>
+          <li class="d-flex align-items-center h-100" *ngIf="referralProgram">
+            <a class="nav--bold d-flex align-items-center h-100" href="#" routerLink="/refer" routerLinkActive="active" routerLinkActiveOptions="exact:true">
+              {{ 'navigation.refer' | translate }}
+            </a>
+          </li>
+          <li class="d-flex align-items-center h-100" >
+            <a class="nav--bold d-flex align-items-center h-100" href="#" routerLink="/progress" routerLinkActive="active" routerLinkActiveOptions="exact:true">
+              {{ 'navigation.statistic' | translate }}
+            </a>
+          </li>
+          <li class="d-flex align-items-center h-100" *ngIf="countryCode !== 'SG' && countryCode !== 'MY'">
+            <a class="nav--bold d-flex align-items-center h-100" href="#" routerLink="/faq"
+              routerLinkActive="active" routerLinkActiveOptions="exact:true">{{ 'navigation.faq' | translate }}
+            </a>
+          </li>
+          <li *ngIf="countryCode === 'SG' || countryCode === 'MY'">
+            <a class="nav--bold d-flex align-items-center h-100" href="{{ CONFIGURATION.reference.intercom_help }}" target="_blank">
+              {{ 'navigation.help' | translate }}
+            </a>
+          </li>
+          <li>
+            <a role="button" routerLinkActive="active" routerLinkActiveOptions="exact:true"
+              (click)="modal.changeLanguage =! modal.changeLanguage">
+              <div class="flag-{{countryFlagCode}}-icon pull-left margin-right-5" style="margin-top:-5px;">
+              </div>{{ languageLabel }}
+              <i class="fa  margin-left-5"
+                [ngClass]="{'fa-caret-down' : !modal.changeLanguage , 'fa-caret-up': modal.changeLanguage }"
+                aria-hidden="true"></i>
+            </a>
+          </li>
+          <li class="d-flex align-items-center h-100 part4 noBorderBtn" style="cursor:pointer">
+            <a routerLink="/log-in" id="logInID" class="nav--bold d-flex align-items-center h-100" routerLinkActive="active">
+              <span>{{ getFullname() }}</span>
+            </a>
+          </li>
+          <li class="d-flex align-items-center h-100 part4 noBorderBtn" *ngIf="!headerModel.isLoggedIn" style="cursor:pointer">
+            <a routerLink="/sign-up" id="signUpID" class="nav--bold d-flex align-items-center h-100" routerLinkActive="active">
+              <span>{{ 'navigation.sign-up' | translate }}</span>
+            </a>
+          </li>
+        </ul>
+        <!-- Change Language -->
+        <div class="triangle-border top right fs-change-language-box" *ngIf="modal.changeLanguage">
+          <div class="col-md-12 fs-change-language-box-row">
+            <div class="col-md-12 padding-null">
+              <div class="flag-sg-icon pull-left margin-right-5">
+              </div>
+              <div role="button" class="pull-right transparant-text font-size-15">
+                Singapore
+              </div>
+            </div>
+            <!-- temporary hide sg-zh locale -->
+            <!-- <a (click)="changeLanguage('sg', 'zh')">
+              <div role="button" class="col-md-12 padding-null text-right light-gray-text">
+                Chinese 中文
+              </div>
+            </a> -->
+            <a (click)="changeLanguage('sg', 'en')">
+              <div role="button" class="col-md-12 padding-null text-right light-gray-text">
+                English
+              </div>
+            </a>
+          </div>
+          <div class="col-md-12 fs-change-language-box-row">
+            <div class="col-md-12 padding-null">
+              <div class="flag-id-icon pull-left margin-right-5">
+              </div>
+              <div role="button" class="pull-right transparant-text font-size-15">
+                Indonesia
+              </div>
+            </div>
+            <a (click)="changeLanguage('id', 'id')">
+              <div role="button" class="col-md-12 padding-null text-right light-gray-text">
+                Bahasa Indonesia
+              </div>
+            </a>
+            <a (click)="changeLanguage('id', 'en')">
+              <div role="button" class="col-md-12 padding-null text-right light-gray-text">
+                English
+              </div>
+            </a>
+          </div>
+          <div class="col-md-12 fs-change-language-box-row">
+            <div class="col-md-12 padding-null">
+              <div class="flag-my-icon pull-left margin-right-5">
+              </div>
+              <div role="button" class="pull-right transparant-text font-size-15">
+                Malaysia
+              </div>
+            </div>
+            <a (click)="changeLanguage('my', 'zh')">
+              <div role="button" class="col-md-12 padding-null text-right light-gray-text">
+                Chinese 中文
+              </div>
+            </a>
+            <a (click)="changeLanguage('my', 'en')">
+              <div role="button" class="col-md-12 padding-null text-right light-gray-text">
+                English
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Service Drop Down -->
+  <div class="fs-service-box-row row" [ngClass]="{ 'active': showServiceBox }">
+    <div class="col-md-4 col-xs-4 fs-service-box invest text-center white-text">
+      <div class="title Gilroy-SemiBold">
+        {{ 'navigation.services.invest.title' | translate }}
+      </div>
+      <div class="caption transparant-text" [innerHTML]="( 'navigation.services.invest.caption' | translate )">
+      </div>
+      <div class="btn btn-service invest Gilroy-SemiBold font-size-16" (click)="closeServiceBox()" routerLink="/invest">
+        {{ 'navigation.services.invest.button' | translate }}
+      </div>
+    </div>
+    <div class="col-md-4 col-xs-4 fs-service-box borrow text-center white-text">
+      <div class="title Gilroy-SemiBold">
+        {{ 'navigation.services.borrow.title' | translate }}
+      </div>
+      <div class="caption transparant-text" [innerHTML]="( 'navigation.services.borrow.caption' | translate )">
+      </div>
+      <div class="btn btn-service borrow Gilroy-SemiBold font-size-16" (click)="closeServiceBox()" routerLink="/borrow">
+        {{ 'navigation.services.borrow.button' | translate }}
+      </div>
+    </div>
+    <div class="col-md-4 col-xs-4 fs-service-box refer text-center white-text">
+      <div class="title Gilroy-SemiBold">
+        {{ 'navigation.services.refer.title' | translate }}
+      </div>
+      <div class="caption transparant-text" [innerHTML]="( 'navigation.services.refer.caption' | translate )">
+      </div>
+      <div *ngIf="referralProgram" class="btn btn-service refer Gilroy-SemiBold font-size-16"
+        (click)="closeServiceBox()" routerLink="/refer">
+        {{ 'navigation.services.refer.button' | translate }}
+      </div>
+      <div *ngIf="!referralProgram" class="margin-top-20">
+        {{ 'navigation.services.refer.no-refer' | translate }}
+      </div>
+    </div>
+  </div>
+  <div class="row modal-container" (click)="showServiceBox = false;" [ngClass]="{ 'active': showServiceBox }">
+  </div>
+
+  <!-- MOBILE PUBLIC -->
+  <div class="navbar-header hidden-sm">
+    <div class="fsmk-vertical-logo pull-left"
+      [ngClass]="{ 'fs':countryFlagCode !== 'id', 'mk':countryFlagCode === 'id' }">
+      <a class="navbar-brand hidden-sm" href="#" routerLink="/"></a>
+    </div>
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#scrollAffix" aria-expanded="false">
+      <div [ngClass]="{'lighter-close-icon' : showMobileHeaderMenu}" class="bars-icon" (click)="openMobileHeaderMenu()">
+      </div>
+    </button>
+  </div>
+  <div *ngIf="showMobileHeaderMenu">
+    <div class="fs-mobile-nav-container" *ngIf="showMobileNavigation">
+      <div class="fs-mobile-nav-row">
+        <a *ngIf="countryCode === 'SG'" class="menu-caption" href="/invest">
+          {{ 'navigation.invest' | translate }}
+        </a>
+        <div *ngIf="countryCode !== 'SG'" class="menu-caption" routerLink="/invest">
+          {{ 'navigation.invest' | translate }}
+        </div>
+        <a *ngIf="countryCode === 'SG'" class="menu-caption" href="/borrow">
+          {{ 'navigation.borrow' | translate }}
+        </a>
+        <div *ngIf="countryCode !== 'SG'" class="menu-caption" routerLink="/borrow">
+          {{ 'navigation.borrow' | translate }}
+        </div>
+      </div>
+      <div class="fs-mobile-nav-row">
+        <div *ngIf="referralProgram" class="menu-caption" routerLink="/refer">
+          {{ 'navigation.refer' | translate }}
+        </div>
+        <div class="menu-caption" routerLink="/progress">
+          {{ 'navigation.statistic' | translate }}
+        </div>
+        <div *ngIf="countryCode !== 'SG' && countryCode !== 'MY'" class="menu-caption">
+          <a routerLink="/faq">{{ 'navigation.faq' | translate }}</a>
+        </div>
+        <div *ngIf="countryCode === 'SG' || countryCode === 'MY'" class="menu-caption">
+          <a href="{{ CONFIGURATION.reference.intercom_help }}" target="_blank">{{ 'navigation.help' | translate }}</a>
+        </div>
+      </div>
+      <div class="fs-mobile-nav-row" *ngIf="headerModel.isLoggedIn">
+        <div class="btn-container">
+          <div routerLink="/log-in" class="btn btn-signup fs-box-shadow">
+            {{ getFullname() }}
+          </div>
+        </div>
+      </div>
+      <div class="fs-mobile-nav-row" *ngIf="!headerModel.isLoggedIn">
+        <div class="btn-container">
+          <div (click)="showMobileNavigation = !showMobileNavigation;" routerLink="/sign-up"
+            class="btn btn-signup fs-box-shadow">
+            {{ 'navigation.sign-up' | translate }}
+          </div>
+          <div (click)="showMobileNavigation = !showMobileNavigation;" routerLink="/log-in"
+            class="btn btn-login fs-box-shadow">
+            {{ 'navigation.log-in' | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="fs-mobile-nav-row">
+        <div class="menu-caption language-caption">
+          <div class="fs-mobile-nav-language-selector__country">
+            <div class="flag-sg-icon margin-right-5">
+            </div>
+            <div class="country">
+              Singapore
+            </div>
+          </div>
+           <!-- temporary hide sg-zh locale -->
+          <!-- <a (click)="changeLanguage('sg', 'zh')">
+            <div role="button" class="switch-lang light-gray-text ">
+              Chinese 中文
+            </div>
+          </a> -->
+          <a (click)="changeLanguage('sg', 'en')">
+            <div role="button" class="switch-lang light-gray-text ">
+              English
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="fs-mobile-nav-row">
+        <div class="menu-caption language-caption">
+          <div class="fs-mobile-nav-language-selector__country">
+            <div class="flag-id-icon margin-right-5">
+            </div>
+            <div class="country">
+              Indonesia
+            </div>
+          </div>
+          <a (click)="changeLanguage('id', 'id')">
+            <div role="button" class="switch-lang light-gray-text ">
+              Bahasa Indonesia
+            </div>
+          </a>
+          <a (click)="changeLanguage('id', 'en')">
+            <div role="button" class="switch-lang light-gray-text ">
+              English
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="fs-mobile-nav-row">
+        <div class="menu-caption language-caption">
+          <div class="fs-mobile-nav-language-selector__country">
+            <div class="flag-my-icon margin-right-5">
+            </div>
+            <div class="country">
+              Malaysia
+            </div>
+          </div>
+          <a (click)="changeLanguage('my', 'zh')">
+            <div role="button" class="switch-lang light-gray-text ">
+              Chinese 中文
+            </div>
+          </a>
+          <a (click)="changeLanguage('my', 'en')">
+            <div role="button" class="switch-lang light-gray-text ">
+              English
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="fs-mobile-nav-container clearfix" *ngIf="showMobileLogIn">
+      <div class="row logIn-button-section text-center margin-bottom-20">
+        <!-- Show mobile login with tab -->
+        <div class="btn col-xs-6" [ngClass]="{'selected' : selectedLogInMobile === 'logIn'}"
+          (click)="showMobileHeaderMenu = false" routerLink="/log-in">
+          {{ 'navigation.log-in' | translate }}
+        </div>
+        <div class="btn col-xs-6" [ngClass]="{'selected' : selectedLogInMobile === 'signUp'}" routerLink="/sign-up">
+          {{ 'navigation.sign-up' | translate }}
+        </div>
+      </div>
+      <div *ngIf="selectedLogInMobile === 'signUp'">
+        <div class="font-size-24 text-center margin-bottom-10">
+          <strong>{{ 'navigation.sign-up' | translate }}</strong>
+        </div>
+        <div class="light-gray-text margin-bottom-20 text-center">
+          First peer-to-peer lending platform using government-registered escrow account for security of funds
+        </div>
+        <div class="sign-up-button-section">
+          <a class="btn btn-primary-investor col-xs-12 font-size-18" (click)="showMobileHeaderMenu = false"
+            routerLink="/sign-up-investor">
+            {{ 'form.sign-up.placeholder.button-investor' | translate }}
+          </a>
+          <div class="col-xs-12 padding-null">
+            <div class="hr-sect">Or</div>
+          </div>
+
+          <a class="btn btn-primary-borrower col-xs-12 margin-bottom-20 font-size-18"
+            (click)="showMobileHeaderMenu = false" routerLink="/sign-up-borrower">
+            {{ 'form.sign-up.placeholder.button-borrower' | translate }}
+          </a>
+        </div>
+      </div>
+      <form ngNativeValidate (ngSubmit)="logIn()" *ngIf="selectedLogInMobile === 'false'">
+        <div class="font-size-24 text-center margin-bottom-10 Gilroy-SemiBold">
+          {{ 'navigation.log-in' | translate }}
+        </div>
+        <div class="light-gray-text margin-bottom-20 text-center">
+          First peer-to-peer lending platform using government-registered escrow account for security of funds
+        </div>
+        <div class="alert alert-danger" *ngIf="logInModel.invalid">
+          {{ 'form.log-in.error' | translate }}
+        </div>
+        <div class="margin-bottom-20">
+          <input [(ngModel)]="logInModel.userName" [placeholder]="('form.log-in.placeholder.email' | translate)"
+            autocomplete="off" class="form-control" name="userName" type="text" required />
+        </div>
+        <div class="margin-bottom-20">
+          <input [(ngModel)]="logInModel.password" [placeholder]="('form.log-in.placeholder.password' | translate)"
+            autocomplete="off" class="form-control" name="password" type="password" required />
+        </div>
+        <div class="row-fluid margin-bottom-20">
+          <div class="pull-left">
+            <mat-checkbox class="example-margin" name="rememberMe" [(ngModel)]="logInModel.rememberMe">
+              {{ 'form.log-in.placeholder.remember-me' | translate }}
+            </mat-checkbox>
+          </div>
+          <div class="text-right" role="button">
+            <u>
+              <strong>Can't log in?</strong>
+            </u>
+          </div>
+        </div>
+        <div class="margin-bottom-20 sign-up-button-section">
+          <button class="btn btn-primary-referral full-width font-size-18" type="submit">
+            <strong>{{ 'navigation.log-in' | translate }}</strong>
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="modal-container" (touchstart)="openMobileHeaderMenu()" (click)="openMobileHeaderMenu()"
+      [ngClass]="{'active' : showMobileNavigation || showMobileLogIn }"></div>
+  </div>
+
+  <!-- DIALOG -->
+  <!-- Log In -->
+  <!-- 2FA Log In -->
+  <div id="TwoFaLoginModal" class="fs-modal fs-full-height-modal" *ngIf="modal.twoFalogIn">
+    <div class="fs-modal__background">
+        <div class="text-right">
+            <div>{{ 'form.otp.change-phone-number' | translate }}</div>
+            <div>{{ 'form.otp.contact-us-here' | translate }}</div>
+          </div>
+    </div>
+    <div class="fs-modal__content d-flex justify-content-center full-height">
+      <div class="signUpModalDetailContent text-center">
+        <two-fa-common [twoFaOptions]="twoFaConfig"></two-fa-common>
+      </div>
+    </div>
+  </div>
+  <!-- Activation Success Response -->
+  <div id="ActivationSuccessModal" class="signUpModal" *ngIf="modal.activationSuccess">
+    <div class="modalBody">
+      <div class="col-md-4 col-xs-4 signUpModalContent activation text-center">
+        <div class="col-md-12 margin-top-10">
+          <div class="col-md-12">
+            <img align="right" src="assets/img/icon/close-icon.svg" (click)="onClickCloseAllModals()"
+              style="margin-right: -20px;cursor:pointer">
+          </div>
+          <div class="col-md-12 activation-success content-center">
+          </div>
+          <div class="col-md-12 text-center Gilroy-SemiBold font-size-28 margin-top-10">
+            {{ 'form.activation.placeholder.title' | translate }}
+          </div>
+          <div class="col-md-12 text-center font-size-14 margin-top-10">
+            <span style="color:#9b9b9b" [innerHtml]="('form.activation.placeholder.description' | translate)">
+            </span>
+          </div>
+          <div class="col-md-12">
+            <div class="line-text-middle">
+            </div>
+          </div>
+          <div class="text-center">
+            <div class="btn-rectangle btn" routerLink="/log-in">
+              {{ 'form.activation.placeholder.button-success' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Activation Failed Response -->
+  <div id="ActivationFailedModal" class="signUpModal" *ngIf="modal.activationFailed">
+    <div class="modalBody">
+      <div class="col-md-4 col-xs-4 signUpModalContent activation text-center">
+        <div class="col-md-12 margin-top-10">
+          <div class="col-md-12">
+            <img align="right" src="assets/img/icon/close-icon.svg" (click)="onClickCloseAllModals()"
+              style="margin-right: -20px;cursor:pointer">
+          </div>
+          <div class="col-md-12 activation-failed content-center">
+          </div>
+          <div class="col-md-12 text-center Gilroy-SemiBold font-size-28 margin-top-10">
+            {{ 'form.activation.placeholder.title-failed' | translate }}
+          </div>
+          <div class="col-md-12 text-center font-size-14 margin-top-10">
+            <span style="color:#9b9b9b" [innerHtml]="formModel.activation.error">
+            </span>
+          </div>
+          <div class="col-md-12">
+            <div class="line-text-middle">
+            </div>
+          </div>
+          <div class="text-center">
+            <div class="btn-rectangle btn" routerLink="/log-in">
+              {{ 'form.activation.placeholder.button-failed' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- DASHBOARD NAVIGATION - DESKTOP -->
+
+<!-- HEADER SUBMENU TEMPLATE -->
+<ng-template #fsHeaderSubmenu>
+  <span
+    *ngIf="getMemberTypeCode() === memberTypeCodes.investor ? navigationAccess?.investor.subMenu.activity : navigationAccess?.borrower.subMenu.activity"
+    class="button-activity submenu-button" role="button"
+    (click)="showActivityBox = !showActivityBox;showMenuContainer = false">
+    {{ 'navigation.activity' | translate }}
+    <span class="submenu-divider">|</span>
+  </span>
+  <span *ngIf="showHelp" class="submenu-button" role="button" (click)="goToHelp()">{{ 'navigation.help' | translate }}
+    <span class="submenu-divider">|</span>
+  </span>
+  <span
+    *ngIf="getMemberTypeCode() === memberTypeCodes.investor ? navigationAccess?.investor.subMenu.setting : navigationAccess?.borrower.subMenu.setting"
+    role="button" class="submenu-button" (click)="goToSetting()">
+    {{ 'navigation.setting' | translate }}
+    <span class="submenu-divider">|</span>
+  </span>
+  <span role="button" class="submenu-button" (click)="logOut()">
+    {{ 'navigation.log-out' | translate }}
+    <span class="submenu-divider">|</span>
+  </span>
+  <span id="feedback" role="button" class="submenu-button" (click)="goToFeedback($event)">
+    {{ 'navigation.feedback' | translate }}
+  </span>
+</ng-template>
+
+  <!-- HEADER Profile TEMPLATE -->
+  <ng-template #fsHeaderProfile>
+    <strong class="Gilroy-SemiBold">{{ 'header.welcome' | translate }},</strong>
+    <span class="Gilroy-Regular">{{ memberModel.fullName }}</span>
+    <span *ngIf="showWarning" routerLink="/admin-investor/setting/subscription-agreement" class="fa fa-exclamation-circle warning-agreement" aria-hidden="true"></span>
+  </ng-template>
+
+<ng-template #fsHeaderBalanceCash>
+  <div class="fs-header-balance-cash Gilroy-Light" *ngIf="showBalanceCash">{{ 'header.balance-cash' | translate }}
+    <!-- TEMPORARY CODE FOR OJK NEEDED -->
+    <span *ngIf="showBalanceNote"> RDP2P </span>
+    <!-- TEMPORARY CODE FOR OJK NEEDED -->
+    <strong class="Gilroy-SemiBold">{{ memberModel.currency }}
+      {{ memberModel.balance | number: memberModel.currencyFormat: memberModel.localeFormat }}</strong>
+  </div>
+  <!-- TEMPORARY CODE FOR OJK NEEDED -->
+  <div class="Gilroy-Light" *ngIf="showBalanceNote">
+    powered by Bank Sinarmas
+  </div>
+  <!-- TEMPORARY CODE FOR OJK NEEDED -->
+</ng-template>
+<nav class="header-container" [ngClass]="{ 'overlayed': showMobileLeftNavMenu }" *ngIf="!showPublicNavigationBar">
+  <!-- <div class="navbar-header">
+      <button type="button" class="navbar-toggle pull-left" data-toggle="collapse" data-target="#scrollAffix" aria-expanded="false"
+        style="padding:0 !important;">
+              <i class="fa fa-bars font-size-28" (click)="showMobileLeftNavMenu = !showMobileLeftNavMenu"></i>
+          </button>
+      <a class="navbar-brand hidden-lg hidden-md hidden-sm" href="#" routerLink="/"></a>
+      <div class="fsmk-vertical-logo content-center" style="width:50vw" routerLink="/"></div>
+    </div> -->
+  <div id="scrollAffix" class="mainMenu" [ngClass]="{'show': headerModel.isLoggedIn }"
+    *ngIf="getMemberTypeCode() !== ''">
+    <div class="container">
+      <!-- SUBMENU LEFT DESKTOP -->
+      <div class="col-xs-4 col-sm-4 col-md-5 col-lg-5 fs-menu-left">
+        <div class="font-size-22 text-ellipsis fs-menu-header-name" [ngClass]="{ 'margin-top-10': !showMenuToggle }">
+          <ng-container *ngTemplateOutlet="fsHeaderProfile; context:this"></ng-container>
+        </div>
+        <div class="fs-header-menu-box">
+          <ng-container *ngTemplateOutlet="fsHeaderSubmenu; context:this"></ng-container>
+        </div>
+        <!-- ACTIVITY -->
+        <div class="triangle-border top left text-left padding-null recent-activity-box"
+          [ngClass]="{ active : showActivityBox }">
+          <div class="box-title">
+            <strong>{{ 'activity.recent' | translate }}</strong>
+          </div>
+          <div class="box-list-container" *ngFor="let activity of headerModel.activities">
+            <div class="box-list-row">
+              <span>
+                <strong>{{ activity.type }} |</strong> {{ activity.dateTime | date: activity.dateTimeFormat }}</span>
+            </div>
+          </div>
+          <div class="box-list-container text-center" *ngIf="headerModel.activities.length === 0">
+            <div class="box-list-row">
+              <span>
+                <em>{{ 'activity.empty-all' | translate }}</em>
+              </span>
+            </div>
+          </div>
+          <div class="box-footer text-center">
+            <div class="btn btn-primary-borrower" (click)="goToActivities()">
+              {{ 'activity.button-all' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- TOGGLE -->
+      <div class="fs-menu" (touchstart)="toggleMenu($event)" (click)="toggleMenu($event)"
+        (dblclick)="toggleMenu($event)">
+        <div id="dashboardnav_hype_container"
+          [ngClass]="{ show : getMemberTypeCode() === memberTypeCodes.investor ? navigationAccess.investor.showMenu : navigationAccess.borrower.showMenu }">
+          <div class="fs-menu-icon"></div>
+        </div>
+        <div class="fs-menu-title">
+          <a href="#">{{ 'navigation.menu' | translate }}</a>
+        </div>
+        <div class="fs-menu-triangle"></div>
+      </div>
+      <!-- SUBMENU RIGHT -->
+      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right fs-menu-right">
+        <ng-container *ngTemplateOutlet="fsHeaderBalanceCash; context:this"></ng-container>
+        <!-- REFERRAL -->
+        <!-- <div class="font-size-14"
+            *ngIf="(getMemberTypeCode() === memberTypeCodes.investor) && navigationAccess.investor.menu.referral">
+            <span style="color:#9b9b9b">{{ 'referral.caption-1' | translate }}, </span>
+            <strong role="button" (click)="showReferBox = !showReferBox;showMenuContainer = false;"><u>{{ 'referral.caption-2' | translate }}</u></strong>.
+          </div> -->
+        <!-- MONTHLY STATEMENTS -->
+        <div class="fs-statement-link"
+          *ngIf="navigationAccess?.investor.menu.statement || (navigationAccess?.borrower.menu.statement && CONFIGURATION.showTaxInvoice)">
+          <strong role="button" (click)="goToStatement()">
+            <u>{{ 'statement.caption' | translate }}</u>
+          </strong>
+        </div>
+        <div class="font-size-14"
+          *ngIf="countryFlagCode === 'id' ? false : (getMemberTypeCode() === memberTypeCodes.investor) ? navigationAccess.investor.menu.homepage : false">
+          <span role="button" style="color:#9b9b9b" routerLink="/admin-investor">
+            <u>Complete Account Activation</u>
+          </span>
+        </div>
+        <div class="triangle-border top right text-left refer-friend-box" [ngClass]="{ active : showReferBox }">
+          <div class="font-size-20 margin-bottom-10">
+            <strong>{{ 'referral.box-title' | translate }}</strong>
+          </div>
+          <div class="margin-bottom-20">
+            <span [innerHtml]="('referral.box-subtitle' | translate)">
+            </span>
+          </div>
+          <div class="row margin-null">
+            <div class="pull-left">
+              <div class="pull-left">
+                <input
+                  [placeholder]="getMemberTypeCode() === memberTypeCodes.investor ? formModel.referral.investorLink + formModel.referral.code : formModel.referral.borrowerLink + formModel.referral.code"
+                  [value]="getMemberTypeCode() === memberTypeCodes.investor ? formModel.referral.investorLink + formModel.referral.code : formModel.referral.borrowerLink + formModel.referral.code"
+                  class="margin-right-10" style="width:8em;height: 2.5em">
+              </div>
+              <div
+                [cbContent]="getMemberTypeCode() === memberTypeCodes.investor ? formModel.referral.investorLink + formModel.referral.code : formModel.referral.borrowerLink + formModel.referral.code"
+                (cbOnSuccess)="onCopyToClipboard()" class="btn btn-primary-borrower pull-left" ngxClipboard>
+                {{ 'referral.button' | translate }}
+              </div>
+            </div>
+            <div class="referral-box pull-right">
+            </div>
+          </div>
+          <div class="margin-top-20 margin-bottom-10">
+            <span>{{ 'referral.box-social-title' | translate }}</span>
+          </div>
+          <div class="row margin-null">
+            <div role="button" class="pull-left margin-right-20 facebook-icon" (click)="share('facebook')">
+            </div>
+            <div role="button" class="pull-left margin-right-20 google-plus-icon" (click)="share('google-plus')">
+            </div>
+            <div role="button" class="pull-left margin-right-20 linkedin-icon" (click)="share('linked-in')">
+            </div>
+            <div role="button" class="pull-left twitter-icon" (click)="share('twitter')">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- SUBMENU PROFILE MOBILE -->
+  <!-- <div class="fs-menu-profile">
+      <div class="font-size-22 text-ellipsis fs-menu-header-name" [ngClass]="{ 'margin-top-10': !showMenuToggle }"><strong class="Gilroy-SemiBold">{{ 'header.welcome' | translate }},</strong>
+        <span class="Gilroy-Regular">{{ memberModel.fullName }}</span>
+      </div>
+      <div class="fs-header-menu-box">
+        <span *ngIf="getMemberTypeCode() === memberTypeCodes.investor ? navigationAccess.investor.subMenu.activity : navigationAccess.borrower.subMenu.activity"
+              class="button-activity"
+              role="button"
+              (click)="showActivityBox = !showActivityBox;showMenuContainer = false">
+              {{ 'navigation.activity' | translate }} |
+        </span>
+        <span role="button" (click)="navigateToUrl(headerModel.intercomHelp)">{{ 'navigation.help' | translate }} |</span>
+        <span *ngIf="getMemberTypeCode() === memberTypeCodes.investor ? navigationAccess.investor.subMenu.setting : navigationAccess.borrower.subMenu.setting"
+              role="button"
+              (click)="goToSetting()">
+              {{ 'navigation.setting' | translate }} |
+        </span>
+        <span role="button" (click)="logOut()">{{ 'navigation.log-out' | translate }}</span>
+    </div> -->
+
+  <span *ngIf="getMemberTypeCode() === memberTypeCodes.investor" class="fs-menu-container-wrapper"
+    [ngClass]="{'fs-menu-container-wrapper--active' : showMenuContainer, 'my' : countryFlagCode === 'my' }">
+    <div class="fs-header-profile-mobile fs-menu-container-wrapper">
+      <ng-container *ngTemplateOutlet="fsHeaderProfile; context:this"></ng-container>
+      <ng-container *ngTemplateOutlet="fsHeaderBalanceCash; context:this"></ng-container>
+      <div class="font-size-14 text-center" (click)="reverseMenuButton();"
+        *ngIf="(getMemberTypeCode() === memberTypeCodes.investor) && navigationAccess?.investor.menu.statement">
+        <strong role="button" routerLink="/admin-investor/statement">
+          <u>{{ 'statement.caption' | translate }}</u>
+        </strong>
+      </div>
+    </div>
+    <div class="investorMenuContainer text-center">
+      <div class="item text-center" *ngIf="navigationAccess?.investor.menu.overview">
+        <div role="button" (click)="reverseMenuButton();" (dblclick)="reverseMenuButton();"
+          routerLink="/admin-investor/overview" class="investor-menu-icon margin-bottom-20 overview"
+          [ngClass]="{ grayscale : false }"></div>
+        <span class="investor-header-caption">{{ 'navigation.overview' | translate}}</span>
+      </div>
+      <div class="item text-center" *ngIf="navigationAccess?.investor.menu.browse_loan">
+        <div role="button" (click)="reverseMenuButton();" (dblclick)="reverseMenuButton();"
+          routerLink="/admin-investor/browse-loan" class="investor-menu-icon margin-bottom-20 investment"></div>
+        <span class="investor-header-caption" [innerHTML]="( 'navigation.investment' | translate )"></span>
+      </div>
+      <div class="item text-center" *ngIf="navigationAccess.investor.menu.homepage">
+        <div role="button" (click)="reverseMenuButton();" (dblclick)="reverseMenuButton();" routerLink="/admin-investor"
+          class="investor-menu-icon margin-bottom-20 margin-left-20 activation" [ngClass]="{ grayscale : false }"></div>
+        <span class="investor-header-caption">{{ 'navigation.account-activation' | translate}}</span>
+      </div>
+      <div class="item text-center" *ngIf="navigationAccess?.investor.menu.portfolio">
+        <div role="button" (click)="reverseMenuButton();" (dblclick)="reverseMenuButton();"
+          routerLink="/admin-investor/portfolio" class="investor-menu-icon margin-bottom-20 portfolio"
+          [ngClass]="{ grayscale : false }"></div>
+        <span class="investor-header-caption">{{ 'navigation.portfolio' | translate }}</span>
+      </div>
+      <div class="item text-center" *ngIf="navigationAccess?.investor.menu.deposit">
+        <div role="button" (click)="reverseMenuButton();" (dblclick)="reverseMenuButton();"
+          routerLink="/admin-investor/deposit" class="investor-menu-icon margin-bottom-20 deposit"
+          [ngClass]="{ grayscale : false }"></div>
+        <span class="investor-header-caption">{{ 'navigation.deposit' | translate }}</span>
+      </div>
+      <div class="item text-center" *ngIf="navigationAccess?.investor.menu.withdrawal">
+        <div role="button" (click)="reverseMenuButton();" (dblclick)="reverseMenuButton();"
+          routerLink="/admin-investor/withdrawal" class="investor-menu-icon margin-bottom-20 withdrawal"
+          [ngClass]="{ grayscale : false }"></div>
+        <span class="investor-header-caption">{{ 'navigation.withdrawal' | translate }}</span>
+      </div>
+      <div class="item text-center" *ngIf="navigationAccess?.investor.menu.referral">
+        <div role="button" (click)="reverseMenuButton();" (dblclick)="reverseMenuButton();"
+          routerLink="/admin-investor/referral" class="investor-menu-icon margin-bottom-20 referral"
+          [ngClass]="{ grayscale : false }"></div>
+        <span class="investor-header-caption">{{ 'navigation.referral' | translate }}</span>
+      </div>
+      <div class="item text-center" *ngIf="navigationAccess?.investor.subMenu.activity">
+        <div role="button" (click)="reverseMenuButton();" (dblclick)="reverseMenuButton();"
+          routerLink="/admin-investor/activity" class="investor-menu-icon margin-bottom-20 activity"
+          [ngClass]="{ grayscale : false }"></div>
+        <span class="investor-header-caption">{{ 'navigation.activity' | translate }}</span>
+      </div>
+      <div class="item text-center" *ngIf="navigationAccess?.investor.menu.sbn_retail">
+        <div role="button" (click)="reverseMenuButton();" (dblclick)="reverseMenuButton();"
+          routerLink="/admin-investor/sbn-retail" class="investor-menu-icon margin-bottom-20 sbn-retail"
+          [ngClass]="{ grayscale : false }"></div>
+        <span class="investor-header-caption">{{ 'navigation.sbn-retail' | translate }}</span>
+      </div>
+    </div>
+
+    <div class="fs-header-menu-box-mobile fs-menu-container-wrapper">
+      <ng-container *ngTemplateOutlet="fsHeaderSubmenu; context:this"></ng-container>
+    </div>
+    <div class="modal-container" (click)="reverseMenuButton();" (dblclick)="reverseMenuButton();"
+      [ngClass]="{'active' : showMenuContainer}">
+    </div>
+  </span>
+  <div *ngIf="getMemberTypeCode() === memberTypeCodes.borrower" class="fs-menu-container-wrapper"
+    [ngClass]="{'fs-menu-container-wrapper--active' : showMenuContainer}">
+    <div class="fs-header-profile-mobile fs-menu-container-wrapper">
+      <ng-container *ngTemplateOutlet="fsHeaderProfile; context:this"></ng-container>
+    </div>
+    <div class="row investorMenuContainer text-center" [ngClass]="{'active' : showMenuContainer}">
+      <div class="item text-center" *ngIf="navigationAccess?.borrower.menu.overview">
+        <div role="button" (click)="reverseMenuButton();" (dblclick)="reverseMenuButton();"
+          routerLink="/admin-borrower/overview" class="investor-menu-icon overview margin-bottom-20"
+          [ngClass]="{ grayscale : false }"></div>
+        <span class="investor-header-caption">{{ 'navigation.overview' | translate }}</span>
+      </div>
+      <div class="item text-center" *ngIf="navigationAccess?.borrower.menu.new_loan">
+        <div role="button" (click)="reverseMenuButton();" (dblclick)="reverseMenuButton();"
+          routerLink="/admin-borrower/new-loan" class="investor-menu-icon investment margin-bottom-20"
+          [ngClass]="{ grayscale : false }"></div>
+        <span class="investor-header-caption">{{ 'navigation.new-loan' | translate }}</span>
+      </div>
+      <div class="item text-center" *ngIf="navigationAccess?.borrower.menu.repayment">
+        <div role="button" (click)="reverseMenuButton();" (dblclick)="reverseMenuButton();"
+          routerLink="/admin-borrower/repayment" class="investor-menu-icon repayment margin-bottom-20"
+          [ngClass]="{ grayscale : false }"></div>
+        <span class="investor-header-caption">{{ 'navigation.repayment' | translate }}</span>
+      </div>
+      <div class="item text-center" *ngIf="navigationAccess?.borrower.menu.referral">
+        <div role="button" (click)="reverseMenuButton();" (dblclick)="reverseMenuButton();"
+          routerLink="/admin-borrower/referral" class="investor-menu-icon referral margin-bottom-20"
+          [ngClass]="{ grayscale : false }"></div>
+        <span class="investor-header-caption">{{ 'navigation.referral' | translate }}</span>
+      </div>
+      <div class="item text-center" *ngIf="navigationAccess?.borrower.subMenu.activity">
+        <div role="button" (click)="reverseMenuButton();" (dblclick)="reverseMenuButton();"
+          routerLink="/admin-borrower/activity" class="investor-menu-icon activity margin-bottom-20"
+          [ngClass]="{ grayscale : false }"></div>
+        <span class="investor-header-caption">{{ 'navigation.activity' | translate }}</span>
+      </div>
+      <div class="item text-center" *ngIf="navigationAccess?.borrower.menu.partner && CONFIGURATION.showPartner">
+        <div role="button" (click)="reverseMenuButton();" (dblclick)="reverseMenuButton();"
+          routerLink="/admin-borrower/partner" class="investor-menu-icon partner margin-bottom-20"
+          [ngClass]="{ grayscale : false }"></div>
+        <span class="investor-header-caption">{{ 'navigation.partner' | translate }}</span>
+      </div>
+    </div>
+    <div class="fs-header-menu-box-mobile fs-menu-container-wrapper">
+      <ng-container *ngTemplateOutlet="fsHeaderSubmenu; context:this"></ng-container>
+    </div>
+    <div class="row modal-container" (click)="reverseMenuButton();" (dblclick)="reverseMenuButton();"
+      [ngClass]="{'active' : showMenuContainer}">
+    </div>
+  </div>
+</nav>

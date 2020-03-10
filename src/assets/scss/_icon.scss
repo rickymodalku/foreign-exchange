@@ -1,0 +1,1528 @@
+@mixin icon-generator ($width, $height, $url) {
+  background: url($url) no-repeat;
+  width: $width;
+  height: $height;
+  background-size: contain;
+}
+
+/* icon sizes */
+$icon-sizes: (
+  xs: 0.75em,
+  sm: 0.875em,
+  lg: 1.5em,
+  2x: 2em,
+  3x: 3em,
+  5x: 5em,
+  7x: 7em
+);
+
+@each $name, $value in $icon-sizes {
+    .icon-#{$name} {
+        width: $value;
+        height: $value;
+    }
+}
+
+.close-icon {
+    background: url("/assets/img/icon/close-icon.svg") no-repeat;
+    height: 25px;
+    width: 25px;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.close-icon-round {
+  background: url("/assets/img/icon/icon-close-round.svg") no-repeat;
+  height: 20px;
+  width: 20px;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.logo {
+    background: url("/assets/img/_public/logo.svg") no-repeat;
+    height: 4em;
+    width: 4em;
+    background-size: contain;
+}
+
+.arrow-right {
+    background: url("/assets/img/icon/arrow-right.svg") no-repeat;
+    height: 30px;
+    width: 15px;
+    float: right;
+}
+
+.arrow-right {
+    background: url("/assets/img/icon/arrow-right.svg") no-repeat;
+    height: 30px;
+    width: 15px;
+    float: right;
+}
+
+.gray-left-arrow {
+    background: url("/assets/img/icon/gray-left-arrow.svg") no-repeat;
+    height: 30px;
+    width: 15px;
+    float: right;
+}
+
+.gray-right-arrow {
+    background: url("/assets/img/icon/gray-right-arrow.svg") no-repeat;
+    height: 30px;
+    width: 15px;
+    float: right;
+}
+
+.borrower-repayment {
+    background: url("/assets/img/borrower/repayment.png") no-repeat;
+    height: 7em;
+    width: 20em;
+    background-size: contain;
+}
+
+.investor-wall-2 {
+    background: url("/assets/img/_public/dashboard/investor-wall-2.png") no-repeat;
+    height: 38vw;
+    width: 100%;
+    background-size: contain;
+}
+
+.investor-wall-2-mobile {
+    background: url("/assets/img/_public/dashboard/investor-wall-2-mobile.png") no-repeat;
+    height: 35em;
+    width: 100%;
+    background-size: contain;
+}
+
+.investor-wall-3 {
+    background: url("/assets/img/_public/dashboard/investor-wall-3.png") no-repeat;
+    height: 38vw;
+    width: 100%;
+    background-size: contain;
+}
+
+.investor-wall-3-mobile {
+    background: url("/assets/img/_public/dashboard/investor-wall-3-mobile.png") no-repeat, repeating-linear-gradient(#3d7eff, #3d7eff 24vw, #3d7eff 50.1%, #3d7eff 100%);
+    height: 35em;
+    width: 100%;
+    background-size: contain;
+}
+
+.handshake-image {
+    background: url("/assets/img/_public/about-us/handshake-image.png") no-repeat;
+    height: 35vw;
+    width: 100%;
+    background-size: contain;
+}
+
+.direction-icon {
+    background: url("/assets/img/icon/direction-icon.svg") no-repeat;
+    height: 15px;
+    width: 15px;
+    margin-top: 1em;
+    background-size: contain;
+}
+
+.city-silhouette {
+    background: url("/assets/img/_public/about-us/city-silhouette.svg") no-repeat;
+    height: 15em;
+    width: 100%;
+    background-size: cover;
+}
+
+.faq-arrow-right {
+    background: url("/assets/img/_public/faq/arrow-right.svg") no-repeat;
+    height: 30px;
+    width: 15px;
+    float: left;
+}
+
+// .faq-arrow-right:active {
+//     transform: rotate(90deg);
+//     -webkit-transform: rotate(90deg);
+// }
+
+.faq-arrow-bottom {
+    background: url("/assets/img/_public/faq/arrow-bottom.svg") no-repeat;
+    height: 30px;
+    width: 25px;
+    float: left;
+}
+
+.exclamation-icon {
+    background: url("/assets/img/icon/exclamation-icon.svg") no-repeat;
+    height: 25px;
+    width: 25px;
+    float: left;
+}
+
+.grid-icon {
+    background: url("/assets/img/icon/grid-icon.svg") no-repeat;
+    background-position: center left;
+    height: 20px;
+    width: 25px;
+    float: left;
+}
+
+.fsmk-icon {
+    background: url("/assets/img/icon/fsmk-logo.svg") no-repeat;
+    background-size: contain;
+    height: 60px;
+    width: 60px;
+}
+
+.fsmk-circle-icon {
+    background: url("/assets/img/icon/fsmk-circle-logo.svg") no-repeat;
+    background-size: contain;
+    height: 120px;
+    width: 120px;
+}
+
+.facebook-icon {
+    background: url("/assets/img/icon/facebook.svg") no-repeat;
+    height: 50px;
+    width: 50px;
+    background-size: contain;
+}
+
+.google-plus-icon {
+    background: url("/assets/img/icon/google-plus.svg") no-repeat;
+    height: 50px;
+    width: 50px;
+    background-size: contain;
+}
+
+.slack-icon {
+    background: url("/assets/img/icon/slack-icon.png") no-repeat;
+    height: 50px;
+    width: 50px;
+    background-size: contain;
+}
+
+.linkedin-icon {
+    background: url("/assets/img/icon/linkedin.svg") no-repeat;
+    height: 50px;
+    width: 50px;
+    background-size: contain;
+}
+
+.twitter-icon {
+    background: url("/assets/img/icon/twitter.svg") no-repeat;
+    height: 50px;
+    width: 50px;
+    background-size: contain;
+}
+
+.list-icon {
+    background: url("/assets/img/icon/list-icon.svg") no-repeat;
+    background-position: center left;
+    height: 20px;
+    width: 25px;
+    float: left;
+}
+
+.media-press-icon {
+    background: url("/assets/img/icon/media-press-icon.svg") no-repeat;
+    height: 25px;
+    width: 25px;
+    margin-right: 0.5em;
+    float: left;
+}
+
+.pdf-icon {
+    background: url("/assets/img/icon/pdf-icon.svg") no-repeat;
+    background-size: contain;
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+    &.grayscale{
+        filter: grayscale(100%);
+    }
+}
+.exclusive-loan-icon {
+  background: url("/assets/img/icon/exclusive-loan.svg") no-repeat;
+  background-size: contain;
+  height: 30px;
+  width: 30px;
+  position: relative;
+  margin-top:-12px;
+  margin-right: 10px;
+}
+
+.question-icon {
+    background: url("/assets/img/icon/question-icon.svg") no-repeat;
+    background-size: contain;
+    height: 15px;
+    width: 15px;
+}
+
+.withdrawal-icon {
+    background: url("/assets/img/icon/withdrawal-icon.svg") no-repeat;
+    background-size: contain;
+    height: 20px;
+    width: 20px;
+    margin-right: 0.5em;
+}
+
+.warning-icon {
+    background: url("/assets/img/icon/warning-icon.svg") no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 20px;
+    width: 10px;
+}
+
+.warning-circle-icon {
+    background: url("/assets/img/icon/warning-circle-icon.svg") no-repeat;
+    background-size: contain;
+    height: 20px;
+    width: 20px;
+    float: left;
+}
+
+.deposit-icon {
+    background: url("/assets/img/icon/deposit-icon.svg") no-repeat;
+    background-size: contain;
+    height: 20px;
+    width: 20px;
+    margin-right: 0.5em;
+}
+
+.white-right-arrow-icon {
+    background: url("/assets/img/icon/white-right-arrow.svg") no-repeat;
+    background-size: contain;
+    height: 15px;
+    width: 15px;
+
+    @extend .fs-btn-animation;
+}
+
+.green-right-arrow-icon {
+    background: url("/assets/img/icon/green-right-arrow.svg") no-repeat;
+    background-size: contain;
+    height: 15px;
+    width: 15px;
+
+    @extend .fs-btn-animation;
+}
+
+.blue-right-arrow-icon {
+    background: url("/assets/img/icon/white-right-arrow.svg") no-repeat;
+    background-size: contain;
+    height: 15px;
+    width: 15px;
+    transition: all 0.2s ease-in-out;
+    margin-right: 5px;
+    fill: blue;
+
+    @extend .fs-btn-animation;
+}
+
+.sucessfull-icon {
+    background: url("/assets/img/icon/successfull-icon.svg") no-repeat;
+    background-size: contain;
+    height: 120px;
+    width: 120px;
+}
+
+.queue-icon {
+  background: url("/assets/img/icon/queue-icon.svg") no-repeat;
+  background-size: contain;
+  height: 120px;
+  width: 120px;
+}
+
+.time-icon {
+    background: url("/assets/img/icon/time-icon.svg") no-repeat;
+    background-size: contain;
+    float: left;
+    height: 35px;
+    width: 35px;
+    margin-top: 8px;
+}
+
+.referral-box {
+    background: url("/assets/img/header/referral-box.png") no-repeat;
+    height: 12em;
+    width: 8em;
+    margin-top: -8em;
+    background-size: contain;
+}
+
+.bolt-icon {
+    background: url("/assets/img/icon/bolt-icon.svg") no-repeat;
+    background-size: contain;
+    height: 70px;
+    width: 70px;
+}
+
+.bars-icon {
+    background: url("/assets/img/icon/bars-icon.svg") no-repeat;
+    background-size: contain;
+    height: 25px;
+    width: 25px;
+}
+
+.lighter-close-icon {
+  background: url("/assets/img/icon/lighter-close-icon.svg") no-repeat;
+  background-size: contain;
+  height: 25px;
+  width: 20px;
+}
+
+.file-success-icon {
+    background: url("/assets/img/icon/file-success-icon.svg") no-repeat;
+    background-size: contain;
+    height: 35px;
+    width: 35px;
+}
+
+.file-icon {
+    background: url("/assets/img/icon/file-icon.svg") no-repeat;
+    background-size: contain;
+    height: 35px;
+    width: 35px;
+}
+
+.file-upload-icon {
+    background: url("/assets/img/icon/file-upload-icon.png") no-repeat;
+    background-size: contain;
+    height: 45px;
+    width: 45px;
+}
+
+.bank-logo {
+    background-size: contain !important;
+    background-position: left !important;
+    height:3em;
+
+    &.agro-bank {
+        background: url("/assets/img/icon/bank-logo-agro.png") no-repeat;
+    }
+
+    &.alliance-bank {
+        background: url("/assets/img/icon/bank-logo-alliance.png") no-repeat;
+    }
+
+    &.ambank {
+        background: url("/assets/img/icon/bank-logo-ambank.png") no-repeat;
+    }
+
+    &.bank-rakyat {
+        background: url("/assets/img/icon/bank-logo-rakyat.png") no-repeat;
+    }
+
+    &.bank-simpanan-nasional {
+        background: url("/assets/img/icon/bank-logo-bsn.png") no-repeat;
+    }
+
+    &.cimb {
+        background: url("/assets/img/icon/bank-logo-cimb.png") no-repeat;
+    }
+
+    &.hsbc {
+        background: url("/assets/img/icon/bank-logo-hsbc.png") no-repeat;
+    }
+
+    &.hong-leong-bank {
+        background: url("/assets/img/icon/bank-logo-hong-leong.png") no-repeat;
+    }
+
+    &.maybank {
+        background: url("/assets/img/icon/bank-logo-maybank.png") no-repeat;
+    }
+
+    &.ocbc {
+        background: url("/assets/img/icon/bank-logo-ocbc.png") no-repeat;
+    }
+
+    &.public-bank {
+        background: url("/assets/img/icon/bank-logo-public-bank.png") no-repeat;
+    }
+
+    &.rhb {
+        background: url("/assets/img/icon/bank-logo-rhb.png") no-repeat;
+    }
+
+    &.standard-chartered {
+        background: url("/assets/img/icon/bank-logo-sc.png") no-repeat;
+    }
+
+    &.uob {
+        background: url("/assets/img/icon/bank-logo-uob.png") no-repeat;
+    }
+
+    &.affin-bank {
+        background: url("/assets/img/icon/bank-logo-affin.png") no-repeat;
+    }
+
+    &.dbs {
+        background: url("/assets/img/icon/bank-logo-dbs.png") no-repeat;
+    }
+
+    &.posb {
+        background: url("/assets/img/icon/bank-logo-posb.png") no-repeat;
+    }
+
+    &.anz {
+        background: url("/assets/img/icon/bank-logo-anz.png") no-repeat;
+    }
+
+    &.citibank {
+        background: url("/assets/img/icon/bank-logo-citibank.png") no-repeat;
+    }
+
+    &.other {
+        background: url("/assets/img/icon/bank-logo-other.svg") no-repeat;
+    }
+}
+
+.fs-skin-in-image {
+    background: url("/assets/img/_public/dashboard/fs-skin-in.svg") no-repeat;
+    background-size: contain;
+    height: 30em;
+}
+
+.deposit-success-image {
+    background: url("/assets/img/investor/deposit-success.png") no-repeat;
+    background-size: cover;
+    height: 25em;
+    width: 100%;
+}
+
+.lock-icon {
+    background: url("/assets/img/icon/lock-icon.svg") no-repeat;
+    background-size: contain;
+    height: 20px;
+    width: 20px;
+}
+
+.global-icon {
+    background: url("/assets/img/icon/global-icon.svg") no-repeat;
+    background-size: contain;
+    height: 20px;
+    width: 20px;
+}
+
+.progress-image {
+    background: url("/assets/img/_public/home/progress.png") no-repeat;
+    background-size: contain;
+    height: 350px;
+    width: 350px;
+}
+
+// Two Fa Icons
+.activation-success-icon {
+  @include icon-generator(100px, 100px, '/assets/img/icon/sign-up-success-icon.svg');
+}
+
+.verify-email-icon {
+  @include icon-generator(100px, 100px, '/assets/img/icon/verify-email-icon.svg');
+}
+
+.verify-mobile-icon {
+  @include icon-generator(100px, 100px, '/assets/img/icon/verify-mobile-icon.svg');
+}
+
+.two-fa-deposit-icon {
+  @include icon-generator(24px, 24px, '/assets/img/icon/two-fa-deposit-icon.svg')
+}
+
+.two-fa-esa-icon {
+  @include icon-generator(24px, 24px, '/assets/img/icon/two-fa-esa-icon.svg')
+}
+
+.two-fa-profile-icon {
+  @include icon-generator(24px, 24px, '/assets/img/icon/two-fa-profile-icon.svg')
+}
+
+.two-fa-sign-up-icon {
+  @include icon-generator(24px, 24px, '/assets/img/icon/two-fa-sign-up-icon.svg')
+}
+
+.two-fa-apply-icon {
+  @include icon-generator(24px, 24px, '/assets/img/icon/two-fa-apply-icon.svg')
+}
+
+.two-fa-approve-icon {
+  @include icon-generator(24px, 24px, '/assets/img/icon/two-fa-approve-icon.svg')
+}
+
+.two-fa-funds-icon {
+  @include icon-generator(24px, 24px, '/assets/img/icon/two-fa-funds-icon.svg')
+}
+
+.two-fa-setup-icon {
+  @include icon-generator(180px, 180px, '/assets/img/icon/two-fa-setup-icon.svg')
+}
+
+.two-fa-verify-icon {
+  @include icon-generator(200px, 130px, '/assets/img/icon/two-fa-verify-phone-number.svg')
+}
+
+.two-fa-otp-verify-icon {
+  @include icon-generator(230px, 200px, '/assets/img/icon/two-fa-otp-verify.svg')
+}
+
+
+// Two Fa Icons
+
+.progress-small-image {
+    background: url("/assets/img/_public/home/progress-small.png") no-repeat;
+    background-size: contain;
+    height: 150px;
+    width: 160px;
+    position: absolute;
+    right: 0;
+    bottom: -43px;
+}
+
+.forgot-password-image {
+    position: relative;
+    float: left;
+    background: url("/assets/img/_public/home/forgot-password.png") no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 100px;
+    width: 100%;
+    margin: 2em 0;
+}
+
+.instruction-send-image {
+    position: relative;
+    float: left;
+    background: url("/assets/img/_public/home/instruction-send.png") no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 125px;
+    width: 100%;
+    margin: 4em 0 2em 0;
+}
+
+.fsmk-vertical-logo {
+    &.fs {
+        background: url("/assets/img/header/logo.svg") no-repeat;
+        width: 15em;
+    }
+    &.mk {
+        background: url("/assets/img/header/logo-mk.svg") no-repeat;
+        margin-right:10px;
+        width: 12.5em;
+    }
+    background-size: contain !important;
+    margin-left: 20px;
+}
+
+.fetch-loading-icon {
+    background: url("/assets/img/icon/fetch-loading-icon.svg") no-repeat;
+    background-size: contain;
+    height: 70px;
+    width: 70px;
+}
+
+.borrower-new-loan-success-image {
+    background: url("/assets/img/borrower/new-loan-success.png") no-repeat;
+    height: 10em;
+    width: 10em;
+    background-size: contain;
+    margin: auto;
+}
+
+.inv-dashboard-icon {
+    background: url("/assets/img/investor/inv-dashboard.png") no-repeat;
+    height: 10em;
+    width: 10em;
+    background-size: contain;
+}
+
+.inv-referral-background {
+    background: url("/assets/img/investor/referral-bg.svg") no-repeat;
+    padding-top: 5em;
+    height: 30em;
+    width: 100%;
+    background-size: cover;
+}
+
+.inv-activity-icon {
+    background: url("/assets/img/investor/activity-icon.png") no-repeat;
+    height: 13em;
+    width: 15em;
+    background-size: contain;
+}
+
+.investor-menu-icon {
+    height: 80px;
+    width: 80px;
+    -webkit-transition: all 0.15s;
+    transition: all 0.15s;
+
+    // filter: grayscale(100%);
+    opacity: 1;
+    overflow: visible;
+    pointer-events: auto;
+    transform-origin: 50% 50% 0px;
+    perspective-origin: 50% 50%;
+    color: rgb(255, 255, 255);
+    border: 0px solid rgba(123, 123, 123, 0.5);
+    transform-style: preserve-3d;
+    backface-visibility: visible;
+    border-radius: 0px;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0);
+    transform: translate3d(0px, 0px, 0px) scale3d(1.1, 1.1, 1) skew(0deg, 0deg) skewX(0deg) skewY(0deg) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateZ(0px);
+
+    &.referral {
+        background: url("/assets/img/header/referral-menu-icon.png") no-repeat;
+        background-size: contain;
+    }
+
+    &.activity {
+        background: url("/assets/img/header/activity-menu-icon.png") no-repeat;
+        background-size: contain;
+    }
+
+    &.deposit {
+        background: url("/assets/img/header/deposit-menu-icon.png") no-repeat;
+        background-size: contain;
+    }
+
+    &.investment {
+        background: url("/assets/img/header/investment-menu-icon.png") no-repeat;
+        background-size: contain;
+    }
+
+    &.overview {
+        background: url("/assets/img/header/overview-menu-icon.png") no-repeat;
+        background-size: contain;
+    }
+
+    &.portfolio {
+        background: url("/assets/img/header/portfolio-menu-icon.svg") no-repeat;
+        background-size: contain;
+    }
+
+    &.withdrawal {
+        background: url("/assets/img/header/withdrawal-menu-icon.png") no-repeat;
+        background-size: contain;
+    }
+
+    &.repayment {
+        background: url("/assets/img/header/repayment-menu-icon.png") no-repeat;
+        background-size: contain;
+    }
+
+    &.activation {
+        background: url("/assets/img/header/account-activation-icon.png") no-repeat;
+        background-size: contain;
+    }
+
+    &.sbn-retail {
+        background: url("/assets/img/header/sbn-retail-menu-icon.png") no-repeat;
+        background-size: contain;
+    }
+
+    &.partner {
+        background: url("/assets/img/header/partner-menu-icon.svg") no-repeat;
+        background-size: contain;
+    }
+
+
+    // &.grayscale {
+    //     filter: grayscale(100%);
+    // }
+}
+
+.investor-menu-icon:hover {
+    -webkit-transform: scale(1.4) rotate(0.01deg);
+    transform: scale(1.4) rotate(0.01deg);
+}
+
+.career-exploration {
+    background: url("/assets/img/_public/career/exploration.png") no-repeat;
+    width: 100%;
+    background-size: contain;
+}
+
+.maximize-impact-icon {
+    background: url("/assets/img/_public/about-us/maximize-impact-icon.svg") no-repeat;
+    height: 60px;
+    width: 100%;
+    background-size: contain;
+    background-position: center;
+}
+
+.no-politics-icon {
+    background: url("/assets/img/_public/about-us/no-politics-icon.svg") no-repeat;
+    height: 60px;
+    width: 100%;
+    background-size: contain;
+    background-position: center;
+}
+
+.push-your-limit-icon {
+    background: url("/assets/img/_public/about-us/push-your-limit-icon.svg") no-repeat;
+    height: 60px;
+    width: 100%;
+    background-size: contain;
+    background-position: center;
+}
+
+.test-measure-icon {
+    background: url("/assets/img/_public/about-us/test-measure-icon.svg") no-repeat;
+    height: 60px;
+    width: 100%;
+    background-size: contain;
+    background-position: center;
+}
+
+.user-win-icon {
+    background: url("/assets/img/_public/about-us/user-win-icon.svg") no-repeat;
+    height: 60px;
+    width: 100%;
+    background-size: contain;
+    background-position: center;
+}
+
+.career-connect {
+    background: url("/assets/img/_public/career/connect.png") no-repeat;
+    height: 20em;
+    width: 100%;
+    background-size: cover;
+}
+
+.autobot-disable-icon {
+    background: url("/assets/img/icon/autobot-disable-icon.svg") no-repeat;
+    height: 45px;
+    width: 45px;
+    background-size: contain;
+}
+
+.autobot-enable-icon {
+    background: url("/assets/img/icon/autobot-enable-icon.svg") no-repeat;
+    height: 45px;
+    width: 45px;
+    background-size: contain;
+}
+
+.default-profile-picture {
+    background: url("/assets/img/icon/default-profile-picture.svg") no-repeat;
+    height: 4em;
+    width: 100%;
+    background-size: contain;
+}
+
+.logo-loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url("/assets/img/icon/logo.gif") 50% 50% no-repeat;
+    background-size: 15em 15em;
+}
+
+.setting-header-image {
+    background: url("/assets/img/_public/setting-header-image.png") no-repeat;
+    height: 100px;
+    width: 160px;
+    background-size: contain;
+}
+
+.expand-icon {
+  display: inline-block;
+  background-size: contain !important;
+  background: url("/assets/img/icon/expand-icon.svg") no-repeat;
+  height: 10px;
+  width: 10px;
+}
+
+.expand-table-icon-blue {
+    background-size: contain !important;
+    background: url("/assets/img/icon/expand-table-icon-blue.svg") no-repeat;
+    height: 25px;
+    width: 25px;
+}
+
+.expand-table-icon-orange {
+    background-size: contain !important;
+    background: url("/assets/img/icon/expand-table-icon-orange.svg") no-repeat;
+    height: 25px;
+    width: 25px;
+}
+
+.expand-table-icon-corn-flower-blue {
+    background-size: contain !important;
+    background: url("/assets/img/icon/expand-table-icon-corn-flower-blue.svg") no-repeat;
+    height: 25px;
+    width: 25px;
+}
+.expand-table-icon-yellow {
+    background-size: contain !important;
+    background: url("/assets/img/icon/expand-table-icon-yellow.svg") no-repeat;
+    height: 25px;
+    width: 25px;
+}
+
+.expand-table-icon-purple {
+    background-size: contain !important;
+    background: url("/assets/img/icon/expand-table-icon-purple.svg") no-repeat;
+    height: 25px;
+    width: 25px;
+}
+
+.expand-table-icon-green {
+    background-size: contain !important;
+    background: url("/assets/img/icon/expand-table-icon-green.svg") no-repeat;
+    height: 25px;
+    width: 25px;
+}
+
+.expand-table-icon-red {
+    background-size: contain !important;
+    background: url("/assets/img/icon/expand-table-icon-red.svg") no-repeat;
+    height: 25px;
+    width: 25px;
+}
+
+.expand-table-icon-dark-blue {
+    background-size: contain !important;
+    background: url("/assets/img/icon/expand-table-icon-dark-blue.svg") no-repeat;
+    height: 25px;
+    width: 25px;
+}
+
+.expand-table-icon-light-blue {
+    background-size: contain !important;
+    background: url("/assets/img/icon/expand-table-icon-light-blue.svg") no-repeat;
+    height: 25px;
+    width: 25px;
+}
+
+.expand-table-icon-gray {
+    background-size: contain !important;
+    background: url("/assets/img/icon/expand-table-icon-gray.svg") no-repeat;
+    height: 25px;
+    width: 25px;
+}
+
+.expand-table-icon-brown {
+  background-size: contain !important;
+  background: url("/assets/img/icon/expand-table-icon-brown.svg") no-repeat;
+  height: 25px;
+  width: 25px;
+}
+
+.expand-table-icon-green-aquamarine {
+  background-size: contain !important;
+  background: url("/assets/img/icon/expand-table-icon-green-aquamarine.svg") no-repeat;
+  height: 25px;
+  width: 25px;
+}
+
+.expand-table-icon-green-turquoise {
+  background-size: contain !important;
+  background: url("/assets/img/icon/expand-table-icon-green-turquoise.svg") no-repeat;
+  height: 25px;
+  width: 25px;
+}
+
+.collapse-table-icon {
+    background: url("/assets/img/icon/collapse-table-icon.svg") no-repeat;
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+    background-size: contain;
+}
+
+.newspaper-icon {
+    background: url("/assets/img/_public/home/folded-newspaper.svg") no-repeat;
+    height: 50px;
+    width: 100%;
+    background-size: contain;
+}
+
+.flag-id-icon {
+    background: url("/assets/img/icon/flag-id.svg") no-repeat;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    background-size: cover;
+}
+
+.flag-my-icon {
+    background: url("/assets/img/icon/flag-my.svg") no-repeat;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    background-size: cover;
+}
+
+.flag-sg-icon {
+    background: url("/assets/img/icon/flag-sg.svg") no-repeat;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    background-size: cover;
+}
+
+.secure-icon-background {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 40px;
+  background-color: rgba(8, 192, 166, 0.2);
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.secure-icon {
+  background: url("/assets/img/icon/secure-icon.svg") no-repeat;
+  height: 24px;
+  width: 18px;
+  background-size: cover;
+  margin: 0 auto;
+}
+
+.funding-societies-logo {
+    background: url("/assets/img/footer/footer-logo.svg") no-repeat;
+    background-size: contain;
+}
+
+.funding-societies-header-logo {
+  background: url("/assets/img/header/logo.svg") no-repeat;
+  background-size: contain;
+}
+
+.loadMoreContainer {
+    text-align: center;
+    margin: 2em 0 1em 0;
+    color: #9b9b9b;
+}
+
+.loadMoreButton {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0 0.5em;
+}
+
+.loadMoreButton:hover {
+    color: #6b6b6b;
+}
+
+.loadMoreContainer i {
+    font-size: 2em;
+    padding: 0.4em 0.5em;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    border: 1px solid #9b9b9b;
+}
+
+.loadMoreTitle {
+    font-size: 0.85em;
+}
+
+.activation-success {
+    position: relative;
+    float: left;
+    background: url("/assets/img/_public/home/activation-success.png") no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 125px;
+    width: 100%;
+    margin: 4em 0 2em 0;
+}
+
+.activation-failed {
+    position: relative;
+    float: left;
+    background: url("/assets/img/_public/home/activation-failed.png") no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 125px;
+    width: 100%;
+    margin: 4em 0 2em 0;
+}
+
+.subscription-agreement-success {
+    background: url("/assets/img/_public/signup/subscription-agreement-success.svg") no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 350px;
+    width: 100%;
+    margin-top: 10em;
+}
+
+.fpx-logo {
+    background: url("/assets/img/investor/fpx-lg.png") no-repeat;
+    background-size: contain;
+    height: 70px;
+    width: 100%;
+}
+
+.progress-row-image {
+    background: url("/assets/img/investor/inv-dashboard.png") no-repeat;
+    height: 100%;
+}
+
+.not-found-page-image {
+    background: url("/assets/img/_public/not-found-page.png") no-repeat;
+    background-size: contain;
+    height: 350px;
+    width: 100%;
+}
+
+.bca-deposit-image {
+    background: url("/assets/img/investor/bca_deposit.png") no-repeat;
+    background-size: contain;
+    height: 350px;
+    width: 100%;
+}
+
+.m-banking-bca-image {
+    background: url("/assets/img/investor/mbankingbca2.png") no-repeat;
+    background-size: contain;
+    height: 350px;
+    width: 100%;
+}
+
+.ojk-logo {
+    width: 200px;
+    margin-left: -15px;
+}
+
+.auto-invest-banner {
+    background: url("/assets/img/icon/auto-invest.svg") no-repeat;
+    background-size: contain;
+    height: 4em;
+    width: 4em;
+}
+
+.partner-header-logo {
+    background: url("/assets/img/borrower/partner/header-logo.png") no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 20em;
+}
+
+.my-info-logo {
+  background: url("/assets/img/icon/my-info-logo.png") no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 100px;
+}
+
+.singpass-logo {
+  background: url("/assets/img/icon/singpass-logo.jpg") no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 100px;
+}
+
+.error-icon-exclamation {
+  display: inline-block;
+  background: $logo-error-background;
+  height: 16px;
+  width: 16px;
+  border-radius: 16px;
+  line-height: 16px;
+  color: $error-red;
+}
+
+.error-logo {
+  background-color: #f2dede;
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  line-height: 100px;
+  .error-shape {
+    text-align: center;
+    color: $error-red;
+    font-size: 4em;
+  }
+}
+
+.pending-logo {
+  background-color: $warning-orange-background;
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  line-height: 100px;
+  .pending-shape {
+    text-align: center;
+    color: $warning-orange;
+    font-size: 4em;
+    width: inherit;
+    line-height: 100px;
+  }
+}
+
+.fpx-logo {
+  background: url("/assets/img/icon/fpx-logo.png") no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.wallet-balance-logo {
+  background: url("/assets/img/icon/wallet-balance-icon.svg") no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+// LOYALTY PAGE
+.fsmk-circle-logo {
+  background: url("/assets/img/investor/loyalty/fsmk-circle-logo.svg") no-repeat;
+  background-size: contain;
+  @media #{$tablet} {
+    height: 12.5em;
+    width: 12.5em;
+  }
+  @media #{$desktop} {
+    height: 15em;
+    width: 15em;
+  }
+}
+
+.point-reward-logo {
+  background: url("/assets/img/investor/loyalty/point-reward-logo.svg") no-repeat;
+  background-size: contain;
+  height: 5em;
+  width: 5em;
+}
+
+.graph-logo {
+  background: url("/assets/img/investor/loyalty/graph-logo.svg") no-repeat;
+  background-size: contain;
+  height: 5em;
+  width: 5em;
+}
+
+.megaphone-logo {
+  background: url("/assets/img/investor/loyalty/megaphone-logo.svg") no-repeat;
+  background-size: contain;
+  height: 5em;
+  width: 5em;
+}
+
+.giftbox-logo {
+  background: url("/assets/img/investor/loyalty/giftbox-logo.svg") no-repeat;
+  background-size: contain;
+  height: 5em;
+  width: 5em;
+}
+
+.loyalty-tier-logo {
+  @media #{$phone} {
+    height: 3em;
+    width: 3em;
+  }
+
+  @media #{$widescreen} {
+    height: 5em;
+    width: 5em;
+  }
+}
+
+.loyalty-blue-tier-logo {
+  background: url("/assets/img/investor/loyalty/loyalty-blue-tier-logo.svg") no-repeat;
+  background-size: contain;
+}
+
+.loyalty-silver-tier-logo {
+  background: url("/assets/img/investor/loyalty/loyalty-silver-tier-logo.svg") no-repeat;
+  background-size: contain;
+}
+
+.loyalty-gold-tier-logo {
+  background: url("/assets/img/investor/loyalty/loyalty-gold-tier-logo.svg") no-repeat;
+  background-size: contain;
+}
+
+.loyalty-platinum-tier-logo {
+  background: url("/assets/img/investor/loyalty/loyalty-platinum-tier-logo.svg") no-repeat;
+  background-size: contain;
+}
+
+.loyalty-prestige-tier-logo {
+  background: url("/assets/img/investor/loyalty/loyalty-prestige-tier-logo.svg") no-repeat;
+  background-size: contain;
+}
+
+  // ABOUT US
+.app-store-black-logo {
+  background: url("/assets/img/icon/app-store-icon-black.png") no-repeat;
+  background-size: contain;
+  height: 2em;
+  width: 2em;
+}
+
+.google-play-black-logo {
+  background: url("/assets/img/icon/google-play-icon-black.png") no-repeat;
+  background-size: contain;
+  height: 2em;
+  width: 2em;
+}
+
+.app-store-white-logo {
+  background: url("/assets/img/icon/app-store-icon-white.png") no-repeat;
+  background-size: contain;
+  height: 2em;
+  width: 2em;
+}
+
+.google-play-white-logo {
+  background: url("/assets/img/icon/google-play-icon-white.png") no-repeat;
+  background-size: contain;
+  height: 2em;
+  width: 2em;
+}
+
+
+.sbn-banner{
+  background: url("/assets/img/_public/sbn-banner.jpg") no-repeat;
+  background-size: contain;
+  min-width: 100em;
+}
+
+.esbn-logo{
+  background: url("/assets/img/_public/esbn-logo.png") no-repeat;
+  background-size: contain;
+  height: 3em;
+  min-width: 7em;
+}
+
+.sbr-logo{
+  background: url("/assets/img/_public/sbr-logo.png") no-repeat;
+  background-size: contain;
+  height: 2em;
+  min-width: 5em;
+}
+
+.kemenkeu-logo{
+  background: url("/assets/img/_public/kemenkeu-logo.png") no-repeat;
+  background-size: contain;
+  height: 8em;
+  min-width: 12.5em;
+}
+
+.referral-logo{
+  background: url("/assets/img/_public/referral-logo.png") no-repeat;
+  background-size: contain;
+  height: 10em;
+}
+
+.st-logo{
+  background: url("/assets/img/_public/st-logo.png") no-repeat;
+  background-size: contain;
+  height: 8em;
+  min-width: 8em;
+}
+
+.icon-safe-logo{
+  background: url("/assets/img/_public/icon-safe.png") no-repeat;
+  background-size: contain;
+  height: 4em;
+  min-width: 4em;
+  background-position: center;
+}
+
+.icon-repayment-logo{
+  background: url("/assets/img/_public/icon-repayment.png") no-repeat;
+  background-size: contain;
+  height: 4em;
+  min-width: 4em;
+  background-position: center;
+}
+
+.icon-halal-logo{
+  background: url("/assets/img/_public/icon-halal.png") no-repeat;
+  background-size: contain;
+  height: 4em;
+  min-width: 4em;
+  background-position: center;
+}
+
+.icon-early-logo{
+  background: url("/assets/img/_public/icon-early.png") no-repeat;
+  background-size: contain;
+  height: 4em;
+  min-width: 4em;
+  background-position: center;
+}
+
+.icon-tradeable-logo {
+  background: url("/assets/img/_public/icon-tradeable.png") no-repeat;
+  height: 4em;
+  min-width: 4em;
+  background-position: center;
+}
+
+.icon-redemption-logo{
+  background: url("/assets/img/_public/icon-redemption.png") no-repeat;
+  background-size: contain;
+  height: 4em;
+  min-width: 4em;
+  background-position: center;
+}
+
+.sbn-sid-registration-logo{
+  background: url("/assets/img/_public/sid-registration.png") no-repeat;
+  background-size: contain;
+  height: 10em;
+  min-width: 4em;
+  background-position: center;
+}
+
+.sbn-pay-logo{
+  background: url("/assets/img/_public/sbn-pay-logo.png") no-repeat;
+  background-size: contain;
+  height: 10em;
+  min-width: 4em;
+  background-position: center;
+}
+
+.sbn-order-logo{
+  background: url("/assets/img/_public/sbn-order-logo.png") no-repeat;
+  background-size: contain;
+  height: 10em;
+  min-width: 4em;
+  background-position: center;
+}
+
+.sbn-tokopedia-payment-logo {
+  background: url("/assets/img/_public/sbn-tokopedia-payment-logo.png") no-repeat;
+  background-size: contain;
+  height: 10em;
+  min-width: 4em;
+  margin-left: 30px;
+  background-position: center;
+}
+
+.sbn-sign-logo{
+  background: url("/assets/img/_public/sbn-sign-logo.png") no-repeat;
+  background-size: contain;
+  height: 10em;
+  min-width: 4em;
+  background-position: center;
+}
+
+.inklusi-keuangan-logo{
+  background: url("/assets/img/ID/logo-inklusi-keuangan.png") no-repeat;
+  background-size: contain;
+  height: 10em;
+  min-width: 7em;
+  background-position: center;
+}
+
+.sbn-icon-play {
+  background: url("/assets/img/_public/icon-play.png") no-repeat;
+  background-size: contain;
+  height: 32px;
+  width: 32px;
+}
+
+.fs-lock-key {
+  background: url("/assets/img/investor/fs-lockandkey.png") no-repeat;
+  background-size: contain;
+  height: 10em;
+  width: 11em;
+}
+
+.fs-banner-yir {
+  background: url("/assets/img/icon/banner-yir.svg") no-repeat;
+  background-size: contain;
+  height: 8em;
+}
+
+.delete-aa-bot-confirmation {
+  position: relative;
+  background: url("/assets/img/investor/delete-aa.png") no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: 125px;
+  width: 100%;
+}
+
+.info-icon {
+  background: url("/assets/img/icon/info-icon.svg") no-repeat;
+  height: 22px;
+  width: 22px;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.info-icon:hover, .info-icon:active {
+  background: url("/assets/img/icon/info-icon-hover.svg") no-repeat;
+}
+
+.accredited-declaration-graphic {
+  background: url("/assets/img/investor/accredited-declaration/accredited-declaration-banner.png") no-repeat;
+  height: 100px;
+  width: 100px;
+  background-size: contain;
+}
+
+.accredited-declaration-notification {
+  background: url("/assets/img/investor/accredited-declaration/graphic-notification.png") no-repeat;
+  height: 100px;
+  width: 100px;
+  background-size: contain;
+}
+
+.fs-money-icon {
+  background: url("/assets/img/investor/fs-money.png") no-repeat;
+  height: 150px;
+  width: 150px;
+  background-size: contain;
+}
+
+.fs-people-talk-icon {
+  background: url("/assets/img/investor/fs-people-talk.png") no-repeat;
+  height: 100px;
+  width: 100px;
+  background-size: contain;
+}
+
+.arrow-white-left {
+  background: url("/assets/img/icon/arrow-white-left.svg") no-repeat;
+  height: 25px;
+  width: 25px;
+  background-size: contain;
+  &.small {
+    height: 16px;
+    width: 16px;
+  }
+}
+
+.arrow-white-right {
+  background: url("/assets/img/icon/arrow-white-right.svg") no-repeat;
+  background-position: right;
+  height: 25px;
+  width: 25px;
+  background-size: contain;
+  &.small {
+    height: 16px;
+    width: 16px;
+  }
+}
+
+.bg-app-download-dl {
+  background: url("/assets/img/footer/bg-app-download-dl.svg") no-repeat;
+  height: 130px;
+  width: 100%;
+  background-size: contain;
+}
+
+.letter-renewal-icon {
+  background: url("/assets/img/icon/letter-renewal-icon.svg") no-repeat;
+  height: 130px;
+  width: 100%;
+  background-size: contain;
+  background-position: center;
+}
+
+

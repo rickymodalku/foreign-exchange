@@ -1,0 +1,46 @@
+/**
+ * @license
+ * MyFonts Webfont Build ID 3401337, 2017-06-05T04:55:50-0400
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: Gilroy-SemiBold by Radomir Tinkov
+ * URL: https://www.myfonts.com/fonts/radomir-tinkov/gilroy/semi-bold/
+ * 
+ * Webfont: Gilroy-Regular by Radomir Tinkov
+ * URL: https://www.myfonts.com/fonts/radomir-tinkov/gilroy/regular/
+ * 
+ * Webfont: Gilroy-Light by Radomir Tinkov
+ * URL: https://www.myfonts.com/fonts/radomir-tinkov/gilroy/light/
+ * 
+ * Webfont: Gilroy-Bold by Radomir Tinkov
+ * URL: https://www.myfonts.com/fonts/radomir-tinkov/gilroy/bold/
+ * 
+ * 
+ * License: https://www.myfonts.com/viewlicense?type=web&buildid=3401337
+ * Licensed pageviews: 100,000
+ * Webfonts copyright: Copyright &#x00A9; 2016 by Radomir Tinkov. All rights reserved.
+ * 
+ * © 2017 MyFonts Inc
+*/
+
+
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/33e679");
+
+  
+@font-face {font-family: 'Gilroy-SemiBold';src: url('webfonts/33E679_0_0.eot');src: url('webfonts/33E679_0_0.eot?#iefix') format('embedded-opentype'),url('webfonts/33E679_0_0.woff2') format('woff2'),url('webfonts/33E679_0_0.woff') format('woff'),url('webfonts/33E679_0_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'Gilroy-Regular';src: url('webfonts/33E679_1_0.eot');src: url('webfonts/33E679_1_0.eot?#iefix') format('embedded-opentype'),url('webfonts/33E679_1_0.woff2') format('woff2'),url('webfonts/33E679_1_0.woff') format('woff'),url('webfonts/33E679_1_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'Gilroy-Light';src: url('webfonts/33E679_2_0.eot');src: url('webfonts/33E679_2_0.eot?#iefix') format('embedded-opentype'),url('webfonts/33E679_2_0.woff2') format('woff2'),url('webfonts/33E679_2_0.woff') format('woff'),url('webfonts/33E679_2_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'Gilroy-Bold';src: url('webfonts/33E679_3_0.eot');src: url('webfonts/33E679_3_0.eot?#iefix') format('embedded-opentype'),url('webfonts/33E679_3_0.woff2') format('woff2'),url('webfonts/33E679_3_0.woff') format('woff'),url('webfonts/33E679_3_0.ttf') format('truetype');}
+ 

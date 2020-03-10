@@ -1,0 +1,638 @@
+.fs-investment-profile-box__cover {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+  font-size: 32px;
+  color: $assessment-gray;
+}
+
+.btn-select-profile {
+  height: 50px;
+  line-height: 40px;
+  font-size: 18px;
+}
+
+@media #{$phone} {
+  #fsRiskDisclosureModal {
+    .fs-modal__dialog {
+      margin: auto;
+
+      .fs-modal__content {
+        &.statement-dialog__content {
+          height: 100vh;
+        }
+      }
+    }
+  }
+
+  .fs-risk-disclosure-pop-up {
+    .content {
+      padding: inherit;
+      padding-bottom: 0px;
+      padding-top: 0px;
+    }
+  }
+
+  .fs-investor-agreement {
+    .left-section {
+      padding: 0em 0em 5em 0em;
+    }
+  }
+
+  .fs-investor-agreement {
+    .white-background {
+      background-color: $white;
+    }
+  }
+
+  .fs-investor-header-flag {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: unset;
+    @include circle-text(20px, #3d7eff, #3d7eff, 14px, white);
+
+    &.active {
+      @include circle-text(20px, #ffffff, #ffffff, 14px, #3d7eff);
+    }
+  }
+
+  .fs-investment-profile-box {
+    margin-bottom: 20px;
+  }
+
+  .fs-investor-agreement-header {
+    .text-center {
+      height: 6em;
+    }
+  }
+
+  .btn-agreement-back {
+    margin-right: 20px;
+  }
+
+  .btn-agreement-process {
+    float: none;
+  }
+
+  .fs-platform-agreement {
+    padding: 24px 12px 48px;
+    background-color: $white;
+
+    .btn-primary-investor {
+      width: 100%;
+    }
+  }
+}
+
+@media #{$tablet} {
+  #fsRiskDisclosureModal {
+    .fs-modal__dialog {
+      margin: 8px auto;
+
+      .fs-modal__content {
+        &.statement-dialog__content {
+          height: initial;
+        }
+      }
+    }
+  }
+
+  .fs-risk-disclosure-pop-up {
+    .content {
+      padding: 1em 2em;
+    }
+  }
+
+  .fs-investor-agreement {
+    .left-section {
+      padding: 0em 0em 15em 0em;
+    }
+  }
+
+  .fs-investor-agreement {
+    .white-background {
+      background-color: initial;
+    }
+  }
+
+  .suitability-assesment-modal,
+  .generic-questionaire-dialog {
+    width: 500px;
+  }
+
+  .fs-investor-header-flag {
+    display: inline-block;
+    margin-right: 0.5em;
+  }
+
+  .fs-investment-profile-box {
+    width: 31.5%;
+  }
+
+  .fs-investor-agreement-header {
+    .text-center {
+      height: initial;
+    }
+  }
+
+  .btn-primary-white {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    color: $assessment-gray;
+    margin-right: 10px;
+  }
+
+  .fs-platform-agreement {
+    background-color: initial;
+
+    .btn-primary-investor {
+      width: initial;
+    }
+  }
+
+  .fs-mobile-scroll-to-bottom {
+    display: none;
+  }
+}
+
+@media #{$desktop} {
+  #fsRiskDisclosureModal {
+    .fs-modal__dialog {
+      width: 1100px;
+    }
+  }
+}
+
+.fs-investor-agreement {
+  background-color: #f2f5fe;
+  padding: 0em 0em 5em 0em;
+
+
+  .fs-signup-image-investor {
+    padding-bottom: 10em !important;
+    background-color: black;
+  }
+
+  .left-section {
+
+    #declaration,
+    #investor-detail,
+    #assessment,
+    .fs-investor-agreement-header {
+      .text-center {
+        color: #3d7eff;
+        padding: 1em 0;
+
+        &.active {
+          background-color: #3d7eff;
+          color: white;
+        }
+      }
+    }
+
+    .general-questionaire {
+      margin-bottom: 50px;
+
+      mat-radio-group {
+        background-color: #e2f0ff;
+        border: solid 1px rgba(44, 129, 255, 0.2);
+        color: #2c81ff;
+        padding: 1em;
+      }
+    }
+
+    .investment-profile {
+      .fs-investment-profile-box-description {
+        color: $assessment-gray
+      }
+
+      .fs-investment-profile-box-container {
+        .fs-investment-profile-box {
+          border-radius: 6px;
+
+          &.in-active {
+            padding: 0;
+            border: solid 1px $referral-textbox-gray;
+          }
+
+          &.active {
+            padding: 0;
+            border: solid 1px #08c0a6;
+          }
+
+          .in-active-box {
+            height: 320px;
+            border-bottom: 1px solid;
+            border-bottom-color: $referral-textbox-gray;
+          }
+
+          .active-box {
+            height: 320px;
+            border-bottom: 1px solid;
+            border-bottom-color: #08c0a6;
+          }
+
+          .selected-circle {
+            &.balanced {
+              @include circle-text(100px, #5c0fe2, #5c0fe2, 50px, white);
+            }
+
+            &.conservative {
+              @include circle-text(100px, #0067ff, #0067ff, 50px, white);
+            }
+
+            &.aggressive {
+              @include circle-text(100px, #1bdec0, #1bdec0, 50px, white);
+            }
+          }
+
+          position: relative;
+          background-color: #ffffff;
+          padding: 10px;
+          margin-right: 10px;
+          height: 370px;
+
+          .title {
+            padding: 20px 15px 0;
+            font-size: 16px;
+            color: #222222;
+
+            &.conservative {
+              color: #2c81ff;
+            }
+
+            &.balanced {
+              color: #4306ac;
+            }
+
+            &.aggressive {
+              color: #00c3a5;
+            }
+          }
+
+          .footer {
+            position: absolute;
+            bottom: 15px;
+          }
+
+          .selected-profile {
+            color: #00c3a5;
+            text-align: center;
+            padding: 1em 0;
+          }
+        }
+
+        .content {
+          padding: 10px 15px;
+          color: $assessment-gray;
+
+          ul {
+            margin-left: -25px;
+
+            li {
+              font-size: 12px;
+              margin-bottom: 5px;
+            }
+          }
+        }
+      }
+    }
+
+    .fs-signup-form {
+      background-color: inherit;
+      height: auto;
+
+      mat-checkbox {
+        background-color: #fafbfc;
+        border: solid 1px #dae5ee;
+        padding: 1em !important;
+      }
+
+      mat-select {
+        margin-top: 1.5px;
+      }
+    }
+
+    .fs-investor-agreement-footer {
+      padding: 1.5em 0;
+
+      .btn-primary-white {
+        border: 1px solid rgba(151, 151, 151, 0.4);
+        color: #818a91;
+      }
+    }
+
+    #term-condition {
+      .row {
+        &.id-term-condition {
+          padding: 6em 3em;
+        }
+      }
+
+      .customer-name {
+        margin: 0.25em 0;
+        font-size: 1em;
+      }
+
+      .term-paragraph-title {
+        font-size: 18px;
+      }
+
+      .term-paragraph-header {
+        margin: 0.25em 0;
+        font-size: 1em;
+      }
+
+      .term-paragraph-body {
+        float: left;
+
+        input {
+          margin-right: 0.5em;
+          margin-left: -1em;
+        }
+
+        .text-justify {
+          float: left;
+          width: 97.5%;
+        }
+      }
+
+      .term-paragraph-footer {
+        .time-of-submission {
+          margin: 0.25em 0;
+          font-size: 1em;
+        }
+      }
+    }
+  }
+}
+
+.generic-questionnaire-modal {
+  .ui-widget-content {
+    .ui-dialog-content {
+      padding: 1em !important;
+    }
+  }
+}
+
+.fs-risk-disclosure-pop-up {
+  .footer {
+    padding: 0em 2em 1em;
+  }
+}
+
+.tax-residency-checkbox {
+  font-size: 12px;
+}
+
+.suitability-assesment-modal {
+  .suitability-assesment-modal-content {
+    padding: 0em 2em 2em 2em !important;
+  }
+}
+
+@media #{$desktop} {
+  .btn-agreement-back {
+    float: left;
+  }
+
+  .btn-agreement-process {
+    float: right;
+  }
+
+  .term-condition-check-box {
+    width: 3em;
+  }
+
+  .fs-platform-agreement {
+    padding: 24px 48px 48px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .fs-investor-agreement {
+    .left-section {
+      .investment-profile {
+        .fs-investment-profile-box-container {
+          .fs-investment-profile-box {
+            height: 480px;
+
+            .active-box,
+            .in-active-box {
+              height: 430px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .fs-investor-agreement {
+    .left-section {
+      .investment-profile {
+        .fs-investment-profile-box-container {
+          .fs-investment-profile-box {
+            height: auto;
+
+            .active-box,
+            .in-active-box {
+              height: auto;
+            }
+
+            .content {
+              height: 50px;
+              overflow: hidden;
+
+              &.expand-profile {
+                height: auto;
+              }
+
+              &.hide-profile {
+                height: 50px;
+                overflow: hidden;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .fs-modal {
+    .suitability-assesment-modal {
+      height: 100%;
+      margin: auto;
+
+      .fs-modal__content {
+        height: 100%;
+
+        .modal-confirm {
+          position: fixed;
+          bottom: 30px;
+
+          .btn-primary-white {
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+            color: $assessment-gray;
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media #{$phone} {
+  .fs-agreement-container {
+    height: 480px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .suitability-assesment-modal-content {
+    font-size: 12px;
+  }
+
+  .fs-agreement-container {
+    height: 60vh;
+  }
+}
+
+.fs-agreement-container {
+  background-color: $white;
+  width: 100%;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  padding: 24px;
+  overflow: scroll;
+
+  a {
+    color: $get-address-blue;
+  }
+
+  ul>li {
+    margin-top: 15px;
+  }
+}
+
+.platform-agreement-content {
+  table {
+    border-collapse: collapse;
+    font-size: 1em;
+    width: 100%
+  }
+
+  table,
+  td,
+  th {
+    border: 1px solid $black;
+  }
+
+  table td,
+  table th {
+    padding: .35em;
+  }
+
+  .title {
+    font-size: 1.35em;
+    font-weight: 700;
+    margin-bottom: 1.5em;
+    text-align: center;
+  }
+
+  .subtitle {
+    font-size: 1em;
+    font-style: italic;
+    margin-top: 1.5em;
+    text-align: center;
+  }
+}
+
+.fs-platform-agreement {
+  .title {
+    font-size: 24px;
+    color: #222222;
+    font-family: Gilroy-SemiBold;
+  }
+
+  .caption {
+    font-size: 14px;
+    color: $warning-orange;
+  }
+
+  .agreement-text {
+    font-size: 14px;
+    margin-bottom: 12px;
+    color: $ink-lighter;
+  }
+}
+
+.highlight-text {
+  color: $fs-red-600;
+}
+
+.highlight-area {
+  background: $light-white;
+  color: $fs-red-600;
+  padding: 12px;
+  margin: 12px 0;
+}
+
+.term-condition-paragraph {
+  margin: 0.25em 0;
+  font-size: 1em;
+}
+
+@media screen and (max-width: 480px) {
+  .risk-disclosure-container {
+    height: 360px;
+    padding: 24px 5px 24px 0;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .risk-disclosure-container {
+    height: 250px;
+  }
+}
+
+/* _investor-agreement-my */
+.div-highlight-lightblue {
+  background: rgba(62, 126, 255, 0.1);
+  border-radius: 4px;
+  padding: 12px;
+  color: #222;
+}
+
+.div-custom-padding {
+  padding: 34px 38px;
+}
+
+#informationPopUp {
+  .fs-modal__content {
+    width: 420px;
+    padding: 2em;
+
+    .title {
+      color: $grey-900-ink;
+      font-size: 18px;
+      margin-bottom: 0.5em;
+    }
+
+    .caption {
+      color: $gray-700;
+    }
+
+    .btn-container {
+      margin-top: 100px;
+    }
+
+    .letter-renewal-icon {
+      margin-top: 30px;
+      margin-bottom: 25px;
+    }
+  }
+}

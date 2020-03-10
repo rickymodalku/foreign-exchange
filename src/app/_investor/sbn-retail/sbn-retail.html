@@ -1,0 +1,1122 @@
+<div class="container-fluid browseLoanContainer" style="padding-left: 0;padding-right: 0;">
+  <div class="row browseLoanHeader" style="padding-bottom: 10px;margin-right:auto; margin-left: auto;  ">
+    <div class="browseLoanHeaderTitleBox">
+      <div class="browseLoanHeaderTitle Gilroy-SemiBold">
+        SBN Retail
+      </div>
+      <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 browseLoanHeaderCaption margin-bottom-20 padding-null">
+        <span class="white-text">
+          <strong>{{ totalAvailableBond }} penawaran</strong>
+        </span>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 browseLoanBtnContainer">
+      <ng-container *ngFor="let sbnretailmenu of sbnRetailMenu">
+        <div (click)="changeSBNRetailMenu(sbnretailmenu.key)" [ngClass]="{ 'white': sbnretailmenu.active }"
+          class="btnBrowseLoan" *ngIf="sbnretailmenu.show">
+          <span>{{ sbnretailmenu.label }}</span>
+          <span class="circle-number-information"
+            *ngIf="sbnretailmenu.numberOfBond >= 0">{{ sbnretailmenu.numberOfBond }}</span>
+        </div>
+      </ng-container>
+    </div>
+    <div class="col-xs-12 white-text text-right"
+      *ngIf="getActiveSBNRetailMenu() > 1"
+      style="padding-right:10em;font-size:16px;">
+      <b>Total Data: {{ numberOfOrderData }}</b>
+    </div>
+  </div>
+  <div class="fs-signup-form setting">
+    <div class="fs-setting-content" *ngIf="getActiveSBNRetailMenu() === 0">
+      <div class="col-md-8 content-center clearfix account-detail">
+        <div class="col-xs-12 fs-setting-box-title text-center">{{ registrationTitle }}</div>
+        <div class="fs-setting-box fs-box-shadow d-inline-block full-width">
+          <form [formGroup]="sbnInvestorDetailForm" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null"
+            id="sbn-investor-detail-form" name="sbn-investor-detail-form">
+            <div>
+              <div class="fs-signup-title font-size-20 Gilroy-SemiBold">
+                {{ 'form.setting-personal.placeholder.title-account' | translate }}</div>
+              <div class="fs-signup-caption margin-bottom-10">
+                {{ 'form.setting-personal.placeholder.subtitle-account' | translate }}</div>
+              <div class="form-inline margin-bottom-10">
+                <div class="form-group sign-up-group"
+                  [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorSID.invalid && formValidation.investorDetail }"
+                  *ngIf="showSIDField()">
+                  <label>SID*</label>
+                  <input autocomplete="off" class="form-control sign-up-form" formControlName="investorSID"
+                    id="investorSID" name="investorSID" type="text" [attr.disabled]="memberEsbnDetail ? true : null" />
+                </div>
+                <div class="form-group sign-up-group"
+                  [ngClass]="{ 'full-width': !showSIDField(),'form-control-error': sbnInvestorDetailForm.controls.investorName.invalid }">
+                  <label>Nama Investor*</label>
+                  <input autocomplete="off" [attr.disabled]="true" class="form-control sign-up-form"
+                    formControlName="investorName" id="investorName" name="investorName" type="text" />
+                </div>
+              </div>
+              <div class="form-inline margin-bottom-10">
+                <div class="form-group sign-up-group"
+                  [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorIdentityNumber.invalid && formValidation.investorDetail }">
+                  <label>No KTP*</label>
+                  <input autocomplete="off" [attr.disabled]="true" class="form-control sign-up-form"
+                    formControlName="investorIdentityNumber" id="investorIdentityNumber" name="investorIdentityNumber"
+                    type="text" />
+                </div>
+
+                <div class="form-group sign-up-group"
+                  [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorReligion.invalid && formValidation.investorDetail }">
+                  <label>Agama*</label>
+                  <mat-select formControlName="investorReligion" id="investorReligion" name="investorReligion">
+                    <mat-option *ngFor="let religion of masterData.religions" ngDefaultControl [value]="religion.id">
+                      {{ religion.label }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+
+              <div class="form-inline margin-bottom-10">
+                <div class="form-group sign-up-group small"
+                  [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorMaritalStatus.invalid && formValidation.investorDetail }">
+                  <label>Status Perkawinan*</label>
+                  <mat-select formControlName="investorMaritalStatus" id="investorMaritalStatus"
+                    name="investorMaritalStatus" (selectionChange)="onMaritalStatusChange()">
+                    <mat-option *ngFor="let maritalStatus of masterData.maritalStatuses" ngDefaultControl
+                      [value]="maritalStatus.id">
+                      {{ maritalStatus.name }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+
+                <div class="form-group sign-up-group small"
+                  [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorSpouseName.invalid && formValidation.investorDetail }">
+                  <label>Nama Pasangan {{ needSpouseName ? '*' : '' }}</label>
+                  <input autocomplete="off" class="form-control sign-up-form" formControlName="investorSpouseName"
+                    id="investorSpouseName" name="investorSpouseName" type="text"
+                    [attr.disabled]="needSpouseName ? null : true" />
+                </div>
+
+                <div class="form-group sign-up-group small"
+                  [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorEducationBackground.invalid && formValidation.investorDetail }">
+                  <label>Pendidikan Terakhir*</label>
+                  <mat-select formControlName="investorEducationBackground" id="investorEducationBackground"
+                    name="investorEducationBackground">
+                    <mat-option *ngFor="let degree of masterData.degrees" ngDefaultControl [value]="degree.code">
+                      {{ degree.name }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+
+              <div class="form-inline margin-bottom-10">
+                <div class="form-group sign-up-group"
+                  [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorGender.invalid && formValidation.investorDetail }">
+                  <label>Jenis Kelamin*</label>
+                  <mat-select formControlName="investorGender" id="investorGender" name="investorGender">
+                    <mat-option *ngFor="let gender of masterData.genders" ngDefaultControl [value]="gender.id">
+                      {{ gender.name }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+
+                <div class="form-group sign-up-group"
+                  [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorBirthCountry.invalid && formValidation.investorDetail }">
+                  <label>Negara Kelahiran*</label>
+                  <mat-select formControlName="investorBirthCountry" id="investorBirthCountry"
+                    name="investorBirthCountry">
+                    <mat-option *ngFor="let country of masterData.countries" ngDefaultControl [value]="country.code">
+                      {{ country.name }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+
+
+              <div class="form-inline margin-bottom-10">
+                <div class="form-group sign-up-group"
+                  [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorBirthPlace.invalid && formValidation.investorDetail }">
+                  <label>Tempat Lahir*</label>
+                  <input autocomplete="off" class="form-control sign-up-form" formControlName="investorBirthPlace"
+                    id="investorBirthPlace" name="investorBirthPlace" type="text" />
+                </div>
+
+                <div class="form-group sign-up-group"
+                  [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorBirthDate.invalid && formValidation.investorDetail }">
+                  <label>Tanggal Lahir*</label>
+                  <p-calendar [monthNavigator]="true" [yearNavigator]="true" formControlName="investorBirthDate"
+                    id="investorBirthDate" name="investorBirthDate" inputStyleClass="form-control sign-up-form"
+                    [baseZIndex]="10001"
+                    placeholder="{{ 'form.setting-personal.placeholder.birth-date-default' | translate }}"
+                    yearRange="1900:2030">
+                  </p-calendar>
+                </div>
+              </div>
+              <div class="form-inline margin-bottom-10">
+                <div class="form-group sign-up-group"
+                  [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorMotherMaidenName.invalid && formValidation.investorDetail }">
+                  <label>Nama Ibu Kandung*</label>
+                  <input autocomplete="off" class="form-control sign-up-form" formControlName="investorMotherMaidenName"
+                    id="investorMotherMaidenName" name="investorMotherMaidenName" type="text" />
+                </div>
+                <div class="form-group sign-up-group"
+                  [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorOccupation.invalid && formValidation.investorDetail }">
+                  <label>Jenis Pekerjaan*</label>
+                  <mat-select formControlName="investorOccupation" id="investorOccupation" name="investorOccupation"
+                    (selectionChange)="onOccupationsChange()">
+                    <mat-option *ngFor="let occupation of masterData.occupations" ngDefaultControl
+                      [value]="occupation.id">
+                      {{ occupation.name }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+
+              <div class="form-inline margin-bottom-10">
+                <div class="form-group sign-up-group"
+                  [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorEmail.invalid && formValidation.investorDetail }">
+                  <label>Email*</label>
+                  <input formControlName="investorEmail" id="investorEmail" name="investorEmail" autocomplete="off"
+                    class="form-control sign-up-form" type="text" />
+                </div>
+                <div class="form-group sign-up-group"
+                  [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorTaxNumber.invalid && formValidation.investorDetail }">
+                  <label>Nomor NPWP</label>
+                  <input formControlName="investorTaxNumber" id="investorTaxNumber" name="investorTaxNumber"
+                    autocomplete="off" class="form-control sign-up-form" type="text" />
+                </div>
+              </div>
+
+              <div class="form-inline margin-bottom-10">
+                <div class="form-group sign-up-group full-width"
+                  [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorAddress.invalid && formValidation.investorDetail }">
+                  <label>Alamat*</label>
+                  <input autocomplete="off" class="form-control sign-up-form" id="investorAddress"
+                    name="investorAddress" formControlName="investorAddress" type="text" />
+                </div>
+              </div>
+              <div class="form-inline margin-bottom-10">
+                <div class="form-group sign-up-group"
+                  [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorProvince.invalid && formValidation.investorDetail }">
+                  <label>Provinsi*</label>
+                  <mat-select formControlName="investorProvince" id="investorProvince" name="investorProvince"
+                    [(ngModel)]="provinceId" (selectionChange)="onProvinceChange()">
+                    <mat-option *ngFor="let province of masterData.provinces" [value]="province.id">
+                      {{ province.name }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+                <div class="form-group sign-up-group"
+                  [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorCity.invalid && formValidation.investorDetail }">
+                  <label>Kabupaten/Kota*</label>
+                  <mat-select formControlName="investorCity" id="investorCity" name="investorCity" [(ngModel)]="cityId">
+                    <mat-option *ngFor="let cities of masterData.cities" [value]="cities.id">
+                      {{ cities.name }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+              <div class="form-inline margin-bottom-10">
+                <div class="form-group sign-up-group"
+                  [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorAddressZipCode.invalid && formValidation.investorDetail }">
+                  <label>Zip Code*</label>
+                  <input formControlName="investorAddressZipCode" id="investorAddressZipCode"
+                    name="investorAddressZipCode" autocomplete="off" class="form-control sign-up-form" type="text" />
+                </div>
+                <div class="form-group sign-up-group"
+                  [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorPhoneNumber.invalid && formValidation.investorDetail }">
+                  <label>No Handphone*</label>
+                  <input formControlName="investorPhoneNumber" id="investorPhoneNumber" name="investorPhoneNumber"
+                    autocomplete="off" class="form-control sign-up-form" type="text" />
+                </div>
+              </div>
+
+              <div class="form-inline margin-bottom-10">
+                <div class="form-group sign-up-group">
+                  <label>No Telp Rumah(optional)</label>
+                  <input formControlName="investorHomePhoneNumber" id="investorHomePhoneNumber"
+                    name="investorHomePhoneNumber" autocomplete="off" class="form-control sign-up-form" type="text" />
+                </div>
+                <div class="form-group sign-up-group"
+                  [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorIncomePerAnnum.invalid && formValidation.investorDetail }">
+                  <label>Pendapatan per tahun*</label>
+                  <mat-select formControlName="investorIncomePerAnnum" id="investorIncomePerAnnum"
+                    name="investorIncomePerAnnum">
+                    <mat-option *ngFor="let annualIncome of masterData.annualIncomes" [value]="annualIncome.id">
+                      {{ annualIncome.name }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+              <div class="form-inline margin-bottom-10">
+                <div class="form-group sign-up-group"
+                  [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorSourceOfFund.invalid && formValidation.investorDetail }">
+                  <label>Sumber Dana Investasi*</label>
+                  <mat-select formControlName="investorSourceOfFund" id="investorSourceOfFund"
+                    name="investorSourceOfFund">
+                    <mat-option *ngFor="let sourceOfFunds of masterData.sourceOfFunds" [value]="sourceOfFunds.id">
+                      {{ sourceOfFunds.name }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+                <div class="form-group sign-up-group"
+                  [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorInvestmentObjectives.invalid && formValidation.investorDetail }">
+                  <label>Tujuan Investasi*</label>
+                  <mat-select formControlName="investorInvestmentObjectives" id="investorInvestmentObjectives"
+                    name="investorInvestmentObjectives">
+                    <mat-option *ngFor="let investmentObjectives of masterData.investmentObjectives"
+                      [value]="investmentObjectives.id">
+                      {{ investmentObjectives.name }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null margin-top-20" id="company-detail-form"
+                name="company-detail-form" *ngIf="showCompanyDetail">
+                <div class="fs-signup-title font-size-20 Gilroy-SemiBold margin-bottom-10">Detail Perusahaan</div>
+                <div class="form-inline margin-bottom-10">
+                  <div class="form-group sign-up-group"
+                    [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorCompanyName.invalid && formValidation.investorDetail }">
+                    <label>Nama perusahaan*</label>
+                    <input autocomplete="off" class="form-control sign-up-form" formControlName="investorCompanyName"
+                      id="investorCompanyName" name="investorCompanyName" type="text" />
+                  </div>
+                  <div class="form-group sign-up-group"
+                    [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorCompanyAddress.invalid && formValidation.investorDetail }">
+                    <label>Alamat perusahaan*</label>
+                    <input autocomplete="off" class="form-control sign-up-form" formControlName="investorCompanyAddress"
+                      id="investorCompanyAddress" name="investorCompanyAddress" type="text" />
+                  </div>
+                </div>
+                <div class="form-inline margin-bottom-10">
+                  <div class="form-group sign-up-group small"
+                    [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorCompanyCountry.invalid && formValidation.investorDetail }">
+                    <label>Negara perusahaan*</label>
+                    <mat-select formControlName="investorCompanyCountry" id="investorCompanyCountry"
+                      name="investorCompanyCountry">
+                      <mat-option *ngFor="let country of masterData.countries" [value]="country.code">
+                        {{ country.name }}
+                      </mat-option>
+                    </mat-select>
+                  </div>
+
+                  <div class="form-group sign-up-group small"
+                    [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorCompanyProvince.invalid && formValidation.investorDetail }">
+                    <label>Provinsi perusahaan*</label>
+                    <mat-select formControlName="investorCompanyProvince" id="investorCompanyProvince"
+                      name="investorCompanyProvince" [(ngModel)]="businessProvinceId"
+                      (selectionChange)="onBusinessProvinceChange()">
+                      <mat-option *ngFor="let province of masterData.provinces" [value]="province.id">
+                        {{ province.name }}
+                      </mat-option>
+                    </mat-select>
+                  </div>
+                  <div class="form-group sign-up-group small"
+                    [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorCompanyCity.invalid && formValidation.investorDetail }">
+                    <label>Kota perusahaan*</label>
+                    <mat-select formControlName="investorCompanyCity" id="investorCompanyCity"
+                      name="investorCompanyCity" [(ngModel)]="businessCityId">
+                      <mat-option *ngFor="let cities of masterData.businessCities" [value]="cities.id">
+                        {{ cities.name }}
+                      </mat-option>
+                    </mat-select>
+
+                  </div>
+                </div>
+                <div class="form-inline margin-bottom-10">
+                  <div class="form-group sign-up-group"
+                    [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorCompanyBusiness.invalid && formValidation.investorDetail }">
+                    <label>Industri perusahaan*</label>
+                    <input autocomplete="off" class="form-control sign-up-form"
+                      formControlName="investorCompanyBusiness" id="investorCompanyBusiness"
+                      name="investorCompanyBusiness" type="text" />
+                  </div>
+                  <div class="form-group sign-up-group"
+                    [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorCompanyPosition.invalid && formValidation.investorDetail }">
+                    <label>Jabatan perusahaan*</label>
+                    <input autocomplete="off" class="form-control sign-up-form"
+                      formControlName="investorCompanyPosition" id="investorCompanyPosition"
+                      name="investorCompanyPosition" type="text" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null margin-top-20" id="fund-account-form"
+                name="fund-account-form">
+                <div class="fs-signup-title font-size-20 Gilroy-SemiBold margin-bottom-10">Rekening Dana</div>
+                <div class="form-inline margin-bottom-10">
+                  <div class="form-group sign-up-group"
+                    [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorFundAccountBankName.invalid && formValidation.investorDetail }">
+                    <label>Nama Bank*</label>
+                    <mat-select formControlName="investorFundAccountBankName" id="investorFundAccountBankName"
+                      name="investorFundAccountBankName">
+                      <mat-option *ngFor="let banks of masterData.banks" [value]="banks.id">
+                        {{ banks.name }}
+                      </mat-option>
+                    </mat-select>
+                  </div>
+                  <div class="form-group sign-up-group"
+                    [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorFundAccountNumber.invalid && formValidation.investorDetail }">
+                    <label>Nomor Rekening Dana*</label>
+                    <input autocomplete="off" class="form-control sign-up-form" name="investorFundAccountNumber"
+                      formControlName="investorFundAccountNumber" id="investorFundAccountNumber" type="text" />
+                  </div>
+                </div>
+                <div class="form-inline margin-bottom-10">
+                  <div class="form-group sign-up-group"
+                    [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorFundAccountName.invalid && formValidation.investorDetail }">
+                    <label>Nama Investor*</label>
+                    <input autocomplete="off" class="form-control sign-up-form"
+                      formControlName="investorFundAccountName" id="investorFundAccountName"
+                      name="investorFundAccountName" type="text" />
+                  </div>
+                </div>
+                <div class="form-inline margin-bottom-10">
+                  <div class="col-xs-12 text-right">
+                    <i>*Pembayaran melalui bank selain BCA, akan dikenakan biaya transfer</i>
+                  </div>
+                </div>
+              </div>
+
+              <ng-container *ngIf="memberCurrentStatus === 'SUCCESS' || memberCurrentStatus === 'COMPLETE'">
+                <div class="fs-signup-title font-size-20 margin-top-20 margin-bottom-10 Gilroy-SemiBold">Rekening Surat
+                  Berharga</div>
+                <div class="form-inline margin-bottom-10">
+                  <div class="form-group sign-up-group"
+                    [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorSecuritiesSubRegistry.invalid && formValidation.investorDetail }">
+                    <label>Nama Subregistry*</label>
+                    <mat-select formControlName="investorSecuritiesSubRegistry" id="investorSecuritiesSubRegistry"
+                      name="investorSecuritiesSubRegistry">
+                      <mat-option *ngFor="let subregistries of masterData.subregistries" [value]="subregistries.id">
+                        {{ subregistries.name }}
+                      </mat-option>
+                    </mat-select>
+                  </div>
+                  <div class="form-group sign-up-group"
+                    [ngClass]="{ 'form-control-error': !isInvestorSecuritiesAccountNumberEmpty && formValidation.investorDetail }">
+                    <label>Nomor Rekening Surat Berharga*</label>
+                    <input autocomplete="off" class="form-control sign-up-form"
+                      formControlName="investorSecuritiesAccountNumber" id="investorSecuritiesAccountNumber"
+                      name="investorSecuritiesAccountNumber" type="text" />
+                  </div>
+                </div>
+                <div class="form-inline margin-bottom-10">
+                  <div class="form-group sign-up-group"
+                    [ngClass]="{ 'form-control-error': sbnInvestorDetailForm.controls.investorSecuritiesAccountName.invalid && formValidation.investorDetail }">
+                    <label>Nama Investor*</label>
+                    <input autocomplete="off" class="form-control sign-up-form"
+                      formControlName="investorSecuritiesAccountName" id="investorSecuritiesAccountName"
+                      name="investorSecuritiesAccountName" type="text" />
+                  </div>
+                </div>
+              </ng-container>
+
+              <ng-container>
+                <div class="fs-signup-title font-size-20 margin-top-20 margin-bottom-10 Gilroy-SemiBold">
+                  Dokumen
+                </div>
+                <div class="form-group grey-border upload full-width">
+                  <dropzone [config]="uploadConfiguration" [message]="docDetail.ktp.message"
+                    (error)="onFileUploadError($event, docDetail.ktp.label)"
+                    [disabled]="memberEsbnDetail?.status === 'SUCCESS' || memberEsbnDetail?.status === 'PROCESSING' || memberEsbnDetail?.status === 'COMPLETE'"
+                    (sending)="onFileUploadSending($event, docDetail.ktp.type)"
+                    (success)="onFileUploadSuccess($event, docDetail.ktp.type)" class="investor">
+                  </dropzone>
+                </div>
+                <div class="form-group grey-border upload full-width">
+                  <dropzone [config]="uploadConfiguration" [message]="docDetail.npwp.message"
+                    (error)="onFileUploadError($event,docDetail.npwp.label)"
+                    [disabled]="memberEsbnDetail?.status === 'SUCCESS' || memberEsbnDetail?.status === 'PROCESSING' || memberEsbnDetail?.status === 'COMPLETE'"
+                    (sending)="onFileUploadSending($event,docDetail.npwp.type)"
+                    (success)="onFileUploadSuccess($event,docDetail.npwp.type)" class="investor">
+                  </dropzone>
+                </div>
+                <div class="form-group grey-border upload full-width">
+                  <dropzone [config]="uploadConfiguration" [message]="docDetail.selfie_with_id.message"
+                    (error)="onFileUploadError($event,docDetail.selfie_with_id.label)"
+                    [disabled]="memberEsbnDetail?.status === 'SUCCESS' || memberEsbnDetail?.status === 'PROCESSING' || memberEsbnDetail?.status === 'COMPLETE'"
+                    (sending)="onFileUploadSending($event,docDetail.selfie_with_id.type)"
+                    (success)="onFileUploadSuccess($event,docDetail.selfie_with_id.type)" class="investor">
+                  </dropzone>
+                </div>
+                <div class="form-group grey-border upload full-width">
+                  <dropzone [config]="uploadConfiguration" [message]="docDetail.signature_file.message"
+                    (error)="onFileUploadError($event,docDetail.signature_file.label)"
+                    [disabled]="memberEsbnDetail?.status === 'SUCCESS' || memberEsbnDetail?.status === 'PROCESSING' || memberEsbnDetail?.status === 'COMPLETE'"
+                    (sending)="onFileUploadSending($event,docDetail.signature_file.type)"
+                    (success)="onFileUploadSuccess($event,docDetail.signature_file.type)" class="investor">
+                  </dropzone>
+                </div>
+              </ng-container>
+
+              <div class="col-xs-12 padding-null" *ngIf="memberCurrentStatus !== ''">
+                Jika anda ingin mengganti informasi pribadi anda, silahkan hubungi layanan@modalku.co.id
+              </div>
+              <div class="col-xs-12 onboarding-footer padding-null">
+                <button class="btn btn-primary-referral pull-right" id="setting-personal-form-submit"
+                  name="setting-personal-form-submit" [ngClass]="{ 'disabled': !enabledRegisterButton() }"
+                  (click)="openConfirmationModal()">
+                  {{ registrationButtonCaption }}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs-12 Gilroy-SemiBold margin-bottom-10" style="padding: 24px 12px;background:white" *ngIf="getActiveSBNRetailMenu() === 1">
+      Silahkan pilih menu Status Transaksi untuk melihat <b>status pemesanan</b> atau <b>melakukan pembayaran</b>.
+    </div>
+  <div class="browseLoanView" *ngIf="getActiveSBNRetailMenu() === 1">
+    <div>
+      <div class="col-xs-12 Gilroy-SemiBold margin-bottom-10 grid-view-title">
+        Pemesanan
+      </div>
+      <div *ngFor="let sbnofferlist of sbnOfferList">
+        <div class="pull-left browseLoanViewBoxContainer col-xs-12 col-sm-6 col-md-6 col-lg-4">
+          <div class="browseLoanViewBox cf-success fs-box-shadow">
+            <div class="col-xs-12">
+              <div class="col-xs-6 padding-null margin-bottom-10">
+                <div class="loanCode padding-null">{{ sbnofferlist.series }}</div>
+              </div>
+              <div class="col-xs-3 padding-null">
+              </div>
+            </div>
+            <div class="loanStatistic">
+              <div class="loanProgress clearfix content-center">
+                <div class="pull-left text-bold">Kupon Awal
+                  <br> </div>
+                <div class="pull-right Gilroy-SemiBold detail">
+                  {{ sbnofferlist.initial_level | number: sbnFormatting.decimalFormat }}%</div>
+              </div>
+
+              <div class="loanProgress clearfix content-center">
+                <div class="pull-left text-bold">Tanggal Bayar Kupon
+                  <br> </div>
+                <div class="pull-right Gilroy-SemiBold detail">{{ sbnofferlist.payment_date }}</div>
+              </div>
+              <div class="loanProgress clearfix content-center">
+                <div class="pull-left text-bold">Tanggal Jatuh Tempo
+                  <br> </div>
+                <div class="pull-right Gilroy-SemiBold detail">
+                  {{ sbnofferlist.due_date | date: sbnFormatting.dateFormat }}</div>
+              </div>
+
+              <div class="loanProgress clearfix content-center">
+                <div class="pull-left text-bold">Tanggal Mulai Pesan
+                  <br>
+                </div>
+                <div class="pull-right Gilroy-SemiBold detail">
+                  {{ sbnofferlist.start_order_date | date: sbnFormatting.dateTimeFormat }}</div>
+              </div>
+
+              <div class="loanProgress clearfix content-center">
+                <div class="pull-left text-bold">Tanggal Selesai Pesan
+                  <br>
+                </div>
+                <div class="pull-right Gilroy-SemiBold detail">
+                  {{ sbnofferlist.end_order_date | date: sbnFormatting.dateTimeFormat }}</div>
+              </div>
+
+              <div class="row loan-detail-box content-center margin-top-15">
+                <div class="interestBoxDetail pull-left">Min.Pesan(Rp)
+                  <br>
+                  <span>{{ sbnofferlist.min_order | number: sbnFormatting.decimalFormat }}</span>
+                </div>
+                <div class="interestBoxDetail pull-left">Maks.Pesan(Rp)
+                  <br>
+                  <span>{{ sbnofferlist.max_order | number: sbnFormatting.decimalFormat }}</span>
+                </div>
+                <div class="interestBoxDetail pull-left">Kelipatan(Rp)
+                  <br>
+                  <span>{{ sbnofferlist.multiple_order | number: sbnFormatting.decimalFormat }}</span>
+                </div>
+              </div>
+
+              <div class="loanStatisticFooter clearfix">
+                <div class="loanProgress clearfix content-center">
+                  <div class="pull-left text-bold">Jumlah Pemesanan Anda
+                    <br> </div>
+                  <div class="pull-right footer-text-detail detail">
+                    {{ sbnofferlist.invested_amount | number: sbnFormatting.decimalFormat }}</div>
+                </div>
+                <div class="col-xs-12 margin-top-15">
+                  <div class="text-center full-width btnInvest" role="button" (click)="investSBN(sbnofferlist)"
+                    *ngIf="enabledOrderBondButton()">
+                    Pesan
+                  </div>
+                  <div class="text-center full-width btnInvest disabled" *ngIf="!enabledOrderBondButton()">
+                    Pesan
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sbn-table-row" *ngIf="getActiveSBNRetailMenu() === 2">
+    <table class="blue-stripped-table sbn-table">
+      <thead>
+        <tr>
+          <th>&nbsp;</th>
+          <th>
+            <span class="text-left table-header-loan-code">
+              Seri
+            </span>
+          </th>
+          <th>Kode Pemesanan</th>
+          <th>Kupon</th>
+          <th>Tanggal Pemesanan
+            <br>Tanggal Jatuh Tempo</th>
+          <th>Tanggal Setelmen</th>
+          <th>Tanggal Pembayaran Kupon
+            <a class="tooltip-right" [attr.data-tooltip]="paymentDateInformation">
+              <i class="fa fa-question-circle" aria-hidden="true"></i>
+            </a>
+          </th>
+          <th>Nominal({{currency}})&nbsp;
+            <i role="button" class="fa fa-sort" aria-hidden="true" style="font-size: 16px;color: black;"
+              (click)="sortData();sortDataFlag = !sortDataFlag "></i>
+            <br>Sisa Kepemilikan ({{currency}})&nbsp;
+            <br>
+          </th>
+
+          <th>Nama Bank Rekening Dana
+            <br>Nomor Akun Rekening Dana
+            <br>Nama Akun Rekening Dana</th>
+          <th>Tanggal Mulai Redeem
+            <br>Tanggal Berakhir Redeem</th>
+          <th>Redeem
+          </th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let investororderlist of investorOrderList">
+        <tr>
+          <td *ngIf="currentActiveSeries !== investororderlist.order_code" class="sbn-expand-button"
+            (click)="currentActiveSeries = investororderlist.order_code">
+            <i class="fa fa-plus-square"></i>
+          </td>
+          <td *ngIf="currentActiveSeries === investororderlist.order_code" class="sbn-expand-button"
+            (click)="currentActiveSeries = ''">
+            <i class="fa fa-minus-square"></i>
+          </td>
+          <td>{{ investororderlist.series }}</td>
+          <td>{{ investororderlist.order_code }}</td>
+          <td>{{ investororderlist.level }}%</td>
+          <td>{{ investororderlist.order_date | date: sbnFormatting.dateFormat }}
+            <br>{{ investororderlist.due_date | date: sbnFormatting.dateFormat }}</td>
+          <td>{{ investororderlist.settlement_date | date: sbnFormatting.dateFormat }}</td>
+          <td>{{ investororderlist.payment_date }}</td>
+          <td>{{ investororderlist.nominal | number: sbnFormatting.decimalFormat }}
+            <br>{{ investororderlist.remaining_ownership | number: sbnFormatting.decimalFormat }}</td>
+          <td>{{ investororderlist.funds_account.bank_name }}
+            <br>{{ investororderlist.funds_account.account_no }}
+            <br>{{ investororderlist.funds_account.account_name }}</td>
+          <td> {{ investororderlist.redeem_info.start_redeem_date | date: sbnFormatting.dateTimeFormat }}
+            <br>{{ investororderlist.redeem_info.end_redeem_date | date: sbnFormatting.dateTimeFormat }}</td>
+          <td *ngIf="!investororderlist.is_redeemable" style="padding-left:3em">-</td>
+          <td *ngIf="investororderlist.is_redeemable">
+            <div class="btn btn-primary-referral Gilroy-SemiBold" (click)="redeemSBN(investororderlist)">
+              Redeem
+            </div>
+          </td>
+        </tr>
+        <tr *ngIf="currentActiveSeries === investororderlist.order_code" class="sbn-detail-row">
+          <td colspan="11">
+            <table class="sbn-detail-table content-center">
+              <thead>
+                <th>Kode Redeem</th>
+                <th>Tanggal Redeem</th>
+                <th>Tanggal Setelmen</th>
+                <th>Status</th>
+                <th>Nominal ({{ currency }})</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let redeemptionList of investororderlist.redemptions">
+                  <td>{{ redeemptionList.redeem_code }}</td>
+                  <td>{{ redeemptionList.redeem_date | date: sbnFormatting.dateFormat }}</td>
+                  <td>{{ redeemptionList.settlement_date | date: sbnFormatting.dateFormat }}</td>
+                  <td>{{ redeemptionList.status }}</td>
+                  <td>{{ redeemptionList.nominal | number: sbnFormatting.decimalFormat }}</td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr *ngIf="investororderlist.redeem > 0">
+                  <td colspan="11" style="border-top: 1px solid;">
+                    <b>Total : {{ currency }}{{ investororderlist.redeem | number: sbnFormatting.decimalFormat }}</b>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+
+      <tbody>
+        <tr *ngIf="investorOrderList.length === 0">
+          <td colspan="11" class="text-center">
+            <i>Tidak ada seri yang dimiliki</i>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+
+  <div class="sbn-table-row" *ngIf="getActiveSBNRetailMenu() === 3">
+    <table class="blue-stripped-table sbn-transaction-status">
+      <thead>
+        <tr>
+          <th>
+            <span class="text-left table-header-loan-code">
+              Seri
+            </span>
+          </th>
+          <th>Tanggal Pemesanan</th>
+          <th>Status</th>
+          <th>Billing Code</th>
+          <th>Payment Deadline</th>
+          <th>Nominal ({{currency}})&nbsp;
+            <i role="button" class="fa fa-sort" aria-hidden="true" style="font-size: 16px;color: black;"
+              (click)="sortData();sortDataFlag = !sortDataFlag "></i>
+          </th>
+          <th>Link Pembayaran</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="investorOrderList.length > 0">
+        <tr *ngFor="let investororderlist of investorOrderList">
+          <td>{{ investororderlist.series }}</td>
+          <td>{{ investororderlist.order_date | date: sbnFormatting.dateFormat }}</td>
+          <td>{{ investororderlist.status }}</td>
+          <td>{{ investororderlist.billing_code }}</td>
+          <td>{{ investororderlist.payment_deadline | date: sbnFormatting.dateTimeFormat }}</td>
+          <td>{{ investororderlist.nominal | number: sbnFormatting.decimalFormat }}</td>
+          <td>
+            <ng-container *ngIf="!investororderlist?.payment_link">
+              -
+            </ng-container>
+            <ng-container *ngIf="investororderlist?.payment_link">
+              <div class="btn btn-primary-referral" (click)="goToPaymentLink(orderDetail.payment_link)">
+                Bayar
+              </div>
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr *ngIf="investorOrderList.length === 0">
+          <td colspan="7" class="text-center">
+            <i>Tidak ada transaksi yang sedang aktif</i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sbn-table-row" *ngIf="getActiveSBNRetailMenu() === 4">
+    <table class="blue-stripped-table sbn-table">
+        <thead>
+          <tr>
+            <th>
+              <span class="text-left table-header-loan-code">
+                Seri
+              </span>
+            </th>
+            <th>Kode Pemesanan</th>
+            <th>Kupon</th>
+            <th>Tanggal Pemesanan
+              <br>Tanggal Jatuh Tempo</th>
+            <th>Tanggal Setelmen</th>
+            <th>Tanggal Pembayaran Kupon
+              <a class="tooltip-right" [attr.data-tooltip]="paymentDateInformation">
+                <i class="fa fa-question-circle" aria-hidden="true"></i>
+              </a>
+            </th>
+            <th>Nominal({{currency}})&nbsp;
+              <i role="button" class="fa fa-sort" aria-hidden="true" style="font-size: 16px;color: black;"
+                (click)="sortData();sortDataFlag = !sortDataFlag "></i>
+              <br>
+            </th>
+
+            <th>Nama Bank Rekening Dana
+              <br>Nomor Akun Rekening Dana
+              <br>Nama Akun Rekening Dana</th>
+            <th>Sisa Saldo</th>
+            <th>Transaksi
+              <a class="tooltip-left sbn-retail" [attr.data-tooltip]="tradeableInformation">
+                <i class="fa fa-question-circle" aria-hidden="true"></i>
+              </a>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let investororderlist of investorOrderList;let first = first">
+            <td>{{ investororderlist.series }}</td>
+            <td>{{ investororderlist.order_code }}</td>
+            <td>{{ investororderlist.level }}%</td>
+            <td>{{ investororderlist.order_date | date: sbnFormatting.dateFormat }}
+              <br>{{ investororderlist.due_date | date: sbnFormatting.dateFormat }}</td>
+            <td>{{ investororderlist.settlement_date | date: sbnFormatting.dateFormat }}</td>
+            <td>{{ investororderlist.payment_date }}</td>
+            <td>{{ investororderlist.nominal | number: sbnFormatting.decimalFormat }}
+            <td>{{ investororderlist.funds_account.bank_name }}
+              <br>{{ investororderlist.funds_account.account_no }}
+              <br>{{ investororderlist.funds_account.account_name }}</td>
+            <td class="vertical-align-middle" [attr.rowspan]="investorOrderList.length" [ngClass]="{ 'd-none' : !first }">
+              {{ investororderlist?.series_data?.balance | number: sbnFormatting.decimalFormat }}
+            </td>
+            <td class="vertical-align-middle" [attr.rowspan]="investorOrderList.length" [ngClass]="{ 'd-none' : !first }">
+              <div>
+                <div class="btn btn-primary-referral Gilroy-SemiBold" (click)="goToBinaArthaLink()">
+                  Transaksi
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+
+        <tbody>
+          <tr *ngIf="investorOrderList.length === 0">
+            <td colspan="10" class="text-center">
+              <i>Tidak ada seri yang dimiliki</i>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+  </div>
+</div>
+
+<modal id="investSBNDialog" class="fs-confirm-investment-dialog fs-modal fs-modal__open fs-modal--hidden">
+  <div class="fs-modal__background"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered sbn-confirm-investment">
+    <div class="fs-modal__content">
+      <div class="fs-modal__header fs-modal__header--noborder ">
+        <div type="button" class="fs-modal__close" (click)="closeModal('investSBNDialog')"></div>
+      </div>
+      <div class="col-xs-12 margin-bottom-15" style="line-height:1.5em">
+        <span>Kuota Nasional:
+          <strong>{{ currency }} {{ quota.series | number: sbnFormatting.decimalFormat }}</strong>
+        </span>
+        <br>
+        <span>Kuota Investor:
+          <strong>{{ currency }} {{ quota.investor | number: sbnFormatting.decimalFormat }}</strong>
+        </span>
+        <br>
+        <span>Tanggal Jatuh Tempo:
+          <strong>{{ selectedSeries?.due_date | date: sbnFormatting.dateFormat }}</strong>
+        </span>
+      </div>
+      <div class="col-xs-12">
+        <div class="col-xs-6 padding-null" style="line-height:2.5em">
+          Jumlah Pemesanan({{ currency }})
+        </div>
+        <div class="col-xs-6">
+          <form [formGroup]="investmentForm" id="investment-form" name="investment-form">
+            <input (keyup)="autoFormatInvestmentAmount('buySBN')" autocomplete="off" class="form-control sign-up-form"
+              formControlName="amount" id="amount" name="amount" type="text" />
+          </form>
+        </div>
+
+        <div class="col-xs-12 margin-bottom-10 padding-null" style="font-size: 12px;">
+          <div class="col-xs-12 padding-null margin-top-20 margin-bottom-10">
+            Sebelum melanjutkan proses pemesanan, investor SBN Ritel disarankan membaca dengan teliti dan memahami isi
+            memorandum informasi SBN Ritel secara elektronik. Di samping itu, investor SBN Ritel dapat memeriksa kembali
+            kebenaran dan validitas data Single Investor Identity (SID),
+            rekening dana, dan rekening surat berharga (efek).
+          </div>
+          <div class="col-xs-12 padding-null">
+            <mat-checkbox [checked]="acceptOrderDisclaimer" (change)="onOrderAccept($event)">
+              <span class="checkbox-sbn">
+                <strong>Saya menyatakan telah:
+                  <br /> 1. Membaca dan mengerti isi
+                  <a target="_blank" [href]="selectedSeries?.link_memo">Memorandum Informasi</a>
+                  <br /> 2. Menyampaikan data pemesanan dengan benar dan lengkap.
+                  <br /> 3. Setuju untuk menguasakan (wakalah) pengelolaan dana investasi pada Sukuk Tabungan dan seluruh
+                  hak terkait Aset SBSN Sukuk Tabungan kepada Perusahaan Penerbit SBSN Indonesia sebagai Wali Amanat untuk
+                  kegiatan investasi yang menghasilkan keuntungan (untuk Sukuk Tabungan, dalam hal telah menjadi pemegang
+                  atau pemilik Sukuk Tabungan).
+                </strong>
+                <br />
+                <div>
+                  *Pemesanan yang telah disubmit tidak dapat diubah/dibatalkan dan jika tidak dilakukan pembayaran
+                  dalam periode tertentu setelah menerima kode billing maka secara otomatis batal/menjadi kadaluarsa
+                </div>
+              </span>
+            </mat-checkbox>
+          </div>
+        </div>
+
+      </div>
+      <div (click)="sbnSeriesOrder()" class="col-xs-12 text-center margin-bottom-10">
+        <div class="btn btn-primary-investor" id="investment-form-submit" name="investment-form-submit">
+          Konfirmasi Pemesanan
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+
+<modal id="investSBNDialogConfirm" class="fs-confirm-investment-dialog fs-modal fs-modal__open fs-modal--hidden">
+  <div class="fs-modal__background"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered ">
+    <div class="fs-modal__content fs-sbn-success-invest">
+      <div class="fs-modal__header fs-modal__header--noborder ">
+        <div type="button" class="fs-modal__close" (click)="closeModal('investSBNDialogConfirm')"></div>
+      </div>
+      <div class="col-xs-12 margin-bottom-20 text-center" *ngIf="!orderDetail?.billing_code">
+        <strong>Terima kasih telah memesan {{ orderDetail?.series }} di Modalku.</strong>
+        <br />
+        <br /> Kami akan memproses pembayaran atas pemesanan Anda dimana nanti Anda juga akan menerima e-mail konfirmasi
+        dari pihak Kementrian Keuangan.
+        <br /> Selanjutnya, Anda akan menerima Nomor Transaksi Penerimaan Negara (NTPN) yang akan kami kirimkan maksimal
+        2 (dua) hari kerja.
+      </div>
+      <div class="col-xs-12 margin-bottom-20 text-center" *ngIf="orderDetail?.billing_code">
+        <strong>Pemesanan Anda telah kami proses.</strong>
+        <br />
+        <br /> Silahkan menunggu email notifikasi dari kami untuk informasi pembayaran.
+        <br /> Tanggal pembayaran terakhir pesanan Anda <br> adalah
+        <b>{{ orderDetail.payment_deadline | date: sbnFormatting.dateTimeFormat }}</b>
+        <div *ngIf="orderDetail?.payment_link">
+          <div class="btn btn-primary-investor margin-top-20" (click)="goToPaymentLink(orderDetail.payment_link)">
+            Bayar
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+
+<modal id="RedeemSBNDialog" class="fs-confirm-investment-dialog fs-modal fs-modal__open fs-modal--hidden">
+  <div class="fs-modal__background"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered">
+    <div class="fs-modal__content">
+      <div class="fs-modal__header fs-modal__header--noborder ">
+        <div type="button" class="fs-modal__close" (click)="closeModal('RedeemSBNDialog')"></div>
+      </div>
+      <div class="col-xs-12">
+        <div class="col-xs-8 padding-null" style="font-size:12px">
+          Jumlah Yang Bisa Diredeem ({{ currency }})
+        </div>
+        <div class="col-xs-4">
+          <strong>{{ redeemableAmount | number: sbnFormatting.decimalFormat }}</strong>
+        </div>
+      </div>
+      <div class="col-xs-12">
+        <div class="col-xs-8 padding-null" style="font-size:12px">
+          Minimum Jumlah Redeem ({{ currency }})
+        </div>
+        <div class="col-xs-4">
+          <strong>{{ redeemData?.min_redeem | number: sbnFormatting.decimalFormat }}</strong>
+        </div>
+      </div>
+      <div class="col-xs-12">
+        <div class="col-xs-8 padding-null" style="font-size:12px">
+          Kelipatan Jumlah Redeem ({{ currency }})
+        </div>
+        <div class="col-xs-4">
+          <strong>{{ redeemData?.multiple_redeem | number: sbnFormatting.decimalFormat }}</strong>
+        </div>
+      </div>
+      <div class="col-xs-12 margin-bottom-20">
+        <div class="col-xs-8 padding-null" style="font-size:12px">
+          Tanggal Setelmen Redeem
+        </div>
+        <div class="col-xs-4">
+          <strong>{{ redeemData?.settlement_date | date: sbnFormatting.dateFormat }}</strong>
+        </div>
+      </div>
+
+      <div class="col-xs-12">
+        <div class="col-xs-5 padding-null" style="line-height:2.5em">
+          Nominal Redeem ({{ currency }})
+        </div>
+        <div class="col-xs-7">
+          <form [formGroup]="redeemForm" id="redeem-form" name="redeem-form">
+            <input (keyup)="autoFormatInvestmentAmount('redeem')" autocomplete="off" class="form-control sign-up-form"
+              formControlName="amount" id="amount" name="amount" type="text" />
+          </form>
+        </div>
+      </div>
+
+
+      <div class="col-xs-12 margin-bottom-20" style="font-size:12px;">
+        <mat-checkbox [checked]="acceptRedeemDisclaimer" (change)="onReedemAccept($event)">
+          <strong>Saya menyatakan telah menyampaikan data redemption dengan benar dan lengkap.
+          </strong>
+        </mat-checkbox>
+        Redemption yang telah disubmit tidak dapat diubah/dibatalkan
+      </div>
+
+      <div (click)="sbnRedeemOrder()" class="col-xs-12 text-center margin-bottom-10 margin-top-10">
+        <div class="btn btn-primary-investor" id="investment-form-submit" name="investment-form-submit">
+          Konfirmasi Redeem
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+
+
+<modal id="registerDialog" class="fs-register-dialog fs-modal fs-modal__open fs-modal--hidden content-center"
+  style="width:85%">
+  <div class="fs-modal__background"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered">
+    <div class="fs-modal__content">
+      <div class="fs-modal__header fs-modal__header--noborder ">
+        <div type="button" class="fs-modal__close" (click)="closeModal('registerDialog')"></div>
+      </div>
+      <div class="col-xs-12 margin-bottom-20 text-center">
+        <p style="font-size:24px;">
+          <strong>Pernyataan persetujuan</strong>
+        </p>
+        <br />
+        <ul style="list-style-type: decimal;" class="text-left">
+          <li>
+            Layanan transaksi SBN Ritel secara elektronik adalah fasilitas pemesanan SBN Ritel dengan media elektronik
+            dan melalui jaringan
+            internet yang dapat dilakukan sendiri oleh investor dan terintegrasi dengan sistem SBN Ritel pada
+            Kementerian
+            Keuangan.
+          </li>
+          <li>
+            Pengguna mengerti dan menyetujui isi syarat dan ketentuan layanan transaksi SBN Ritel secara elektronik.
+          </li>
+          <li>
+            Pengguna setuju untuk mematuhi peraturan terkait SBN Ritel yang diterbitkan Kementerian Keuangan beserta
+            seluruh peraturan
+            terkait yang berlaku.
+          </li>
+          <li>
+            Pengguna telah memahami dan setuju untuk mematuhi seluruh ketentuan dalam proses registrasi SBN Ritel secara
+            elektronik serta
+            melengkapi semua data yang dibutuhkan secara benar dan lengkap
+          </li>
+          <li>
+            Pengguna wajib melakukan registrasi dengan menyiapkan data yang sekurang-kurangnya terdiri dari Single
+            Investor Identification
+            (SID), Rekening Dana, dan Rekening Surat Berharga (Efek) untuk dapat menggunakan layanan transaksi SBN Ritel
+            secara elektronik .
+          </li>
+          <li>
+            Pengguna bertanggung jawab secara pribadi untuk menjaga keamanan dan kerahasiaan akun, kata sandi, dan/atau
+            standar keamanan
+            lainnya untuk semua aktivitas dalam penggunaan transaksi SBN Ritel secara elektronik.
+          </li>
+          <li>
+            Pengguna membebaskan Pemerintah dari segala tuntutan menyangkut penyalahgunaan akun, kata sandi, dan/atau
+            standar keamanan
+            lainnya.
+          </li>
+
+          <li>
+            Dalam hal terdapat kendala dalam penggunaan transaksi SBN Ritel secara elektronik, Pengguna wajib segera
+            menghubungi mitra
+            distribusi.
+          </li>
+          <li>
+            Pengguna bertanggung jawab atas segala biaya, klaim, kerusakan, kerugian (termasuk namun tidak terbatas pada
+            kerugian yang
+            timbul dari Transaksi) atau kewajiban lainnya karena ketidakmampuan dan ketidakpahaman Investor dalam
+            menggunakan
+            layanan transaksi SBN Ritel secara elektronik.
+          </li>
+          <li>
+            Pengguna membebaskan Pemerintah dan/atau Mitra Distribusi dari segala kerugian yang timbul atas terjadinya
+            kerusakan sistem
+            layanan transaksi SBN Ritel secara elektronik dan/atau keadaan darurat yang berada di luar kendali
+            Pemerintah
+            dan/atau Mitra Distribusi yang mengakibatkan sistem layanan transaksi SBN Ritel secara elektronik tidak
+            dapat
+            bekerja secara normal. Kejadian atau keadaan darurat (force majeure) tersebut mencakup namun tidak terbatas
+            pada
+            hal-hal sebagai berikut:
+            <ul style="list-style-type: disc;">
+              <li>
+                bencana alam;
+              </li>
+              <li>
+                perang yang timbul dari atau sebagai akibat perang;
+              </li>
+
+              <li>
+                tindakan sabotase oleh teroris;
+              </li>
+
+              <li>
+                Pemberontakan;
+              </li>
+
+              <li>
+                gempa bumi;
+              </li>
+
+              <li>
+                badai letusan gunung berapi;
+              </li>
+
+              <li>
+                banjir, badai, kondisi cuaca luar biasa buruk, yang dinyatakan resmi oleh Pemerintah Republik Indonesia;
+                perubahan situasi
+                kondisi politik dan ekonomi maupun kebijakan pemerintah yang luar biasa yang berakibat tidak kondusif
+                untuk
+                melakukan transaksi SBN Ritel; dan/atau
+              </li>
+
+              <li>
+                perubahan atas peraturan perundang-undangan yang berpengaruh langsung atas transaksi SBN Ritel
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="col-xs-12" style="margin-left:30px;">
+        <mat-checkbox [checked]="acceptRegisterTermCondition" (change)="onRegisterTCAccept($event)"
+          style="font-size:12px;">
+          <strong>Saya menyatakan telah:
+            <ul style="-webkit-padding-start: 20px;">
+              <li>mengisi data dengan benar dan lengkap;</li>
+              <li>mengerti dan menyetujui ketentuan dan persyaratan penggunaan sistem layanan transaksi SBN Ritel secara
+                elektronik.</li>
+            </ul>
+          </strong>
+        </mat-checkbox>
+      </div>
+      <div class="col-xs-12" style="margin-left:30px;" *ngIf="false">
+        <mat-checkbox [checked]="acceptBinaArthaAccountOpening" (change)="onacceptBinaArthaAccountOpening($event)"
+          style="font-size:12px;">
+          <strong>Setujui pembukaan akun di Bina Artha</strong>
+        </mat-checkbox>
+      </div>
+      <div class="col-xs-12 text-center margin-bottom-10 margin-top-10">
+        <div class="btn btn-primary-investor" (click)="registerInvestorDetail()">
+          Daftar
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+
+
+<modal id="registerSIDSuccessFullDialog"
+  class="fs-register-dialog fs-modal fs-modal__open fs-modal--hidden content-center" style="width:40%">
+  <div class="fs-modal__background"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered">
+    <div class="fs-modal__content">
+      <div class="fs-modal__header fs-modal__header--noborder ">
+        <div type="button" class="fs-modal__close" (click)="closeModal('registerSIDSuccessFullDialog')"></div>
+      </div>
+      <div class="col-xs-12 text-center margin-bottom-10 margin-top-10">
+        Terima kasih telah mendaftar di platform Modalku. Silahkan kembali ke halaman ini setelah anda mendapatkan email
+        konfirmasi.
+      </div>
+      <div class="btn btn-primary-referral" (click)="closeModal('registerSIDSuccessFullDialog')">
+        Close
+      </div>
+    </div>
+  </div>
+</modal>

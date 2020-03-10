@@ -1,0 +1,260 @@
+<div class="container-fluid" style="padding-bottom:100px;">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20 margin-top-20 text-center">
+      <div class="Gilroy-SemiBold font-size-32">
+        {{ 'deposit.title' | translate }}
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-10 col-md-6 col-lg-6 col-md-offset-3 col-sm-offset-1 col-lg-offset-3 text-center transparant-text"
+      font="color:#4a4a4a">
+      {{ 'investor-first-deposit.caption' | translate }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-lg-7 fs-id-deposit-box content-center fs-box-shadow margin-top-20">
+      <div class="information-box col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="title-box col-xs-12 col-sm-12 col-md-11 col-lg-11 padding-null">
+          <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12 Gilroy-SemiBold font-size-28 padding-null">{{ 'deposit.virtual-account.title' | translate }}</label>
+          <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null">{{ 'deposit.virtual-account.caption' | translate }}</label>
+        </div>
+        <div class="title-box col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null">
+          <div class="fs-id-deposit-box-info fs-signup-form">
+            <div class="col-xs-12 title padding-null">
+              {{ 'deposit.virtual-account.sinarmas-virtual-account' | translate }}
+            </div>
+            <div class="form-inline margin-bottom-10">
+              <div class="form-group sign-up-group">
+                <label>{{ 'deposit.placeholder.virtual-account-bank' | translate }}</label>
+                <input autocomplete="off" class="form-control sign-up-form" type="text" value="{{ formModel.virtualAccount.va_bank }}" disabled/>
+              </div>
+              <div class="form-group sign-up-group">
+                <label>{{ 'deposit.placeholder.virtual-account-branch' | translate }}</label>
+                <input autocomplete="off" class="form-control sign-up-form" type="text" value="{{ formModel.virtualAccount.va_branch }}"
+                  disabled/>
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10">
+              <div class="form-group sign-up-group">
+                <label>{{ 'deposit.placeholder.virtual-account-name' | translate }}</label>
+                <input autocomplete="off" class="form-control sign-up-form" type="text" value="{{ formModel.virtualAccount.va_name }} {{ formModel.virtualAccount.va_user_name }}"
+                  disabled/>
+              </div>
+              <div class="form-group sign-up-group">
+                <label>{{ 'deposit.placeholder.virtual-account-number' | translate }}</label>
+                <input autocomplete="off" class="form-control sign-up-form" type="text" value="{{ formModel.virtualAccount.va_id }} {{ formModel.virtualAccount.va_user_id }}"
+                  disabled/>
+              </div>
+            </div>
+          </div>
+          <div class="fs-id-deposit-box-info fs-signup-form" *ngIf="isBcaBankAccount">
+              <div class="col-xs-12 title padding-null">
+                {{ 'deposit.virtual-account.bca-virtual-account' | translate }}
+              </div>
+
+              <div class="form-inline margin-bottom-10">
+                <div class="form-group sign-up-group small">
+                  <label>{{ 'deposit.placeholder.virtual-account-bank' | translate }}</label>
+                  <input autocomplete="off" class="form-control sign-up-form" type="text" value="{{ formModel.virtualAccount.va_bank_bca }}" disabled/>
+                </div>
+                <div class="form-group sign-up-group small">
+                  <label>{{ 'deposit.placeholder.virtual-account-name' | translate }}</label>
+                  <input autocomplete="off" class="form-control sign-up-form" type="text" value="{{ formModel.virtualAccount.va_user_name }}"
+                    disabled/>
+                </div>
+                <div class="form-group sign-up-group small">
+                  <label>{{ 'deposit.placeholder.virtual-account-number' | translate }}</label>
+                  <input autocomplete="off" class="form-control sign-up-form" type="text" value="{{ formModel.virtualAccount.va_bank_bca_id }} {{ formModel.virtualAccount.va_number_bca }}"
+                    disabled/>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="information-box fs-signup-form">
+        <div class="title-box col-xs-12 col-sm-12 col-md-11 col-lg-11 padding-null">
+          <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12 Gilroy-SemiBold font-size-28 padding-null">{{ 'deposit.bank-information.title' | translate }}</label>
+          <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null">{{ 'deposit.bank-information.caption' | translate }}</label>
+        </div>
+        <div class="title-box col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null">
+          <div>
+            <div class="form-inline margin-bottom-10">
+              <div class="form-group sign-up-group small">
+                <label>{{ 'deposit.placeholder.bank-name' | translate }}</label>
+                <input autocomplete="off" class="form-control sign-up-form" type="text" value="{{ formModel.bankDetail.bank_name }}" disabled/>
+              </div>
+              <div class="form-group sign-up-group small">
+                <label>{{ 'deposit.placeholder.bank-branch' | translate }}</label>
+                <input autocomplete="off" class="form-control sign-up-form" type="text" value="{{ formModel.bankDetail.bank_branch }}" disabled/>
+              </div>
+              <div class="form-group sign-up-group small">
+                <label>{{ 'deposit.placeholder.bank-account-number' | translate }}</label>
+                <input autocomplete="off" class="form-control sign-up-form" type="text" value="{{ formModel.bankDetail.bank_number }}" disabled/>
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10">
+              <div class="form-group sign-up-group">
+                <label>{{ 'deposit.placeholder.bank-detail' | translate }}</label>
+                <input autocomplete="off" class="form-control sign-up-form" type="text" value="{{ formModel.bankDetail.bank_type }}" disabled/>
+              </div>
+              <div class="form-group sign-up-group">
+                <label>{{ 'deposit.placeholder.bank-account-name' | translate }}</label>
+                <input autocomplete="off" class="form-control sign-up-form" type="text" value="{{ formModel.bankDetail.bank_accname }}" disabled/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="information-box col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="title-box col-xs-12 col-sm-12 col-md-11 col-lg-11 padding-null">
+          <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12 Gilroy-SemiBold font-size-22 padding-null">{{ 'deposit.term-condition.title' | translate }}</label>
+        </div>
+        <div class="title-box col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null">
+          <div>
+            <ol>
+              <li *ngFor="let termcondition of firebaseMasterData.termCondition">
+                <span [innerHTML]="termcondition.value"></span>
+              </li>
+            </ol>
+            <span class="font-size-12">{{ 'deposit.term-condition.caption' | translate }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="information-box col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="title-box col-xs-12 col-sm-12 col-md-11 col-lg-11 padding-null">
+          <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12 Gilroy-SemiBold font-size-22 padding-null">{{ 'deposit.transfer-way.title' | translate }}</label>
+        </div>
+        <div class="title-box col-xs-12 col-md-11 padding-null">
+          <label class="col-xs-12 Gilroy-SemiBold padding-null">{{ 'deposit.transfer-way.caption' | translate }}</label>
+        </div>
+        <div class="transfer-way-container col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null">
+          <div>
+            <p>{{ 'deposit.transfer-way.sinarmas-va.caption' | translate }}</p>
+            <ol class="margin-bottom-10">
+              <li *ngFor="let transferWaySinarmasVa of firebaseMasterData.transferWaySinarmasVa">
+                {{ transferWaySinarmasVa.value }}
+              </li>
+            </ol>
+          </div>
+        </div>
+        <div class="transfer-way-container col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null">
+          <div>
+            <p>{{ 'deposit.transfer-way.bca-va.caption' | translate }}</p>
+            <ol class="margin-bottom-10">
+              <li *ngFor="let transferWayBcaVa of firebaseMasterData.transferWayBcaVa">
+                {{ transferWayBcaVa.value }}
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <p-accordion [multiple]="false">
+        <p-accordionTab header="{{ 'deposit.transfer-way.list.0.value' | translate }}">
+          <span class="Gilroy-SemiBold font-size-16">{{ 'deposit.internet-banking.sinarmas.title' | translate }}</span>
+          <div class="description margin-bottom-5 margin-top-10">{{ 'deposit.internet-banking.sinarmas.transfer.caption' | translate }}</div>
+          <div>
+            <ol>
+              <li *ngFor="let sinarmastransfer of firebaseMasterData.sinarmasTransfer">
+                {{ sinarmastransfer.value }}
+              </li>
+            </ol>
+          </div>
+          <div class="description margin-bottom-5 margin-top-10">{{ 'deposit.internet-banking.sinarmas.payment.caption' | translate }}</div>
+          <div>
+            <ol>
+              <li *ngFor="let sinarmaspayment of firebaseMasterData.sinarmasPayment">
+                {{ sinarmaspayment.value }}
+              </li>
+            </ol>
+          </div>
+          <div class="margin-bottom-20" [innerHTML]="( 'deposit.internet-banking.sinarmas.caption' | translate )">
+          </div>
+          <span class="Gilroy-SemiBold font-size-16">{{ 'deposit.internet-banking.bca.title' | translate }}</span>
+          <ol>
+            <li *ngFor="let bcatransfer of firebaseMasterData.bcaTransfer">
+              <span [innerHTML]="bcatransfer.value"></span>
+            </li>
+          </ol>
+          <span class="Gilroy-SemiBold font-size-16">{{ 'deposit.internet-banking.bca-m-banking.title' | translate }}</span>
+          <ol>
+            <li *ngFor="let bcaMBanking of firebaseMasterData.bcaMBanking">
+              <span [innerHTML]="bcaMBanking.value"></span>
+            </li>
+          </ol>
+          <span class="Gilroy-SemiBold font-size-16">{{ 'deposit.internet-banking.mandiri.title' | translate }}</span>
+          <ol>
+            <li *ngFor="let mandiritransfer of firebaseMasterData.mandiriTransfer">
+              <span [innerHTML]="mandiritransfer.value"></span>
+            </li>
+          </ol>
+          <span class="Gilroy-SemiBold font-size-16">{{ 'deposit.internet-banking.general.title' | translate }}</span>
+          <ol>
+            <li *ngFor="let generaltransfer of firebaseMasterData.generalTransfer">
+              <span [innerHTML]="generaltransfer.value"></span>
+            </li>
+          </ol>
+        </p-accordionTab>
+        <p-accordionTab header="{{ 'deposit.transfer-way.list.1.value' | translate }}">
+          <span class="Gilroy-SemiBold font-size-16">{{ 'deposit.atm.sinarmas.title' | translate }}</span>
+          <div class="description margin-bottom-5 margin-top-10">{{ 'deposit.atm.sinarmas.transfer.caption' | translate }}</div>
+          <ol>
+            <li *ngFor="let sinarmastransferatm of firebaseMasterData.sinarmasTransferATM">
+              <span [innerHTML]="sinarmastransferatm.value"></span>
+            </li>
+          </ol>
+
+          <div class="description margin-bottom-5 margin-top-10">{{ 'deposit.atm.sinarmas.payment.caption' | translate }}</div>
+          <ul class="margin-bottom-20">
+            <li *ngFor="let sinarmaspaymentatm of firebaseMasterData.sinarmasPaymentATM">
+              <span [innerHTML]="sinarmaspaymentatm.value"></span>
+            </li>
+          </ul>
+
+          <span class="Gilroy-SemiBold font-size-16">{{ 'deposit.atm.other.title' | translate }}</span>
+          <div class="description margin-bottom-5 margin-top-10">{{ 'deposit.atm.other.caption' | translate }}</div>
+          <ul>
+            <li *ngFor="let otherBankATM of firebaseMasterData.otherBankATM">
+              <span [innerHTML]="otherBankATM.value"></span>
+            </li>
+          </ul>
+        </p-accordionTab>
+        <p-accordionTab header="{{ 'deposit.transfer-way.list.2.value' | translate }}">
+          <ol>
+            <li *ngFor="let tellerBankSinarmas of firebaseMasterData.tellerBankSinarmas">
+              <span [innerHTML]="tellerBankSinarmas.value"></span>
+            </li>
+          </ol>
+        </p-accordionTab>
+        <p-accordionTab header="{{ 'deposit.transfer-way.list.3.value' | translate }}">
+          <ol>
+            <li *ngFor="let llgRgts of firebaseMasterData.llgRgts">
+              <span [innerHTML]="llgRgts.value"></span>
+            </li>
+          </ol>
+        </p-accordionTab>
+        <p-accordionTab header="{{ 'deposit.transfer-way.list.4.value' | translate }}">
+          <ol>
+            <li *ngFor="let bcaVaInternetBanking of firebaseMasterData.bcaVaInternetBanking">
+              <span [innerHTML]="bcaVaInternetBanking.value"></span>
+            </li>
+          </ol>
+        </p-accordionTab>
+        <p-accordionTab header="{{ 'deposit.transfer-way.list.5.value' | translate }}">
+          <ol>
+            <li *ngFor="let bcaVaMBanking of firebaseMasterData.bcaVaMBanking">
+              <span [innerHTML]="bcaVaMBanking.value"></span>
+            </li>
+          </ol>
+        </p-accordionTab>
+        <p-accordionTab header="{{ 'deposit.transfer-way.list.6.value' | translate }}">
+          <ol>
+            <li *ngFor="let bcaVaAtm of firebaseMasterData.bcaVaAtm">
+              <span [innerHTML]="bcaVaAtm.value"></span>
+            </li>
+          </ol>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+</div>

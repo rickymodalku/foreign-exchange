@@ -1,0 +1,43 @@
+<div class="container-fluid faqContainer">
+  <div class="row faq-header">
+    <div class="faq-banner">
+    </div>
+    <div class="search-container">
+      <ng2-completer [(ngModel)]="searchStr" [datasource]="dataService" [minSearchLength]="0" [matchClass]="matchClass" placeholder="{{ 'faq.header.input' | translate }}"
+        (selected)="goToSelectedFAQ($event)"></ng2-completer>
+      <div *ngIf="countryCode !== 'ID'">
+        <font [innerHTML]="( 'faq.header.caption' | translate )"></font>
+      </div>
+      <div *ngIf="countryCode === 'ID'">
+        <font>
+          {{ 'faq.header.caption-1' | translate }}<br />
+          {{ 'faq.header.caption-2' | translate }} <span onclick="zE.activate();">{{ 'faq.header.live-chat' | translate }}</span>
+          {{ 'faq.header.caption-3' | translate }}
+        </font>
+      </div>
+    </div>
+  </div>
+    <div class="row faqMenu">
+      <button [style.width.%]="buttonWidth" *ngFor="let faqmasterdata of faqMasterData;let i = index;let last = last" class="tab-button -faq"
+        [ngClass]="{ 'white': faqCategory === faqMasterData[i].category.title  }" (click)="faqCategory = faqMasterData[i].category.title ">
+        {{ faqMasterData[i].category.title }}
+      </button>
+    </div>
+
+  <div *ngFor="let faqmasterdata of faqMasterData;let i = index">
+    <div *ngIf=" faqCategory === faqMasterData[i].category.title">
+      <div class="row faqListContainer" *ngFor="let faqmastersubcategory of faqmasterdata.category['sub-category'];let j = index">
+        <div class="containerTitle">{{ faqmastersubcategory.title }}</div>
+        <div *ngFor="let faqmasterdatacontent of faqmastersubcategory.content;let k = index" id="{{faqmasterdatacontent.id}}">
+          <label class="collapsed" for="faq{{i}}{{j}}{{k}}">
+            <div class="pull-left margin-right-20" [ngClass]="{' faq-arrow-right': !faqmasterdatacontent.expand, 'faq-arrow-bottom margin-top-5 ': faqmasterdatacontent.expand}"></div>
+            {{faqmasterdatacontent.question}}</label>
+          <input id="faq{{i}}{{j}}{{k}}" type="checkbox" [checked]="faqmasterdatacontent.expand" (change)="faqmasterdatacontent.expand = !faqmasterdatacontent.expand">
+          <div class="faqContent well-lg" [innerHTML]="faqmasterdatacontent.answer">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<newsletter></newsletter>

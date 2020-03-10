@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="50px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Time</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="0 199.970588 200 199.970588 200 0 0 0"></polygon>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Time">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Clip-2"></g>
+            <path d="M142,58 C130.99902,46 115.00098,40.0009804 100,40.0009804 L100,100 L58,142 C80.9990196,165.00098 119.00098,165.00098 142.99951,142 C166.00049,119.00098 166.00049,80.9990196 142,58 Z M100,0 C45.0004902,0 0,45.0004902 0,100 C0,154.99951 45.0004902,200 100,200 C154.99951,200 200,154.99951 200,100 C200,45.0004902 154.99951,0 100,0 Z M100,179.99951 C55.9990196,179.99951 20.0004902,144.00098 20.0004902,100 C20.0004902,55.9990196 55.9990196,20.0004902 100,20.0004902 C144.00098,20.0004902 179.99951,55.9990196 179.99951,100 C179.99951,144.00098 144.00098,179.99951 100,179.99951 Z" id="Fill-1" fill="#FFFFFF" mask="url(#mask-2)"></path>
+        </g>
+    </g>
+</svg>

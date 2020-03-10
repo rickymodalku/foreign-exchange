@@ -1,0 +1,60 @@
+<div class="container-fluid">
+    <div class="row fs-container-act-header">
+        <div class="pull-left white-text font-size-16 act-header-title">
+            <strong class="font-size-28">{{ 'activity.title' | translate }}</strong>
+            <div [innerHtml]="( 'activity.subtitle' | translate)">
+            </div>
+        </div>
+        <div class="inv-activity-icon content-center">
+        </div>
+    </div>
+    <div class="row act-menu-row">
+        <span class="col-xs-12 col-sm-2 title"><strong>{{ 'activity.filter' | translate }}</strong></span>
+        <span class="col-xs-12 col-sm-10">
+            <span role="button" [ngClass]="{ 'active' : tabs.all }" (click)="changeTab('all')">{{ 'activity.tabs.all' | translate }}</span>
+            <span role="button" [ngClass]="{ 'active' : tabs.appliedLoan }" (click)="changeTab('appliedLoan')">{{ 'activity.tabs.applied-loan' | translate }}</span>
+            <span role="button" [ngClass]="{ 'active' : tabs.approvedLoan }" (click)="changeTab('approvedLoan')">{{ 'activity.tabs.approved-loan' | translate }}</span>
+        </span>
+    </div>
+    <div class="row act-list-row" *ngIf="tabs.all">
+        <div class="act-box" *ngFor="let activity of allActivities">
+            <div
+                [ngClass]="{ 'deposit-icon': activity.type === 'Applied Loan', 'withdrawal-icon': activity.type === 'Approved Loan' }"
+                class="pull-left">
+            </div>
+            <div><strong>{{ activity.type }}</strong> | {{ activity.dateTime | date: activity.dateTimeFormat }}</div>
+            <div class="margin-top-5">
+                <span>{{ activity.description }}</span>
+            </div>
+        </div>
+        <div class="act-box text-center" *ngIf="allActivities.length === 0">
+            <em>{{ 'activity.empty-all' | translate }}</em>
+        </div>
+    </div>
+    <div class="row act-list-row" *ngIf="tabs.appliedLoan">
+        <div class="act-box" *ngFor="let activity of appliedLoanActivities">
+            <div class="deposit-icon pull-left">
+            </div>
+            <div><strong>{{ activity.type }}</strong> | {{ activity.dateTime | date: activity.dateTimeFormat }}</div>
+            <div class="margin-top-5">
+                <span>{{ activity.description }}</span>
+            </div>
+        </div>
+        <div class="act-box text-center" *ngIf="appliedLoanActivities.length === 0">
+            <em>{{ 'activity.empty' | translate }}</em>
+        </div>
+    </div>
+    <div class="row act-list-row" *ngIf="tabs.approvedLoan">
+        <div class="act-box" *ngFor="let activity of approvedLoanActivities">
+            <div class="withdrawal-icon pull-left">
+            </div>
+            <div><strong>{{ activity.type }}</strong> | {{ activity.dateTime | date: activity.dateTimeFormat }}</div>
+            <div class="margin-top-5">
+                <span>{{ activity.description }}</span>
+            </div>
+        </div>
+        <div class="act-box text-center" *ngIf="approvedLoanActivities.length === 0">
+            <em>{{ 'activity.empty' | translate }}</em>
+        </div>
+    </div>
+</div>

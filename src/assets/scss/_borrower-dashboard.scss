@@ -1,0 +1,382 @@
+.brwDashboard {
+  background-color: #eceff1;
+
+  .repaymentInfoRow {
+    background-color: #9572cf;
+    padding-left: 15vw;
+    padding-right: 150px;
+
+    .progressRowCaption {
+      padding-top: 1.5em;
+
+      .title {
+        text-align: left;
+        color: #ffffff;
+      }
+
+      .caption {
+        font-size: 14px;
+        line-height: 1.25;
+        text-align: left;
+        color: #ffffff;
+      }
+    }
+
+    .progressRowBar {
+      padding-top: 2.5em;
+      padding-left: 4em;
+    }
+  }
+
+  .accountOverview {
+    background-color: #3d187e;
+    padding: 16px;
+
+    .accountOverviewWrapper {
+      float: none;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .accountOverviewCaption {
+      text-align: center;
+      h1 {
+        color: #ffffff;
+      }
+
+      .caption {
+        text-align: left;
+        color: #ffffff;
+        opacity: 0.55;
+      }
+    }
+
+    .accountOverviewBtn {
+      margin-top: 20px;
+      width: 250px;
+      height: 50px;
+      line-height: 35px;
+      font-size: 20px;
+      color: #ffffff;
+    }
+  }
+
+  .statisticRow {
+    height: 300px;
+    background-color: #4c1f97;
+    padding-top: 50px;
+    display: block;
+    .detailRow {
+      .leftStatistic {
+        max-width: 300px;
+        height: 40px;
+        border-radius: 20px;
+        color: #ffffff;
+        font-size: 16px;
+        line-height: 40px;
+        text-align: left;
+        background-color: rgba(255, 255, 255, 0.35);
+        margin-bottom: 10px;
+        a{
+          text-decoration: underline;
+        }
+      }
+
+      .rightStatistic {
+        width: 480px;
+        font-size: 16px;
+        text-align: left;
+        color: #ffffff;
+        border-bottom: solid 1px rgba(255, 255, 255, 0.3);
+      }
+    }
+
+    .swiper-container {
+      .swiper-pagination-bullets {
+        bottom: 100px!important;
+        .swiper-pagination-bullet {
+          background-color: #fff!important ;
+        }
+      }
+      .swiper-wrapper {
+        .swiper-slide {
+          background-color: inherit;
+          opacity: inherit;
+          box-shadow: none;
+        }
+      }
+    }
+  }
+
+  .CalendarContainer {
+    width: 55em;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -80px;
+    padding: 1.5em;
+    margin-bottom: 100px;
+    border-radius: 4px;
+    background-color: #ffffff;
+
+    .leftSection {
+      width: 50%;
+      padding-right: 2em;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      border-right: solid 1px rgba(151, 151, 151, 0.3);
+    }
+
+    .rightSection {
+      width: 50%;
+      padding-left: 2em;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      margin-top: 0.5em;
+    }
+  }
+
+  .upcoming-repayments__container {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -80px;
+    margin-bottom: 100px;
+    border-radius: 4px;
+    background-color: #ffffff;
+
+    .swiper-button-next, .swiper-button-prev {
+      display: none;
+    }
+  }
+
+  .upcoming-repayments__detail {
+    padding: 20px;
+  }
+
+  .upcoming-repayments__description {
+    text-align: left;
+  }
+
+  .upcoming-repayments__title {
+    font-size: $font-16;
+    color: $fs-gray;
+    font-weight: 600;
+    background-color: #f7f7f9;
+    padding: 20px 20px;
+  }
+
+  .upcoming-repayments__amount {
+    font-family: Gilroy-light;
+    font-size: 36px;
+    font-weight: 300;
+    color: #5220a9;
+    margin-bottom: 10px;
+  }
+
+  .upcoming-repayments__subtitle {
+    font-family: Gilroy-light;
+    font-size: 18px;
+    font-weight: 600;
+    color: #4a4a4a;
+  }
+
+  .upcoming-repayments__action {
+    margin-top: 20px;
+    .btn-primary-borrower {
+      font-size: 18px;
+      padding: 10px 25px;
+    }
+  }
+
+  .upcoming-repayments__periods {
+    display: block;
+    height: 300px;
+    background-color: #f7f7f9;
+    padding-top: 20px;
+    .swiper-button-prev {
+      margin-left: unset !important;
+    }
+
+    .swiper-button-next {
+      margin-right: unset !important;
+    }
+  }
+}
+
+.period-box {
+  width: 165px;
+	height: 165px;
+	border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+
+  &.swiper-slide {
+    background-color: #f7f7f9;
+    box-shadow: unset;
+    opacity: 1.0;
+  }
+}
+
+.period-box__title {
+  color: #5203e9;
+  font-size: 36px;
+	font-weight: 300;
+}
+
+.period-box__subvalue {
+	font-size: 20px;
+	font-weight: 500;
+	color: #818a91;
+}
+
+.btnPay {
+  color: #3d7eff;
+  border-radius: 1px;
+  border: solid 1px rgba(61, 126, 255, 0.5) !important;
+  width: 10em;
+
+  &.white {
+    color: #ffffff;
+    border-radius: 2px;
+    border: solid 1px rgba(248, 248, 248, 0.3) !important;
+  }
+}
+
+.fs-check-eligibility-modal {
+  & > * {
+    transform: translate3d(0, 0, 0);
+  }
+  .fs-eligibility-modal-header {
+    background-color: #faf8ff;
+    color: #8e6fcf;
+  }
+
+  .fs-modal__title {
+    color: #6524e3;
+  }
+
+  .form-group {
+    background-color: #fafbfc;
+    border: solid 1px $referral-textbox-gray;
+    width: 49%;
+    margin-bottom: 10px;
+    mat-select{
+        margin-top: 0;
+    }
+  }
+
+  .fs-eligibility-modal-body {
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
+
+  .fs-eligibility-modal-footer {
+    border-top: solid 1px #dddddd;
+    padding-top: 10px !important;
+
+    .footer-caption {
+      color: #4a4a4a;
+    }
+
+    .btn-primary-borrower {
+      width: 175px;
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+    }
+
+    .white-right-arrow-icon {
+      margin-top: 3px;
+    }
+  }
+}
+
+@media #{$tablet} {
+  .fs-check-eligibility-modal {
+    .fs-modal__dialog {
+      width: 500px;
+    }
+  }
+
+  .brwDashboard {
+    .accountOverview {
+      .accountOverviewCaption {
+        width: 430px;
+      }
+    }
+    .upcoming-repayments__container {
+      .swiper-button-next, .swiper-button-prev {
+        display: block;
+      }
+
+      .swiper-pagination {
+        display: none;
+      }
+    }
+
+    .period-box {
+      background-color: #ffffff;
+      border: solid 1px #cccccc;
+    }
+  }
+}
+
+@media #{$desktop} {
+  .brwDashboard {
+    .accountOverview {
+      .accountOverviewCaption{
+        text-align:left;
+        width: 600px;
+      }
+
+      .accountOverviewCTA {
+        float: right;
+      }
+    }
+
+    .statisticRow {
+      height: 300px;
+      display: block;
+      padding-left: 20px;
+      padding-right: 20px;
+
+      .detailRow {
+        float: unset;
+      }
+    }
+
+    .upcoming-repayments__container {
+      width: 1000px;
+    }
+
+    .upcoming-repayments__detail {
+      padding: 20px 0 20px 0;
+    }
+
+    .upcoming-repayments__action {
+      margin-top: unset;
+    }
+
+    .period-box {
+      &.swiper-slide-active {
+        box-shadow: 0 5px 12px 0 rgba(0, 0, 0, 0.18);
+        border: solid 3px #5203e9;
+      }
+
+      &.swiper-slide {
+        opacity: 1.0;
+      }
+    }
+
+    .period-box__title {
+      font-size: 30px;
+    }
+
+    .period-box__subvalue {
+      font-size: 18px;
+    }
+  }
+}

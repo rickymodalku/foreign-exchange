@@ -1,0 +1,309 @@
+// LOYALTY PAGE
+.fs-loyalty-benefit-container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+
+  .reward-benefit-container {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    margin: 0 5px;
+  }
+}
+
+@media #{$phone} {
+  .fs-loyalty-header-box{
+    padding: 1em;
+    .title{
+      font-size: $font-22;
+    }
+  }
+  .fs-loyalty-reward-box{
+    .title{
+      font-size: $font-22;
+    }
+  }
+  .fs-loyalty-reward-row {
+    background-color: $alabaster;
+    .swiper-slide{
+      background-color: $alabaster;
+      box-shadow: none;
+      height: 12em !important;
+      .caption{
+        font-size: $font-12;
+      }
+    }
+  }
+  .fs-loyalty-benefit-container{
+    .tier-mobile-box{
+      border: solid 1px $gray-gallery;
+      padding: 1em 0em;
+      .tier-title{
+        font-size: $font-16;
+      }
+      .tier-logo {
+        padding-right: 4.5em;
+        padding-left: 0.5em;
+      }
+    }
+    .benefit-list{
+      padding: 1em;
+      line-height: 1.75em;
+      padding-bottom: 0;
+      i {
+        text-indent: -1.25em;
+      }
+    }
+  }
+}
+
+@media #{$largephone} {
+  .fs-loyalty-reward-row {
+    .swiper-slide{
+      .caption{
+        font-size: $font-14;
+      }
+    }
+  }
+  .fs-loyalty-benefit-container{
+    .tier-mobile-box{
+      border: solid 1px $gray-gallery;
+      padding: 1em 0em;
+      .tier-title{
+        font-size: $font-16;
+      }
+      i {
+        padding-left: 1em;
+      }
+    }
+  }
+}
+
+@media #{$tablet} {
+  .fs-loyalty-benefit-container {
+    flex-direction: row;
+  }
+
+  .fs-loyalty-header-box,
+  .fs-loyalty-reward-row,
+  .fs-loyalty-reward-box {
+    padding: 3em;
+    .title{
+      font-size: $font-32;
+    }
+  }
+  .reward-benefit-container{
+    height: 50em;
+  }
+}
+
+@media #{$desktop} {
+  .fs-loyalty-header-box{
+    padding: 3em 5em 3em 12.5em;
+  }
+  .fs-loyalty-reward-box {
+    padding-bottom: 0 !important;
+  }
+  .fs-loyalty-reward-row {
+    padding: 5em 10em;
+    .title{
+      font-size: $font-32;
+    }
+  }
+  .fs-loyalty-benefit-box{
+    .fs-loyalty-benefit-container{
+      padding-bottom: 5em;
+    }
+  }
+  .reward-benefit-container{
+    height: 37.5em;
+  }
+}
+
+
+.fs-loyalty-header-box{
+  background-color: $royal-blue;
+  .title{
+    line-height: 1em;
+    letter-spacing: 0em;
+  }
+}
+
+.fs-loyalty-reward-box{
+  background-color: $alabaster;
+  padding: 3em 0em;
+}
+
+.fs-loyalty-benefit-box{
+  padding: 3em 0em;
+  background-color:$white;
+  .title{
+    font-size: $font-32;
+  }
+  .title-caption {
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+}
+
+.reward-benefit-container{
+  border-radius: 4px;
+  border: solid 1px $mercury;
+  .reward-benefit-box{
+    padding: 1em;
+    .tier-information{
+      font-size: $font-16;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .caption{
+      color:$gray;
+    }
+    .amount-information{
+      font-size: $font-22;
+      font-weight: bold;
+    }
+    .benefit-list-row{
+      line-height:2em;
+    }
+    .benefit-list{
+      color:$gray;
+      font-size: $font-12;
+    }
+  }
+  .reward-footer{
+    background-color: $alabaster;
+    color: $gray;
+    font-size: $font-12;
+    padding: 1em;
+    margin-top: auto;
+  }
+}
+
+// DASHBOARD LOYALTY SECTION
+@media #{$phone} {
+.dashboard-loyalty-row{
+  padding: 2em;
+  text-align: center;
+  }
+.loyalty-progress-bar-container {
+  text-align: center;
+  font-size: $font-22;
+  margin-top: 10px;
+  }
+}
+
+@media #{$largephone} {
+  .dashboard-loyalty-row {
+    padding: 1.5em 1em;
+  }
+}
+
+@media #{$tablet} {
+.dashboard-loyalty-row{
+  padding: 1.5em 1em;
+  text-align: inherit;
+  .current-status-row{
+    font-size: $font-16;
+    }
+  }
+  .loyalty-progress-bar-container {
+    text-align: right;
+    margin-top: 0;
+  }
+  .loyalty-faq-row{
+    padding-left:10em;
+    padding-right:10em;
+  }
+}
+
+@media #{$desktop} {
+  .dashboard-loyalty-row{
+    padding: 1.5em 4em;
+  }
+}
+
+.dashboard-loyalty-row{
+  background-color: $alabaster;
+  .ui-progressbar{
+    height: 16px;
+  }
+  .current-status-row{
+    color: $fs-gray;
+  }
+  .current-status-row-point{
+    font-size: $font-16;
+    letter-spacing: 1px;
+  }
+  .current-status-caption{
+    color: $lightgray;
+  }
+  .learn-more-button{
+    color:$cerulean-blue;
+  }
+  .current-point{
+    color:$caribbean-green;
+  }
+  .current-point-caption{
+    font-size: $font-14;
+    color:$lightgray;
+  }
+}
+
+.loyalty-faq-container{
+  background-color: $concrete;
+  padding-top: 2em;
+  padding-bottom: 4em;
+  .title{
+    font-size: $font-32;
+    margin-bottom: 10px;
+  }
+}
+
+.loyalty-faq-answer {
+  background-color: $white;
+}
+
+.loyalty-faq-row {
+  .arrow-icon {
+    margin-right: 20px;
+  }
+}
+
+// Setting Progress Bar Section
+fs-p-progressBar {
+  &.blue {
+    .ui-progressbar.ui-progressbar-determinate {
+      .ui-progressbar-value {
+        background-color: #3E7EFF;
+      }
+    } 
+  }
+
+  &.silver {
+    .ui-progressbar.ui-progressbar-determinate {
+      .ui-progressbar-value {
+        background-color: #3E7EFF;
+      }
+    } 
+  }
+
+  &.gold {
+    .ui-progressbar-value {
+      background: #FFB50D;
+    }
+  }
+
+  &.platinum {
+    .ui-progressbar-value {
+      background: #3E7EFF;
+    }
+  }
+
+  &.prestige {
+    .ui-progressbar-value {
+      background: #3E7EFF;
+    }
+  }
+}

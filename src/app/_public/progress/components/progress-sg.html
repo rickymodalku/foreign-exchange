@@ -1,0 +1,259 @@
+<div class="container-fluid progress-title">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="title Gilroy-SemiBold">{{ 'statistics-sg.title' | translate }}</div>
+        <p [innerHtml]="('statistics-sg.description' | translate)"></p>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-container *ngIf="statistics.length > 0">
+  <div class="container progress-container">
+    <div class="row">
+      <div class="col-xs-12">
+        <p class="sg-progress-sub-section Gilroy-SemiBold" [innerHtml]="('statistics-sg.rates-table.title' | translate)">
+        </p>
+        <p class="sg-progress-sub-section-description">
+          {{ 'statistics-sg.rates-table.description-1' | translate }}
+        </p>
+        <p class="sg-progress-sub-section-description">
+            {{ 'statistics-sg.rates-table.description-2' | translate }}
+        </p>
+      </div>
+      <div class="col-xs-12 progress-table">
+        <div class="progress-table-left">
+          <div class="row-table">
+            <div class="progress-table-year">
+              &nbsp;
+            </div>
+            <div class="progress-table-rates title">
+              {{ 'statistics-sg.rates-table.sub-header-1' | translate }}
+            </div>
+          </div>
+          <div class="row-table">
+            <div class="progress-table-year year-caption">
+              <div class="year-caption-text">
+                {{ 'statistics-sg.rates-table.caption-1' | translate }}
+              </div>
+            </div>
+            <div class="progress-table-rates">
+              <div class="item caption left">
+                <div class="caption-middle">
+                  {{ 'statistics-sg.rates-table.caption-2' | translate }}
+                </div>
+                <a class="tooltip-bottom tooltip-progress info-icon" [attr.data-tooltip]="('statistics-sg.rates-table.popup.lowest-highest-rates' | translate)">
+                </a>
+              </div>
+              <div class="item caption right">
+                <div class="caption-middle">
+                  {{ 'statistics-sg.rates-table.caption-3' | translate }}
+                </div>
+                <a class="tooltip-bottom tooltip-progress info-icon" [attr.data-tooltip]="('statistics-sg.rates-table.popup.weighted-average' | translate)">
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="row-table" *ngFor="let statistic of statistics; let i = index">
+            <div class="progress-table-year">
+              <div class="year-text">
+                {{ statistic.year }}
+              </div>
+            </div>
+            <div class="progress-table-rates">
+              <div class="item value left">
+                {{ statistic.lowest_rate_of_return | number: decimalFormat: localeDecimalFormat }}% -
+                {{ statistic.highest_rate_of_return  | number: decimalFormat: localeDecimalFormat }}%
+                <!-- <span *ngIf="footNoteTable.length > 0" [innerHtml]="footNoteTable[i][0]"></span> -->
+              </div>
+              <div class="item value right">
+                {{ statistic.weighted_average_rate_of_return  | number: decimalFormat: localeDecimalFormat }}%
+                <!-- <span *ngIf="footNoteTable.length > 0" [innerHtml]="footNoteTable[i][1]"></span> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="progress-table-right">
+          <div class="row-table">
+            <div class="progress-table-year hidden-lg hidden-md">
+              &nbsp;
+            </div>
+            <div class="progress-table-rates title">
+              {{ 'statistics-sg.rates-table.sub-header-2' | translate }}
+            </div>
+          </div>
+          <div class="row-table">
+            <div class="progress-table-year year-caption hidden-lg hidden-md">
+              <div class="year-caption-text">
+                {{ 'statistics-sg.rates-table.caption-1' | translate }}
+              </div>
+            </div>
+            <div class="progress-table-rates">
+              <div class="item caption left">
+                <div class="caption-middle">
+                  {{ 'statistics-sg.rates-table.caption-4' | translate }}
+                </div>
+                <a class="tooltip-bottom tooltip-progress info-icon" [attr.data-tooltip]="('statistics-sg.rates-table.popup.loans-30-90' | translate)">
+                </a>
+              </div>
+              <div class="item caption right">
+                <div class="caption-middle">
+                  {{ 'statistics-sg.rates-table.caption-5' | translate }}
+                </div>
+                <a class="tooltip-bottom tooltip-progress info-icon" [attr.data-tooltip]="('statistics-sg.rates-table.popup.loans-past-90' | translate)">
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="row-table" *ngFor="let statistic of statistics; let i = index">
+            <div class="progress-table-year hidden-lg hidden-md">
+              <div class="year-text">
+                {{ statistic.year }}
+              </div>
+            </div>
+            <div class="progress-table-rates">
+              <div class="item value left">
+                {{ statistic.default_rate_within_30_90_dpd  | number: decimalFormat: localeDecimalFormat }}%
+                <!-- <span *ngIf="footNoteTable.length > 0" [innerHtml]="footNoteTable[i][2]"></span> -->
+              </div>
+              <div class="item value right">
+                {{ statistic.default_rate_past_90_dpd  | number: decimalFormat: localeDecimalFormat }}%
+                <!-- <span *ngIf="footNoteTable.length > 0" [innerHtml]="footNoteTable[i][3]"></span> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 disclaimer">
+        <!-- hide footnote until it fixed -->
+        <!-- <p *ngFor="let statistic of statistics; let i = index">
+          {{ 'statistics-sg.rates-table.foot-note.text' | translate : {num: (i + 1), value: (statistic.recovery_rate_past_90_dpd | number: decimalFormat: localeDecimalFormat)} }}
+        </p> -->
+        <p class="disclaimer-historycal" [innerHtml]="('statistics-sg.rates-table.disclaimer' | translate)"></p>
+      </div>
+    </div>
+  </div>
+  <div class="container progress-container">
+    <div class="row">
+      <div class="col-xs-12">
+        <p class="sg-progress-sub-section Gilroy-SemiBold"  [innerHtml]="('statistics-sg.non-performing-loans-chart.title' | translate)">
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+        <div class="chart-container">
+          <div class="row">
+            <div class="col-xs-12 col-md-6 tab-container">
+              <input id="toggle-amount" class="toggle" name="chart" type="radio" [checked]="!isOver90" (click)="showChart('below90')">
+              <label for="toggle-amount" class="btn chart-label">{{ 'statistics-sg.non-performing-loans-chart.tab-30-90' | translate }}</label>
+              <input id="toggle-tenor" class="toggle" name="chart" type="radio" [checked]="isOver90" (click)="showChart('over90')">
+              <label for="toggle-tenor" class="btn chart-label">{{ 'statistics-sg.non-performing-loans-chart.tab-over-90' | translate }}</label>
+            </div>
+          </div>
+          <chart *ngIf="!isOver90" [options]="chartBelow90"></chart>
+          <chart *ngIf="isOver90" [options]="chartOver90"></chart>
+          <div class="row legend">
+            <div class="col-sm-6">
+              <div class="square yellow">
+                <i class="fa fa-square" aria-hidden="true"></i>
+              </div>
+              <div class="description">
+                <p class="Gilroy-SemiBold caption">
+                  {{ 'statistics-sg.non-performing-loans-chart.legend-fs' | translate }}
+                </p>
+                <p class="text">
+                  {{ 'statistics-sg.non-performing-loans-chart.legend-fs-description' | translate }}
+                </p>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="square blue">
+                <i class="fa fa-square" aria-hidden="true"></i>
+              </div>
+              <div class="description">
+                <p class="Gilroy-SemiBold caption">
+                  {{ 'statistics-sg.non-performing-loans-chart.legend-mas' | translate }}
+                </p>
+                <p class="text">
+                  {{ 'statistics-sg.non-performing-loans-chart.legend-mas-description' | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<div class="container progress-container sg-performance-metrics">
+  <div class="row">
+    <div class="col-xs-12">
+      <p class="sg-progress-sub-section-description">
+        {{ 'statistics-sg.understanding-performance-metrics.description' | translate }}
+      </p>
+    </div>
+  </div>
+  <div class="row calculation">
+    <div class="col-sm-6 col-xs-12 item">
+      <div class="formula">
+        <p class="Gilroy-SemiBold title"
+        [innerHtml]="('statistics-sg.understanding-performance-metrics.loan-past-due-rates.title' | translate)">
+        </p>
+        <p class="sub-title"
+        [innerHtml]="('statistics-sg.understanding-performance-metrics.loan-past-due-rates.sub-title' | translate)">
+        </p>
+        <p class="parameter"
+        [innerHtml]="('statistics-sg.understanding-performance-metrics.loan-past-due-rates.parameter-1' | translate)">
+        </p>
+        <div class="devide"></div>
+        <p class="parameter"
+        [innerHtml]="('statistics-sg.understanding-performance-metrics.loan-past-due-rates.parameter-2' | translate)">
+        </p>
+        <div class="foot-notes">
+          <div class="foot-note" *ngFor="let footNote of loanPastDueRatesFootNote; let i = index">
+            <div class="num">{{ footNote.num }}</div>
+            <div class="text">{{ footNote.text }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-xs-12 item">
+      <div class="formula">
+        <p class="Gilroy-SemiBold title"
+        [innerHtml]="('statistics-sg.understanding-performance-metrics.non-performing-loan-rates.title' | translate)">
+        </p>
+        <p class="sub-title"
+        [innerHtml]="('statistics-sg.understanding-performance-metrics.non-performing-loan-rates.sub-title' | translate)">
+        </p>
+        <p class="parameter"
+        [innerHtml]="('statistics-sg.understanding-performance-metrics.non-performing-loan-rates.parameter-1' | translate)">
+        </p>
+        <div class="devide"></div>
+        <p class="parameter"
+        [innerHtml]="('statistics-sg.understanding-performance-metrics.non-performing-loan-rates.parameter-2' | translate)">
+        </p>
+        <div class="foot-notes">
+          <div class="foot-notes">
+            <div class="foot-note" *ngFor="let footNote of nonPerformingLoanRatesFootNote; let i = index">
+              <div class="num">{{ footNote.num }}</div>
+              <div class="text">{{ footNote.text }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <p class="sg-progress-sub-section-description">
+          {{ 'statistics-sg.understanding-performance-metrics.define-default.text' | translate }}
+      </p>
+      <ul>
+        <li *ngFor="let definition of defaultDefinitions">{{ definition }}</li>
+      </ul>
+    </div>
+  </div>
+</div>

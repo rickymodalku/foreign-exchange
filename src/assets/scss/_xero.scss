@@ -1,0 +1,216 @@
+.xero {
+  .xero-top-section {
+    position: relative;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.6) 36.72%, rgba(34, 34, 34, 0) 78.58%),url(../img/SG/xero/main-image.jpg);
+    background-size: cover;
+    background-position: right top;
+    background-repeat: no-repeat;
+    height: 100%;
+    overflow-y: auto;
+    margin-top: 100px;
+    .content {
+      padding-top: 70px;
+      padding-bottom: 80px;
+      color: $white;
+      .bolt-xero-logo {
+        height: 80px;
+      }
+      .title {
+        font-size: $font-40;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        line-height: 1.2;
+      }
+      .caption {
+        font-size: $font-16;
+        line-height: 1.4;
+        margin-top: 10px;
+      }
+    }
+  }
+  .xero-why-bolt-section {
+    background-color: $white;
+    padding: 60px 0;
+    .title {
+      font-size: $font-32;
+      margin-bottom: 40px;
+    }
+    .item {
+      .icon {
+        height: 64px;
+        margin-bottom: 12px;
+      }
+      .caption {
+        font-size: $font-16;
+      }
+      .description {
+        color: $ink-lighter;
+      }
+    }
+  }
+  .xero-about-section {
+    background-color: $gray-000;
+    padding: 60px 0;
+    .title {
+      font-size: $font-32;
+      margin-bottom: 10px;
+    }
+    .caption {
+      font-size: $font-16;
+      color: $ink-lighter;
+      margin-bottom: 15px;
+    }
+    .item {
+      color: $ink-lightest;
+      ul {
+        padding-left: 15px;
+      }
+      ul>li {
+        margin-bottom: 15px;
+      }
+    }
+    .btn-xero {
+      margin-top: 10px;
+    }
+  }
+  .xero-how-to-connect {
+    background-color: $darkblue;
+    padding: 60px 0;
+    color: $white;
+    img {
+      width: 100%;
+    }
+    .right-content {
+      .title {
+        font-size: $font-32;
+        line-height: 1.2;
+        margin-bottom: 15px;
+      }
+      .caption {
+        font-size: $font-16;
+        line-height: 1.2;
+        margin-bottom: 15px;
+      }
+      ul {
+        padding-left: 15px;
+      }
+      ul>li {
+        margin-bottom: 15px;
+      }
+    }
+    .disclaimer {
+      margin-top: 25px;
+      color: $ink-lightest;
+    }
+    .disclaimer-link  {
+      color: $ink-lightest;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+  .xero-get-bolt-section {
+    background-color: $gray-000;
+    padding: 60px 0;
+    .title {
+      font-size: $font-24;
+      margin-bottom: 5px;
+    }
+    .caption {
+      color: $ink-lighter;
+      font-size: $font-16;
+      margin-bottom: 25px;
+    }
+  }
+  .btn-container {
+    width: 100%;
+    overflow: hidden;
+    display: block;
+    margin-top: 30px;
+  }
+  .btn {
+    font-size: $font-16;
+    border-radius: 2px;
+    padding: 12px 16px;
+    margin-right: 5px;
+  }
+  .btn-xero {
+    background-color: $white;
+    color: $bolt-purple;
+    border: 1px solid $bolt-purple;
+    &:hover {
+      color: $purple;
+      border-color: $purple;
+    }
+  }
+  .btn-bolt {
+    background-color: $bolt-purple;
+    color: $white;
+    &:hover {
+      background-color: $royal-blue;
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .xero {
+    .xero-top-section {
+      background-position: center top;
+      .content {
+        text-align: center;
+        .title {
+          font-size: $font-24;
+        }
+      }
+    }
+    .xero-why-bolt-section {
+      padding: 40px 0;
+      .title {
+        font-size: $font-20;
+        margin-bottom: 0px;
+      }
+      .item {
+        margin-top: 25px
+      }
+    }
+    .xero-about-section {
+      padding: 40px 0;
+      .title {
+        font-size: $font-20;
+        margin-bottom: 0;
+      }
+    }
+    .xero-how-to-connect {
+      padding: 40px 0;
+      .right-content {
+        margin-top: 20px;
+        .title {
+          font-size: $font-20;
+          margin-bottom: 10px;
+        }
+        .caption {
+          font-size: $font-16;
+          line-height: 1.2;
+          margin-bottom: 15px;
+        }
+      }
+      .disclaimer {
+        margin-top: 0;
+      }
+    }
+    .xero-get-bolt-section {
+      padding: 40px 0;
+      .title {
+        font-size: $font-20;
+      }
+    }
+    .btn {
+      width: 100%;
+      margin: 0 0 10px;
+    }
+  }
+}
+
+.xero-borrow-link {
+  color: $mine-shaft;
+  text-decoration: underline;
+}

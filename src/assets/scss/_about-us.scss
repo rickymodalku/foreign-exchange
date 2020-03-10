@@ -1,0 +1,327 @@
+@media #{$phone} {
+  .aboutUsContainer {
+    .aboutUsHeader {
+      padding-top: 0.5em !important;
+      background-color: #14004f;
+      color: white;
+
+      .title {
+        font-size: $font-22;
+      }
+
+      .transparant-text {
+        visibility: hidden;
+      }
+    }
+
+    .aboutUsBody {
+      padding: 2em 0em 4em;
+
+      div:nth-child(1) {
+        font-size: 4vw;
+      }
+
+      div:nth-child(2) {
+        font-size: 3vw;
+      }
+    }
+
+    .profileContainer {
+      .swiper-container {
+        .swiper-wrapper {
+          .swiper-slide {
+            background-color: inherit;
+            box-shadow: none;
+
+            img {
+              height: 45vh;
+              width: 70vw;
+            }
+          }
+
+        }
+      }
+
+      .detailprofileContainer {
+        margin-top: -45px;
+
+        .profileCaption {
+          font-size: 3.25vw;
+        }
+      }
+
+      .city-silhouette {
+        height: 10em;
+        margin-top: 0px;
+        background-size: contain;
+      }
+    }
+
+    .profileImageBox {
+      .name {
+        font-size: 10px;
+      }
+
+      img {
+        width: 100%;
+      }
+
+      .company {
+        font-size: 8px;
+      }
+
+      .title {
+        margin-bottom: 10px;
+        font-size: 10px;
+      }
+
+      .company {
+        font-size: 8px;
+      }
+    }
+  }
+
+  .leadership-info-container {
+    .title {
+      background-color: white;
+    }
+  }
+
+  .company-shareholder-container {
+    padding: 0;
+  }
+}
+
+@media #{$largephone} {
+  .aboutUsContainer {
+    .profileImageBox {
+      img {
+        width: 100%;
+      }
+
+      .company {
+        font-size: 10px;
+      }
+    }
+  }
+}
+
+@media #{$tablet} {
+  .aboutUsContainer {
+    .profileImageBox {
+      margin-right: 10px;
+      margin-bottom: 10px;
+
+      .name {
+        font-size: 12px;
+      }
+
+      .company {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .leadership-info-container {
+    .title {
+      background-color: inherit;
+    }
+  }
+
+  .company-shareholder-container,
+  .c-lead-description-box {
+    padding: 0em 5em;
+  }
+}
+
+@media #{$desktop} {
+  .aboutUsContainer {
+    .aboutUsHeader {
+      padding-top: 1.5em !important;
+      background-color: #14004f;
+      background: repeating-linear-gradient(#14004f, #14004f 37.5vw, #FFFFFF 50.1%, #FFFFFF 100%);
+
+      .title {
+        font-size: 36px;
+      }
+
+      .transparant-text {
+        visibility: inherit;
+      }
+    }
+
+    .aboutUsBody {
+      padding: 2em 0em 10em;
+
+      div:nth-child(1) {
+        font-size: 18px;
+      }
+
+      div:nth-child(2) {
+        font-size: 14px;
+      }
+    }
+
+    .profileContainer {
+      .profileContainerBox {
+        height: inherit;
+      }
+
+      .detailprofileContainer {
+        margin-top: 0px;
+
+        .profileCaption {
+          font-size: 12px;
+        }
+      }
+
+      .city-silhouette {
+        height: 15em;
+        margin-top: -140px;
+        background-size: cover;
+      }
+    }
+
+    .profileImageBox {
+      padding: 0;
+      margin-right: 10px;
+
+      .name {
+        font-size: 12px;
+      }
+
+      .title {
+        margin-top: 5px;
+        font-size: 12px;
+      }
+
+      .company {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .company-shareholder-container,
+  .c-lead-description-box {
+    padding: 0em 10em;
+  }
+
+}
+
+@media #{$widescreen} {
+  .aboutUsContainer {
+    .aboutUsHeader {
+      padding-top: 1.5em !important;
+      background-color: #14004f;
+      background: repeating-linear-gradient(#14004f, #13004F 23vw, #FFFFFF 50.1%, #FFFFFF 100%);
+
+      .title {
+        font-size: 36px;
+      }
+
+      .transparant-text {
+        visibility: inherit;
+      }
+    }
+  }
+
+  .aboutUsContainer {
+    .aboutUsHeader {
+      z-index: 1;
+      padding: 1em;
+      color: white;
+
+      .handshake-image {
+        margin-top: -100px;
+      }
+
+      .title {
+        line-height: 34px;
+      }
+    }
+
+    .aboutUsBody {
+      z-index: 1;
+      background-color: white;
+
+      div:nth-child(2) {
+        color: #4a4a4a;
+      }
+    }
+
+    .profileContainer {
+      z-index: 1;
+
+      .detailprofileContainer {
+        background-color: #f5f5f5;
+        padding-top: 3em;
+        padding-bottom: 10em;
+
+        .profileCaption {
+          color: #4a4a4a;
+          opacity: 0.65;
+        }
+
+        .profileImageBox {
+          margin-right: 2em;
+          margin-bottom: 2em;
+          background-color: white;
+
+          div:first-of-type {
+            color: #9b9b9b;
+            font-size: 11px;
+            padding-left: 10px
+          }
+
+          div:nth-child(2) {
+            padding: 1em 0em 1em 10px;
+            font-size: 10px;
+          }
+
+          div:nth-child(3) {
+            padding-left: 10px;
+            line-height: 10px;
+          }
+
+          div:nth-child(4) {
+            color: #4a4a4a;
+            padding: 0.1em 0em 1.25em 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.leadership-info-container {
+  padding: 2em 0em;
+
+  .title {
+    font-size: 30px;
+  }
+
+  .name {
+    font-weight: bold;
+  }
+}
+
+
+.cLeadershipSwiperContainer {
+  margin-bottom: 5em;
+}
+
+.c-lead-profile-photo {
+  @media #{$phone} {
+    width: 70%;
+  }
+
+  @media #{$largephone} {
+    width: 100%;
+  }
+}
+
+.company-shareholder-title {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  font-size: $font-30;
+}

@@ -1,0 +1,158 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="fs-loyalty-header-box col-xs-12">
+      <div class="col-xs-12 col-sm-8 margin-top-20">
+        <div class="col-xs-12 padding-null col-xs-12">
+          <div class="title white-text">
+            <span class="Gilroy-SemiBold">
+              {{ 'loyalty.header.title' | translate }}
+            </span>
+            <br>
+            <span class="Gilroy-Light">
+              {{ 'loyalty.header.title-2' | translate }}
+            </span>
+          </div>
+          <div class="caption col-xs-12 col-sm-9 col-md-7 padding-null margin-top-15 margin-bottom-20 white-text transparant-text"
+            [innerHtml]="( 'loyalty.header.caption' | translate )">
+          </div>
+        </div>
+        <div class="btn btn-primary-investor" (click)="goToBenefitSection()">
+          {{ 'loyalty.header.button' | translate }}
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="fsmk-circle-logo hidden-xs">
+        </div>
+      </div>
+    </div>
+
+    <div class="fs-loyalty-reward-box col-xs-12">
+      <div class="col-xs-12 text-center">
+        <div class="title Gilroy-SemiBold">
+          {{ 'loyalty.reward.title' | translate }}
+        </div>
+      </div>
+      <div class="fs-loyalty-reward-row col-xs-12 hidden-xs">
+        <div class="col-xs-12 col-sm-3" *ngFor="let rewardlist of rewardList">
+          <div class="{{ rewardlist.class }} content-center">
+          </div>
+          <div class="col-xs-12 padding-null margin-top-10 text-center" [innerHtml]="( rewardlist.caption )">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fs-loyalty-reward-row col-xs-12 hidden-sm hidden-md hidden-lg">
+      <div class="swiper-container" *ngIf="rewardList.length > 0" [swiper]="mobileSwiperConfiguration">
+        <div class="swiper-wrapper">
+          <div *ngFor="let rewardlist of rewardList" class="swiper-slide" fxLayout="column" fxLayoutAlign="center center">
+            <div class="{{ rewardlist.class }} content-center">
+            </div>
+            <div class="caption col-xs-12 padding-null margin-top-10 text-center" [innerHtml]="( rewardlist.caption )">
+            </div>
+          </div>
+        </div>
+        <div [hidden]="mobileSwiperConfiguration.pagination !== '.swiper-pagination'" class="swiper-pagination"></div>
+      </div>
+    </div>
+
+
+    <div class="fs-loyalty-benefit-box col-xs-12" id="loyalty-benefit-box">
+      <div class="col-xs-12 text-center">
+        <div class="title Gilroy-SemiBold">
+          {{ 'loyalty.tier.title' | translate }}
+        </div>
+        <div class="title-caption transparant-text col-xs-12 col-sm-8 col-md-5 content-center padding-null">
+          {{ 'loyalty.tier.caption-1' | translate }}
+        </div>
+        <div class="title-caption transparant-text col-xs-12 col-sm-8 content-center padding-null">
+          {{ 'loyalty.tier.caption-2' | translate }}
+          <span role="button" (click)="goToFaqSection()">
+            <a>{{ 'loyalty.tier.here' | translate }}</a>
+          </span>
+        </div>
+      </div>
+
+      <div class="fs-loyalty-benefit-container hidden-xs col-sm-12">
+        <div class="reward-benefit-container padding-null" *ngFor="let benefitlist of benefitList">
+          <div class="reward-benefit-box">
+            <div class="{{ benefitlist.class }} loyalty-tier-logo content-center">
+            </div>
+            <div class="col-xs-12 text-center tier-information">
+              {{ benefitlist.tier }} {{ 'loyalty.tier.tier' | translate }}
+            </div>
+            <div class="col-xs-12 text-center caption margin-top-10" *ngIf="benefitlist.amount !==0">
+              {{ 'loyalty.tier.annual-portfolio-up-to' | translate }}
+            </div>
+            <div class="col-xs-12 text-center amount-information padding-null" *ngIf="benefitlist.amount !==0">
+              {{ benefitlist.amount | number: decimalFormat: localeDecimalFormat }} {{ 'loyalty.tier.point' | translate }}
+            </div>
+            <div class="col-xs-12 text-center amount-information padding-null margin-top-10" *ngIf="benefitlist.amount === 0">
+              {{ 'loyalty.tier.love-for-all-investor' | translate }}
+            </div>
+            <div class="col-xs-12 text-center caption" *ngIf="benefitlist.amount !==0">
+              {{ 'loyalty.tier.in-one-year' | translate }}
+            </div>
+            <div class="benefit-list-row col-xs-12 margin-top-20 padding-null">
+              <div *ngFor="let benefitDetail of benefitlist['benefit']">
+                <div class="benefit-list">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                  {{ benefitDetail }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="reward-footer text-center" *ngIf="benefitlist.caption">
+            {{ benefitlist.caption }}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 fs-loyalty-benefit-container hidden-sm hidden-md hidden-lg">
+        <div class="col-xs-12 tier-mobile-box" *ngFor="let benefitlist of benefitList;let i = index" (click)="changeBenefitDetail(i)">
+          <div class="col-xs-2 tier-logo">
+            <div class="{{ benefitlist.class }} loyalty-tier-logo">
+            </div>
+          </div>
+          <div class="col-xs-8 padding-null">
+            <span class="text-bold tier-title">{{ benefitlist.tier }}</span>
+            <br>
+            <span *ngIf="benefitlist.amount !=='0'"> {{ 'loyalty.tier.annual-portfolio-up-to' | translate }} {{ benefitlist.amount }} {{ 'loyalty.tier.point' | translate
+              }} {{ 'loyalty.tier.in-one-year' | translate }}</span>
+            <span *ngIf="benefitlist.amount ==='0'"> {{ 'loyalty.tier.love-for-all-investor' | translate }} </span>
+          </div>
+          <div class="col-xs-1 margin-top-15 padding-null">
+            <i class="fa" [ngClass]="{ 'fa-chevron-down' : !benefitlist.active , 'fa-chevron-up': benefitlist.active }" aria-hidden="true"></i>
+          </div>
+
+          <div class="col-xs-12" *ngIf="benefitlist.active">
+            <div class="col-xs-12" *ngFor="let benefitDetail of benefitlist['benefit']">
+              <div class="benefit-list">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                {{ benefitDetail }}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="loyalty-faq-container col-xs-12" id="loyalty-faq-box">
+      <div class="col-xs-12 text-center">
+        <div class="title Gilroy-SemiBold">
+          {{ 'loyalty.faq' | translate }}
+        </div>
+      </div>
+      <div class="col-xs-12">
+        <div class="loyalty-faq-row" *ngFor="let faqlist of faqList;let i = index">
+          <label class="collapsed" for="faq{{i}}">
+            <div class="pull-left arrow-icon" [ngClass]="{' faq-arrow-right': !faqlist.expand, 'faq-arrow-bottom margin-top-5 ': faqlist.expand}"></div>
+            {{faqlist.question}}</label>
+          <input id="faq{{i}}" type="checkbox" [checked]="faqlist.expand" (change)="faqlist.expand = !faqlist.expand">
+          <div class="faqContent well-lg loyalty-faq-answer" [innerHTML]="faqlist.answer">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

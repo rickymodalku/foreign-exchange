@@ -1,0 +1,555 @@
+@media #{$phone} {
+  .fs-browse-loan-header-container {
+    padding: 24px 16px 0 16px;
+
+    .justify-content-flex-end {
+      padding: 16px;
+    }
+
+    .d-flex {
+      flex-direction: column;
+    }
+
+    .fs-browse-loan-type-selection {
+      font-size: $font-16;
+      padding: 12px 16px;
+      width: 100%;
+
+      &.selected {
+        background-color: $fs-blue;
+        color: $white;
+        font-weight: bold;
+        border-radius: 2px;
+      }
+    }
+  }
+
+  .loan-card-view {
+    padding: 24px 36px;
+
+    &.empty-loan {
+      padding: 48px 36px;
+
+      .fs-money-icon,
+      .fs-people-talk-icon {
+        margin-left: auto;
+        margin-right: auto;
+        float: none;
+      }
+
+    }
+  }
+
+  #investSuccessDialog,
+  #optOutDialog,
+  #investmentConfirm,
+  #simulateReturnDisclaimer {
+    .fs-modal__dialog {
+      width: inherit;
+    }
+  }
+
+  .fs-loan-card {
+    height: initial;
+  }
+}
+
+@media #{$tablet} {
+  .fs-browse-loan-header-container {
+    padding: 24px 20px 0px 28px;
+
+    .d-flex {
+      flex-direction: row;
+    }
+
+    .fs-browse-loan-type-selection {
+      color: $ink-lightest;
+      padding: 0 0 12px 0;
+      font-weight: inherit;
+      background-color: inherit;
+      font-size: $font-14;
+      width: auto;
+
+      &.selected {
+        background-color: inherit;
+        color: inherit;
+        font-weight: inherit;
+        border-radius: inherit;
+      }
+    }
+  }
+
+  .loan-card-view {
+    padding: 24px 36px;
+
+    &.empty-loan {
+      padding: 48px 36px;
+
+      .fs-money-icon,
+      .fs-people-talk-icon {
+        float: right;
+      }
+
+    }
+  }
+
+  .fs-loan-card {
+    width: 24em;
+  }
+
+
+  .sticky {
+    position: sticky;
+    top: 100px;
+    z-index: 1;
+    background: $white;
+    border-bottom: 1px solid $gray-200;
+    padding: 0 76px 0 76px;
+  }
+
+  #investSuccessDialog {
+    .fs-modal__dialog {
+      width: 400px;
+    }
+  }
+
+  #optOutDialog {
+    .fs-modal__dialog {
+      width: 400px;
+    }
+  }
+
+  #investmentConfirm {
+    .fs-modal__dialog {
+      width: 500px;
+    }
+  }
+
+  #simulateReturnDisclaimer {
+    .fs-modal__dialog {
+      width: 750px;
+    }
+  }
+}
+
+@media #{$desktop} {
+  .fs-browse-loan-header-container {
+    padding: 24px 36px 24px 76px;
+  }
+  .loan-card-view {
+    padding: 24px 76px;
+  }
+
+  .fs-loan-card {
+    width: 27em;
+    height: 610px;
+    &.with-extra-column {
+      height: 670px;
+    }
+  }
+}
+
+@media #{$widescreen} {
+  .fs-loan-card {
+    width: 29em;
+  }
+}
+
+
+.fs-investor-exposure-banner {
+  &.warning {
+    background-color: $warning-orange-background;
+
+    .banner-icon {
+      @include circle-text(50px, $warning-orange, $warning-orange, 24px, $white);
+    }
+  }
+
+  .fa-chevron-down,
+  .fa-chevron-up {
+    font-size: $font-20;
+  }
+
+  &.alert {
+    background-color: $form-error;
+    color: #844235;
+    margin-bottom: 0;
+
+    .banner-icon {
+      @include circle-text(50px, $error-red, $error-red, 24px, $white);
+
+      &.small {
+        @include circle-text(36px, $error-red, $error-red, 24px, $white);
+      }
+
+    }
+  }
+
+  padding: 1em;
+  background-color: #f3f7ff;
+}
+
+.browse-loan-container {
+  margin-top: 100px;
+}
+
+.fs-browse-loan-green-text {
+  color: $fs-green-500;
+}
+
+.fs-browse-loan-header-container {
+  background-color: $white;
+
+  &.sticky {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  .title {
+    font-size: $font-40;
+    font-family: $gilroy-semibold-font-stack;
+  }
+
+  .caption {
+    color: $gray-700;
+    font-size: $font-16;
+    font-family: $gilroy-semibold-font-stack;
+  }
+}
+
+.fs-browse-loan-type-selection {
+  margin-top: 28px;
+
+  span {
+    padding-right: 8px;
+  }
+
+  .circle-number-information {
+    @include circle-text(24px, $gray-000, $gray-000, 14px, $gray-500);
+  }
+
+  &.selected {
+    color: $fs-blue;
+    border-bottom: 4px solid $fs-blue;
+
+    .circle-number-information {
+      @include circle-text(24px, $light-blue, $light-blue, 14px, $white);
+    }
+  }
+}
+
+.fs-loan-card {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  margin-right: 22px;
+}
+
+.fs-loan-card__wrap {
+  background: $white;
+}
+
+.fs-loan-card__body {
+  padding: 12px;
+  border-bottom: solid 1px $gray-100;
+  border-top: solid 1px $gray-100;
+
+  .loan-grade {
+    color: $fs-blue-200;
+    font-size: 12px;
+  }
+
+  &.gray {
+    background: $light-white;
+  }
+
+  .fs-loan-card__body-caption {
+    color: $ink-lightest;
+
+    &.margin-top {
+      margin-top: 12px;
+    }
+  }
+
+  .fs-loan-card__body-value {
+    color: $ink;
+  }
+
+  .fs-loan-card__body-simulate-loan-caption {
+    font-size: $font-12;
+  }
+
+  .fs-loan-card__body-simulate-loan-input {
+    font-size: $font-12;
+    margin-top: 20px;
+  }
+}
+
+.fs-loan-card__loan-progress {
+  height: 0.45em;
+  background-color: $fs-blue;
+  border-radius: 0em 1em 1em 0em;
+}
+
+.fs-loan-card__investment-caption {
+  padding: 10px 16px;
+  background: $light-white;
+  color: $gray-700;
+  justify-content: space-between;
+
+  .fs-loan-card__investment-caption-crowdfund-time {
+    color: $orange;
+  }
+}
+
+.loan-card-container {
+  background-color: $cornflower-blue;
+}
+
+.loan-card-view {
+
+  &.empty-loan {
+    background-color: $concrete;
+  }
+}
+
+.fs-browse-loan-type-selection:not(:last-child) {
+  margin-right: 32px;
+}
+
+.fs-loan-card__footer {
+  padding: 16px 24px;
+
+  .fs-loan-card__body-footer-exposure {
+    color: $gray-700;
+    font-size: $font-12;
+  }
+
+  .fs-loan-card__body-footer-simulate-loan {
+    color: $gray-700;
+    font-size: $font-12;
+  }
+
+  .fs-loan-card__body-footer-simulate-loan-highlighted {
+    color: $fs-blue;
+  }
+
+  &.btn-primary-investor {
+    margin-bottom: 8px;
+  }
+}
+
+.circle-text {
+  &.blue {
+    @include circle-text(20px, $light-blue, $light-blue, 14px, $white);
+  }
+
+  &.yellow {
+    @include circle-text(20px, $warning-orange, $warning-orange, 14px, $white);
+  }
+
+  &.gray {
+    @include circle-text(20px, $gray-400, $gray-400, 14px, $white);
+  }
+}
+
+.fs-browse-loan__empty-loan {
+  border-bottom: 1px solid $gray-300;
+  padding-bottom: 48px;
+
+  &.padding-top {
+    padding-top: 48px;
+  }
+
+  .title {
+    font-size: $font-20;
+  }
+
+  .caption {
+    color: $gray-700;
+    line-height: 2em;
+
+    .aligned-padding-inline {
+      padding-inline-start: 10px;
+    }
+
+    &.margin-bottom {
+      margin-bottom: 1em;
+    }
+  }
+}
+
+.fs-refresh-button {
+  border: 1px solid $fs-blue;
+  padding: 6px 12px;
+  color: $fs-blue;
+  &:hover{
+    color: $fs-blue;
+  }
+
+}
+
+#simulateReturnDisclaimer {
+  .simulate-return-disclaimer__container {
+    padding: 24px;
+    padding-top: 0;
+    padding-bottom: 60px;
+  }
+
+  .simulate-return-disclaimer__title {
+    font-size: $font-20;
+    padding-bottom: 16px;
+  }
+
+  .simulate-return-disclaimer__content {
+    color: $gray-700;
+  }
+}
+
+#investmentConfirm {
+
+  .fs-modal__content {
+    border-top: 1px solid $gray-100;
+    border-bottom: 1px solid $gray-100;
+
+    .fs-modal__content--wapper {
+      padding: 16px 24px;
+      border-top: 1px solid $gray-100;
+      border-bottom: 1px solid $gray-100;
+
+      .fs-modal__header--balance {
+        font-size: $font-16;
+      }
+
+      .fs-modal__header--caption {
+        color: $gray-700;
+      }
+
+      .fs-modal__content--invested-loan {
+        background: $gray-100;
+        padding: 12px 24px;
+        color: $ink-lightest;
+        font-size: $font-12;
+      }
+
+      .fs-modal__content--investment-information {
+        border-bottom: 1px solid $gray-100;
+        border-top: 1px solid $gray-100;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        margin-top: 16px;
+        margin-bottom: 16px;
+
+        .fs-modal__content--investment-caption {
+          color: $ink-lightest;
+        }
+      }
+
+      .fs-modal__content--investment-validation-message {
+        color: $ink-lightest;
+      }
+
+      .fs-modal__content--investment-validation-error {
+        font-size: $font-12;
+        color: $fs-red-600;
+      }
+
+      .form-group {
+        border: 1px solid $gray-300;
+
+        &.error {
+          border: 1px solid $fs-red-600;
+        }
+      }
+    }
+
+    .fs-modal__content--investment-check-box {
+      background: $light-white;
+      padding-right: 24px;
+      padding-left: 24px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid $gray-100;
+    }
+
+    .fs-modal__content--footer {
+      padding: 16px 24px;
+    }
+
+    .fs-modal__content--footer-caption {
+      color: $ink-lightest;
+      font-size: $font-12;
+      margin-top: 15px;
+    }
+
+    .fs-modal__content--investment-check-box-label {
+      font-size: $font-12 !important;
+      line-height: 18px;
+    }
+  }
+}
+
+#powerOfAttorneyModal {
+  .full-height {
+    height: 90vh;
+  }
+}
+
+#optOutDialog {
+
+  .column-direction {
+    padding: 3em;
+  }
+
+  .title {
+    font-size: $font-20;
+    color: $grey-900-ink;
+    padding-bottom: 20px;
+    padding-top: 20px;
+  }
+
+  .caption {
+    color: $gray-700;
+    padding-bottom: 100px;
+  }
+
+}
+
+.power-of-attorney-checkbox {
+  .mat-checkbox-layout {
+    margin-bottom: 0;
+  }
+}
+
+.auto-invest-rejection--title {
+  font-size: $font-12;
+  padding-top: 12px;
+  padding-bottom: 12px;
+
+  .title {
+    color: $grey-900-ink;
+  }
+
+  .caption {
+    color: $gray-700;
+  }
+}
+
+.tooltip-exclusive-loan {
+  &.tooltip-top:after {
+    right: -25px;
+    left: 67px;
+    width: 16.5em;
+    color: $white;
+    background-color: $fs-blue-900;
+  }
+}
+@media #{$ipadPortrait} {
+  .fs-refresh-button {
+    margin-top: 24px;
+  }
+}
+
+@media #{$ipadLandscape} {
+  .fs-refresh-button {
+    margin-top: 18px;
+  }
+}

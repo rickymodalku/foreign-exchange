@@ -1,0 +1,483 @@
+<ng-template #noBankAccountTemplate>
+  <div class="depositBoxRightSection col-xs-12 col-md-6 fs-box-shadow">
+    <div class="col-xs-12 text-center">
+      <i class="fa fa-exclamation-triangle"></i>
+    </div>
+    <div *ngIf="!showAddBankAccount" class="col-xs-12 text-center" [innerHTML]="( 'deposit.no-bank-account-message' | translate )">
+    </div>
+    <div *ngIf="showAddBankAccount" class="text-center">
+      <div class="col-xs-12 margin-bottom-20" [innerHTML]="( 'deposit.add-bank-account-message' | translate )">
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #fpxBankAccountFormTemplate>
+  <div class="depositBoxRightSection col-xs-12 col-md-6 fs-box-shadow">
+      <div class="margin-bottom-20">
+        {{ 'investor-deposit-fpx.deposit-box.choose-bank' | translate }}
+      </div>
+      <form [formGroup]="fpxForm">
+        <div>
+          <div>
+            <mat-select
+              class="form-control"
+              [ngClass]="{ 'form-control-error': (fpxForm.controls.bankCode.dirty || fpxForm.controls.bankCode.touched) && fpxForm.controls.bankCode.invalid}"
+              formControlName="bankCode"
+              placeholder="{{ 'investor-deposit-fpx.placeholder.select-bank' | translate }}"
+              (selectionChange)="setFpxBankName($event)"
+              >
+              <mat-option *ngFor="let bank of supportedBankList" [value]="bank.bank_code">
+                {{bank.bank_name}}
+              </mat-option>
+            </mat-select>
+          </div>
+          <div
+            class="form-group fs-deposit-nominal-box"
+            [ngClass]="{ 'form-control-error': (fpxForm.controls.amount.dirty || fpxForm.controls.amount.touched) && fpxForm.controls.amount.invalid }" >
+            <input
+              [value]="countryCurrencyCode"
+              class="form-control sign-up-form form-control-prefix"
+              type="text"/>
+            <input
+              [placeholder]="('form.deposit.placeholder.amount' | translate)"
+              autoFormat
+              autoFormatType="number"
+              autocomplete="off"
+              class="form-control sign-up-form form-control-affix"
+              formControlName="amount"
+              id="amount"
+              name="amount"
+              type="text" />
+            </div>
+            <span class="form-error-text" *ngIf="(fpxForm.controls.amount.dirty || fpxForm.controls.amount.touched) && fpxForm.controls.amount.invalid">
+              <div>
+                {{ 'investor-deposit-fpx.deposit-box.fpx-subsequent-minimum-deposit' | translate }}
+                {{ countryCurrencyCode }} {{fpxMinimumAmountLabel}} - {{ countryCurrencyCode }} {{ fpxMaximumAmountLabel }}.
+              </div>
+            </span>
+        </div>
+      </form>
+      <div class="col-md-12 text-bold transparant-text padding-null margin-bottom-20">
+        <div>
+          {{ 'investor-deposit-fpx.deposit-box.fpx-all-payment' | translate }}
+        </div>
+      </div>
+      <div class="col-md-12 col-lg-12 padding-null">
+        <div class="btn btn-primary-investor full-width" id="{{ isActivated ? 'investor-deposit' : 'investor-first-deposit' }}" (click)="confirmFpxDeposit()">
+          {{ 'investor-deposit-fpx.button.continue-with-fpx' | translate }}
+        </div>
+      </div>
+    </div>
+</ng-template>
+
+<ng-template #manualBankAccountFormTemplate>
+  <div class="depositBoxRightSection col-xs-12 col-md-6 fs-box-shadow">
+    <div class="margin-bottom-15 margin-top-10">
+      <div class="caption">
+        {{ 'deposit.left-title' | translate }}
+      </div>
+    </div>
+
+    <div class="margin-bottom-10 fs-email-note" [innerHTML]="( 'deposit.email-note' | translate )"></div>
+    <form [formGroup]="depositForm">
+      <div>
+        <div class="col-xs-12 col-md-6 fs-deposit-name-box">
+          <input
+            class="form-control sign-up-form"
+            [(ngModel)]="selectedName"
+            type="text"
+            [ngModelOptions]="{standalone: true}" disabled/>
+        </div>
+        <div class="col-xs-12 col-md-6 bank-account-dropdown padding-null">
+          <mat-select
+            class="form-control"
+            (selectionChange)="onBankChange($event)"
+            [(ngModel)]="selectedbankName"
+            formControlName="bank"
+            id="bank"
+            name="bank">
+            <mat-option class="bank-account-dropdown-2" *ngFor="let memberaccountbank of this.userDetail.bankDetail" [value]="memberaccountbank.bankName">
+              <span>{{ memberaccountbank.bankName }}</span>&nbsp;-&nbsp;{{ 'deposit.account' | translate }}
+              <span>{{ memberaccountbank.bankAccountNumber }}</span>
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+
+      <div
+        class="col-xs-12 form-group sign-up-group fs-deposit-nominal-box"
+        [ngClass]="{ 'form-control-error': (depositForm.controls.amount.dirty || depositForm.controls.amount.touched) && !depositForm.controls.amount.pristine && depositForm.controls.amount.invalid }" >
+        <input
+          [value]="countryCurrencyCode"
+          class="form-control sign-up-form form-control-prefix"
+          type="text" disabled/>
+        <input
+          [placeholder]="('form.deposit.placeholder.amount' | translate)"
+          autocomplete="off"
+          class="form-control sign-up-form form-control-affix"
+          formControlName="amount"
+          autoFormat
+          autoFormatType="number"
+          id="amount"
+          name="amount"
+          type="text" />
+      </div>
+      <span class="form-error-text" *ngIf="depositForm.controls.amount.errors
+        && depositForm.controls.amount.errors.validateMinimumInteger
+        && depositForm.controls.amount.errors.validateMinimumInteger.valid === false
+        && !depositForm.controls.amount.pristine"
+      >
+        <div *ngIf="requiresFirstDeposit()">
+          {{ 'investor-deposit.deposit-box.minimum-deposit' | translate: { firstDepositMinimumAmount: firstDepositMinimumAmountLabel} }}
+        </div>
+      </span>
+      <mat-form-field class="col-xs-12 padding-null">
+        <mat-select
+          [placeholder]="( 'form.deposit.placeholder.transfer-type' | translate )"
+          [ngClass]="{ 'form-control-error': formModel.validation && depositForm.controls.transferType.invalid }"
+          class="form-control"
+          formControlName="transferType"
+          id="transferType"
+          name="transferType">
+          <mat-option *ngFor="let transfertype of masterData.transferType" [value]="transfertype.value">{{ transfertype.value }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <dropzone [config]="formModel.uploadConfiguration" [message]="document.message" (error)="onFileUploadError($event)" (sending)="onFileUploadSending($event)"
+        (success)="onFileUploadSuccess($event)" class="investor">
+      </dropzone>
+      <span class="col-xs-12 text-right margin-bottom-20 fs-deposit-upload-information-text">
+        {{ 'deposit.upload-information' | translate }}
+      </span>
+
+      <div class="col-xs-12 fs-deposit-note-box">
+        <strong>{{ 'deposit.note-title' | translate }}</strong>
+        <p [innerHTML]="( 'deposit.note-1' | translate )"></p>
+        <p [innerHTML]="( 'deposit.note-2' | translate )"></p>
+        <p [innerHTML]="( 'deposit.note-3' | translate )"></p>
+      </div>
+      <div class="col-xs-12 text-center">
+        <div class="btn btn-primary-investor content-center" id="{{ isActivated ? 'investor-deposit' : 'investor-first-deposit' }}" (click)="onDepositFormSubmit()">
+          {{ 'form.deposit.placeholder.submit' | translate }}
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<div class="container-fluid">
+  <sg-reverification-banner *ngIf="countryCode === 'SG'"></sg-reverification-banner>
+  <div class="fs-deposit-container">
+    <div class="row title text-center">
+      <div class="title-wrapper">
+        <div class="title-container col-xs-12 col-sm-6 col-md-6 col-lg-6 text-left">
+          <div class="title-text text-bold">{{ 'deposit.title' | translate }}</div>
+          <div class="info margin-top-5">
+            <span>{{ 'deposit.caption-1' | translate }}</span>
+            <br />
+            <span>{{ 'deposit.caption-2' | translate }}
+              <a onclick="Intercom('show');">
+                <strong>{{ 'deposit.caption-3' | translate }}</strong>
+              </a> {{ 'deposit.caption-4' | translate }}</span>
+            <br />
+            <span>{{ 'deposit.caption-5' | translate }}
+              <a [href]="('deposit.faq' | translate)" target="_blank">
+                <strong>{{ 'deposit.caption-6' | translate }}</strong>
+              </a>
+            </span>.
+          </div>
+        </div>
+        <div class="title-container col-xs-12 col-sm-6 col-md-6 col-lg-6 hidden-xs">
+          <img class="title-image deposit-non-mobile" src="../../assets/img/investor/fs-investor-deposit-2x.jpg" alt="investor deposit image">
+        </div>
+      </div>
+    </div>
+    <div class="row fs-deposit-box">
+      <div class="depositBoxContent">
+        <div class="depositBoxLeftSection col-xs-12 col-md-6 fs-box-shadow">
+          <ng-container *ngIf="depositOptions.length > 1">
+            <div class="fs-deposit-options-title">
+                {{ 'form.deposit.deposit-options' | translate }}
+            </div>
+            <div class="fs-deposit-options">
+              <div *ngFor="let depositOption of depositOptions"
+                [ngClass]="{'fs-deposit-option--selected': depositOption.selected}"
+                class="fs-deposit-option"
+                (click)="onClickDepositOption(depositOption.key)">
+                <div class="fs-deposit-option-logo {{depositOption.logo}}"></div>
+                {{depositOption.label}}
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="depositOption === 'fpx'">
+            <div>
+              {{ 'investor-deposit-fpx.deposit-box.fpx-opening-hour' | translate }}
+            </div>
+            <div class="text-bold">
+              {{ 'investor-deposit-fpx.deposit-box.fpx-information' | translate }}
+            </div>
+            <div class="margin-top-20 margin-bottom-20">
+              {{ 'investor-deposit-fpx.deposit-box.fpx-description' | translate }}
+            </div>
+            <div class="fpx-benefits">
+              <ul>
+                <li *ngFor="let fpxbenefit of fpxBenefits">
+                  <span class="text-bold">{{ fpxbenefit.key }}</span> - {{ fpxbenefit.value }}
+                </li>
+              </ul>
+            </div>
+            <div class="text-right caption">
+              <i>{{ 'investor-deposit-fpx.deposit-box.fpx-transaction-limit' | translate }}</i>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="depositOption === 'manual'">
+            <div>
+              <div class="col-xs-12 margin-top-10 margin-bottom-15 fs-deposit-information-box">
+                <strong>
+                  <ng-container *ngIf="countryCode !== 'SG'">
+                    {{ 'deposit.unique-id-information-1' | translate  }} ({{userDetail.uniqueId }})
+                    {{ 'deposit.unique-id-information-2' | translate }}<br>
+                  </ng-container>
+                  {{ 'deposit.unique-id-information-3' | translate  }}
+                </strong>
+              </div>
+            </div>
+            <div class="margin-bottom-10"><strong>{{ 'deposit.make-deposit' | translate }}</strong></div>
+            <div class="col-xs-12 margin-bottom-10 escrow-detail-box">
+              <div class="col-xs-12 padding-null margin-bottom-15">
+                <div class="col-xs-4 padding-null">
+                  <span class="light-gray-text">
+                    {{ 'deposit.destination.bank' | translate }}
+                  </span>
+                </div>
+                <div class="col-xs-8">
+                  <strong>
+                    {{ 'master.escrow.bank-name' | translate }}
+                  </strong>
+                </div>
+              </div>
+              <div class="col-xs-12 padding-null margin-bottom-15">
+                <div class="col-xs-4 padding-null">
+                  <span class="light-gray-text">
+                    {{ 'deposit.destination.address' | translate }}
+                  </span>
+                </div>
+                <div class="col-xs-8">
+                  <strong>
+                    {{ 'master.escrow.address' | translate }}
+                  </strong>
+                </div>
+              </div>
+              <div class="col-xs-12 padding-null margin-bottom-15">
+                <div class="col-xs-4 padding-null">
+                  <span class="light-gray-text">
+                    {{ 'deposit.destination.account-name' | translate }}
+                  </span>
+                </div>
+                <div class="col-xs-8">
+                  <strong>
+                    {{ 'master.escrow.account-name' | translate }}
+                  </strong>
+                </div>
+              </div>
+              <div class="col-xs-12 padding-null margin-bottom-15">
+                <div class="col-xs-4 padding-null">
+                  <span class="light-gray-text">
+                    {{ 'deposit.destination.account-number' | translate }}
+                  </span>
+                </div>
+                <div class="col-xs-8">
+                  <strong>
+                    {{ 'master.escrow.account-number' | translate }}
+                  </strong>
+                </div>
+              </div>
+              <div class="col-xs-12 padding-null margin-bottom-15">
+                <div class="col-xs-4 padding-null">
+                  <span class="light-gray-text">
+                    {{ 'deposit.destination.swift-code' | translate }}
+                  </span>
+                </div>
+                <div class="col-xs-8">
+                  <strong>
+                    {{ 'master.escrow.swift-code' | translate }}
+                  </strong>
+                </div>
+              </div>
+
+              <div class="col-xs-12 padding-null margin-bottom-15">
+                  <div class="col-xs-4 padding-null">
+                    <span class="light-gray-text">
+                      {{ 'deposit.destination.branch-code' | translate }}
+                    </span>
+                  </div>
+                  <div class="col-xs-8">
+                    <strong>
+                      {{ 'master.escrow.branch-code' | translate }}
+                    </strong>
+                  </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 margin-bottom-10 fs-deposit-process-text padding-null">
+              <strong>{{ 'deposit.process-information-1' | translate }} </strong>
+              {{ 'deposit.process-information-2' | translate }}
+            </div>
+          </ng-container>
+        </div>
+        <ng-container *ngIf="depositOption === 'fpx'">
+          <ng-container *ngTemplateOutlet="fpxBankAccountFormTemplate"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="depositOption === 'manual'">
+          <ng-template [ngIf]="userDetail.bankDetail.length >= 1" [ngIfElse]="noBankAccountTemplate">
+            <ng-container *ngTemplateOutlet="manualBankAccountFormTemplate"></ng-container>
+          </ng-template>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modalPopup" *ngIf="formModel.showSuccessfulModal">
+  <div class="modalPopupBody">
+    <div class="text-center p-24 bg-color-white">
+      <div class="d-inline-block">
+        <div class="sucessfull-icon">
+        </div>
+      </div>
+      <div class="p-24">
+        <span class="text-bold">
+          {{ 'browse-loan.investment-success.congratulation' | translate }}
+        </span>
+        <br />
+        {{ 'deposit.deposit-request-saved' | translate }}
+        <br />
+      </div>
+      <div class="Gilroy-SemiBold btn btn-primary-investor full-width margin-top-10" (click)="goToOverview()">
+        {{ getButtonText() }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<modal id="FPXDepositModal" class="fs-modal fs-modal__open fs-modal--hidden">
+  <div class="fs-modal__background" (click)="closeModal('FPXDepositModal')"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered">
+    <div class="fs-modal__content fs-modal__content--small">
+      <div class="fs-modal__header fs-modal__header--noborder">
+        <div type="button" class="fs-modal__close" (click)="closeModal('FPXDepositModal')"></div>
+      </div>
+      <div class="col-xs-12 text-center">
+        <div class="fpx-deposit-header">
+          <div class="text-bold">
+            {{ 'investor-deposit-fpx.modal.deposit-confirmation.title' | translate }}
+          </div>
+          <div class="font-size-12 fpx-deposit-subtitle">
+            {{ 'investor-deposit-fpx.modal.deposit-confirmation.caption' | translate }}
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="fpx-transation-detail clearfix">
+          <div class="col-xs-4 text-bold">{{'investor-deposit-fpx.modal.deposit-confirmation.bank-name' | translate }}</div>
+          <div class="col-xs-8">{{fpxBankName}}</div>
+        </div>
+        <div class="fpx-transation-detail clearfix">
+          <div class="col-xs-4 text-bold">{{'investor-deposit-fpx.modal.deposit-confirmation.transaction-amount' | translate }}</div>
+          <div class="col-xs-8"> {{countryCurrencyCode}} {{fpxForm.controls.amount.value}}</div>
+        </div>
+      </div>
+      <div class="col-xs-12">
+        <div class="btn btn-primary-investor margin-bottom-10 full-width" (click)="initFPXPayment()">
+            {{'investor-deposit-fpx.button.confirm-investment' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+
+<ng-template #fpxPendingOrSuccess>
+  <ng-container *ngIf="requiresFirstDeposit()">
+    <div class="btn btn-primary-investor" routerLink="/admin-investor">
+      {{'investor-deposit-fpx.button.continue-account-activation' | translate }}
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!requiresFirstDeposit()">
+    <div class="btn btn-primary-investor" (click)="goToOverview()">
+      {{ getButtonText() }}
+    </div>
+  </ng-container>
+</ng-template>
+
+<modal id="FPXDepositModalPending" class="fs-modal fs-modal__open fs-modal--hidden fs-callback-modal">
+  <div class="fs-modal__background" (click)="closeModal('FPXDepositModalPending')"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered">
+    <div class="fs-modal__content">
+      <div class="fs-modal__header fs-modal__header--noborder">
+        <div type="button" class="fs-modal__close" (click)="closeModal('FPXDepositModalPending')"></div>
+      </div>
+      <div class="fs-callback-modal__body">
+        <div class="flex-row">
+          <div class="pending-logo">
+            <i class="fa fa-hourglass-half pending-shape"></i>
+          </div>
+        </div>
+        <div class="flex-row fs-callback-modal__text" [innerHTML]="('investor-deposit-fpx.modal.deposit-pending.caption' | translate)">
+        </div>
+        <div class="flex-row">
+          <ng-container *ngTemplateOutlet="fpxPendingOrSuccess"></ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+
+<modal id="FPXDepositModalFail" class="fs-modal fs-modal__open fs-modal--hidden fs-callback-modal">
+  <div class="fs-modal__background" (click)="closeModal('FPXDepositModalFail')"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered">
+    <div class="fs-modal__content">
+      <div class="fs-modal__header fs-modal__header--noborder">
+        <div type="button" class="fs-modal__close" (click)="closeModal('FPXDepositModalFail')"></div>
+      </div>
+      <div class="fs-callback-modal__body">
+        <div class="flex-row">
+          <div class="error-logo">
+            <div class="error-shape">
+              X
+            </div>
+          </div>
+        </div>
+        <div class="flex-row fs-callback-modal__text"> {{ 'investor-deposit-fpx.modal.deposit-fail.caption' | translate }}
+          </div>
+        <div class="flex-row">
+          <div class="btn btn-primary-investor" (click)="depositManually('FPXDepositModalFail')">{{ 'investor-deposit-fpx.modal.deposit-fail.btn-manual' | translate }}</div>
+        </div>
+        <div class="flex-row">
+          <a class="my-info-link" (click)="closeModal('FPXDepositModalFail')">{{ 'investor-deposit-fpx.modal.deposit-fail.btn-fail' | translate }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+
+<modal id="FPXDepositModalSuccess" class="fs-modal fs-modal__open fs-modal--hidden fs-callback-modal">
+  <div class="fs-modal__background" (click)="closeModal('FPXDepositModalSuccess')"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered">
+    <div class="fs-modal__content">
+      <div class="fs-modal__header fs-modal__header--noborder">
+        <div type="button" class="fs-modal__close" (click)="closeModal('FPXDepositModalSuccess')"></div>
+      </div>
+      <div class="fs-callback-modal__body">
+        <div class="flex-row">
+          <div class="sucessfull-icon"></div>
+        </div>
+        <div class="flex-row fs-callback-modal__text">
+            {{ 'investor-deposit-fpx.modal.deposit-completed.caption' | translate }}
+        </div>
+        <div class="flex-row">
+            <ng-container *ngTemplateOutlet="fpxPendingOrSuccess"></ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>

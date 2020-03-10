@@ -1,0 +1,87 @@
+<div class="container-fluid progress-title">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 padding-null">
+        <div class="title Gilroy-SemiBold">{{ 'statistics-id.performance-of-indonesia' | translate }}</div>
+        <p>{{ 'statistics-id.updated-as' | translate }} {{ lastDayOfLastMonth }}</p>
+      </div>
+      <div class="col-xs-12 fs-statistic-detail-row text-center padding-null">
+        <div class=" detail-statistic text-center margin-bottom-20 pull-left"
+          *ngFor="let data of indonesiaStatisticsNumber">
+          <span class="statistic-number font-size-30">{{ data.type === 'decimal' ? currencySymbol : '' }}
+            {{ data.value }}</span>
+          <br>
+          <div class="statistic-caption">{{ data.label }}
+            <a class="tooltip-bottom tooltip-progress-pull-left info-icon margin-left-5"
+              [attr.data-tooltip]="data.information">
+            </a>
+          </div>
+          <div class="col-xs-12 padding-null statistic-box-detail" *ngIf="data.showDetail">
+            <div class="col-xs-6 border-right">
+              {{ 'statistics-id.institutional' | translate }}
+              <b>{{ getBorrowerAmountDetail(data.borrowerDetailType,'individual') }}</b>
+            </div>
+            <div class="col-xs-6">
+              {{ 'statistics-id.individual' | translate }}
+              <b>{{ getBorrowerAmountDetail(data.borrowerDetailType,'institutional') }}</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container progress-container">
+  <div class="row">
+    <div class="col-xs-12">
+      <p class="sg-progress-sub-section-description">
+        <b>{{ 'statistics-id.table-title' | translate }}</b>
+      </p>
+    </div>
+
+    <div class="col-xs-12 progress-table hidden-xs">
+      <table class="statistic-table full-width">
+        <tr>
+          <th></th>
+          <th class="text-center">
+            <div>{{ 'statistics-id.lowest-loan' | translate }}</div>
+          </th>
+          <th class="text-center">
+            <div>{{ 'statistics-id.highest-loan' | translate }}</div>
+          </th>
+        </tr>
+        <tr *ngFor="let data of indonesiaStatisticsTableContent">
+          <td> {{ data.label }}</td>
+          <td>{{ data.type === 'decimal' ? currencySymbol : '' }} {{ data.lowestValue }}</td>
+          <td>{{ data.type === 'decimal' ? currencySymbol : '' }} {{ data.highestValue }}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-xs-12 progress-table hidden-sm hidden-md hidden-lg">
+      <table class="statistic-table full-width">
+        <tr>
+          <th class="text-center" colspan='2'>
+            <div>{{ 'statistics-id.lowest-loan' | translate }}</div>
+          </th>
+        </tr>
+        <tr *ngFor="let data of indonesiaStatisticsTableContent">
+          <td> {{ data.label }}</td>
+          <td>{{ data.type === 'decimal' ? currencySymbol : '' }} {{ data.lowestValue }}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-xs-12 progress-table hidden-sm hidden-md hidden-lg">
+      <table class="statistic-table full-width">
+        <tr>
+          <th class="text-center" colspan='2'>
+            <div>{{ 'statistics-id.highest-loan' | translate }}</div>
+          </th>
+        </tr>
+        <tr *ngFor="let data of indonesiaStatisticsTableContent">
+          <td> {{ data.label }}</td>
+          <td>{{ data.type === 'decimal' ? currencySymbol : '' }} {{ data.highestValue }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

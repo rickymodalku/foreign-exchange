@@ -1,0 +1,258 @@
+<div class="container-fluid white investorDashboard">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 investorDashboardHeader padding-null">
+      <img src="{{imageBaseUrl}}/invest-public-page-background.jpg" />
+      <div class="col-lg-4 investorInfoBox" [ngClass]="{ 'id' : countryCode === 'ID' }">
+        <div class="font-size-38 margin-bottom-10">
+          <font class="Gilroy-SemiBold">{{ 'invest.header.title' | translate }}</font>
+          <br>
+          <font class="Gilroy-Light">{{ 'invest.header.title-2' | translate }}</font>
+        </div>
+        <div class="col-lg-10 font-size-16 padding-null" [innerHTML]="('invest.header.caption' | translate )">
+        </div>
+        <div class="btn btn-primary-investor fs-services-button" routerLink="/sign-up-investor">
+          <div class="block pull-left margin-right-10">
+            {{ 'invest.header.button' | translate }}
+          </div>
+          <div class="white-right-arrow-icon arrow-icon pull-right margin-top-5">
+          </div>
+        </div>
+        <ng-container *ngTemplateOutlet="applicationLink"></ng-container>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row fs-investor-info-box-mobile">
+    <div class="col-xs-12">
+      <div style="margin-bottom: 10px;font-size:9vw">
+        <strong>{{ 'invest.header.title' | translate }}</strong>
+        <br>{{ 'invest.header.title-2' | translate }}
+      </div>
+      <div style="font-size:4vw" [innerHTML]="( 'invest.header.caption' | translate )">
+
+      </div>
+      <div class="btn btn-primary-investor fs-services-button" routerLink="/sign-up-investor">
+        <div class="block pull-left">
+          {{ 'invest.header.button' | translate }}
+        </div>
+        <div class="white-right-arrow-icon arrow-icon pull-right margin-top-5">
+        </div>
+      </div>
+      <ng-container *ngTemplateOutlet="applicationLink"></ng-container>
+    </div>
+  </div>
+  <div class="row fs-investor-slider-mobile" style="height:100px;">
+    <div class="swiper-container" [swiper]="mobileSwipeConfig">
+      <div class="swiper-wrapper">
+        <div *ngFor="let investinformation of investInformation" class="swiper-slide" fxLayout="column" fxLayoutAlign="center center"
+          style="background-color:#2850ff;padding-top:20px;">
+          <div class="text-center white-text Gilroy-SemiBold font-size-18">{{ investinformation.amount }}</div>
+          <div class="text-center white-text Gilroy-Light">{{ investinformation.description }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row investmentStatistic">
+    <div class="col-sm-12 col-md-12 col-lg-12  Gilroy-SemiBold" id="investmentStatistic">
+      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center" *ngFor="let investinformation of investInformation">
+        <font class="font-size-18">{{ investinformation.amount }}</font>
+        <br>{{ investinformation.description }}
+      </div>
+    </div>
+  </div>
+
+  <div class="row fs-skin-in-container">
+    <div class="col-xs-12 investmentInformation">
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <div class="content-center">
+          <div class="fs-skin-in-image">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-8 col-lg-6 investmentInformationBox">
+        <div class="margin-bottom-20 font-size-22 title">
+          <font class="Gilroy-SemiBold">
+            {{ 'invest.philosophy-skin-in-the-game.title' | translate }}
+          </font>
+        </div>
+        <div class="description transparant-text text-justify">
+          {{ 'invest.philosophy-skin-in-the-game.caption' | translate }}
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12 investMenuContainer">
+          <div role="button" [ngClass]="{ 'active': benefitFlag == 'security' }" class="investInfoSubMenu" (click)="changeinvestInfo('security')">
+            {{ 'invest.benefit.0.title' | translate }}
+          </div>
+          <div role="button" [ngClass]="{ 'active': benefitFlag == 'ownership' }" class="investInfoSubMenu" (click)="changeinvestInfo('ownership')">
+            {{ 'invest.benefit.1.title' | translate }}
+          </div>
+          <div role="button" [ngClass]="{ 'active': benefitFlag == 'knowledge' }" class="investInfoSubMenu" (click)="changeinvestInfo('knowledge')">
+            {{ 'invest.benefit.2.title' | translate }}
+          </div>
+          <div role="button" [ngClass]="{ 'active': benefitFlag == 'entry' }" class="investInfoSubMenu" (click)="changeinvestInfo('entry')">
+            {{ 'invest.benefit.3.title' | translate }}
+          </div>
+          <div role="button" [ngClass]="{ 'active': benefitFlag == 'flexible' }" class="investInfoSubMenu" (click)="changeinvestInfo('flexible')">
+            {{ 'invest.benefit.4.title' | translate }}
+          </div>
+          <div role="button" [ngClass]="{ 'active': benefitFlag == 'return' }" class="investInfoSubMenu" (click)="changeinvestInfo('return')">
+            {{ 'invest.benefit.5.title' | translate }}
+          </div>
+        </div>
+      </div>
+
+      <div class="row text-center fs-investor-slide-container col-md-8 col-lg-6">
+        <div class="swiper-slide-container">
+          <div class="swiper-container" [swiper]="config" #swiperWrapper *ngIf="investmentBenefitDataFlag">
+            <div class="swiper-wrapper">
+              <div *ngFor="let investmentbenefitdata of investmentBenefitData" class="swiper-slide" fxLayout="column" fxLayoutAlign="center center">
+                <div class="col-sm-6 text-left">
+                  <div class="title Gilroy-SemiBold">
+                    {{ 'invest.philosophy-skin-in-the-game.funding-societies' | translate }}
+                  </div>
+                  <div class="light-gray-text caption1">
+                    {{ investmentbenefitdata.fundingSocieties }}
+                  </div>
+                </div>
+
+                <div class="col-sm-6 text-left" *ngIf="false">
+                  <div class="Gilroy-SemiBold title margin-top-10">
+                    {{ 'invest.philosophy-skin-in-the-game.traditional' | translate }}
+                  </div>
+                  <div class="light-gray-text caption1">
+                    {{ investmentbenefitdata.traditional }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 fs-investor-accordion-menu">
+      <div class="d-inline-block">
+        <div class="col-sm-12 Gillroy-SemiBold title">
+          {{ 'invest.philosophy-skin-in-the-game.title-mobile' | translate }}
+        </div>
+        <div class="col-sm-12 light-gray-text text-justify margin-bottom-20">
+          {{ 'invest.philosophy-skin-in-the-game.caption-mobile' | translate }}
+        </div>
+      </div>
+      <p-accordion [multiple]="true" class="fs-accordion">
+        <p-accordionTab header="{{ investmentbenefitdata.title }}" rightIcon="fa fa-chevron-down" *ngFor="let investmentbenefitdata of investmentBenefitData">
+          <font class="Gilroy-SemiBold font-size-18">{{ 'invest.philosophy-skin-in-the-game.funding-societies' | translate }}</font>
+          <div class="description light-gray-text margin-bottom-20 margin-top-10">
+            {{ investmentbenefitdata.fundingSocieties }}
+          </div>
+          <font class="Gilroy-SemiBold font-size-18">{{ 'invest.philosophy-skin-in-the-game.traditional' | translate }}</font>
+          <div class="description light-gray-text margin-bottom-20 margin-top-10">
+            {{ investmentbenefitdata.traditional }}
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+
+
+  <div class="row white-text">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pull-left padding-null investmentImgContainer">
+      <div class="investor-wall-3">
+        <div class="Gilroy-SemiBold font-size-28">
+          {{ 'invest.footer.risk-minimize.title' | translate }}
+        </div>
+        <div class="margin-top-5 margin-bottom-20" [innerHTML]="( 'invest.footer.risk-minimize.caption' | translate )">
+        </div>
+        <ng-template #goToDefaultMinimisingRiskArticle>
+          <div class="btn btnInvestLearn font-size-12 Gilroy-SemiBold" (click)="openLearningCenter()">
+            {{ 'invest.footer.investments-maximising.button' | translate }}
+          </div>
+        </ng-template>
+        <ng-template #goToSGMinimisingRiskArticle>
+          <div class="btn btnInvestLearn font-size-12 Gilroy-SemiBold" (click)="openMinimiseYourRisk()">
+            {{ 'invest.footer.investments-maximising.button' | translate }}
+          </div>
+        </ng-template>
+        <ng-container *ngIf="CONFIGURATION.country_code === 'SG'; then goToSGMinimisingRiskArticle; else goToDefaultMinimisingRiskArticle"></ng-container>
+      </div>
+      <div class="fs-investor-footer-mobile-caption left">
+        <div class="Gilroy-SemiBold font-size-30">
+          {{ 'invest.footer.risk-minimize.title' | translate }}
+        </div>
+        <div style="margin-bottom:1em" [innerHTML]="( 'invest.footer.risk-minimize.caption' | translate )">
+        </div>
+        <div class="btn btn-primary-white borrower">
+          {{ 'invest.footer.risk-minimize.button' | translate }}
+        </div>
+      </div>
+      <div class="investor-wall-3-mobile">
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pull-left padding-null investmentImgContainer">
+      <div class="investor-wall-2">
+        <font class="font-size-28 Gilroy-SemiBold">
+          {{ 'invest.footer.investments-maximising.title' | translate }}
+        </font>
+        <div class="margin-top-5 margin-bottom-20" [innerHTML]="( 'invest.footer.investments-maximising.caption' | translate )">
+        </div>
+        <ng-template #goToDefaultMaximisingInvestmentArticle>
+          <div class="btn btnInvestLearn font-size-12 Gilroy-SemiBold" (click)="openLearningCenter()">
+            {{ 'invest.footer.investments-maximising.button' | translate }}
+          </div>
+        </ng-template>
+        <ng-template #goToSGMaximisingInvestmentArticle>
+          <a class="btn btnInvestLearn font-size-12 Gilroy-SemiBold" (click)="openMaximisingInvestments()">
+            {{ 'invest.footer.investments-maximising.button' | translate }}
+          </a>
+        </ng-template>
+        <ng-container *ngIf="CONFIGURATION.country_code === 'SG'; then goToSGMaximisingInvestmentArticle; else goToDefaultMaximisingInvestmentArticle"></ng-container>
+      </div>
+      <div class="fs-investor-footer-mobile-caption right text-right">
+        <div class="Gilroy-SemiBold font-size-30">
+          {{ 'invest.footer.investments-maximising.title' | translate }}
+        </div>
+        <div class="text" [innerHTML]="( 'invest.footer.investments-maximising.caption' | translate )">
+        </div>
+        <div class="btn btn-primary-white borrower" (click)="openLearningCenter()">
+          {{ 'invest.footer.investments-maximising.button' | translate }}
+        </div>
+      </div>
+      <div class="investor-wall-2-mobile" style="background-color:#4D22E7">
+      </div>
+    </div>
+  </div>
+</div>
+<newsletter></newsletter>
+
+<ng-template #applicationLink>
+  <div class="col-xs-12 bg-app-download-dl margin-top-20 d-flex column-direction justify-content-center">
+      <div class="col-xs-12 title padding-null">
+        {{ 'invest.header.app-investor-title' | translate }}
+      </div>
+      <div class="d-flex">
+        <div class="col-xs-6 app-download-link margin-right-5" id="android-app" role="button" (click)="openGooglePlay()">
+          <div class="google-play-black-logo pull-left margin-top-5 margin-right-10">
+          </div>
+          <div>
+            <span class="download-caption">{{ 'invest.header.download-on' | translate }}</span>
+            <br>
+            <span class="app-store">
+              <b>{{ 'invest.header.google-play' | translate }}</b>
+            </span>
+          </div>
+        </div>
+        <div class="col-xs-6 app-download-link" role="button" id="ios-app" (click)="openAppStore()">
+          <div class="app-store-black-logo pull-left margin-top-5 margin-right-10">
+          </div>
+          <div>
+            <span class="download-caption">{{ 'invest.header.download-on' | translate }}</span>
+            <br>
+            <span class="app-store">
+              <b>{{ 'invest.header.app-store' | translate }}</b>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+</ng-template>

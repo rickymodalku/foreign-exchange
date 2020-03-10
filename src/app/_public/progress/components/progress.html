@@ -1,0 +1,237 @@
+<div class="container-fluid fs-progress-container">
+    <!-- Header -->
+    <div class="row">
+        <div class="col-xs-12 col-md-12 progressTitleRow">
+            <div>
+                <h1>{{ 'statistics.title' | translate }}</h1>
+                <p [innerHtml]="('statistics.subtitle' | translate)">
+                </p>
+            </div>
+            <div>
+                <div class="btn-block mediaPressbtnBlock" (click)="openMediaPressPage()">
+                    <div class="btn btn-blue">
+                        <div class="media-press-icon">
+                        </div>
+                        {{ 'statistics.media' | translate }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Overview -->
+    <div class="row progressStatisticRow" *ngIf="overview.length > 0">
+        <div class="col-md-12 detailStatistic">
+            <div class="col-xs-12 col-md-12">
+                <div class="text-center monthBox">
+                    <strong>{{ 'statistics.caption' | translate }} |</strong>
+                    <font>{{ asOfDate }}</font>
+                </div>
+            </div>
+            <div class="statisticDetailRow">
+                <div *ngFor="let overviewItem of overview" class="pull-left detailNumber text-center">
+                    <font size="6">{{ overviewItem.value }}</font>
+                    <div class="detailCaption" [innerHtml]="overviewItem.label"></div>
+                </div>
+            </div>
+        </div>
+        <div class="fs-progress-detail-statistic">
+            <div class="col-xs-12 swiper-container" [swiper]="mobileSwiperConfiguration">
+                <div class="swiper-wrapper text-center">
+                    <div *ngFor="let overviewItem of overview" class="swiper-slide font-size-20" style="height: 8em !important; box-shadow: none !important; background-color: inherit !important;"
+                        fxLayout="column" fxLayoutAlign="center center">
+                        <div class="font-size-62 Gilroy-Light">{{ overviewItem.value }}</div>
+                        <div class="font-size-18 Gilroy-SemiBold">{{ overviewItem.mobileLabel }}</div>
+                    </div>
+                </div>
+                <div class="swiper-pagination" style="bottom:0px !important;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Content -->
+    <div class="content-center progressGraphicContainer fs-box-shadow" *ngIf="tabs.length > 0 && charts">
+        <!-- Tabs -->
+        <div class="col-xs-12 col-sm-12 col-md-12 padding-null">
+            <button *ngFor="let tab of tabs" class="tab-button -progress" [ngClass]="{ 'white': tab.display }" (click)="changeTab(tab.label)">
+                {{ tab.label }}
+            </button>
+            <div class="col-xs-12 swiper-container" style="height: 70px !important;" [swiper]="swiperConfiguration" (indexChange)="onTabChange($event)">
+                <div class="swiper-wrapper text-center" style="height: 70px !important;">
+                    <div *ngFor="let tab of tabs" style="height: 70px !important; color: #485465; padding-top: 20px; box-shadow: none;" class="swiper-slide font-size-20"
+                        fxLayout="column" fxLayoutAlign="center center">
+                        {{ tab.label }}
+                    </div>
+                </div>
+                <div class="swiper-button-prev gray"></div>
+                <div class="swiper-button-next gray"></div>
+            </div>
+        </div>
+        <!-- General -->
+        <div *ngIf="tabs[0].display">
+            <!-- First Chart -->
+            <div class="col-xs-12 col-sm-12 col-md-12 progress-bar-container header border-bottom">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left center-single-line" *ngIf="tabs[0].first.totalApproved">
+                    <strong class="font-size-16">{{ 'statistics.tabs.0.first.0.title' | translate }}</strong>
+                    <br />
+                    <font class="light-gray-text">{{ 'statistics.tabs.0.first.0.subtitle' | translate }}</font>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left center-single-line" *ngIf="tabs[0].first.amountDisbursed">
+                    <strong class="font-size-16">{{ 'statistics.tabs.0.first.1.title' | translate }}</strong>
+                    <br />
+                    <font class="light-gray-text">{{ 'statistics.tabs.0.first.1.subtitle' | translate }}</font>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left center-single-line" *ngIf="tabs[0].first.defaultRate">
+                    <strong class="font-size-16">{{ 'statistics.tabs.0.first.2.title' | translate }}</strong>
+                    <br />
+                    <font class="light-gray-text">{{ 'statistics.tabs.0.first.2.subtitle' | translate }}</font>
+                </div>
+                <div class="col-xs-12 col-md-7 col-lg-6 center-single-line tab-container pull-right">
+                    <input id="toggle-approved" class="toggle" name="loan" value="total-approved" type="radio" [checked]="tabs[0].first.totalApproved" (click)="showSection(statisticTabIndex.general, 'first', 'totalApproved')">
+                    <label for="toggle-approved" class="btn">{{ 'statistics.tabs.0.first.0.button' | translate }}</label>
+                    <input id="toggle-disbursed" class="toggle" name="loan" value="amount-disbursed" type="radio" [checked]="tabs[0].first.amountDisbursed" (click)="showSection(statisticTabIndex.general, 'first', 'amountDisbursed')">
+                    <label for="toggle-disbursed" class="btn">{{ 'statistics.tabs.0.first.1.button' | translate }}</label>
+                    <input id="toggle-default" class="toggle" name="loan" value="default-rate" type="radio" [checked]="tabs[0].first.defaultRate" (click)="showSection(statisticTabIndex.general, 'first', 'defaultRate')">
+                    <label for="toggle-default" class="btn">{{ 'statistics.tabs.0.first.2.button' | translate }}</label>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 margin-top-15" *ngIf="tabs[0].first.totalApproved">
+                <chart [options]="charts.totalApproved"></chart>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 margin-top-15" *ngIf="tabs[0].first.amountDisbursed">
+                <chart [options]="charts.amountDisbursed"></chart>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 margin-top-15" *ngIf="tabs[0].first.defaultRate">
+                <chart [options]="charts.defaultRate"></chart>
+            </div>
+
+            <!-- Second Chart -->
+            <div class="col-xs-12 col-sm-12 col-md-12 progress-bar-container header border-top border-bottom">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left center-single-line" *ngIf="tabs[0].second.totalInvestor">
+                    <strong class="font-size-16">{{ 'statistics.tabs.0.second.0.title' | translate }}</strong>
+                    <br />
+                    <font class="light-gray-text">{{ 'statistics.tabs.0.second.0.subtitle' | translate }}</font>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left center-single-line" *ngIf="tabs[0].second.fulfillmentDay">
+                    <strong class="font-size-16">{{ 'statistics.tabs.0.second.1.title' | translate }}</strong>
+                    <br />
+                    <font class="light-gray-text">{{ 'statistics.tabs.0.second.1.subtitle' | translate }}</font>
+                </div>
+                <div class="col-xs-12 col-md-6 center-single-line tab-container">
+                    <!-- hide total investor -->
+                    <!-- <input id="toggle-investor" class="toggle" name="funding" value="total-investor" type="radio" [checked]="tabs[0].second.totalInvestor" (click)="showSection(statisticTabIndex.general, 'second', 'totalInvestor')">
+                    <label for="toggle-investor" class="btn">{{ 'statistics.tabs.0.second.0.button' | translate }}</label> -->
+                    <input id="toggle-day" class="toggle" name="funding" value="fulfillment-day" type="radio" [checked]="tabs[0].second.fulfillmentDay" (click)="showSection(statisticTabIndex.general, 'second', 'fulfillmentDay')">
+                    <label for="toggle-day" class="btn">{{ 'statistics.tabs.0.second.1.button' | translate }}</label>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 margin-top-15" *ngIf="tabs[0].second.totalInvestor">
+                <chart [options]="charts.totalInvestor"></chart>
+            </div>
+            <div class="col-xs-12 col-md-12" style="line-height: 0.8; margin: 1em 0em;" *ngIf="tabs[0].second.fulfillmentDay">
+                <chart [options]="charts.fulfillmentDay"></chart>
+            </div>
+        </div>
+        <!-- Repayment -->
+        <div *ngIf="tabs[1].display">
+            <!-- First Chart -->
+            <div class="col-xs-12 col-sm-12 col-md-12 progress-bar-container header border-bottom">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left center-single-line" *ngIf="tabs[1].first.totalReceived">
+                    <strong class="font-size-16">{{ 'statistics.tabs.1.first.0.title' | translate }}</strong>
+                    <br />
+                    <font class="light-gray-text">{{ 'statistics.tabs.1.first.0.subtitle' | translate }}</font>
+                </div>
+                <!--
+                <div class="col-xs-12 col-md-6 center-single-line tab-container">
+                    <input id="toggle-received" class="toggle" name="repayment" value="total-received" type="radio" [checked]="tabs[1].first.totalReceived" (click)="showSection(statisticTabIndex.repayment, 'first', 'totalReceived')">
+                    <label for="toggle-received" class="btn">{{ 'statistics.tabs.1.first.0.button' | translate }}</label>
+                </div>
+                -->
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 margin-top-15" *ngIf="tabs[1].first.totalReceived">
+                <chart [options]="charts.totalReceived"></chart>
+            </div>
+
+            <!-- Second Chart -->
+            <div class="col-xs-12 col-sm-12 col-md-12 progress-bar-container header border-top border-bottom">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left center-single-line" *ngIf="tabs[1].second.status">
+                    <strong class="font-size-16">{{ 'statistics.tabs.1.second.0.title' | translate }}</strong>
+                    <br />
+                    <font class="light-gray-text">{{ 'statistics.tabs.1.second.0.subtitle' | translate }}</font>
+                </div>
+                <!--
+                <div class="col-xs-12 col-md-6 center-single-line tab-container">
+                    <input id="toggle-status" class="toggle" name="status" value="status" type="radio" [checked]="tabs[1].second.status" (click)="showSection(statisticTabIndex.repayment, 'second', 'status')">
+                    <label for="toggle-status" class="btn">{{ 'statistics.tabs.1.second.0.button' | translate }}</label>
+                </div>
+                -->
+            </div>
+            <div class="col-xs-12 col-md-12" style="line-height: 0.8; margin: 1em 0em;" *ngIf="tabs[1].second.status">
+                <chart [options]="charts.status"></chart>
+            </div>
+        </div>
+        <!-- Disbursement -->
+        <div *ngIf="tabs[2].display">
+            <!-- First Chart -->
+            <div class="col-xs-12 col-sm-12 col-md-12 progress-bar-container header border-bottom">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left center-single-line" *ngIf="tabs[2].first.industry">
+                    <strong class="font-size-16">{{ 'statistics.tabs.2.first.0.title' | translate }}</strong>
+                    <br />
+                    <font class="light-gray-text">{{ 'statistics.tabs.2.first.0.subtitle' | translate }}</font>
+                </div>
+                <!--
+                <div class="col-xs-12 col-md-6 center-single-line tab-container">
+                    <input id="toggle-industry" class="toggle" name="industry" value="industry" type="radio" [checked]="tabs[2].first.industry" (click)="showSection(statisticTabIndex.repayment, 'first', 'industry')">
+                    <label for="toggle-industry" class="btn">{{ 'statistics.tabs.2.first.0.button' | translate }}</label>
+                </div>
+                -->
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 margin-top-15" *ngIf="tabs[2].first.industry">
+                <chart [options]="charts.industry"></chart>
+            </div>
+
+            <!-- Second Chart -->
+            <div class="col-xs-12 col-sm-12 col-md-12 progress-bar-container header border-top border-bottom">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left center-single-line" *ngIf="tabs[2].second.amount">
+                    <strong class="font-size-16">{{ 'statistics.tabs.2.second.0.title' | translate }}</strong>
+                    <br />
+                    <font class="light-gray-text">{{ 'statistics.tabs.2.second.0.subtitle' | translate }}</font>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left center-single-line" *ngIf="tabs[2].second.tenor">
+                    <strong class="font-size-16">{{ 'statistics.tabs.2.second.1.title' | translate }}</strong>
+                    <br />
+                    <font class="light-gray-text">{{ 'statistics.tabs.2.second.1.subtitle' | translate }}</font>
+                </div>
+                <div class="col-xs-12 col-md-6 center-single-line tab-container">
+                    <input id="toggle-amount" class="toggle" name="disbursement" value="amount" type="radio" [checked]="tabs[2].second.amount" (click)="showSection(statisticTabIndex.disbursement, 'second', 'amount')">
+                    <label for="toggle-amount" class="btn">{{ 'statistics.tabs.2.second.0.button' | translate }}</label>
+                    <input id="toggle-tenor" class="toggle" name="disbursement" value="tenor" type="radio" [checked]="tabs[2].second.tenor" (click)="showSection(statisticTabIndex.disbursement, 'second', 'tenor')">
+                    <label for="toggle-tenor" class="btn">{{ 'statistics.tabs.2.second.1.button' | translate }}</label>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-12" style="line-height: 0.8; margin: 1em 0em;" *ngIf="tabs[2].second.amount">
+                <chart [options]="charts.amount"></chart>
+            </div>
+            <div class="col-xs-12 col-md-12" style="line-height: 0.8; margin: 1em 0em;" *ngIf="tabs[2].second.tenor">
+                <chart [options]="charts.tenor"></chart>
+            </div>
+        </div>
+        <div class="col-xs-12 local-performance header border-top border-bottom" *ngIf="showLocalPerformance">
+            <div class="row">
+              <div class="col-sm-7 left">
+                <p class="Gilroy-SemiBold caption">{{ 'statistics.local-caption' | translate }}</p>
+              </div>
+              <div class="col-sm-5 right">
+                <a href="#" routerLink="/progress/singapore" class="btn btn-primary-investor" *ngIf="countryCode === 'SG'">
+                  {{ 'statistics.performance' | translate }}
+                </a>
+                <a href="#" routerLink="/progress/indonesia" class="btn btn-primary-investor" *ngIf="countryCode === 'ID'">
+                  {{ 'statistics.performance' | translate }}
+                </a>
+                <a href="#" routerLink="/progress/malaysia" class="btn btn-primary-investor" *ngIf="countryCode === 'MY'">
+                  {{ 'statistics.performance' | translate }}
+                </a>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>

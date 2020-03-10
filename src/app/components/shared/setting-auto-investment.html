@@ -1,0 +1,728 @@
+<div *ngIf="isReverification && countryCode === 'SG'" class="auto-investment-reverification">
+  <div class="box">
+    <p>{{ 'form.setting-auto-investment.auto-investment-3-0.reverification.statement-1' | translate }}</p>
+    <ul>
+      <li>{{ 'form.setting-auto-investment.auto-investment-3-0.reverification.statement-2' | translate }}</li>
+      <li>{{ 'form.setting-auto-investment.auto-investment-3-0.reverification.statement-3' | translate }}</li>
+    </ul>
+    <p>{{ 'form.setting-auto-investment.auto-investment-3-0.reverification.go-to' | translate }}
+      <a routerLink="/admin-investor/setting/subscription-agreement">{{ 'form.setting-auto-investment.auto-investment-3-0.reverification.account-agreement' | translate }}</a>
+      {{ 'form.setting-auto-investment.auto-investment-3-0.reverification.to-agree' | translate }}
+    </p>
+  </div>
+</div>
+
+<div [ngClass]="{'disable-container' : isReverification && countryCode === 'SG'}" class="fs-setting-content autobot-section autobot-section-new">
+  <div class="col-xs-12 col-md-4">
+    <div>
+      <div class="fs-setting-toggle">
+        <div class="row clearfix">
+          <div class="col-xs-12">
+            <div class="left-caption">
+              <h5>{{ 'form.setting-auto-investment.auto-investment-3-0.exhaust-balance.title' | translate }}</h5>
+            </div>
+            <div class="right-toggle">
+              <div class="onoffswitch exhaust-balance-onoffswitch pull-right text-right">
+                <input #exhaustBalanceToggle (change)="toggleAutoinvestmentSettings($event.target.checked, 'exhaustBalanceToggle')" [checked]="autoInvestmentToggle.exhaustBalanceToggle" [name]="'exhaust-balance-onoffswitch'" [id]="'exhaust-balance-onoffswitch'" class="onoffswitch-checkbox" type="checkbox">
+                <label class="onoffswitch-label" for="exhaust-balance-onoffswitch">
+                  <span class="onoffswitch-inner"></span>
+                  <span class="onoffswitch-switch"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fs-setting-toggle__description">
+          {{ 'form.setting-auto-investment.auto-investment-3-0.exhaust-balance.content' | translate }}
+          {{ 'form.setting-auto-investment.auto-investment-3-0.exhaust-balance.example' | translate }}
+          <span class="aa-link-more-info" (click)="openModal('exhaustBalanceModal')">
+            {{ 'form.setting-auto-investment.auto-investment-3-0.exhaust-balance.here' | translate }}
+          </span>
+        </div>
+      </div>
+
+        <div class="fs-setting-toggle" [ngClass]="{ 'fs-setting-disable-toggle': (!isSilverTier && countryCode === 'SG') }">
+          <div class="row clearfix">
+            <div class="col-xs-12">
+              <div class="left-caption">
+                <h5>{{ 'form.setting-auto-investment.auto-investment-3-0.borrower-exposure.title' | translate }}</h5>
+              </div>
+              <div class="right-toggle" *ngIf="(isSilverTier && countryCode === 'SG') || countryCode !== 'SG'">
+                <div class="onoffswitch borrower-exposure-onoffswitch pull-right text-right">
+                  <input #borrowerExposureToggle (change)="toggleAutoinvestmentSettings($event.target.checked, 'borrowerExposureToggle')" [checked]="autoInvestmentToggle.borrowerExposureToggle" [name]="'borrower-exposure-onoffswitch'" [id]="'borrower-exposure-onoffswitch'" class="onoffswitch-checkbox" type="checkbox">
+                  <label class="onoffswitch-label" for="borrower-exposure-onoffswitch">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="fs-setting-loyalty-status" *ngIf="countryCode === 'SG'">
+            <i class="fs-setting-loyalty-badge loyalty-silver-tier-logo"></i>
+            <span>{{ 'form.setting-auto-investment.auto-investment-3-0.silver-tier' | translate }}</span>
+          </div>
+          <div class="fs-setting-toggle__description">
+            {{ 'form.setting-auto-investment.auto-investment-3-0.borrower-exposure.content' | translate }}
+            {{ 'form.setting-auto-investment.auto-investment-3-0.borrower-exposure.example' | translate }}
+            <span class="aa-link-more-info" (click)="openModal('borrowerExposureModal')">
+              {{ 'form.setting-auto-investment.auto-investment-3-0.borrower-exposure.here' | translate }}
+            </span>
+          </div>
+          <div *ngIf="autoInvestmentToggle.borrowerExposureToggle">
+            <div class="d-flex fs-setting-max-exposure">
+              <div class="d-flex">
+                {{ 'form.setting-auto-investment.auto-investment-3-0.borrower-exposure.title' | translate }}
+              </div>
+              <a (click)="autoInvestmentToggle.showBorrowerExposureSlider = true" class="d-flex btn-link">{{ exposurePerBorrower }}%</a>
+            </div>
+            <div class="fs-setting-max-exposure-slider" *ngIf="autoInvestmentToggle.showBorrowerExposureSlider">
+              <p-slider class="fs-setting-slider" [(ngModel)]="exposurePerBorrower"
+                [min]="autoInvestmentDefaultSetting.exposurePerBorrower.min_value" [max]="autoInvestmentDefaultSetting.exposurePerBorrower.max_value">
+              </p-slider>
+              <div class="max-exposure-button-container  pull-right">
+                <button (click)="cancel('borrowerExposure')" class="btn btn-secondary">
+                  {{ 'form.setting-auto-investment.auto-investment-3-0.borrower-exposure.cancel' | translate }}
+                </button>
+                <button (click)="toggleAutoinvestmentSettings(true, 'borrowerExposureToggle', true)" class="btn btn-primary-investor">
+                  {{ 'form.setting-auto-investment.auto-investment-3-0.borrower-exposure.apply' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <ng-container *ngIf="enableLoyaltyProgram">
+        <div class="fs-setting-toggle" [ngClass]="{ 'fs-setting-disable-toggle': !isGoldTierAndAbove }">
+          <div class="row clearfix">
+            <div class="col-xs-12">
+              <div class="left-caption">
+                <h5>{{ 'form.setting-auto-investment.auto-investment-3-0.industry-exposure.title' | translate }}</h5>
+              </div>
+              <div class="right-toggle" *ngIf="isGoldTierAndAbove">
+                <div class="onoffswitch max-industry-exposure-onoffswitch pull-right text-right">
+                  <input #industryExposureToggle (change)="toggleAutoinvestmentSettings($event.target.checked, 'industryExposureToggle')" [checked]="autoInvestmentToggle.industryExposureToggle" [name]="'max-industry-exposure-onoffswitch'" [id]="'max-industry-exposure-onoffswitch'" class="onoffswitch-checkbox" type="checkbox">
+                  <label class="onoffswitch-label" for="max-industry-exposure-onoffswitch">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="fs-setting-loyalty-status">
+            <i class="fs-setting-loyalty-badge loyalty-gold-tier-logo"></i>
+            <span>{{ 'form.setting-auto-investment.auto-investment-3-0.gold-tier' | translate }}</span>
+          </div>
+          <div class="fs-setting-toggle__description">
+            {{ 'form.setting-auto-investment.auto-investment-3-0.industry-exposure.content' | translate }}
+            {{ 'form.setting-auto-investment.auto-investment-3-0.industry-exposure.example' | translate }}
+            <span class="aa-link-more-info" (click)="openModal('industryExposureModal')">
+              {{ 'form.setting-auto-investment.auto-investment-3-0.industry-exposure.here' | translate }}
+            </span>
+          </div>
+          <div *ngIf="autoInvestmentToggle.industryExposureToggle && isGoldTierAndAbove">
+            <div class="d-flex fs-setting-max-exposure">
+              <div class="d-flex">
+                {{ 'form.setting-auto-investment.auto-investment-3-0.industry-exposure.title' | translate }}
+              </div>
+              <a (click)="autoInvestmentToggle.showIndustryExposureSlider = true" class="d-flex btn-link">{{ exposurePerIndustry }}%</a>
+            </div>
+            <div class="fs-setting-max-exposure-slider" *ngIf="autoInvestmentToggle.showIndustryExposureSlider">
+              <p-slider class="fs-setting-slider" [(ngModel)]="exposurePerIndustry"></p-slider>
+              <div class="max-exposure-button-container  pull-right">
+                <button (click)="cancel('industryExposure')" class="btn btn-secondary">
+                  {{ 'form.setting-auto-investment.auto-investment-3-0.industry-exposure.cancel' | translate }}
+                </button>
+                <button (click)="toggleAutoinvestmentSettings(true, 'industryExposureToggle', true)" class="btn btn-primary-investor">
+                  {{ 'form.setting-auto-investment.auto-investment-3-0.industry-exposure.apply' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!isSilverTier">
+          <div class="fs-setting-current-loyalty-status">
+            <div class="fs-setting-current-loyalty-status__header clearfix">
+              <span>
+                {{ 'form.setting-auto-investment.auto-investment-3-0.loyalty-section.your-current-status' | translate }}
+              </span>
+              <div class="d-flex pull-right align-items-center">
+                <i class="icon-lg loyalty-blue-tier-logo"></i>
+                <span class="tier-color">{{ loyaltyDetailPoint?.tier }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="fs-setting-current-loyalty-progress-bar">
+            <fs-p-progressBar [class]="investorTier" [value]="(loyaltyDetailPoint?.qualifying_points / (loyaltyDetailPoint?.qualifying_points + loyaltyDetailPoint?.next_tier_required_qualifying_points) * 100)"></fs-p-progressBar>
+          </div>
+          <div class="fs-setting-current-loyalty-status">
+            <p class="fs-setting-current-loyalty-status__description">
+              {{ 'form.setting-auto-investment.auto-investment-3-0.loyalty-section.description' | translate }}
+              <span [innerHtml]="('form.setting-auto-investment.auto-investment-3-0.loyalty-section.earn-more' | translate: { point: loyaltyDetailPoint?.next_tier_required_qualifying_points | number })">
+              </span>
+            </p>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div id="createAutobot" class="col-xs-12 col-md-8 fs-setting-wrapper clearfix padding-null">
+    <div class="autobot-top">
+      <div class="Gilroy-SemiBold title">{{ 'form.setting-auto-investment.auto-investment-3-0.auto-investment-bot.title' | translate }}</div>
+      <div>
+        {{ 'form.setting-auto-investment.auto-investment-3-0.auto-investment-bot.description' | translate }}
+        <a class="link Gilroy-SemiBold" [href]="('form.setting-auto-investment.caption-2-link' | translate)" target="_blank">
+          {{ 'form.setting-auto-investment.auto-investment-3-0.auto-investment-bot.learn-more' | translate }}
+        </a>
+      </div>
+    </div>
+    <div class="col-xs-12 content-center text-center fs-add-autobot-box" role="button" (click)="openOverlayForm()">
+      <div class="Gilroy-SemiBold">
+        {{ 'form.setting-auto-investment.auto-investment-3-0.auto-investment-bot.caption-create' | translate }}
+      </div>
+    </div>
+    <div *ngFor="let autoInvestmentSetting of autoInvestmentSettings" class="col-xs-12 fs-setting-box d-inline-block autobot-box">
+      <div class="col-xs-12 margin-bottom-20 autobot-box-padding">
+        <div class="col-md-8 col-sm-7 col-xs-12 padding-null autobot-header-new">
+          <div class="autobot-enable-icon pull-left margin-right-15">
+          </div>
+          <div class="col-xs-8 autobot-name padding-null">
+              {{ 'form.setting-auto-investment.auto-investment-3-0.bot-list.title' | translate }}
+            <span class="autobot-enabled" *ngIf="autoInvestmentSetting.enabled">
+              {{ 'form.setting-auto-investment.auto-investment-3-0.bot-list.enabled' | translate }}
+            </span>
+            <span class="autobot-disabled" *ngIf="!autoInvestmentSetting.enabled">
+              {{ 'form.setting-auto-investment.auto-investment-3-0.bot-list.disabled' | translate }}
+            </span>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 padding-null Gilroy-SemiBold text-right autobot-header">
+          <div class="onoffswitch pull-right margin-left-10">
+            <input (change)="activateAutoInvestmentSetting(autoInvestmentSetting.id, $event.target.checked)" [checked]="autoInvestmentSetting.enabled" [(ngModel)]="autoInvestmentSetting.enabled" [id]="'myonoffswitch-' + autoInvestmentSetting.id" [name]="'myonoffswitch-' + autoInvestmentSetting.id" class="onoffswitch-checkbox" type="checkbox">
+            <label class="onoffswitch-label margin-top-15" [for]="'myonoffswitch-' + autoInvestmentSetting.id">
+              <span class="onoffswitch-inner"></span>
+              <span class="onoffswitch-switch"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 autobot-box-detail">
+        <div class="row row-equal-height">
+          <div class="col-sm-6 col-xs-12 left-content">
+            <div class="row">
+              <div class="col-sm-6 col-xs-6 caption">
+                {{ 'form.setting-auto-investment.auto-investment-3-0.bot-list.loan-type-id' | translate }}
+              </div>
+              <div class="col-sm-6 col-xs-6 text-value">
+                {{ autoInvestmentSetting.loanTypeName }}
+              </div>
+            </div>
+            <div class="row" *ngIf="formModel.industries.length === autoInvestmentSetting.industries.length">
+              <div class="col-sm-6 col-xs-6 caption">
+                {{ 'form.setting-auto-investment.auto-investment-3-0.bot-list.industry' | translate }}
+              </div>
+              <div class="col-sm-6 col-xs-6 text-value">
+                {{ 'form.setting-auto-investment.auto-investment-3-0.bot-list.industry-all' | translate }}
+              </div>
+            </div>
+            <div class="row" *ngIf="formModel.industries.length !== autoInvestmentSetting.industries.length">
+              <div class="col-sm-6 col-xs-6 caption">
+                {{ 'form.setting-auto-investment.auto-investment-3-0.bot-list.opt-out-industry' | translate }}
+              </div>
+              <div class="col-sm-6 col-xs-6 text-value">
+                <ng-container *ngFor="let industry of autoInvestmentSetting.industriesOptedOut; let last = last; let i = index;">
+                  {{ industry.name }}<span *ngIf="!last">, </span>
+                </ng-container>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6 col-xs-6 caption">
+                {{ 'form.setting-auto-investment.auto-investment-3-0.bot-list.interest-rate' | translate }}
+              </div>
+              <div class="col-sm-6 col-xs-6 text-value">
+                {{ (autoInvestmentSetting.minimumInterestRate | number: decimalFormat: localeDecimalFormat) }}%
+                -
+                {{ (autoInvestmentSetting.maximumInterestRate | number: decimalFormat: localeDecimalFormat) }}%
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6 col-xs-6 caption">
+                {{ 'form.setting-auto-investment.auto-investment-3-0.bot-list.tenor' | translate }}
+                ({{ autoInvestmentSetting.tenorTypeName }})
+              </div>
+              <div class="col-sm-6 col-xs-6 text-value">
+                {{ autoInvestmentSetting.minimumTenorLabel }}
+                - {{ autoInvestmentSetting.maximumTenorLabel }}
+              </div>
+            </div>
+            <div class="row" *ngIf="autoInvestmentSetting.vintageInMonths">
+              <div class="col-sm-6 col-xs-6 caption">
+                {{ 'form.setting-auto-investment.auto-investment-3-0.bot-list.company-age' | translate }}
+              </div>
+              <div class="col-sm-6 col-xs-6 text-value">
+                {{ autoInvestmentSetting.vintageInMonths | number : decimalFormat : localeDecimalFormat }} year
+              </div>
+            </div>
+            <div class="row" *ngIf="autoInvestmentSetting.cbsRating">
+              <div class="col-sm-6 col-xs-6 caption">
+                {{ 'form.setting-auto-investment.auto-investment-3-0.bot-list.cbs-rating' | translate }}
+              </div>
+              <div class="col-sm-6 col-xs-6 text-value">
+                {{ autoInvestmentSetting.cbsRating }}
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xs-12 right-content">
+            <div class="row">
+              <div class="col-xs-12 title Gilroy-SemiBold">
+                {{ 'form.setting-auto-investment.auto-investment-3-0.bot-list.amount' | translate }}
+              </div>
+            </div>
+            <div class="row" *ngFor="let amountSetting of autoInvestmentSetting.amountSettings">
+              <ng-container *ngIf="amountSetting.loanAmountRange && amountSetting.loanAmountRange[0]">
+                <div class="col-sm-6 col-xs-6 caption">
+                  {{ convertAmountRange(amountSetting.loanAmountRange[0]) }}
+                  <ng-container *ngIf="amountSetting.loanAmountRange[1] === null">
+                    {{ 'form.setting-auto-investment.auto-investment-3-0.bot-list.and-above' | translate }}
+                  </ng-container>
+                  <ng-container *ngIf="amountSetting.loanAmountRange[1]">to <</ng-container>
+                  {{ convertAmountRange(amountSetting.loanAmountRange[1]) }}
+                  {{ 'form.setting-auto-investment.auto-investment-3-0.bot-list.loan' | translate }}
+                </div>
+                <div class="col-sm-6 col-xs-6 text-value">
+                  {{ currency }}{{ amountSetting.minimumAmount | number }}-{{ amountSetting.maximumAmount | number }}
+                </div>
+              </ng-container>
+              <ng-container *ngIf="amountSetting.loanAmountRange === null || !amountSetting.loanAmountRange[0]">
+                <div class="col-xs-12 amount-big Gilroy-SemiBold">
+                  {{ currency }}{{ amountSetting.minimumAmount | number : decimalFormat : localeDecimalFormat }}-{{ currency }}{{ amountSetting.maximumAmount  | number : decimalFormat : localeDecimalFormat }}
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 autobot-box-footer">
+        <button (click)="editAutoInvestSetting(autoInvestmentSetting)" class="btn btn-primary-investor pull-right">
+          {{ 'form.setting-auto-investment.auto-investment-3-0.bot-list.button-edit' | translate }}
+        </button>
+      </div>
+    </div>
+    <div class="col-xs-12 padding-null auto-allocation-policy">
+      <a href="./allocation-policy" target="_blank">
+        {{ 'form.setting-auto-investment.auto-investment-3-0.auto-investment-bot.policy' | translate }}
+      </a>
+    </div>
+    <div class="col-md-12 margin-bottom-20">
+    </div>
+
+    <!-- SUCCESS DIALOG -->
+    <modal id="autoInvestSetupSuccessDialog" *ngIf="showautoInvestmentSetupSuccessDialog" class="fs-auto-invest-setup-success-dialog fs-modal fs-modal__open">
+      <div class="fs-modal__background" (click)="closeAutoInvestmentSetupSuccessDialog()"></div>
+      <div class="fs-modal__dialog fs-modal__dialog--centered">
+        <div class="fs-modal__content">
+          <div class="fs-modal__header fs-modal__header--noborder ">
+            <div type="button" class="fs-modal__close" (click)="closeAutoInvestmentSetupSuccessDialog()"></div>
+          </div>
+          <div class="modalPopupBody">
+            <div class="text-center">
+              <div class="activation-success"></div>
+              <div>
+                <span [innerHtml]="('form.setting-auto-investment.auto-investment-3-0.placeholder.create-success' | translate)"></span>
+                <span class="text-bold"> {{ now | date: dateTimeFormat }} .</span>
+              </div>
+              <div class="btn btn-primary-investor full-width margin-top-10" (click)="closeAutoInvestmentSetupSuccessDialog()">
+                {{ 'form.setting-auto-investment.auto-investment-3-0.placeholder.button-auto-invest-success' | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </modal>
+  </div>
+</div>
+<div class="overlay-form-container" *ngIf="showOverlayForm">
+  <div class="outer-container">
+    <div class="close-overlay-form">
+      <div class="fs-modal__close" (click)="closeOverlayForm()" type="button"></div>
+    </div>
+    <div class="container inner-container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="caption Gilroy-SemiBold">
+            {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.title' | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="row form-section">
+        <div class="col-xs-12">
+          <div class="caption Gilroy-SemiBold">
+            {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.loan-type' | translate }}
+          </div>
+          <p>{{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.set-loan-type' | translate }}</p>
+          <div class="row ">
+            <div class="col-xs-12 col-sm-4 col-md-3" *ngFor="let loanType of masterData.loanTypes">
+              <div class="loan-type-box" (click)="onLoanTypeIdChange(loanType.type_id)">
+                {{ loanType.type_name }}
+                <input [checked]="selectedLoanTypeId === loanType.type_id" class="pull-right" type="radio" [value]="loanType.type_id" name="loanType" (change)="onLoanTypeIdChange(loanType.type_id)">
+                <div class="description">
+                    {{ getLoanTypeDescription(loanType.type_id) }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf="formModel.selectedLoanType && formModel.selectedLoanType.is_full_criteria">
+        <div class="row form-section">
+          <div class="col-xs-12">
+            <div class="caption Gilroy-SemiBold">
+              {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.industry' | translate }}
+            </div>
+            <p>{{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.set-industry' | translate }}</p>
+            <div class="row ">
+              <div class="col-xs-12">
+                <div class="industry-all">
+                  <mat-checkbox (change)="onAllIndustriesSelectedChange($event.checked)" [(ngModel)]="formModel.allIndustriesSelected" class="pull-left padding-null col-xs-12 col-sm-12 col-md-4 col-lg-4 font-size-12" [ngModelOptions]="{standalone: true}">
+                    {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.all-industries' | translate }}
+                  </mat-checkbox>
+                </div>
+                <div *ngIf="!toggleShowAllIndustry" (click)="toggleShowAllIndustry = true" class="industry-show-all Gilroy-SemiBold">
+                    {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.show-all-industry' | translate }} <i class="fa fa-angle-down" aria-hidden="true"></i>
+                </div>
+                <div *ngIf="toggleShowAllIndustry" (click)="toggleShowAllIndustry = false" class="industry-show-all Gilroy-SemiBold">
+                    {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.hide-industry' | translate }} <i class="fa fa-angle-up" aria-hidden="true"></i>
+                  </div>
+                <div [hidden]="!toggleShowAllIndustry">
+                  <mat-checkbox *ngFor="let industry of formModel.industries" (change)="onIndustrySelect(industry.id, $event.checked)" [checked]="industry.selected" class="pull-left padding-null col-xs-12 col-sm-12 col-md-4 col-lg-4 font-size-12">
+                    {{ industry.name }}
+                  </mat-checkbox>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row form-section">
+          <div class="col-xs-12">
+            <div class="caption Gilroy-SemiBold">
+              {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.interest-rate' | translate }}
+            </div>
+            <p>{{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.set-interest-rate' | translate }}<br>
+              {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.set-interest-rate-2' | translate }}</p>
+            <div class="row">
+              <div class="col-sm-3 col-xs-12">
+                <p-slider [min]="formModel.selectedLoanType.minimumInterestRate" [max]="formModel.selectedLoanType.maximumInterestRate" class="fs-setting-slider" [range]="true" [(ngModel)]="interestRange" [step]="formModel.selectedLoanType.interestRateStep"></p-slider>
+                <div class="range-value">
+                  {{ (interestRange[0] | number : decimalFormat : localeDecimalFormat) }}
+                  -
+                  {{ (interestRange[1] | number : decimalFormat : localeDecimalFormat) }}%
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row form-section">
+          <div class="col-xs-12">
+            <div class="caption Gilroy-SemiBold">
+              {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.tenor' | translate }} ({{ formModel.selectedLoanType.tenorName }})
+            </div>
+            <p>{{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.set-tenor' | translate }}</p>
+            <div class="row ">
+              <div class="col-sm-3 col-xs-12" *ngIf="showInvoiceFinancingMinimumTenor">
+                <p-slider [min]="formModel.selectedLoanType.minimumTenor" [max]="formModel.selectedLoanType.maximumTenor" class="fs-setting-slider" [range]="true" [(ngModel)]="tenorRange" [step]="formModel.selectedLoanType.tenorStep"></p-slider>
+                <div class="range-value">
+                  {{ tenorRange[0] }}
+                  -
+                  {{ tenorRange[1] }} {{ formModel.selectedLoanType.tenorName }}
+                </div>
+              </div>
+              <div class="col-sm-3 col-xs-12" *ngIf="!showInvoiceFinancingMinimumTenor">
+                <p-slider [min]="formModel.selectedLoanType.minimumTenor" [max]="formModel.selectedLoanType.maximumTenor" class="fs-setting-slider" [(ngModel)]="tenorRange[1]" [step]="formModel.selectedLoanType.tenorStep"></p-slider>
+                <div class="range-value">
+                  {{ tenorRange[1] }} {{ formModel.selectedLoanType.tenorName }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-container *ngIf="isGoldTierAndAbove">
+          <div class="row form-section">
+            <div class="col-xs-12">
+              <div class="caption Gilroy-SemiBold caption-toggle">
+                <div class="left">
+                  {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.company-age' | translate }}
+                </div>
+                <div class="right">
+                  <div class="onoffswitch">
+                    <input #companyAgeToggle (change)="toggleMinCompanyAge($event.target.checked)" [checked]="minCompanyAgeToggle" [name]="'company-age-onoffswitch'" [id]="'company-age-onoffswitch'" class="onoffswitch-checkbox" type="checkbox">
+                    <label class="onoffswitch-label" for="company-age-onoffswitch">
+                      <span class="onoffswitch-inner"></span>
+                      <span class="onoffswitch-switch"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="fs-setting-loyalty-status">
+                <i class="fs-setting-loyalty-badge loyalty-gold-tier-logo"></i>
+                <span>{{ 'form.setting-auto-investment.auto-investment-3-0.gold-tier' | translate }}</span>
+              </div>
+              <p>{{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.set-company-age' | translate }}</p>
+              <div class="row" *ngIf="minCompanyAgeToggle">
+                <div class="col-sm-3 col-xs-12">
+                  <p-slider [min]="autoInvestmentDefaultSetting.companyAge.min_value" [max]="autoInvestmentDefaultSetting.companyAge.max_value"
+                    class="fs-setting-slider" [(ngModel)]="minCompanyAge"></p-slider>
+                  <div class="range-value">
+                    {{ minCompanyAge }} year(s) old
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row form-section">
+            <div class="col-xs-12">
+              <div class="caption Gilroy-SemiBold caption-toggle">
+                <div class="left">
+                  {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.cbs-rating' | translate }}
+                </div>
+                <div class="right">
+                  <div class="onoffswitch">
+                    <input #cbsToggle (change)="toggleMinCBS($event.target.checked)" [checked]="minCbsToggle" [name]="'cbs-onoffswitch'" [id]="'cbs-onoffswitch'" class="onoffswitch-checkbox" type="checkbox">
+                    <label class="onoffswitch-label" for="cbs-onoffswitch">
+                      <span class="onoffswitch-inner"></span>
+                      <span class="onoffswitch-switch"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="fs-setting-loyalty-status">
+                <i class="fs-setting-loyalty-badge loyalty-gold-tier-logo"></i>
+                <span>{{ 'form.setting-auto-investment.auto-investment-3-0.gold-tier' | translate }}</span>
+              </div>
+              <p>{{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.set-cbs-rating-1' | translate }}
+              <span class="aa-link-more-info" (click)="openModal('cbsModal')">
+                {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.set-cbs-rating-2' | translate }}
+              </span></p>
+              <div class="row" *ngIf="minCbsToggle">
+                <div class="col-sm-3 col-xs-12">
+                  <p-slider min="0" [max]="(autoInvestmentDefaultSetting.cbsRatings.length - 1)" step="1" class="fs-setting-slider" [(ngModel)]="cbsIndex"></p-slider>
+                  <div class="range-value">
+                    min CBS rating: {{ autoInvestmentDefaultSetting.cbsRatings[cbsIndex] }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <form [formGroup]="settingAutoInvestmentForm" id="setting-auto-investment-form" name="setting-auto-investment-form">
+          <ng-container *ngIf="enableLoyaltyProgram === false || isGoldTierAndAbove === false">
+            <div class="row form-section">
+              <div class="col-xs-12">
+                <div class="caption Gilroy-SemiBold">
+                  {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.amount' | translate }}
+                </div>
+                <p>{{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.set-amount-1' | translate }}
+                  <span class="aa-link-more-info" (click)="openModal('investmentRangeModal')">{{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.set-amount-2' | translate }}</span>
+                  {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.set-amount-3' | translate }}
+                </p>
+                <div class="row fs-signup-form setting">
+                  <div class="col-md-6 col-sm-8 col-xs-12">
+                    <div class="form-inline margin-bottom-10">
+                      <div class="form-group sign-up-group" [ngClass]="{ 'form-control-error': formModel.validation && (settingAutoInvestmentForm.controls.minimumAmount.invalid || formModel.required.minimumAmount) }">
+                        <label>{{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.amount-from' | translate }}</label>
+                        <input formControlName="minimumAmount" autocomplete="off" class="form-control sign-up-form" [placeholder]="'Min ' + currency + amountRangeSettings.investmentRange[0]" type="number" />
+                      </div>
+                      <div class="form-group sign-up-group" [ngClass]="{ 'form-control-error': formModel.validation && (settingAutoInvestmentForm.controls.maximumAmount.invalid || formModel.required.maximumAmount) }">
+                        <label>{{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.amount-to' | translate }}</label>
+                        <input formControlName="maximumAmount" autocomplete="off" class="form-control sign-up-form" [placeholder]="'Max ' + currency + amountRangeSettings.investmentRange[1]" type="number" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="isGoldTierAndAbove">
+            <div class="row form-section">
+              <div class="col-xs-12">
+                 <div class="caption Gilroy-SemiBold">
+                  {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.amount' | translate }}
+                </div>
+                <div class="fs-setting-loyalty-status">
+                  <i class="fs-setting-loyalty-badge loyalty-gold-tier-logo"></i>
+                  <span>{{ 'form.setting-auto-investment.auto-investment-3-0.gold-tier' | translate }}</span>
+                </div>
+                <p>{{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.set-amount-1' | translate }}
+                  <span class="aa-link-more-info" (click)="openModal('investmentRangeModal')">{{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.set-amount-2' | translate }}</span>
+                  {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.set-amount-3' | translate }}
+                </p>
+                <div class="row fs-signup-form setting">
+                  <div class="col-lg-3 col-md-4 col-sm-12" *ngFor="let amountRange of amountRangeSettings; let i = index">
+                    <div class="loan-range-box">
+                      <!-- Loan size -->
+                      {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.amount-loan-range' | translate }}
+                      <span class="range">
+                        {{ convertAmountRange(amountRange['loanRange'][0]) }}
+                        <ng-container *ngIf="amountRange['loanRange'][1] === null">{{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.amount-and-above' | translate }}</ng-container>
+                        <ng-container *ngIf="amountRange['loanRange'][1]">to <</ng-container>
+                        {{ convertAmountRange(amountRange['loanRange'][1]) }}
+                      </span>
+                      <label class="radio-inline">
+                        <input (change)="setFormControl(i)" [checked]="settingAutoInvestmentForm.value['isInvest-'+i] === 'true'" type="radio" value="true" [formControlName]="'isInvest-'+i">
+                        {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.invest-amount' | translate }}
+                      </label>
+                      <label class="radio-inline">
+                        <input (change)="setFormControl(i)" type="radio" value="false" [formControlName]="'isInvest-'+i">
+                        {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.do-not-invest' | translate }}
+                      </label>
+                    </div>
+                    <div class="form-inline margin-bottom-10">
+                      <div class="form-group sign-up-group small-amount-box" [ngClass]="{ 'form-control-error': formModel.validation && (settingAutoInvestmentForm.controls['minimumAmount-'+i].invalid || formModel.required['minimumAmount-'+i]) }">
+                        <label>{{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.amount-from' | translate }}</label>
+                        <input [formControlName]="'minimumAmount-'+i" autocomplete="off" class="form-control sign-up-form" [placeholder]="'Min ' + currency + amountRangeSettings[i]['investmentRange'][0]" type="number" />
+                      </div>
+                      <div class="form-group sign-up-group small-amount-box" [ngClass]="{ 'form-control-error': formModel.validation && (settingAutoInvestmentForm.controls['maximumAmount-'+i].invalid || formModel.required['maximumAmount-'+i]) }">
+                        <label>{{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.amount-to' | translate }}</label>
+                        <input [formControlName]="'maximumAmount-'+i" autocomplete="off" class="form-control sign-up-form" [placeholder]="'Max ' + currency + amountRangeSettings[i]['investmentRange'][1]" type="number" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <div class="row footer-section">
+            <div class="col-xs-12 disclaimer" *ngIf="countryCode === 'SG'">
+              {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.disclaimer' | translate }}
+            </div>
+            <div class="col-xs-12 aa-button-container" [ngClass]="{ 'footer-border': countryCode !== 'SG' }">
+              <div class="pull-left">
+                <button *ngIf="isEdit" (click)="openModal('autoInvestmentDeleteBotConfirmation')" class="btn btn-primary-reject" id="setting-auto-investment-form-delete" name="setting-auto-investment-form-delete">
+                  {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.button-delete' | translate }}
+                </button>
+              </div>
+              <div class="pull-right">
+                <button (click)="closeOverlayForm()" class="btn btn-secondary">
+                  {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.button-cancel' | translate }}
+                </button>
+                <button *ngIf="!isEdit" (click)="onSettingAutoInvestmentFormSubmit()" class="btn btn-primary-investor">
+                  {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.button-create' | translate }}
+                </button>
+                <button *ngIf="isEdit" (click)="onSettingAutoInvestmentFormSubmit()" class="btn btn-primary-investor">
+                  {{ 'form.setting-auto-investment.auto-investment-3-0.create-new-bot.button-save' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<modal class="fs-modal fs-modal__open fs-modal--hidden" id="exhaustBalanceModal">
+  <div class="fs-modal__background"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered auto-investment-more-info-dialog">
+    <div class="fs-modal__content statement-dialog__content">
+      <div type="button" class="fs-modal__close" (click)="closeModal('exhaustBalanceModal')"></div>
+      <div class="col-xs-12 padding-null" [innerHtml]="( 'form.setting-auto-investment.auto-investment-3-0.popup.exhaust-balance' | translate)">
+      </div>
+      <div class="col-xs-12 margin-top-10 padding-null">
+        <div class="btn btn-primary-investor btn-modal-auto-investment-more-info margin-top-10" (click)="closeModal('exhaustBalanceModal')">
+          {{ 'form.setting-auto-investment.auto-investment-3-0.popup.button-close' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+<modal class="fs-modal fs-modal__open fs-modal--hidden" id="borrowerExposureModal">
+  <div class="fs-modal__background"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered auto-investment-more-info-dialog">
+    <div class="fs-modal__content statement-dialog__content">
+      <div type="button" class="fs-modal__close" (click)="closeModal('borrowerExposureModal')"></div>
+      <div class="col-xs-12 padding-null" [innerHtml]="( 'form.setting-auto-investment.auto-investment-3-0.popup.borrower-exposure' | translate)">
+      </div>
+      <div class="col-xs-12 margin-top-10 padding-null">
+        <div class="btn btn-primary-investor btn-modal-auto-investment-more-info margin-top-10" (click)="closeModal('borrowerExposureModal')">
+          {{ 'form.setting-auto-investment.auto-investment-3-0.popup.button-close' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+<modal class="fs-modal fs-modal__open fs-modal--hidden" id="industryExposureModal">
+  <div class="fs-modal__background"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered auto-investment-more-info-dialog">
+    <div class="fs-modal__content statement-dialog__content">
+      <div type="button" class="fs-modal__close" (click)="closeModal('industryExposureModal')"></div>
+      <div class="col-xs-12 padding-null" [innerHtml]="( 'form.setting-auto-investment.auto-investment-3-0.popup.industry-exposure' | translate)">
+      </div>
+      <div class="col-xs-12 margin-top-10 padding-null">
+        <div class="btn btn-primary-investor btn-modal-auto-investment-more-info margin-top-10" (click)="closeModal('industryExposureModal')">
+          {{ 'form.setting-auto-investment.auto-investment-3-0.popup.button-close' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+<modal class="fs-modal fs-modal__open fs-modal--hidden" id="investmentRangeModal">
+  <div class="fs-modal__background"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered auto-investment-more-info-dialog">
+    <div class="fs-modal__content statement-dialog__content">
+      <div type="button" class="fs-modal__close" (click)="closeModalScroll('investmentRangeModal')"></div>
+      <div class="col-xs-12 padding-null" [innerHtml]="( 'form.setting-auto-investment.auto-investment-3-0.popup.amount-range' | translate)">
+      </div>
+      <div class="col-xs-12 margin-top-10 padding-null">
+        <div class="btn btn-primary-investor btn-modal-auto-investment-more-info margin-top-10" (click)="closeModalScroll('investmentRangeModal')">
+          {{ 'form.setting-auto-investment.auto-investment-3-0.popup.button-close' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+<modal class="fs-modal fs-modal__open fs-modal--hidden" id="cbsModal">
+  <div class="fs-modal__background"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered auto-investment-more-info-dialog">
+    <div class="fs-modal__content statement-dialog__content">
+      <div type="button" class="fs-modal__close" (click)="closeModalScroll('cbsModal')"></div>
+      <div class="col-xs-12 padding-null">
+        <div [innerHtml]="( 'form.setting-auto-investment.auto-investment-3-0.popup.cbs-rating-no-table' | translate)"></div>
+        <div class="cbs-table">
+          <div class="content" *ngFor="let rating of cbsRatings">
+            <div class="pull-left">{{ rating.enum }}</div>
+            <div class="pull-right">{{ rating.range }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 margin-top-10 padding-null">
+        <div class="btn btn-primary-investor btn-modal-auto-investment-more-info margin-top-10" (click)="closeModalScroll('cbsModal')">
+          {{ 'form.setting-auto-investment.auto-investment-3-0.popup.button-close' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+<!-- DELETE DIALOG -->
+<modal class="fs-auto-invest-setup-success-dialog fs-modal fs-modal__open fs-modal--hidden" id="autoInvestmentDeleteBotConfirmation">
+  <div class="fs-modal__background"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered auto-investment-more-info-dialog">
+    <div class="fs-modal__content statement-dialog__content confirm-delete-bot">
+      <div type="button" class="fs-modal__close" (click)="closeModalScroll('autoInvestmentDeleteBotConfirmation')"></div>
+      <div class="col-xs-12 padding-null text-center">
+        <div class="delete-aa-bot-confirmation"></div>
+        <p class="title Gilroy-SemiBold">
+          {{ 'form.setting-auto-investment.auto-investment-3-0.popup.delete-confirmation.title' | translate }}
+        </p>
+        <p class="text">
+          {{ 'form.setting-auto-investment.auto-investment-3-0.popup.delete-confirmation.text' | translate }}
+        </p>
+      </div>
+      <div class="col-xs-12 margin-top-10 padding-null text-center">
+        <button (click)="closeModalScroll('autoInvestmentDeleteBotConfirmation')" class="btn btn-primary-white">
+          {{ 'form.setting-auto-investment.auto-investment-3-0.popup.delete-confirmation.btn-cancel' | translate }}
+        </button>
+        <button (click)="deleteAutoInvestmentSetting()" class="btn btn-primary-reject" id="setting-auto-investment-form-delete" name="setting-auto-investment-form-delete">
+          {{ 'form.setting-auto-investment.auto-investment-3-0.popup.delete-confirmation.btn-delete' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</modal>

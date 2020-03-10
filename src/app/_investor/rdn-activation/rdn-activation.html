@@ -1,0 +1,702 @@
+<div class="container rdn-registration-container">
+  <div class="row rdn-registration-step-container">
+    <div class="rdn-registration-step-col pull-left" [ngClass]="{ 'success': currentStep >= 1 }">
+      <div class="circle margin-top-5 pull-left">
+        <span *ngIf="currentStep === 1">1</span>
+        <span *ngIf="currentStep > 1"><i class="fa fa-check margin-top-5"></i></span>
+      </div>
+      <span class="caption" [ngClass]="{ 'hidden-xs': currentStep !== 1 }">{{
+        'investor-dashboard.rdn-information.form.step-1' | translate
+        }}</span>
+    </div>
+    <div class="line pull-left hidden-xs" [ngClass]="{ 'success': currentStep >= 1 }">
+    </div>
+    <div class="rdn-registration-step-col pull-left" [ngClass]="{ 'success': currentStep >= 2 }">
+      <div class="circle margin-top-5 pull-left">
+        <span *ngIf="currentStep <= 2">2</span>
+        <span *ngIf="currentStep > 2"><i class="fa fa-check margin-top-5"></i></span>
+      </div>
+      <span class="caption" [ngClass]="{ 'hidden-xs': currentStep !== 2 }">{{
+        'investor-dashboard.rdn-information.form.step-2' | translate
+        }}</span>
+    </div>
+    <div class="line pull-left hidden-xs" [ngClass]="{ 'success': currentStep >= 2 }">
+    </div>
+    <div class="rdn-registration-step-col pull-left" [ngClass]="{ 'success': currentStep >= 3 }">
+      <div class="circle margin-top-5 pull-left">3</div>
+      <span class="caption" [ngClass]="{ 'hidden-xs': currentStep !== 3 }">{{
+        'investor-dashboard.rdn-information.form.step-3' | translate
+        }}</span>
+    </div>
+  </div>
+
+  <form [formGroup]="rdnRegistrationForm" (ngSubmit)="onRDNRegistrationFormSubmit()" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null"
+    id="sign-up-investor-business-form" name="sign-up-investor-business-form">
+
+    <div class="row" *ngIf="currentStep === 1">
+      <div class="rdn-registration-information">
+        {{ 'investor-dashboard.rdn-information.information-to-complete' | translate }}
+      </div>
+      <div class="rdn-registration-section-title">
+        {{ 'investor-dashboard.rdn-information.form.personal-detail-title' | translate }}
+      </div>
+      <div class="rdn-registration-section-caption">
+        <span>{{ 'investor-dashboard.rdn-information.form.personal-detail-caption' | translate }}</span>
+      </div>
+
+      <div class="investor">
+        <div class="form-inline margin-bottom-10">
+          <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.motherMaidenName.invalid }">
+            <label>{{ 'investor-dashboard.rdn-information.form.mother-maiden-name' | translate }}*</label>
+            <input autocomplete="off" formControlName="motherMaidenName" class="form-control sign-up-form" id="motherMaidenName"
+              name="motherMaidenName" type="text" />
+          </div>
+          <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.birthPlace.invalid }">
+            <label>{{ 'investor-dashboard.rdn-information.form.birth-place' | translate }}*</label>
+            <input autocomplete="off" formControlName="birthPlace" class="form-control sign-up-form" id="birthPlace"
+              name="birthPlace" type="text" />
+          </div>
+        </div>
+        <div class="form-inline margin-bottom-10">
+          <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.religion.invalid }">
+            <label>{{ 'investor-dashboard.rdn-information.form.religion' | translate }}*</label>
+            <mat-select formControlName="religion" id="religion" name="religion">
+              <mat-option *ngFor="let religion of masterData.religion" ngDefaultControl [value]="religion.code">
+                {{ religion.name }}
+              </mat-option>
+            </mat-select>
+          </div>
+          <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.maritalStatusId.invalid }">
+            <label>{{ 'investor-dashboard.rdn-information.form.marital-status' | translate }}*</label>
+            <mat-select formControlName="maritalStatusId" id="maritalStatusId" name="maritalStatusId">
+              <mat-option *ngFor="let maritalstatus of masterData.maritalStatus" ngDefaultControl [value]="maritalstatus.id">
+                {{ maritalstatus.name }}
+              </mat-option>
+            </mat-select>
+          </div>
+          <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.education.invalid }">
+            <label>{{ 'investor-dashboard.rdn-information.form.education' | translate }}*</label>
+            <mat-select formControlName="education" id="education" name="education">
+              <mat-option *ngFor="let degree of masterData.degree" ngDefaultControl [value]="degree.code">
+                {{ degree.name }}
+              </mat-option>
+            </mat-select>
+          </div>
+          <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.gender.invalid }">
+            <label>{{ 'investor-dashboard.rdn-information.form.gender' | translate }}*</label>
+            <mat-select formControlName="gender" id="gender" name="gender">
+              <mat-option *ngFor="let gender of masterData.genders" ngDefaultControl [value]="gender.id">
+                {{ gender.name }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="form-inline margin-bottom-10">
+          <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.identityCountryId.invalid }">
+            <label>{{ 'investor-dashboard.rdn-information.form.identity-address-country' | translate }}*</label>
+            <mat-select formControlName="identityCountryId" name="identityCountryId" (selectionChange)="onIdentityCountryChange()">
+              <mat-option *ngFor="let countries of masterData.countries" ngDefaultControl [value]="countries.code">
+                {{ countries.name }}
+              </mat-option>
+            </mat-select>
+          </div>
+          <div class="form-group grey-border" *ngIf="rdnRegistrationForm.value.identityCountryId === this.countryCode"
+          [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.taxCardNumber.invalid }">
+            <label>{{ 'investor-dashboard.rdn-information.form.tax-card-number' | translate }}</label>
+            <input formControlName="taxCardNumber" autocomplete="off" class="form-control sign-up-form" id="taxCardNumber"
+              name="taxCardNumber" type="text" />
+          </div>
+          <div class="form-group grey-border upload" *ngIf="rdnRegistrationForm.value.identityCountryId === this.countryCode">
+            <dropzone [config]="formModel.signUpInvestorDocument.configuration" [message]="docDetail.npwp.message"
+              (error)="onFileUploadError($event, docDetail.npwp.label)" (sending)="onFileUploadSending($event, docDetail.npwp.type)"
+              (success)="onFileUploadSuccess($event, docDetail.npwp.type)" class="investor">
+            </dropzone>
+          </div>
+        </div>
+
+        <div class="form-inline margin-bottom-10">
+          <div class="form-inline margin-bottom-10">
+              <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.identityType.invalid }">
+                <label>{{ 'investor-dashboard.rdn-information.form.identity-type' | translate }}*</label>
+                <mat-select formControlName="identityType" id="identityType" name="identityType">
+                  <mat-option *ngFor="let ictype of masterData.icType" ngDefaultControl [value]="ictype.id">
+                    {{ ictype.name }}
+                  </mat-option>
+                </mat-select>
+              </div>
+              <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.identityNumber.invalid }" *ngIf="rdnRegistrationForm.value.identityCountryId === this.countryCode">
+                <label> {{ 'investor-dashboard.rdn-information.form.identity-number' | translate }}*</label>
+                <input formControlName="identityNumber" autocomplete="off" class="form-control sign-up-form" id="identityNumber"
+                  name="identityNumber" type="text" />
+              </div>
+              <ng-container *ngIf="rdnRegistrationForm.value.identityCountryId !== this.countryCode">
+                <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.passportNumber.invalid }">
+                    <label> Passport Number*</label>
+                    <input formControlName="passportNumber" autocomplete="off" class="form-control sign-up-form" id="passportNumber"
+                      name="passportNumber" type="text" />
+                </div>
+                <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && ( rdnRegistrationForm.controls.passportExpiryDate.invalid || !formModel.passportExpiryDateValid ) }">
+                    <label> Passport Expiry Date*</label>
+                      <p-calendar
+                        [monthNavigator]="true"
+                        [yearNavigator]="true"
+                        (onSelect)="onPassportExpiryDateChange()"
+                        formControlName="passportExpiryDate"
+                        id="passportExpiryDate"
+                        inputStyleClass="form-control sign-up-form"
+                        name="passportExpiryDate"
+                        [baseZIndex]="10001"
+                        placeholder="{{ 'form.onboarding-investor.personal.placeholder.passport-expiry-date-default' | translate }}"
+                        yearRange="1900:2030">
+                      </p-calendar>
+                  </div>
+              </ng-container>
+            </div>
+        </div>
+        <div class="form-inline margin-bottom-10">
+          <div class="form-group grey-border upload" *ngIf="rdnRegistrationForm.value.identityCountryId !== this.countryCode">
+            <dropzone [config]="formModel.signUpInvestorDocument.configuration" [message]="docDetail.passport.message"
+              (error)="onFileUploadError($event, docDetail.passport.label)" (sending)="onFileUploadSending($event, docDetail.passport.type)"
+              (success)="onFileUploadSuccess($event, docDetail.passport.type)" class="investor">
+            </dropzone>
+          </div>
+          <div class="form-group grey-border upload" *ngIf="rdnRegistrationForm.value.identityCountryId !== this.countryCode">
+              <dropzone [config]="formModel.signUpInvestorDocument.configuration" [message]="docDetail.kitas.message"
+                (error)="onFileUploadError($event,docDetail.kitas.label)" (sending)="onFileUploadSending($event,docDetail.kitas.type)"
+                (success)="onFileUploadSuccess($event,docDetail.kitas.type)" class="investor">
+              </dropzone>
+            </div>
+        </div>
+      </div>
+
+      <div class="rdn-registration-section-title">
+        {{ 'investor-dashboard.rdn-information.form.identity-address-detail-title' | translate }}
+      </div>
+      <div class="rdn-registration-section-caption">
+        <span> {{ 'investor-dashboard.rdn-information.form.identity-address-detail-caption' | translate }} </span>
+      </div>
+      <div class="investor">
+        <div class="form-inline margin-bottom-10">
+          <div class="form-group grey-border full-width" [ngClass]="{ 'form-control-error':showValidation && rdnRegistrationForm.controls.identityAddress.invalid  }">
+            <label> {{ 'investor-dashboard.rdn-information.form.address' | translate }}*</label>
+            <input formControlName="identityAddress" autocomplete="off" class="form-control sign-up-form" id="identityAddress"
+              name="identityAddress" type="text" />
+          </div>
+        </div>
+
+        <div class="form-inline margin-bottom-10">
+          <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && !identityAddressZipCodeAreaValue.value }">
+            <label>{{ 'investor-dashboard.rdn-information.form.identity-address-zip-code' | translate }}*</label>
+            <input #identityAddressZipCodeAreaValue autocomplete="off" class="form-control sign-up-form" id="identityAddressZipCodeArea"
+              name="identityAddressZipCodeArea" type="text" [(ngModel)]='identityAddressZipCodeArea' (ngModelChange)='identityAddressKeyUpEvent($event)'
+              [ngModelOptions]="{standalone: true}" />
+          </div>
+          <div class="form-group grey-border">
+            <label>{{ 'investor-dashboard.rdn-information.form.identity-address-area-code' | translate }}</label>
+            <input formControlName="identityAddressAreaCode" autocomplete="off" class="form-control sign-up-form" id="identityAddressAreaCode"
+              name="identityAddressAreaCode" type="text" />
+          </div>
+        </div>
+        <ng-container *ngIf="rdnRegistrationForm.value.identityCountryId === this.countryCode">
+          <mat-radio-group class="padding-null" *ngIf="identityAddressList.length > 0 && showIdentityAddressList" [(ngModel)]="selectedIdentityAreaId"
+            [ngModelOptions]="{ standalone: true }">
+            <div class="form-inline margin-bottom-10" *ngFor="let identityaddresslist of identityAddressList">
+              <div class="form-group grey-border radio-container d-inline-block">
+                <div class="col-xs-10 padding-null">{{ identityaddresslist.area_name }},
+                  {{ identityaddresslist.district_name }}, {{ identityaddresslist.city_name }},
+                  {{ identityaddresslist.province_name }}</div>
+                <mat-radio-button [value]="identityaddresslist.area_id" class="pull-right col-xs-2 padding-null">
+                </mat-radio-button>
+              </div>
+            </div>
+          </mat-radio-group>
+          <div class="col-xs-12 form-inline margin-bottom-10 padding-null" *ngIf="identityAddressList.length === 0 && identityAddressListFlag">
+            <div class="col-xs-12 col-md-6 red-error-box">
+              {{ 'investor-dashboard.rdn-information.form.error-no-zip-code-found' | translate }}
+            </div>
+          </div>
+          </ng-container>
+        <ng-container *ngIf="rdnRegistrationForm.value.identityCountryId !== this.countryCode">
+          <div class="form-group full-width grey-border" [ngClass]="{ 'form-control-error':showValidation && rdnRegistrationForm.controls.identityAddressAreaName.invalid }">
+            <label> {{ 'investor-dashboard.rdn-information.form.residential-address-area-name' | translate }}*</label>
+            <input formControlName="identityAddressAreaName" autocomplete="off" class="form-control sign-up-form" id="identityAddressAreaName"
+              name="identityAddressAreaName" type="text" />
+          </div>
+        </ng-container>
+      </div>
+
+
+      <div class="rdn-registration-section-title">
+        {{ 'investor-dashboard.rdn-information.form.residential-address-detail-title' | translate }}
+      </div>
+      <div class="rdn-registration-section-caption">
+        <span>{{ 'investor-dashboard.rdn-information.form.residential-address-detail-caption' | translate }}
+        </span>
+      </div>
+      <div class="text-right">
+        <mat-checkbox class="mat-checkbox-small-font" [checked]="copyResidentialAddress" (change)="onCopyresidentialAddress($event)">
+          {{ 'investor-dashboard.rdn-information.form.copy-from-residential' | translate }}
+        </mat-checkbox>
+      </div>
+
+      <div class="investor">
+        <div class="form-inline margin-bottom-10">
+          <div class="form-group grey-border full-width" [ngClass]="{ 'form-control-error':showValidation && rdnRegistrationForm.controls.residentialAddress.invalid }">
+            <label> {{ 'investor-dashboard.rdn-information.form.address' | translate }}*</label>
+            <input formControlName="residentialAddress" autocomplete="off" class="form-control sign-up-form" id="residentialAddress"
+              name="residentialAddress" type="text" />
+          </div>
+        </div>
+        <div class="form-inline margin-bottom-10">
+          <div class="form-group grey-border" [ngClass]="{ 'form-control-error':showValidation && !residentialAddressZipCodeAreaValue.value }">
+            <label> {{ 'investor-dashboard.rdn-information.form.residential-address-zip-code' | translate }}*</label>
+            <input #residentialAddressZipCodeAreaValue autocomplete="off" class="form-control sign-up-form" id="residentialAddressZipCodeArea"
+              name="residentialAddressZipCodeArea" type="text" [(ngModel)]='residentialAddressZipCodeArea'
+              (ngModelChange)='residentialAddressKeyUpEvent($event)' [ngModelOptions]="{standalone: true}" />
+          </div>
+          <div class="form-group grey-border">
+            <label> {{ 'investor-dashboard.rdn-information.form.residential-address-area-code' | translate }}</label>
+            <input formControlName="residentialAreaCode" autocomplete="off" class="form-control sign-up-form" id="residentialAreaCode"
+              name="residentialAreaCode" type="text" />
+          </div>
+          <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.residentialCountryId.invalid }">
+            <label>{{ 'investor-dashboard.rdn-information.form.residential-address-country' | translate }}*</label>
+            <mat-select formControlName="residentialCountryId" name="residentialCountryId" (selectionChange)="onResidentialCountryChange()">
+              <mat-option *ngFor="let countries of masterData.countries" ngDefaultControl [value]="countries.code">
+                {{ countries.name }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <ng-container *ngIf="rdnRegistrationForm.value.residentialCountryId === this.countryCode">
+          <mat-radio-group class="padding-null" *ngIf="residentialAddressList.length > 0 && showResidentialAddressList" [(ngModel)]="selectedResidentialAreaId"
+            [ngModelOptions]="{ standalone: true }">
+            <div class="form-inline margin-bottom-10" *ngFor="let residentialaddresslist of residentialAddressList">
+              <div class="form-group grey-border radio-container d-inline-block">
+                <div class="col-xs-10 padding-null">{{ residentialaddresslist.area_name }},
+                  {{ residentialaddresslist.district_name }}, {{ residentialaddresslist.city_name }},
+                  {{ residentialaddresslist.province_name }}</div>
+                <mat-radio-button [value]="residentialaddresslist.area_id" class="pull-right col-xs-2 padding-null">
+                </mat-radio-button>
+              </div>
+            </div>
+          </mat-radio-group>
+          <div class="col-xs-12 form-inline margin-bottom-10 padding-null" *ngIf="residentialAddressList.length === 0 && residentialAddressListFlag">
+            <div class="col-xs-12 col-md-6 red-error-box">
+              {{ 'investor-dashboard.rdn-information.form.error-no-zip-code-found' | translate }}
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="rdnRegistrationForm.value.residentialCountryId !== this.countryCode">
+          <div class="form-group full-width grey-border" [ngClass]="{ 'form-control-error':showValidation && rdnRegistrationForm.controls.residentialAreaName.invalid }">
+            <label> {{ 'investor-dashboard.rdn-information.form.residential-address-area-name' | translate }}*</label>
+            <input formControlName="residentialAreaName" autocomplete="off" class="form-control sign-up-form" id="residentialAreaName"
+              name="residentialAreaName" type="text" />
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="investor">
+        <div class="btn btn-primary-investor rdn-registration-button" (click)="nextPage()">
+          {{ 'investor-dashboard.rdn-information.form.continue' | translate }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="currentStep === 2">
+      <div class="rdn-registration-section-title no-margin">
+        {{ 'investor-dashboard.rdn-information.form.emergency-contact-detail-title' | translate }}
+      </div>
+      <div class="investor">
+        <div class="form-inline margin-bottom-10">
+          <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.emergencyFullname.invalid }">
+            <label>{{ 'investor-dashboard.rdn-information.form.emergency-contact-full-name' | translate }}*</label>
+            <input autocomplete="off" class="form-control sign-up-form" formControlName="emergencyFullname" id="emergencyFullname"
+              name="emergencyFullname" type="text" />
+          </div>
+          <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.emergencyRelationship.invalid }">
+            <label>{{ 'investor-dashboard.rdn-information.form.emergency-contact-relationship' | translate }}*</label>
+            <input autocomplete="off" class="form-control sign-up-form" formControlName="emergencyRelationship" id="emergencyRelationship"
+              name="emergencyRelationship" type="text" />
+          </div>
+        </div>
+        <div class="form-inline margin-bottom-10">
+          <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.emergencyContactNumber.invalid }">
+            <label>{{ 'investor-dashboard.rdn-information.form.emergency-contact-contact-number' | translate }}*</label>
+            <input autocomplete="off" class="form-control sign-up-form" formControlName="emergencyContactNumber" id="emergencyContactNumber"
+              name="emergencyContactNumber" type="text" />
+          </div>
+        </div>
+      </div>
+
+      <div class="rdn-registration-section-title">
+        {{ 'investor-dashboard.rdn-information.form.emergency-contact-address-title' | translate }}
+      </div>
+      <div class="investor">
+        <div class="form-inline margin-bottom-10">
+          <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.emergencyCountryId.invalid }">
+            <label>{{ 'investor-dashboard.rdn-information.form.emergency-contact-country-address' | translate }}*</label>
+            <mat-select formControlName="emergencyCountryId" id="emergencyCountryId" name="emergencyCountryId" (selectionChange)="onEmergencyCountryChange()">
+              <mat-option *ngFor="let country of masterData.countries" ngDefaultControl [value]="country.code">
+                {{ country.name }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+
+        <div class="form-inline margin-bottom-10">
+          <div class="form-group grey-border full-width" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.emergencyAddress.invalid }">
+            <label>{{ 'investor-dashboard.rdn-information.form.emergency-contact-address' | translate }}*</label>
+            <input autocomplete="off" class="form-control sign-up-form" formControlName="emergencyAddress" id="emergencyAddress"
+              name="emergencyAddress" type="text" />
+          </div>
+        </div>
+        <div class="form-inline margin-bottom-10">
+          <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && !emergencyAddressZipCodeAreaValue.value }">
+            <label>{{ 'investor-dashboard.rdn-information.form.emergency-contact-zip-code' | translate }}*</label>
+            <input #emergencyAddressZipCodeAreaValue autocomplete="off" class="form-control sign-up-form" id="emergencyAddressZipCodeArea"
+              name="emergencyAddressZipCodeArea" type="text" [(ngModel)]='emergencyAddressZipCodeArea' (ngModelChange)='emergencyAddressKeyUpEvent($event)'
+              [ngModelOptions]="{ standalone: true }" />
+          </div>
+          <div class="form-group grey-border">
+            <label> {{ 'investor-dashboard.rdn-information.form.residential-address-area-code' | translate }}</label>
+            <input formControlName="emergencyAreaCode" autocomplete="off" class="form-control sign-up-form" id="emergencyAreaCode"
+              name="emergencyAreaCode" type="text" />
+          </div>
+        </div>
+        <ng-container *ngIf="rdnRegistrationForm.value.emergencyCountryId === this.countryCode">
+          <mat-radio-group class="padding-null" *ngIf="emergencyAddressList.length > 0 && showEmergencyAddressList" [(ngModel)]="selectedEmergencyAreaId"
+            [ngModelOptions]="{ standalone: true }">
+            <div class="form-inline margin-bottom-10" *ngFor="let emergencyaddresslist of emergencyAddressList">
+              <div class="form-group grey-border radio-container d-inline-block">
+                <div class="col-xs-10 padding-null">{{ emergencyaddresslist.area_name }},
+                  {{ emergencyaddresslist.district_name }}, {{ emergencyaddresslist.city_name }},
+                  {{ emergencyaddresslist.province_name }}</div>
+                <mat-radio-button [value]="emergencyaddresslist.area_id" class="pull-right col-xs-2 padding-null">
+                </mat-radio-button>
+              </div>
+            </div>
+          </mat-radio-group>
+          <div class="col-xs-12 form-inline margin-bottom-10 padding-null" *ngIf="emergencyAddressList.length === 0 && emergencyAddressListFlag">
+            <div class="col-xs-12 col-md-6 red-error-box">
+              {{ 'investor-dashboard.rdn-information.form.error-no-zip-code-found' | translate }}
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="rdnRegistrationForm.value.emergencyCountryId !== this.countryCode">
+          <div class="form-group full-width grey-border" [ngClass]="{ 'form-control-error':showValidation && rdnRegistrationForm.controls.emergencyAreaName.invalid }">
+          <label> {{ 'investor-dashboard.rdn-information.form.emergency-contact-area-name' | translate }}*</label>
+          <input formControlName="emergencyAreaName" autocomplete="off" class="form-control sign-up-form" id="emergencyAreaName"
+            name="emergencyAreaName" type="text" />
+          </div>
+        </ng-container>
+        <div class="btn btn-white-background rdn-registration-button" (click)="nextPage(true)">
+          {{ 'investor-dashboard.rdn-information.form.back' | translate }}
+        </div>
+        <div class="btn btn-primary-investor rdn-registration-button" (click)="nextPage()">
+          {{ 'investor-dashboard.rdn-information.form.continue' | translate }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="currentStep === 3">
+      <div class="rdn-registration-section-title no-margin">
+        {{ 'investor-dashboard.rdn-information.form.employment-details-title' | translate }}
+      </div>
+      <div class="investor">
+        <div class="form-inline margin-bottom-10">
+          <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.employmentStatus.invalid }">
+            <label>{{ 'investor-dashboard.rdn-information.form.employment-status' | translate }} </label>
+            <mat-select formControlName="employmentStatus" id="employmentStatus" name="employmentStatus" (selectionChange)="onEmploymentStatusChange()">
+              <mat-option *ngFor="let employmentStatus of masterData.employmentStatuses" ngDefaultControl [value]="employmentStatus.id">
+                {{ employmentStatus.label }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+
+        <div class="form-inline margin-bottom-10">
+          <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.employmentCompanyName.invalid }">
+            <label>{{ 'investor-dashboard.rdn-information.form.employment-company-name' | translate }}</label>
+            <input autocomplete="off" class="form-control sign-up-form" formControlName="employmentCompanyName" id="employmentCompanyName"
+              name="employmentCompanyName" type="text" />
+          </div>
+          <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.employmentJobTitle.invalid }">
+            <label>{{ 'investor-dashboard.rdn-information.form.employment-job-title' | translate }}</label>
+            <input autocomplete="off" formControlName="employmentJobTitle" class="form-control sign-up-form" id="employmentJobTitle"
+              name="employmentJobTitle" type="text" />
+          </div>
+        </div>
+
+        <div class="form-inline margin-bottom-10">
+          <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.employmentDuration.invalid }">
+            <label>{{ 'investor-dashboard.rdn-information.form.employment-duration' | translate }}</label>
+            <mat-select formControlName="employmentDuration" id="employmentDuration" name="employmentDuration">
+              <mat-option *ngFor="let duration of masterData.employmentPeriods" ngDefaultControl [value]="duration">
+                {{ duration }}
+              </mat-option>
+            </mat-select>
+          </div>
+          <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.employmentAnnualIncome.invalid }">
+            <label>{{ 'investor-dashboard.rdn-information.form.employment-Annual-income' | translate }}</label>
+            <mat-select formControlName="employmentAnnualIncome" id="employmentAnnualIncome" name="employmentAnnualIncome">
+              <mat-option *ngFor="let income of masterData.monthlyIncome" ngDefaultControl [value]="income">
+                {{ income }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="rdn-registration-section-title">
+        {{ 'investor-dashboard.rdn-information.form.company-address-title' | translate }}
+      </div>
+      <div class="investor">
+        <div class="form-inline margin-bottom-10">
+          <div class="form-group grey-border" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.companyCountryId.invalid }">
+            <label>{{ 'investor-dashboard.rdn-information.form.company-address-country' | translate }}</label>
+            <mat-select formControlName="companyCountryId" id="companyCountryId" name="companyCountryId" (selectionChange)="onCompanyCountryChange()">
+              <mat-option *ngFor="let country of masterData.countries" ngDefaultControl [value]="country.code">
+                {{ country.name }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+
+        <div class="form-inline margin-bottom-10">
+          <div class="form-group grey-border full-width" [ngClass]="{ 'form-control-error': showValidation && rdnRegistrationForm.controls.companyAddress.invalid }">
+            <label>{{ 'investor-dashboard.rdn-information.form.address' | translate }}</label>
+            <input autocomplete="off" formControlName="companyAddress" class="form-control sign-up-form" id="companyAddress"
+              name="companyAddress" type="text" />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-inline margin-bottom-10">
+        <div class="form-group grey-border" [ngClass]="{ 'form-control-error':showValidation && companyAddressFlag &&  !companyAddressZipCodeAreaValue.value }">
+          <label>{{ 'investor-dashboard.rdn-information.form.company-zip-code' | translate }}</label>
+          <input #companyAddressZipCodeAreaValue autocomplete="off" class="form-control sign-up-form" id="companyAddressZipCodeArea"
+            name="companyAddressZipCodeArea" type="text" [(ngModel)]='companyAddressZipCodeArea' (ngModelChange)='companyAddressKeyUpEvent($event)'
+            [ngModelOptions]="{standalone: true}" [disabled]="isDisabledCompanyZipArea"/>
+        </div>
+        <div class="form-group grey-border" [ngClass]="{ 'form-control-error':showValidation && rdnRegistrationForm.controls.companyAreaCode.invalid }">
+          <label>{{ 'investor-dashboard.rdn-information.form.residential-address-area-code' | translate }}</label>
+          <input autocomplete="off" formControlName="companyAreaCode" class="form-control sign-up-form" id="companyAreaCode"
+            name="companyAreaCode" type="text" />
+        </div>
+      </div>
+
+      <ng-container *ngIf="rdnRegistrationForm.value.companyCountryId === this.countryCode">
+        <mat-radio-group class="padding-null" *ngIf="companyAddressList.length > 0" [(ngModel)]="selectedCompanyAreaId"
+          [ngModelOptions]="{ standalone: true }">
+          <div class="form-inline margin-bottom-10" *ngFor="let companyaddresslist of companyAddressList">
+            <div class="form-group grey-border radio-container d-inline-block">
+              <div class="col-xs-10 padding-null">{{ companyaddresslist.area_name }},
+                {{ companyaddresslist.district_name }}, {{ companyaddresslist.city_name }},
+                {{ companyaddresslist.province_name }}</div>
+              <mat-radio-button [value]="companyaddresslist.area_id" class="pull-right col-xs-2 padding-null">
+              </mat-radio-button>
+            </div>
+          </div>
+        </mat-radio-group>
+        <div class="col-xs-12 form-inline margin-bottom-10 padding-null" *ngIf="companyAddressList.length === 0 && companyAddressListFlag">
+          <div class="col-xs-12 col-md-6 red-error-box">
+            {{ 'investor-dashboard.rdn-information.form.error-no-zip-code-found' | translate }}
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="rdnRegistrationForm.value.companyCountryId !== this.countryCode">
+        <div class="form-group full-width grey-border" [ngClass]="{ 'form-control-error':showValidation && rdnRegistrationForm.controls.companyAreaName.invalid }">
+          <label> {{ 'investor-dashboard.rdn-information.form.emergency-contact-area-name' | translate }}</label>
+          <input formControlName="companyAreaName" autocomplete="off" class="form-control sign-up-form" id="companyAreaName"
+            name="companyAreaName" type="text" />
+        </div>
+      </ng-container>
+      <div class="rdn-registration-section-title">
+        {{ 'investor-dashboard.rdn-information.form.step-3' | translate }}
+      </div>
+
+      <div class="col-md-12 margin-bottom-10 padding-null">
+        <div class="col-md-2 padding-null">
+          {{ 'investor-dashboard.rdn-information.form.from-inheritance' | translate }}
+        </div>
+        <div class="col-md-6 padding-null">
+          <mat-button-toggle-group (change)="onSelectedSourceOfWealthChange($event.value,'inheritance')">
+            <mat-button-toggle class="button-toggle-left-side" value="true">
+              <mat-icon>{{ toggleMessage.yes }}</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle>
+              <mat-icon>{{ toggleMessage.no }}</mat-icon>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+      </div>
+
+      <div class="form-inline margin-bottom-10" *ngIf="sourceOfWealthList.inheritance">
+        <label>{{ 'investor-dashboard.rdn-information.form.detail-inheritance' | translate }} </label>
+        <div class="investor">
+          <div class="form-inline margin-bottom-10">
+            <div class="form-group grey-border" [ngClass]="{ 'form-control-error':showValidation && !inheritanceLineageValue.value && sourceOfWealthList.inheritance }">
+              <label>{{ 'investor-dashboard.rdn-information.form.lineage' | translate }}</label>
+              <input #inheritanceLineageValue autocomplete="off" [(ngModel)]='sourceOfWealthDetail.inheritanceAmount'
+                class="form-control sign-up-form" id="inheritanceLineageValue" name="inheritanceLineageValue" type="text"
+                [ngModelOptions]="{ standalone: true }" />
+            </div>
+            <div class="form-group grey-border" [ngClass]="{ 'form-control-error':showValidation && !inheritanceAmountValue.value && sourceOfWealthList.inheritance }">
+              <label>{{ 'investor-dashboard.rdn-information.form.amount' | translate }}</label>
+              <input #inheritanceAmountValue autocomplete="off" [(ngModel)]='sourceOfWealthDetail.inheritanceLineage'
+                class="form-control sign-up-form" id="inheritanceAmountValue" name="inheritanceAmountValue" type="text"
+                [ngModelOptions]="{ standalone: true }" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-md-12 margin-bottom-10 padding-null">
+        <div class="col-md-2 padding-null">
+          {{ 'investor-dashboard.rdn-information.form.from-gift' | translate }}
+        </div>
+        <div class="col-md-6 padding-null">
+          <mat-button-toggle-group (change)="onSelectedSourceOfWealthChange($event.value,'gift')">
+            <mat-button-toggle class="button-toggle-left-side" value="true">
+              <mat-icon>{{ toggleMessage.yes }}</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle>
+              <mat-icon>{{ toggleMessage.no }}</mat-icon>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+      </div>
+
+      <div class="form-inline margin-bottom-10" *ngIf="sourceOfWealthList.gift">
+        <label>{{ 'investor-dashboard.rdn-information.form.detail-gift' | translate }} </label>
+        <div class="investor">
+          <div class="form-inline margin-bottom-10">
+            <div class="form-group grey-border" [ngClass]="{ 'form-control-error':showValidation && !giftGiverValue.value && sourceOfWealthList.gift }">
+              <label>{{ 'investor-dashboard.rdn-information.form.giver' | translate }} </label>
+              <input #giftGiverValue autocomplete="off" class="form-control sign-up-form" id="giftGiverValue" name="giftGiverValue"
+                type="text" [(ngModel)]='sourceOfWealthDetail.giftGiver' [ngModelOptions]="{ standalone: true }" />
+            </div>
+            <div class="form-group grey-border" [ngClass]="{ 'form-control-error':showValidation && !giftReasonValue.value && sourceOfWealthList.gift }">
+              <label>{{ 'investor-dashboard.rdn-information.form.reason' | translate }} </label>
+              <input #giftReasonValue autocomplete="off" class="form-control sign-up-form" id="giftReasonValue" name="giftReasonValue"
+                type="text" [(ngModel)]='sourceOfWealthDetail.giftReason' [ngModelOptions]="{ standalone: true }" />
+            </div>
+            <div class="form-group grey-border" [ngClass]="{ 'form-control-error':showValidation && !giftAmountValue.value && sourceOfWealthList.gift }">
+              <label>{{ 'investor-dashboard.rdn-information.form.amount' | translate }} </label>
+              <input #giftAmountValue autocomplete="off" class="form-control sign-up-form" id="giftAmountValue" name="giftAmountValue"
+                type="text" [(ngModel)]='sourceOfWealthDetail.giftAmount' [ngModelOptions]="{ standalone: true }" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-md-12 margin-bottom-10 padding-null">
+        <div class="col-md-2 padding-null">
+          {{ 'investor-dashboard.rdn-information.form.from-asset' | translate }}
+        </div>
+        <div class="col-md-6 padding-null">
+          <mat-button-toggle-group (change)="onSelectedSourceOfWealthChange($event.value,'asset')">
+            <mat-button-toggle class="button-toggle-left-side" value="true">
+              <mat-icon>{{ toggleMessage.yes }}</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle>
+              <mat-icon>{{ toggleMessage.no }}</mat-icon>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+      </div>
+
+      <div class="form-inline margin-bottom-10" *ngIf="sourceOfWealthList.asset">
+        <label>{{ 'investor-dashboard.rdn-information.form.detail-asset' | translate }} </label>
+        <div class="investor">
+          <div class="form-inline margin-bottom-10">
+            <div class="form-group grey-border" [ngClass]="{ 'form-control-error':showValidation && !assetDescriptionValue.value && sourceOfWealthList.asset }">
+              <label>{{ 'investor-dashboard.rdn-information.form.description' | translate }} </label>
+              <input #assetDescriptionValue autocomplete="off" class="form-control sign-up-form" id="assetDescriptionValue"
+                name="assetDescriptionValue" type="text" [(ngModel)]='sourceOfWealthDetail.assetDescription'
+                [ngModelOptions]="{ standalone: true }" />
+            </div>
+            <div class="form-group grey-border" [ngClass]="{ 'form-control-error':showValidation && !assetAmountValue.value && sourceOfWealthList.asset }">
+              <label>{{ 'investor-dashboard.rdn-information.form.amount' | translate }} </label>
+              <input #assetAmountValue autocomplete="off" class="form-control sign-up-form" id="assetAmountValue" name="assetAmountValue"
+                type="text" [(ngModel)]='sourceOfWealthDetail.assetAmount' [ngModelOptions]="{ standalone: true }" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-md-12 margin-bottom-10 padding-null">
+        <div class="col-md-2 padding-null">
+          {{ 'investor-dashboard.rdn-information.form.from-others' | translate }}
+        </div>
+        <div class="col-md-6 padding-null">
+          <mat-button-toggle-group (change)="onSelectedSourceOfWealthChange($event.value,'other')">
+            <mat-button-toggle class="button-toggle-left-side" value="true">
+              <mat-icon>{{ toggleMessage.yes }}</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle>
+              <mat-icon>{{ toggleMessage.no }}</mat-icon>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+      </div>
+
+      <div class="form-inline margin-bottom-10" *ngIf="sourceOfWealthList.other">
+        <label>{{ 'investor-dashboard.rdn-information.form.detail-other' | translate }} </label>
+        <div class="investor">
+          <div class="form-inline margin-bottom-10">
+            <div class="form-group grey-border" [ngClass]="{ 'form-control-error':showValidation && !otherDescriptionValue.value && sourceOfWealthList.other }">
+              <label>{{ 'investor-dashboard.rdn-information.form.description' | translate }} </label>
+              <input #otherDescriptionValue autocomplete="off" class="form-control sign-up-form" id="otherDescriptionValue"
+                name="otherDescriptionValue" type="text" [(ngModel)]='sourceOfWealthDetail.otherDescription'
+                [ngModelOptions]="{ standalone: true }" />
+            </div>
+            <div class="form-group grey-border" [ngClass]="{ 'form-control-error':showValidation && !otherAmountValue.value && sourceOfWealthList.other }">
+              <label>{{ 'investor-dashboard.rdn-information.form.amount' | translate }} </label>
+              <input #otherAmountValue autocomplete="off" class="form-control sign-up-form" id="otherAmountValue" name="otherAmountValue"
+                type="text" [(ngModel)]='sourceOfWealthDetail.otherAmount' [ngModelOptions]="{ standalone: true }" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="btn btn-white-background rdn-registration-button" (click)="nextPage(true)">
+        {{ 'investor-dashboard.rdn-information.form.back' | translate }}
+      </div>
+      <div type="button" class="btn btn-primary-investor rdn-registration-button" (click)="nextPage()">
+        {{ 'investor-dashboard.rdn-information.form.complete' | translate }}
+      </div>
+    </div>
+  </form>
+</div>
+
+<modal id="sinarmasRDNSuccessfulDialog" class="fs-confirm-investment-dialog fs-modal fs-modal__open fs-modal--hidden">
+  <div class="fs-modal__background"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered ">
+    <div class="fs-modal__content">
+      <div class="col-xs-12 padding-null">
+        <div class="activation-success">
+        </div>
+        <div class="Gilroy-SemiBold title">
+          {{ 'investor-dashboard.rdn-information.form-complete-title' | translate }}
+        </div>
+        <div class="caption">
+          {{ 'investor-dashboard.rdn-information.form-complete-caption' | translate }}
+        </div>
+        <div class="note">
+          <i>{{ 'investor-dashboard.rdn-information.form-complete-caption-note' | translate }}</i>
+        </div>
+        <div class="col-xs-12 padding-null">
+          <div class="btn btn-primary-investor full-width" (click)="goToBrowseLoan()">
+            {{ 'investor-dashboard.rdn-information.form-complete-button' | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>

@@ -1,0 +1,20 @@
+<div class="container-fluid" id="webContent">
+  <div class="row text-justify">
+    <div class="col-md-8 content-center">
+      <section id="expertSection">
+        <div class="row">
+          <div class="col-md-12 text-center margin-top-20">
+            <div class="Gilroy-SemiBold font-size-30 margin-bottom-20">{{ 'rdp2p-notice.title' | translate }}</div>
+            <div class="col-md-7 content-center light-gray-text text-center">
+              {{ 'rdp2p-notice.caption' | translate }}
+            </div>
+          </div>
+          <div class="privacy-notice">
+            <div class="content" [innerHTML]="( 'rdp2p-notice.content' | translate )">
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

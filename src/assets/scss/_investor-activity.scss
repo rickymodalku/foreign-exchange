@@ -1,0 +1,121 @@
+@media #{$phone} {
+  .fs-container-act-header {
+    background-color: #3e7eff;
+    .act-header-title {
+      padding: 2em;
+    }
+    .inv-activity-icon {
+      display: none;
+    }
+  }
+  .act-menu-row {
+    padding: 0.5em;
+    margin-bottom:10px;
+  }
+  .act-list-row {
+    padding: 2em;
+  }
+  .act-menu-row {
+    span {
+      padding: 0.5em 0.5em 0.5em;
+      font-size: 13px;
+      margin-bottom:10px;
+      text-align: center;
+    }
+  }
+}
+
+@media #{$tablet} {
+  .act-menu-row {
+    padding: 1em 2em;
+    font {
+      width: 20%;
+    }
+  }
+  .act-list-row {
+    padding: 2em 10em;
+  }
+  .act-menu-row {
+    margin-bottom:0px;   
+    span {
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+      font-size: 13px;
+      margin-bottom:0;
+    }
+    .title {
+      border-right: solid 1px rgba(151, 151, 151, 0.5);
+    }
+    span:nth-child(1) {
+      text-align:right;
+    }
+    span:nth-child(2) {
+      text-align:left;
+    }
+  }
+}
+
+@media #{$desktop} {
+  .fs-container-act-header {
+    background-color: #3e7eff;
+    .act-header-title {
+      margin-left: 10em;
+      margin-top: 2em;
+    }
+    .inv-activity-icon {
+      display: block;
+    }
+  }
+  .act-menu-row {
+    padding: 1em 8em 0.3em;
+    font {
+      width: 14%;
+    }
+    .title {
+      border-right: solid 1px rgba(151, 151, 151, 0.5);
+    }
+  }
+  .act-list-row {
+    padding: 2em 20em 2em 20em;
+  }
+  .act-menu-row {
+    span {
+      padding-left: 1em;
+      padding-right: 1em;
+    }
+  }
+}
+
+.fs-container-act-header {
+  background-color: #3e7eff;
+}
+
+.act-menu-row {
+  border: solid 1px #d0d0d0;
+  background-color: white;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.17);
+  span:nth-child(1) {
+    padding-right: 1em;
+  }
+  span {
+    color: #9b9b9b;
+    &.active {
+      font-weight: bold;
+      border-bottom: 5px solid;
+      color: black;
+    }
+  }
+}
+
+.act-list-row {
+  background-color: #f7f7f9;
+  .act-box {
+    background-color: white;
+    padding: 2em;
+    box-shadow: 0 1px 2px 0 rgba(169, 169, 169, 0.5);
+    margin-bottom: 1em;
+    font {
+      color: #9b9b9b;
+    }
+  }
+}

@@ -3,7 +3,7 @@ const compression = require('compression')
 const path = require('path');
 const app= express()
 app.use(compression());
-const port = process.env.PORT || 3030;
+const port = process.env.PORT || 8080;
 // static file serve
 const dirName = 'dist'
 app.use(express.static(path.resolve(`${dirName}`)))

@@ -1,0 +1,437 @@
+<div class="container-fluid white">
+  <div class="row withBannerPage">
+    <section class="swiper-container homepage" [swiper]="swiperConfiguration" #swiperBanner>
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" fxLayout="column" fxLayoutAlign="center center"
+          *ngFor="let coverContent of coverContent">
+          <section id="coverView" [ngClass]="{'clickable':coverContent.clickable}">
+            <div class="cover-container cover-container-promo hidden-xs sbn-info"
+              [ngStyle]="{ 'background-image' : 'url(' + coverContent.imageName + ')' }"
+              (click)="sbnBannerEvent(coverContent.type)">
+            </div>
+            <div class="cover-container hidden-lg hidden-md hidden-sm sbn-info"
+              [ngStyle]="{ 'background-image' : 'url(' + coverContent.imageMobileName + ')' }"
+              (click)="sbnBannerEvent(coverContent.type)">
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="swiper-home-pagination sbn-info">
+        <div [hidden]="!isSlideMoreThanOne" class="swiper-pagination homepage">
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- SBR Benefit -->
+  <!-- <div class="row sbn-benefit-container">
+    <div class="col-xs-12">
+      <div class="col-xs-12 col-sm-4 text-center item">
+        <div class="icon-safe-logo">
+        </div>
+        <div class="benefit-caption-text">
+          Aman karena dijamin negara
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-4 text-center item">
+        <div class="icon-early-logo">
+        </div>
+        <div class="benefit-caption-text">
+          Fasilitas early redemption
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-4 text-center item">
+        <div class="icon-repayment-logo">
+        </div>
+        <div class="benefit-caption-text">
+          Tingkat pengembalian yang menarik  ->For SBR
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- For ORI -->
+  <div class="row sbn-benefit-container">
+      <div class="col-xs-12">
+        <div class="col-xs-12 col-sm-4 text-center item">
+          <div class="icon-safe-logo">
+          </div>
+          <div class="benefit-caption-text">
+            Aman karena dijamin negara
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 text-center item">
+          <div class="icon-tradeable-logo">
+          </div>
+          <div class="benefit-caption-text">
+            Dapat Diperjual Belikan Di Pasar Sekunder
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 text-center item">
+          <div class="icon-repayment-logo">
+          </div>
+          <div class="benefit-caption-text">
+            Terdapat Potensi Capital Gain
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <!-- ST / Sukuk Benefit -->
+  <!-- <div class="row sbn-benefit-container green">
+    <div class="col-xs-12">
+      <div class="col-xs-12 col-sm-4 text-center item">
+        <div class="icon-safe-logo">
+        </div>
+        <div class="benefit-text">
+          Dijamin oleh negara
+        </div>
+        <div class="benefit-caption-text">
+          Pembayaran imbalan dan nilai nominal dijamin penuh oleh negara.
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-4 text-center item">
+        <div class="icon-halal-logo">
+        </div>
+        <div class="benefit-text">
+          Sesuai dengan syariah
+        </div>
+        <div class="benefit-caption-text">
+          Mendapat pernyataan kesesuaian syariah (opini syariah) dari DSN MUI
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-4 text-center item">
+        <div class="icon-repayment-logo">
+        </div>
+        <div class="benefit-text">
+          Imbal hasil yang menarik
+        </div>
+        <div class="benefit-caption-text">
+          Memberikan imbal hasil tetap {{ bondGeneralInfo.interest }}% per tahun dan dibayarkan setiap bulan
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="row text-center sbn-description-container">
+    <!-- For SBN & ST-->
+    <!-- <div class="col-xs-12 padding-null">
+      <div class="col-xs-12 col-sm-4 item">
+        <div class="sbn-description-caption-text">Pembelian minimal</div>
+        <div class="sbn-description-highlight-text green">
+          Rp 1 juta
+        </div>
+        <div>dan maksimal 3 miliar</div>
+      </div>
+      <div class="col-xs-12 col-sm-4 item">
+        <div class="sbn-description-caption-text">Tingkat Imbal Hasil</div>
+        <div class="sbn-description-highlight-text green">{{ bondGeneralInfo.simulation.yearlyInterest | percent: percentFormat }} per tahun</div>
+        <div>dengan pajak rendah 15%</div>
+      </div>
+      <div class="col-xs-12 col-sm-4 item">
+        <div class="sbn-description-caption-text">Jangka Waktu</div>
+        <div class="sbn-description-highlight-text green"> {{ bondGeneralInfo.tenorLengthInYear }} tahun</div>
+        <div>dengan fasilitas early redemption </div>
+      </div>
+    </div> -->
+    <!-- For sukuk -->
+    <!-- <div class="col-xs-12 padding-null sbn-description-text">
+      <p>
+        Sukuk Tabungan adalah produk investasi berbasis syariah yang diterbitkan oleh Pemerintah melalui Kementerian
+        Keuangan, yang ditujukan bagi investor individu Warga Negara Indonesia.
+      </p>
+      <br>
+      <p>
+        Sukuk Tabungan terjangkau oleh berbagai lapisan masyarakat Indonesia karena minimum pembelian yang lebih rendah
+        (Rp 1 juta). Sukuk Tabungan juga memberikan imbalan tetap setiap bulan dengan jangka waktu 2 tahun. Apabila
+        dana
+        diperlukan lebih awal, terdapat fasilitas pencairan sebelum jatuh tempo (early redemption).
+      </p>
+    </div> -->
+    <div class="col-xs-12 col-md-10 col-md-offset-1 padding-null sbn-term-condition" id="cashback">
+      <div class="row">
+        <div class="left">
+          <img style="height:8em;width:13em" src="assets/img/ID/sr012/sr012-cashback.png">
+        </div>
+        <div class="right">
+          <span class="caption">Syarat & ketentuan cashback:</span>
+          <ol>
+            <li>Periode cashback berlaku pada masa penawaran SR012 dari 24 Februari - 18 Maret 2020</li>
+            <li>Cashback 5% maksimal Rp 100.000</li>
+            <li>Untuk mendapatkan cashback, minimal pembelian Rp2.000.000 hanya bagi 50 pembeli baru SBN Ritel di Modalku</li>
+            <li>Bonus cashback akan dikirimkan ke akun virtual Modalku Anda selambat-lambatnya dalam 14  hari kerja setelah masa penawaran berakhir</li>
+            <li>Cashback dapat digunakan untuk pendanaan ulang di Modalku</li>
+            <li>Promo tidak dapat digabung dengan program promo lainnya</li>
+            <li>Pajak cashback ditanggung oleh pemberi pinjaman</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <div class="tokopedia-info">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 text-center sbn-process-container-title">
+      <!-- Cara berinvestasi {{ bondGeneralInfo.name }} di Modalku -->
+      Cara pembayaran {{ bondGeneralInfo.name }} di Tokopedia
+    </div>
+  </div>
+  <!-- VIDEO CONTAINER -->
+  <div class="row video-container green">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="videoWrapper">
+        <!-- SUKUK
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/XW8-JjVptdo" frameborder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        SBR
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/Jsly0WAyXSc" frameborder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+          <!-- Tokopedia -->
+          <video width="100%" height="400" controls>
+            <source src="assets/img/ID/sr012/Motion How To Pay - Penerimaan Negara.mp4" type="video/mp4">
+          </video>
+      </div>
+    </div>
+  </div>
+
+  <!-- Non Tokopedia -->
+  <!-- <div class="row sbn-process-container">
+    <div class="col-xs-12">
+      <div class="col-sm-12 col-md-3 text-center">
+        <div class="sbn-sign-logo">
+        </div>
+        <div class="sbn-process-title">
+          <b>Daftar</b>
+        </div>
+        <div class="sbn-process-caption">
+          Daftar/login sebagai pemberi pinjaman di Modalku
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-3 text-center">
+        <div class="sbn-sid-registration-logo">
+        </div>
+        <div class="sbn-process-title">
+          <b>Buat SID</b>
+        </div>
+        <div class="sbn-process-caption">
+          Lakukan pembuatan Single Investor Identification (SID) dengan memilih menu SBN Retail
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-3 text-center">
+        <div class="sbn-pay-logo">
+        </div>
+        <div class="sbn-process-title">
+          <b>Deposit</b>
+        </div>
+        <div class="sbn-process-caption">
+          Kirim dana ke akun virtual Modalku Anda
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-3 text-center">
+        <div class="sbn-order-logo">
+        </div>
+        <div class="sbn-process-title">
+          <b>Beli</b>
+        </div>
+        <div class="sbn-process-caption">
+          Lakukan pembelian {{ bondGeneralInfo.name }} melalui menu SBN Retail
+        </div>
+      </div>
+
+    </div>
+  </div> -->
+
+
+  <!-- Tokopedia -->
+  <div class="row sbn-process-container" style="background: #08C0A6;">
+    <div class="col-xs-12">
+      <div class="col-sm-12 col-md-3 text-center">
+        <div class="sbn-sign-logo">
+        </div>
+        <div class="sbn-process-title">
+          <b>Daftar</b>
+        </div>
+        <div class="sbn-process-caption">
+          Daftar/login sebagai pemberi pinjaman di Modalku
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-3 text-center">
+        <div class="sbn-sid-registration-logo">
+        </div>
+        <div class="sbn-process-title">
+          <b>Buat SID</b>
+        </div>
+        <div class="sbn-process-caption">
+          Lakukan pembuatan Single Investor Identification (SID) dengan memilih menu SBN Retail
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-3 text-center">
+        <div class="sbn-order-logo">
+        </div>
+        <div class="sbn-process-title">
+          <b>Beli</b>
+        </div>
+        <div class="sbn-process-caption">
+          Lakukan pembelian Sukuk Tabungan seri 009 melalui menu SBN Retail
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-3 text-center">
+        <div class="sbn-tokopedia-payment-logo">
+        </div>
+        <div class="sbn-process-title">
+          <b>Bayar</b>
+        </div>
+        <div class="sbn-process-caption">
+          Selesaikan pembayaran, praktis melalui Tokopedia
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row sbn-simulation-container">
+    <div class="col-xs-12 text-center sbn-simulation-container-title">
+      Simulasi {{ bondGeneralInfo.name }}
+    </div>
+    <div
+      class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 sbn-simulation-box border fs-box-shadow">
+      <div class="col-xs-12 col-sm-4 calculation-row">
+        <div class="fs-simulation-blue-text box">Jumlah Investasi</div>
+        <div class="fs-simulation-gray-text">Min. Rp 1 juta - maks. Rp 3 miliar</div>
+        <div class="col-xs-2 padding-null currency-input">
+          Rp.
+        </div>
+        <div class="col-xs-10 padding-null">
+          <input autoFormat autoFormatType="number" autocomplete="off" [value]="bondGeneralInfo.simulation.simulationAmount"
+            (keyup)="calculateProfit($event.target.value)" class="fs-text-input-borderless full-width"
+            id="simulationAmount" name="simulationAmount" type="text" />
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-4 calculation-row">
+        <div class="fs-simulation-blue-text box">Tingkat Imbal Balik</div>
+        <!-- <div class="fs-simulation-gray-text">{{ bondGeneralInfo.simulation.yearlyInterest | percent: percentFormat }} per tahun</div>  -->
+        <!-- For ORI -->
+        <div class="fs-simulation-gray-text">Minimal {{ bondGeneralInfo.simulation.yearlyInterest | percent : percentFormat }}% per tahun</div>
+        <div class="fs-simulation-bold-text box">{{ bondGeneralInfo.simulation.yearlyInterest | percent: percentFormat }}</div>
+      </div>
+      <div class="col-xs-12 col-sm-4 calculation-row">
+        <div class="fs-simulation-blue-text box">Bonus Cashback</div>
+        <div class="fs-simulation-gray-text">Cashback senilai Rp 100.000</div>
+        <div class="fs-simulation-bold-text box"><span class="currency">Rp</span> {{ bondGeneralInfo.simulation.cashbackBonus }}</div>
+      </div>
+    </div>
+    <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 sbn-simulation-box">
+      <div class="col-xs-12 padding-null">
+        <div class="fs-simulation-blue-text bottom-box">Jumlah Imbal Balik</div>
+      </div>
+      <div>
+        <div class="col-xs-12 col-sm-4 calculation-row padding-null">
+          <div class="col-xs-5 col-sm-12 fs-simulation-gray-text return-field padding-null">{{ bondGeneralInfo.tenorLengthInYear }} Tahun</div>
+          <div class="col-xs-7 col-sm-12 fs-simulation-bold-text padding-null"><span class="currency">Rp</span>
+            {{ bondGeneralInfo.simulation.maximumRevenue }}</div>
+          <div class="fs-simulation-gray-text"><span class="net-text">Nett.* Rp {{ bondGeneralInfo.simulation.nettMaximumRevenue }} </span></div>
+        </div>
+        <div class="col-xs-12 col-sm-4 calculation-row padding-null">
+          <div class="col-xs-5 col-sm-12 fs-simulation-gray-text return-field padding-null">1 Tahun</div>
+          <div class="col-xs-7 col-sm-12 fs-simulation-bold-text padding-null"><span class="currency">Rp</span>
+            {{ bondGeneralInfo.simulation.oneYearRevenue }}</div>
+          <div class="fs-simulation-gray-text"><span class="net-text">Nett.* Rp {{ bondGeneralInfo.simulation.nettOneYearRevenue }} </span></div>
+        </div>
+        <div class="col-xs-12 col-sm-4 padding-null">
+          <div class="col-xs-5 col-sm-12 fs-simulation-gray-text return-field padding-null">per bulan</div>
+          <div class="col-xs-7 col-sm-12 fs-simulation-bold-text padding-null"><span class="currency">Rp</span>
+            {{ bondGeneralInfo.simulation.monthlyRevenue }}</div>
+            <div class="fs-simulation-gray-text"><span class="net-text">Nett.* Rp {{ bondGeneralInfo.simulation.nettMonthlyRevenue }} </span></div>
+        </div>
+      </div>
+      <div class="col-xs-12 padding-null">
+        <div class="fs-simulation-gray-text information">
+          *setelah dipotong pph mulai dari 15%
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOR SBR LANDING PAGE ONLY -->
+  <!-- <div class="row sbn-about-container">
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+      <div class="item">
+        <img src="assets/img/_public/esbn-logo.png">
+        <p>
+          e-SBN merupakan sebuah instrumen pemerintah yang akan memudahkan Warga Negara Indonesia untuk
+          berinvestasi. Melalui e-SBN, Anda dapat melakukan pembelian SBR009 di mana saja, kapan saja
+          secara online selama masa penawaran.
+        </p>
+      </div>
+      <div class="item">
+        <img src="assets/img/_public/sbr-logo.png">
+        <p>
+          Savings Bond Ritel 009 (SBR009) merupakan salah satu instrumen pembiayaan negara yang ditawarkan
+          kepada perseorangan Warga Negara Indonesia sebagai salah satu alternatif investasi yang aman,
+          mudah, terjangkau dan menguntungkan.
+        </p>
+        <ul>
+          <li>
+            SBR memiliki kupon yang mengambang dengan kupon minimal (floating with floor).
+          </li>
+          <li>
+            “Mengambang” artinya besaran Imbalan akan disesuaikan dengan perubahan Bank Indonesia 7 Days
+            Reverse Repo Rate setiap tiga bulan sekali.
+          </li>
+          <li>
+            “Kupon Minimal” artinya tingkat imbalan pertama yang ditetapkan akan menjadi imbalan minimal
+            yang berlaku sampai dengan jatuh tempo.
+          </li>
+          <li>
+            Kupon SBR akan dibayarkan setiap bulan pada tanggal 10.
+          </li>
+          <li>
+            SBR009 adalah instrumen yang tidak dapat diperdagangkan dipasar sekunder, namun terdapat fasilitas
+            early redemption, yaitu salah satu fasilitas yang memungkinkan investor menerima sebagian pelunasan
+            pokok SBR009 dari Pemerintah sebelum jatuh tempo. Fasilitas ini hanya dapat dimanfaatkan oleh
+            investor setelah 1 tahun dengan minimal kepemilikan Rp 2 juta dan jumlah maksimal yang dapat
+            diajukan untuk Early Redemption adalah 50% dari total kepemilikan investor.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="row sbn-faq-container">
+    <div class="sbn-faq-title text-center">Punya pertanyaan? Cari jawabannya di sini.</div>
+    <div class="col-xs-12">
+      <div class="faq-row" *ngFor="let faqlist of faqList; let i = index">
+        <label class="collapsed" for="faq{{i}}">
+          <div class="pull-left arrow-icon"
+            [ngClass]="{' faq-arrow-right': !faqlist.expand, 'faq-arrow-bottom margin-top-5 ': faqlist.expand}"></div>
+          <span [innerHTML]="faqlist.question"></span>
+        </label>
+        <input id="faq{{i}}" type="checkbox" [checked]="faqlist.expand" (change)="faqlist.expand = !faqlist.expand">
+        <div class="faqContent well-lg loyalty-faq-answer" [innerHTML]="faqlist.answer">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<modal id="sukukVideo" class="fs-modal fs-modal__open fs-modal--hidden">
+  <div class="fs-modal__background" (click)="closeModal('sukukVideo')"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered sukuk-modal">
+    <div class="fs-modal__content">
+      <div class="fs-modal__header fs-modal__header--noborder">
+        <div type="button" class="fs-modal__close" (click)="closeModal('sukukVideo')"></div>
+      </div>
+      <div *ngIf="showVideo" class="videoWrapper">
+        <iframe width="560" height="315" src="https://www.youtube.com/watch?v=XW8-JjVptdo&feature=youtu.be"
+          frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</modal>

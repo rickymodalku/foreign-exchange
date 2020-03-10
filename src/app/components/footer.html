@@ -1,0 +1,248 @@
+<modal id="DirectionModal" class="fs-modal fs-modal__open fs-modal--hidden">
+  <div class="fs-modal__background" (click)="closeModal('DirectionModal')"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered direction-modal">
+    <div class="fs-modal__content">
+      <div class="fs-modal__header fs-modal__header--noborder">
+        <h5 class="fs-modal__title fs-modal__title--centered">Directions</h5>
+        <div type="button" class="fs-modal__close" (click)="closeModal('DirectionModal')"></div>
+      </div>
+      <div id="map" class="map"></div>
+    </div>
+  </div>
+</modal>
+<div class="col-md-12 footerTop active" [ngClass]="{ 'sg': countryCode === 'SG', 'my': countryCode === 'MY' }"
+  *ngIf="!showMapFooter()">
+  <div class="footerContainer">
+    <div class="col-sm-10 col-md-8 col-lg-6 adressDetail">
+      {{ 'footer.address.address-short' | translate }}
+    </div>
+    <div class="col-sm-2 col-md-4 col-lg-6 contactBtnContainer" (click)="toggleContactDetail()">
+      <div class="contactBtn Gilroy-SemiBold">
+        {{ 'footer.button.detail-contact' | translate }}
+      </div>
+    </div>
+
+    <div class="col-md-12 text-left adressDetail2 padding-null" [innerHTML]="( 'footer.address.address-long' | translate )">
+    </div>
+
+    <div class="col-sm-5 col-md-6 text-left contactDetail padding-null">
+      <div [innerHTML]="('footer.address.contact' | translate )"></div>
+      <div>{{ 'footer.address.email' | translate }}</div>
+    </div>
+
+    <div class="col-md-6 col-lg-6 fs-footer-button-container padding-null" [ngClass]="{ 'id' : countryCode === 'ID' }">
+      <div class="col-md-6 btnDirection Gilroy-SemiBold" (click)="displayMap()">
+        <div class="direction-icon pull-left"></div>
+        {{ 'footer.button.direction' | translate }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container footer">
+  <div class="row">
+    <div>
+      <div class="col-xs-12 col-md-8">
+        <div class="col-xs-1 col-md-2 logo footer margin-top-15 margin-right-20"></div>
+        <div class="footerNav col-xs-12 col-md-10 clearfix padding-null">
+          <ul class="item col-sm-3 col-xs-6">
+            <li class="itemHeader">{{ 'footer.caption.service' | translate }}</li>
+            <li>
+              <a *ngIf="countryCode === 'SG'" href="/borrow">{{ 'footer.navigation.business-loan' | translate }}</a>
+              <a *ngIf="countryCode !== 'SG'" routerLink="/borrow">{{ 'footer.navigation.business-loan' | translate }}</a>
+            </li>
+            <li>
+              <a *ngIf="countryCode === 'SG'" href="/invest">{{ 'footer.navigation.investing' | translate }}</a>
+              <a *ngIf="countryCode !== 'SG'" routerLink="/invest">{{ 'footer.navigation.investing' | translate }}</a>
+            </li>
+            <li *ngIf="referralProgram"><a routerLink="/refer">{{ 'footer.navigation.referral' | translate }}</a></li>
+          </ul>
+          <ul class="item col-sm-3 col-xs-6">
+            <li class="itemHeader">{{ 'footer.caption.who-we-are' | translate }}</li>
+            <li><a routerLink="/about-us">{{ 'footer.navigation.about-us' | translate }}</a></li>
+            <li><a routerLink="/statistics">{{ 'footer.navigation.statistics' | translate }}</a></li>
+            <li><a routerLink="/career" ng-reflect-router-link="/career">{{ 'footer.navigation.career' | translate }}</a></li>
+            <li *ngIf="countryCode === 'SG' || countryCode === 'MY'"><a href="{{ CONFIGURATION.reference.intercom_help }}?utm_source=mainsitesg&utm_medium=footer"
+                target="_blank">{{ 'footer.navigation.help' | translate }}</a></li>
+            <li *ngIf="countryCode !== 'SG' && countryCode !== 'MY'"><a routerLink="/faq">{{ 'footer.navigation.faq' | translate }}</a></li>
+            <li *ngIf="countryCode === 'SG'">
+              <a role="button" href="{{CONFIGURATION.story}}" target="_blank">
+                {{ 'footer.navigation.our-story' | translate }}
+              </a>
+            </li>
+          </ul>
+          <ul class="item col-sm-3 col-xs-6">
+            <li class="itemHeader">
+              {{ 'footer.caption.media' | translate }}
+            </li>
+            <li>
+              <a role="button" href="{{CONFIGURATION.blog}}" target="_blank">
+                {{ 'footer.navigation.our-blog' | translate }}
+              </a>
+            </li>
+            <li>
+              <a role="button" href="{{CONFIGURATION.mediapress}}" target="_blank">
+                {{ 'footer.navigation.event' | translate }}
+              </a>
+            </li>
+            <li>
+              <a *ngIf="countryCode !== 'SG'" role="button" (click)="goToLearningCenter()">
+                {{ 'footer.navigation.learning' | translate }}
+              </a>
+            </li>
+            <li *ngIf="showCrowdfundtalk">
+              <a role="button" href={{CONFIGURATION.crowdfundtalkLinkFooter}} target="_blank">
+                {{ 'footer.navigation.crowdfund-talks' | translate }}
+              </a>
+            </li>
+          </ul>
+          <ul class="item col-sm-3 col-xs-6">
+            <li class="itemHeader">
+              {{ 'footer.caption.legal' | translate }}
+            </li>
+            <li><a routerLink="/terms-of-service" *ngIf="!CONFIGURATION.websiteTermsAndConditionPdf">
+                {{ 'footer.navigation.term-of-service' | translate }}
+              </a></li>
+            <li><a href="{{CONFIGURATION.websiteTermsAndConditionPdf}}" target="_blank" *ngIf="CONFIGURATION.websiteTermsAndConditionPdf">
+                <span *ngIf="countryCode !== 'MY'">{{ 'footer.navigation.website-terms' | translate }}</span>
+                <span *ngIf="countryCode === 'MY'">{{ 'footer.navigation.term-of-service' | translate }}</span>
+              </a></li>
+            <li>
+              <a routerLink="/privacy-notice" *ngIf="countryCode !== 'MY'">
+                {{ 'footer.navigation.privacy-notice' | translate }}
+              </a>
+              <a href="{{ CONFIGURATION.websitePrivacyNoticePdf }}" target="_blank" *ngIf="countryCode === 'MY'">
+                {{ 'footer.navigation.privacy-notice' | translate }}
+              </a>
+            </li>
+            <li><a href="{{ CONFIGURATION.websitePrivacyNoticeBmPdf }}" target="_blank" *ngIf="showPrivacyNoticeMalay">
+                {{ 'footer.navigation.privacy-notice-malay' | translate }}
+              </a></li>
+            <li>
+              <a routerLink="/term-condition" *ngIf="countryCode === 'MY' || countryCode === 'SG'">
+                {{ 'footer.navigation.term-condition' | translate }}
+              </a>
+            </li>
+            <li *ngIf="showPrivacyNoticeInvoiceFinancing">
+              <a routerLink="/privacy-notice-invoice-financing">
+                {{ 'footer.navigation.privacy-notice-invoice-financing' | translate }}
+              </a>
+            </li>
+            <li *ngIf="countryCode === 'ID'">
+              <a routerLink="/complaint-handling">
+                {{ 'footer.navigation.complaint-handling' | translate }}
+              </a>
+            </li>
+            <li  *ngIf="showDisclosureNotice">
+              <a routerLink="/risk-disclosure">
+                {{ 'footer.navigation.risk-disclosure' | translate }}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footerBottom__sites">
+        <div class="social-media-icons">
+          <div (click)="goToFacebookLink()" class="social-media-icon facebook"></div>
+          <div (click)="goToTwitterLink()" class="social-media-icon twitter"></div>
+          <div (click)="goToLinkedinLink()" class="social-media-icon linkedin"></div>
+        </div>
+        <div class="select-site">
+          <div class="change-language-box " role="button" (click)="openModal('languageDialog')">
+            <div class="global-icon margin-right-10"></div>
+            <span class="light-gray-text">{{ 'footer.caption.language' | translate }} &nbsp;</span>
+            <u>{{ getDefaultLanguageLabel() }}</u>
+          </div>
+          <div class="ssl-secure-box">
+            <div class="lock-icon"></div>
+            <span>{{ 'footer.caption.ssl-secure-site' | translate }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 footerBottom__container" [ngClass]="{
+          'footerBottom__longLicense': countryCode === 'ID',
+          'footerBottom__shortLicense': countryCode !== 'ID'
+        }">
+        <div class="footerBottom__license">
+          <span [innerHTML]="( 'footer.license' | translate )"></span>
+          <i class="fa fa-info-circle build-version" aria-hidden="true" title="Version:{{ENVIRONMENT.version}}"></i>
+        </div>
+
+        <div class="col-xs-12 app-container padding-null">
+          <div class="col-xs-12 col-md-4" [ngClass]="{ 'bg-app-download-dl' : countryCode === 'ID','padding-null' : countryCode !== 'ID' }">
+            <div class="app-container__title" [ngClass]="{ 'bold' : countryCode === 'ID' }">{{ 'invest.header.app-investor-title' | translate }}</div>
+            <div class="app-container__app" role="button" id="android-app" (click)="openAppLink('googlePlayInvestor')">
+              <div class="app-download-link white-background" [ngClass]="{ 'margin-bottom-10' : countryCode !== 'ID' }">
+                <div class="google-play-black-logo margin-top-5 margin-right-5">
+                </div>
+                <div>
+                  <span class="download-caption">{{ 'invest.header.download-on' | translate }}</span>
+                  <br>
+                  <span class="app-store">
+                    <b>{{ 'invest.header.google-play' | translate }}</b>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="app-container__app" id="ios-app" role="button" (click)="openAppLink('appStoreInvestor')">
+              <div class="app-download-link white-background">
+                <div class="app-store-black-logo margin-top-5 margin-right-5">
+                </div>
+                <div>
+                  <span class="download-caption">{{ 'invest.header.download-on' | translate }}</span>
+                  <br>
+                  <span class="app-store">
+                    <b>{{ 'invest.header.app-store' | translate }}</b>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-4 padding-null" *ngIf="countryCode !== 'ID'">
+            <div class="app-container__title">{{ 'invest.header.app-borrower-title' | translate }}</div>
+            <div class="app-container__app" role="button" id="android-app" (click)="openAppLink('googlePlayBorrower')">
+              <div class="app-download-link">
+                <div class="google-play-black-logo margin-top-5 margin-right-5">
+                </div>
+                <div>
+                  <span class="download-caption">{{ 'invest.header.download-on' | translate }}</span>
+                  <br>
+                  <span class="app-store">
+                    <b>{{ 'invest.header.google-play' | translate }}</b>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<modal id="languageDialog" class="fs-modal fs-modal__open fs-modal--hidden">
+  <div class="fs-modal__background" (click)="closeModal('languageDialog')"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered language-dialog">
+    <div class="fs-modal__content">
+      <div class="fs-modal__header fs-modal__header--noborder">
+        <h5 class="fs-modal__title fs-modal__title--centered">{{ 'footer.language-pop-up.title' | translate }}</h5>
+        <div type="button" class="fs-modal__close" (click)="closeModal('languageDialog')"></div>
+      </div>
+      <div class="language-container">
+        <div class="text-center light-gray-text margin-bottom-20">
+          {{ 'footer.language-pop-up.caption' | translate }}
+        </div>
+        <span *ngFor="let language of languages">
+          <a (click)='changeLanguage(language.code)'>
+            <div class="language-item" role="button" class="light-gray-text text-center">
+              {{language.label}}
+            </div>
+          </a>
+        </span>
+      </div>
+    </div>
+  </div>
+</modal>

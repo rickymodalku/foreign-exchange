@@ -1,0 +1,119 @@
+<div *ngIf="countryCode === 'ID'" class="container-fluid virtual-account">
+  <div class="row text-justify">
+    <div class="col-md-10 content-center">
+      <div id="webContent">
+        <section id="expertSection">
+          <div class="row">
+            <div class="col-md-12 text-center margin-top-20">
+              <div class="Gilroy-SemiBold title">
+                {{ 'deposit.virtual-account.title' | translate }}
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-10 col-md-8 col-lg-7 fs-id-deposit-box content-center fs-box-shadow margin-top-20">
+            <div class="row margin-bottom-20">
+              <div class="title-box col-xs-12 padding-null">
+                <label class="col-xs-12 Gilroy-SemiBold padding-null sub-title">{{ 'deposit.transfer-way.title' | translate }}</label>
+              </div>
+              <div class="title-box col-xs-12 padding-null">
+                <div>
+                  <p>{{ 'deposit.transfer-way.caption' | translate }}</p>
+                  <ol class="margin-bottom-10">
+                    <li *ngFor="let firebasemasterdata of firebaseMasterData.transferWay">
+                      {{ firebasemasterdata.value }}
+                    </li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+            <p-accordion [multiple]="false">
+              <p-accordionTab header="{{ 'deposit.transfer-way.list.0.value' | translate }}">
+                <span class="Gilroy-SemiBold caption">{{ 'deposit.internet-banking.sinarmas.title' | translate }}</span>
+                <div class="description margin-bottom-5 margin-top-10">{{ 'deposit.internet-banking.sinarmas.transfer.caption' | translate }}</div>
+                <div>
+                  <ol>
+                    <li *ngFor="let sinarmastransfer of firebaseMasterData.sinarmasTransfer">
+                      {{ sinarmastransfer.value }}
+                    </li>
+                  </ol>
+                </div>
+                <div class="description margin-bottom-5 margin-top-10">{{ 'deposit.internet-banking.sinarmas.payment.caption' | translate }}</div>
+                <div>
+                  <ol>
+                    <li *ngFor="let sinarmaspayment of firebaseMasterData.sinarmasPayment">
+                      {{ sinarmaspayment.value }}
+                    </li>
+                  </ol>
+                </div>
+                <div class="margin-bottom-20" [innerHTML]="( 'deposit.internet-banking.sinarmas.caption' | translate )">
+                </div>
+                <span class="Gilroy-SemiBold caption">{{ 'deposit.internet-banking.bca.title' | translate }}</span>
+                <ol>
+                  <li *ngFor="let bcatransfer of firebaseMasterData.bcaTransfer">
+                    <span [innerHTML]="bcatransfer.value"></span>
+                  </li>
+                </ol>
+                <span class="Gilroy-SemiBold caption">{{ 'deposit.internet-banking.bca-m-banking.title' | translate }}</span>
+                <ol>
+                  <li *ngFor="let bcaMBanking of firebaseMasterData.bcaMBanking">
+                    <span [innerHTML]="bcaMBanking.value"></span>
+                  </li>
+                </ol>
+                <span class="Gilroy-SemiBold caption">{{ 'deposit.internet-banking.mandiri.title' | translate }}</span>
+                <ol>
+                  <li *ngFor="let mandiritransfer of firebaseMasterData.mandiriTransfer">
+                    <span [innerHTML]="mandiritransfer.value"></span>
+                  </li>
+                </ol>
+                <span class="Gilroy-SemiBold caption">{{ 'deposit.internet-banking.general.title' | translate }}</span>
+                <ol>
+                  <li *ngFor="let generaltransfer of firebaseMasterData.generalTransfer">
+                    <span [innerHTML]="generaltransfer.value"></span>
+                  </li>
+                </ol>
+              </p-accordionTab>
+              <p-accordionTab header="{{ 'deposit.transfer-way.list.1.value' | translate }}">
+                <span class="Gilroy-SemiBold caption">{{ 'deposit.atm.sinarmas.title' | translate }}</span>
+                <div class="description margin-bottom-5 margin-top-10">{{ 'deposit.atm.sinarmas.transfer.caption' | translate }}</div>
+                <ol>
+                  <li *ngFor="let sinarmastransferatm of firebaseMasterData.sinarmasTransferATM">
+                    <span [innerHTML]="sinarmastransferatm.value"></span>
+                  </li>
+                </ol>
+
+                <div class="description margin-bottom-5 margin-top-10">{{ 'deposit.atm.sinarmas.payment.caption' | translate }}</div>
+                <ul class="margin-bottom-20">
+                  <li *ngFor="let sinarmaspaymentatm of firebaseMasterData.sinarmasPaymentATM">
+                    <span [innerHTML]="sinarmaspaymentatm.value"></span>
+                  </li>
+                </ul>
+
+                <span class="Gilroy-SemiBold caption">{{ 'deposit.atm.other.title' | translate }}</span>
+                <div class="description margin-bottom-5 margin-top-10">{{ 'deposit.atm.other.caption' | translate }}</div>
+                <ul>
+                  <li *ngFor="let otherBankATM of firebaseMasterData.otherBankATM">
+                    <span [innerHTML]="otherBankATM.value"></span>
+                  </li>
+                </ul>
+              </p-accordionTab>
+              <p-accordionTab header="{{ 'deposit.transfer-way.list.2.value' | translate }}">
+                <ol>
+                  <li *ngFor="let tellerBankSinarmas of firebaseMasterData.tellerBankSinarmas">
+                    <span [innerHTML]="tellerBankSinarmas.value"></span>
+                  </li>
+                </ol>
+              </p-accordionTab>
+              <p-accordionTab header="{{ 'deposit.transfer-way.list.3.value' | translate }}">
+                <ol>
+                  <li *ngFor="let llgRgts of firebaseMasterData.llgRgts">
+                    <span [innerHTML]="llgRgts.value"></span>
+                  </li>
+                </ol>
+              </p-accordionTab>
+            </p-accordion>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,736 @@
+<div class="container-fluid fs-investor-portfolio-container">
+
+  <div class="dashboard-loyalty-row row" *ngIf="enableLoyaltyProgram && !institutionalFlag">
+    <div class="col-xs-1 margin-top-10 hidden-xs">
+      <div ngSwitch="{{ loyaltyDetailPoint?.tier }}" routerLink="/investor-loyalty" role="button">
+        <div *ngSwitchCase="'Blue'" class="loyalty-tier-logo loyalty-blue-tier-logo image-right">
+        </div>
+        <div *ngSwitchCase="'Silver'" class="loyalty-tier-logo loyalty-silver-tier-logo image-right">
+        </div>
+        <div *ngSwitchCase="'Gold'" class="loyalty-tier-logo loyalty-gold-tier-logo image-right">
+        </div>
+        <div *ngSwitchCase="'Platinum'" class="loyalty-tier-logo loyalty-platinum-tier-logo image-right">
+        </div>
+        <div *ngSwitchCase="'Prestige'" class="loyalty-tier-logo loyalty-prestige-tier-logo image-right">
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 padding-null">
+      <div class="current-status-row">{{ 'investor-dashboard.loyalty.current-status' | translate }}
+        <span class="text-bold Gilroy-SemiBold current-status-row-point">{{ loyaltyDetailPoint?.tier }}</span>
+      </div>
+      <div class="margin-top-5 current-status-caption">
+        <span *ngIf=" loyaltyDetailPoint?.tier !== 'Prestige'" [innerHtml]="( 'investor-dashboard.loyalty.non-prestige-caption' | translate )">
+        </span>
+        <span *ngIf=" loyaltyDetailPoint?.tier === 'Prestige'" [innerHtml]="( 'investor-dashboard.loyalty.prestige-caption' | translate )">
+        </span>
+      </div>
+      <div class="margin-top-5 learn-more-button" role="button">
+        <span routerLink="/investor-loyalty">
+          <u>{{ 'investor-dashboard.loyalty.learn-more' | translate }}</u>
+          <i class="fa fa-chevron-right transparant-text" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-5 loyalty-progress-bar-container">
+      <div [ngClass]="{ 'margin-bottom-5' :  loyaltyDetailPoint?.tier !== 'Prestige' , 'margin-top-20' :  loyaltyDetailPoint?.tier === 'Prestige' }">
+        <span class="Gilroy-Light">{{ 'investor-dashboard.loyalty.current-point' | translate }}</span>
+        <span class="text-bold current-point Gilroy-SemiBold">{{ loyaltyDetailPoint?.qualifying_points | number }}</span>
+      </div>
+      <div *ngIf="loyaltyDetailPoint?.tier !== 'Prestige'">
+        <p-progressBar class="green" routerLink="/investor-loyalty" role="button" [value]="(loyaltyDetailPoint?.qualifying_points / (loyaltyDetailPoint?.qualifying_points + loyaltyDetailPoint?.next_tier_required_qualifying_points) * 100)"></p-progressBar>
+      </div>
+      <div *ngIf="loyaltyDetailPoint?.tier !== 'Prestige'" class="margin-top-5 current-point-caption">{{
+        'investor-dashboard.loyalty.earn' | translate }}
+        <span class="text-bold">{{ loyaltyDetailPoint?.next_tier_required_qualifying_points | number }}</span> {{
+        'investor-dashboard.loyalty.point-to-unlock' | translate }}
+        <span class="text-bold" role="button" routerLink="/investor-loyalty">
+          <u>{{ loyaltyDetailPoint?.next_tier }}</u>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row fs-investor-portfolio-statistic-row">
+    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 pull-left accountOverviewCaption">
+      <div class="font-size-36 white-text Gilroy-SemiBold">{{ 'portfolio.title' | translate }}
+        <span class="col-xs-12 fs-portfolio-date-text padding-null margin-bottom-10"> {{ 'investor-portfolio.as-of' |
+          translate }} {{currentTime }} </span>
+      </div>
+      <br>
+      <span class="caption Gilroy-Regular font-size-16 white-text transparant-text" [innerHtml]="('portfolio.subtitle' | translate)"></span>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null margin-bottom-20">
+      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 pull-left monthStatistic">
+        <span class="pull-left font-size-16">
+          <span class="dark-blue Gilroy-SemiBold">{{ 'portfolio.statistics-title' | translate }}</span>
+        </span>
+      </div>
+    </div>
+    <div class="col-sm-12 fs-investor-portfolio-detail-row text-center hidden-xs padding-null">
+      <div class="col-xs-2 col-sm-3 col-md-3 col-lg-2 pull-left detail-box text-center margin-bottom-20" *ngFor="let portfolionumber of portfolioNumbers">
+        <span class="statistic-number font-size-30">{{ portfolionumber.value }} </span>
+        <br>
+        <span *ngIf="countryCode === 'ID' && portfolionumber.displaydetail" class="statistic-number font-size-12">{{
+          portfolionumber.detailvalue }}</span>
+        <br>
+        <span class="statistic-caption font-size-14">{{ portfolionumber.label }}</span>
+      </div>
+      <div class="col-xs-2 col-sm-3 col-md-3 col-lg-2 pull-left detail-box text-center margin-bottom-20" >
+        <span class="statistic-number font-size-30">{{defaultedStats.totalDefaultedAmount}}</span>
+        <span class="statistic-sub-caption font-size-14 font-sm-size-12 top-5">{{defaultedStats.totalDefaultedLabel}}</span>
+        <div class="row text-center padding-null">
+          <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 left-15px statistic-sub-col">
+            <span class="statistic-number font-size-18 font-sm-size-16">{{defaultedStats.inRecoveryAmount}}</span>
+            <span class="statistic-sub-caption font-size-12 font-sm-size-10" role="button" (click)="showDefaultDef('In-Recovery')">
+              <span class="text-truncate d-inline-block full-width"  title="{{defaultedStats.inRecoveryLabel}}" >
+                <span class="dotted-underline">{{defaultedStats.inRecoveryLabel}}</span>
+              </span>
+            </span>
+          </div>
+          <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 statistic-vertical-line hidden-xs v-line-sm"></div>
+          <div class="col-xs-6 col-sm-6 col-md-4 col-lg-5 left-5px statistic-sub-col">
+            <span class="statistic-number font-size-18 font-sm-size-16">{{defaultedStats.nonRecoverableAmount}}</span>
+            <span class="statistic-sub-caption font-size-12 font-sm-size-10" role="button" (click)="showDefaultDef('Non-Recoverable')">
+              <span class="text-truncate d-inline-block full-width"  title="{{defaultedStats.nonRecoverableLabel}}" >
+                <span class="dotted-underline text-truncate d-inline-block full-width">{{defaultedStats.nonRecoverableLabel}}</span>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fs-investor-portfolio-detail-swiper margin-top-20 text-center hidden-sm hidden-md hidden-lg" style="margin-left:-1.5em">
+      <div class="swiper-container" *ngIf="portfolioNumbers.length > 0" [swiper]="mobileSwiperConfiguration">
+        <div class="swiper-wrapper">
+          <div *ngFor="let portfolionumber of portfolioNumbers" class="swiper-slide" fxLayout="column" fxLayoutAlign="center center"
+            style="background-color:#fbf8ff;padding-top:20px;">
+            <div class="text-center value">
+              <span class="Gilroy-SemiBold">{{ portfolionumber.value }}</span>
+            </div>
+            <div *ngIf="countryCode === 'ID' && portfolionumber.displaydetail" class="text-center detail-value">
+              <span class="Gilroy-SemiBold">{{ portfolionumber.detailvalue }}</span>
+            </div>
+            <div class="text-center text">
+              <span class="Gilroy-SemiBold">{{ portfolionumber.label }}</span>
+            </div>
+          </div>
+          <div class="swiper-slide" fxLayout="column" fxLayoutAlign="center center"
+               style="background-color:#fbf8ff;padding-top:20px;">
+            <div class="text-center value">
+              <span class="Gilroy-SemiBold">{{defaultedStats.totalDefaultedAmount}}</span>
+            </div>
+            <div class="text-center text bottom-5">
+              <span class="Gilroy-SemiBold">{{defaultedStats.totalDefaultedLabel}}</span>
+            </div>
+            <div class="row text-center ">
+              <div class="col-xs-6 col-sm-6 col-md-5 col-lg-5 left-15px statistic-sub-col">
+                <span class="statistic-number font-size-12">{{defaultedStats.inRecoveryAmount}}</span>
+                <br>
+                <span class="statistic-sub-caption font-size-10" role="button" (click)="showDefaultDef('In-Recovery')"><span class="dotted-underline">{{defaultedStats.inRecoveryLabel}}</span></span>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-4 col-lg-5 left-5px statistic-sub-col">
+                <span class="statistic-number font-size-12">{{defaultedStats.nonRecoverableAmount}}</span>
+                <br>
+                <span class="statistic-sub-caption font-size-10" role="button" (click)="showDefaultDef('Non-Recoverable')"><span class="dotted-underline">{{defaultedStats.nonRecoverableLabel}}</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div [hidden]="mobileSwiperConfiguration.pagination !== '.swiper-pagination'" class="swiper-pagination"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row fs-investor-portfolio-repayment-row">
+    <div class="col-xs-12 col-sm-6 col-md-11 col-lg-10 col-md-offset-1 col-lg-offset-2 margin-bottom-20 margin-top-20 Gilroy-SemiBold font-size-16 title">
+      {{ 'portfolio.label.repayment-snapshot' | translate }}
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 col-md-offset-1 col-lg-offset-2 padding-null">
+      <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 margin-right-20 repayment-info-box" *ngFor="let repayment of repaymentSnapshot">
+        <div class="hidden-xs col-xs-5 col-sm-12 Gilroy-Light repayment-number-text text-ellipsis padding-null" title="{{currency}} {{repayment.amount}}">
+          {{ currency }}{{ repayment?.amount }}
+        </div>
+        <div class="hidden-sm hidden-md hidden-lg col-xs-8 col-sm-12 Gilroy-Light repayment-number-text text-ellipsis padding-null"
+          title="{{currency}} {{repayment.amount}}">
+          {{ currency }}{{ repayment?.detailAmount }}
+        </div>
+        <div class="col-xs-8 col-sm-12 text-center margin-top-5 repayment-date-text padding-null">
+          <div class="hidden-xs" *ngIf="countryCode === 'ID'">
+            {{ repayment?.detailAmount }}
+          </div>
+          <div class="col-sm-12 month padding-null margin-right-5">
+            {{ repayment?.month | date:'MMMM' }}
+          </div>
+          <div class="col-xs-2 col-sm-12 year padding-null">
+            {{ repayment?.year }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row fs-investor-portfolio-table-row fs-box-shadow">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center margin-top-20 margin-bottom-20">
+      <div class="btn btn-switch-style left" [ngClass]="{ 'active' : selectedTable == 'invested-loan' }" (click)="selectedTable = 'invested-loan'">
+        {{ 'investor-portfolio.button.invested-loan' | translate }}
+      </div>
+      <div class="btn btn-switch-style right" [ngClass]="{ 'active' : selectedTable == 'repayment-status' }" (click)="selectedTable = 'repayment-status'">
+        {{ 'investor-portfolio.button.repayment-status' | translate }}
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center fs-portfolio-legend-row" #portfolioLegend>
+      <ng-container *ngTemplateOutlet="repaymentLegend"></ng-container>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center fs-portfolio-legend-row hide-legend"
+      [class.sticky-legend]="stickyLegend">
+      <ng-container *ngTemplateOutlet="repaymentLegend"></ng-container>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 fs-investor-portfolio-table repayment" *ngIf="selectedTable == 'repayment-status'">
+      <table class="blue-stripped-table">
+        <thead>
+          <tr>
+            <th>{{ 'portfolio.detail-label.no' | translate }}</th>
+            <th class="text-left">{{ 'portfolio.detail-label.loan-code' | translate }}</th>
+            <th class="text-left">{{ 'portfolio.detail-label.term' | translate }}</th>
+            <th class="text-left">{{ 'portfolio.detail-label.first-repayment' | translate }}</th>
+            <th class="text-left">{{ 'portfolio.detail-label.repayment-period' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let datum of portfolioModel.repaymentData;let i = index">
+          <tr>
+            <td>{{ i + 1 }}</td>
+            <td class="text-left">
+              <u role="button" (click)="goToInvestedLoanDetails(datum.loan_code)">{{ datum.loan_code }}</u>
+            </td>
+            <td class="text-left">{{ datum.tenor }} {{ getTenorTypeLabel(datum.tenor_type) }}</td>
+            <td class="text-left">
+              <span *ngIf="datum.firstPayment">
+                {{ datum.firstPayment | date: portfolioModel.dateFormat }}
+              </span>
+              <span *ngIf="!datum.firstPayment">
+                -
+              </span>
+            </td>
+            <td>
+              <div class="calendar-block col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null text-center" *ngFor="let installment of datum.datas">
+                <div class="year-block">
+                  {{ installment.years }}
+                </div>
+                <div class="col-xs-3 col-sm-1 col-md-1 col-lg-1 month-block" *ngFor="let months of masterData.months;let j = index">
+                  <span class="d-block" [ngClass]="{ 'disabled' : getRepaymentColor(installment, j).code == 0 }">{{
+                    months | slice:0:3 }}</span>
+                  <div *ngIf="getRepaymentColor(installment, j).code == 0" class="circle disabled"></div>
+                  <div *ngIf="getRepaymentColor(installment, j).code != 0" class="tooltip-top" [attr.data-tooltip]="getRepaymentColor(installment, j).status"
+                    class="circle" [ngClass]="{
+                    'green-turquoise': getRepaymentColor(installment, j).code == 1,
+                    'red': getRepaymentColor(installment, j).code == 2,
+                    'brown': getRepaymentColor(installment, j).code == 3,
+                    'purple': getRepaymentColor(installment, j).code == 4,
+                    'light-blue': getRepaymentColor(installment, j).code == 5,
+                    'green-aquamarine': getRepaymentColor(installment, j).code == 6,
+                    'yellow': getRepaymentColor(installment, j).code == 7}">
+                  </div>
+                </div>
+              </div>
+              <div class="text-center" *ngIf=" datum.datas.length == 0">
+                <i>{{ 'portfolio.no-repayment' | translate }}</i>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+
+        <tbody *ngIf="portfolioModel.repaymentData.length <= 0">
+          <tr>
+            <td class="text-center" colspan="5">
+              <i>No invested loans yet</i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="col-md-12 text-center">
+        <div class="row loadMoreContainer" *ngIf="portfolioModel.displayRepaymentLoadMore">
+          <div class="loadMoreButton">
+            <i class="fa fa-plus" (click)="getInvestedLoanInstallmentDetails()"></i>
+            <br />
+            <span class="loadMoreTitle" (click)="getInvestedLoanInstallmentDetails()">
+              {{ 'portfolio.detail-label.button-load-more' | translate }} {{ portfolioModel.recordsPerPage }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="selectedTable == 'invested-loan'" class="col-xs-12 fs-portfolio-filter-row">
+      <div class="hidden-xs col-sm-0 col-md-1 fs-portfolio-empty-box">
+      </div>
+      <div class="col-xs-12 col-md-11 padding-null fs-portfolio-filter-container">
+        <span class="margin-right-10">{{ 'investor-portfolio.view-loan' | translate }} : </span>
+        <span role="button" class="filter-text" (click)="openModal('PortfolioFilterModal')">
+          <u *ngIf="portfolioFilter.caption.length === 0">{{ 'investor-portfolio.edit-filter' | translate }}</u>
+          <u *ngIf="portfolioFilter.caption.length > 0">{{ this.portfolioFilter.caption }}</u>
+        </span>
+        <div *ngIf="portfolioFilter.displayClearButton" class="btn btn-primary-white margin-left-20" (click)="resetFilter(true)">
+          {{ 'investor-portfolio.clear-list' | translate }}
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 fs-investor-portfolio-table" *ngIf="selectedTable == 'invested-loan'">
+      <table class="blue-stripped-table">
+        <thead>
+          <tr>
+            <th>{{ 'portfolio.detail-label.details' | translate }}</th>
+            <th class="text-left loan-code-col">{{ 'portfolio.detail-label.loan-code' | translate }}</th>
+            <th *ngIf="countryCode !== 'ID'" class="text-left">{{ 'portfolio.detail-label.company' | translate }}</th>
+            <th>{{ 'portfolio.detail-label.status' | translate }}</th>
+            <th class="tenor-col">{{ 'portfolio.detail-label.tenor' | translate }}</th>
+            <th>{{ 'portfolio.detail-label.simple-interest' | translate }}</th>
+            <th>{{ 'portfolio.detail-label.your-investment' | translate }} ({{ currency }})</th>
+            <th>{{ 'portfolio.detail-label.expected-repayment' | translate }} ({{ currency }})</th>
+            <th>{{ 'portfolio.detail-label.actual-repayment' | translate }} ({{ currency }})</th>
+            <th *ngIf="countryCode === 'SG'">{{ 'portfolio.detail-label.contract' | translate }}</th>
+            <th>{{ 'portfolio.detail-label.factsheet' | translate }}</th>
+            <th>{{ 'portfolio.detail-label.notes' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let datum of portfolioModel.data">
+          <tr [ngClass]="{ 'selected-row': datum?.displayDetail }">
+            <td (click)="getRepaymentDetails(datum)">
+              <div role="button" class="pull-right" [ngClass]="{ 'expand-table-icon-yellow': datum?.repayment_status === 'MISS' && !datum?.displayDetail,
+                                'expand-table-icon-brown': datum?.repayment_status === 'PARTIAL-PAID' && !datum?.displayDetail,
+                                'expand-table-icon-light-blue': datum?.repayment_status === 'UNPAID' && !datum?.displayDetail,
+                                'expand-table-icon-red': datum?.repayment_status === 'DEFAULT' && !datum?.displayDetail,
+                                'expand-table-icon-gray': (datum?.repayment_status === 'FUNDING' || datum?.repayment_status === '' ) && !datum?.displayDetail,
+                                'expand-table-icon-purple': datum?.repayment_status === 'LATE-REPAID' && !datum?.displayDetail,
+                                'expand-table-icon-green-aquamarine': datum?.repayment_status === 'P.E.R' && !datum?.displayDetail,
+                                'expand-table-icon-green-turquoise': (datum?.repayment_status === 'PAID' || datum?.repayment_status === 'COMPLETE') && !datum?.displayDetail,
+                                'collapse-table-icon': datum?.displayDetail }"></div>
+            </td>
+            <td class="text-left font-size-16 fs-loan-code" [ngClass]="{ 'yellow': datum?.repayment_status === 'MISS' && !datum?.displayDetail,
+                              'gray': ( datum?.repayment_status === 'FUNDING' || datum?.repayment_status === '' ) && !datum?.displayDetail,
+                              'purple': datum?.repayment_status === 'LATE-REPAID' && !datum?.displayDetail,
+                              'brown': datum?.repayment_status === 'PARTIAL-PAID' && !datum?.displayDetail,
+                              'crimson': datum?.repayment_status === 'DEFAULT' && !datum?.displayDetail,
+                              'light-blue': datum?.repayment_status === 'UNPAID' && !datum?.displayDetail,
+                              'green-turquoise': (datum?.repayment_status === 'PAID' || datum?.repayment_status === 'COMPLETE') && !datum?.displayDetail,
+                              'green-aquamarine': datum?.repayment_status === 'P.E.R' && !datum?.displayDetail }">
+              {{ datum.loan_code }}
+            </td>
+            <td *ngIf="countryCode !== 'ID'" class="text-left" [ngClass]="{ 'visible': datum?.displayDetail }">
+              {{ datum.company_name }}
+            </td>
+            <td class="fs-portfolio-black-text" [ngClass]="{ 'visible': datum?.displayDetail }">
+              <div *ngIf="!(datum.loan_status === this.loanStatusMapping['default'])">
+                {{ datum.loan_status === 'SUCCESS' || datum.loan_status === 'DISBURSE-REQUEST' ?
+                ('investor-portfolio.status.pending-investment' | translate) : datum.loan_status }}
+              </div>
+              <div *ngIf="datum.loan_status === this.loanStatusMapping['default']">
+                <span role="button" class="dotted-underline" (click)="showDefaultDef(datum.status_message)">{{datum.loan_status+' '+datum.status_message}}</span>
+              </div>
+              <ng-container *ngIf="datum.is_restructured && enableRestructuredLoan">
+                {{ 'investor-portfolio.restructured.add-restructured' | translate }}
+              </ng-container>
+            </td>
+            <td [ngClass]="{ 'visible': datum?.displayDetail }">
+              {{ datum.term }} {{ getTenorTypeLabel(datum.tenor_type) }}
+            </td>
+            <td [ngClass]="{ 'visible': datum?.displayDetail }">
+              {{ datum?.interest_rate | number: portfolioModel.decimalFormat: portfolioModel.localeDecimalFormat }}%
+            </td>
+            <td [ngClass]="{ 'visible': datum?.displayDetail }">
+              {{ datum?.investmentAmount | number: portfolioModel.decimalFormat: portfolioModel.localeDecimalFormat }}
+            </td>
+            <td [ngClass]="{ 'visible': datum?.displayDetail }">
+              {{ datum?.expected_payment | number: portfolioModel.decimalFormat: portfolioModel.localeDecimalFormat }}
+            </td>
+            <td [ngClass]="{ 'visible': datum?.displayDetail }">
+              {{ datum?.actual_payment | number: portfolioModel.decimalFormat: portfolioModel.localeDecimalFormat }}
+            </td>
+            <td *ngIf="countryCode === 'SG'" [ngClass]="{ 'visible': datum?.displayDetail }" class="text-center">
+              <a *ngIf="datum.agreement" (click)="download(datum.agreement, '(AGREEMENT) ' + datum.loan_code)">
+                <img src="assets/img/icon/pdf-icon.svg">
+              </a>
+              <a *ngIf="!datum.agreement">
+                -
+              </a>
+            </td>
+            <td [ngClass]="{ 'visible': datum?.displayDetail }" class="text-center">
+              <a *ngIf="datum.factSheet" (click)="download(datum.factSheet, '(FACTSHEET) ' + datum.loan_code)">
+                <img src="assets/img/icon/pdf-icon.svg">
+              </a>
+              <a *ngIf="!datum.factSheet">
+                -
+              </a>
+            </td>
+            <td [ngClass]="{ 'visible': datum?.displayDetail }" class="text-left">
+              <img *ngIf="portfolioModel.repaymentNotes.loanIds.indexOf(datum.loan_id) >= 0" (click)="showRepaymentNotesDialog(datum.loan_id)"
+                src="assets/img/icon/file-icon.svg">
+            </td>
+
+            <td *ngIf="countryCode !== 'ID'" class="font-size-14 fs-portfolio-blue-text text-bold text-left" [ngClass]="{ 'visible': !datum?.displayDetail }">
+              {{ datum.company_name }}
+            </td>
+            <td class="font-size-12 fs-portfolio-blue-text" [ngClass]="{ 'visible': !datum?.displayDetail }">
+              {{ datum.loan_status }}
+              <ng-container *ngIf="datum.is_restructured && enableRestructuredLoan">
+                {{ 'investor-portfolio.restructured.add-restructured' | translate }}<br />
+                <a class="fs-portfolio-blue-text learn-more" target="_blank" [href]="restructuredLoanLink">{{ 'investor-portfolio.restructured.learn-more' | translate }}</a>
+              </ng-container>
+            </td>
+            <td colspan="2" class="font-size-12 fs-portfolio-blue-text" [ngClass]="{ 'visible': !datum?.displayDetail }">
+              <span class="transparant-text">{{ 'portfolio.detail-label.tenor' | translate }}</span>
+              <br>
+              <span class="text-bold">{{ datum.term }} {{ getTenorTypeLabel(datum.tenor_type) }}</span>
+            </td>
+            <td class="font-size-12 fs-portfolio-blue-text" [ngClass]="{ 'visible': !datum?.displayDetail }">
+              <span class="transparant-text">{{ 'portfolio.detail-label.months-completed' | translate }}</span>
+              <br>
+              <span class="text-bold">{{ datum?.installments_completed }}</span>
+            </td>
+            <td class="font-size-12 fs-portfolio-blue-text" [ngClass]="{ 'visible': !datum?.displayDetail }">
+              <span class="transparant-text">{{ 'portfolio.detail-label.repayment-start' | translate }}</span>
+              <br>
+              <ng-template #emptyRepayment>
+                <span>
+                  -
+                </span>
+              </ng-template>
+              <span class="text-bold" *ngIf="datum.actual_data || datum.data">
+                <span *ngIf="datum.first_repayment !=='-';else emptyRepayment">
+                  {{ datum?.first_repayment | date: portfolioModel.dateFormat }}
+                </span>
+              </span>
+            </td>
+            <td class="font-size-12 fs-portfolio-blue-text" [ngClass]="{ 'visible': !datum?.displayDetail }">
+              <span class="transparant-text">{{ 'portfolio.detail-label.repayment-end' | translate }}</span>
+              <br>
+              <span class="text-bold" *ngIf="datum.actual_data || datum.data">
+                <span *ngIf="datum.last_repayment !=='-';else emptyRepayment">
+                  {{ datum?.last_repayment | date: portfolioModel.dateFormat }}
+                </span>
+              </span>
+            </td>
+            <td *ngIf="countryCode === 'SG'" class="font-size-12 fs-portfolio-blue-text" [ngClass]="{ 'visible': !datum?.displayDetail }">
+              <span class="transparant-text">{{ 'portfolio.detail-label.contract' | translate }}</span>
+              <br>
+              <a *ngIf="datum.agreement" (click)="download(datum.agreement, '(AGREEMENT) ' + datum.loan_code)">
+                <img src="assets/img/icon/pdf-icon.svg">
+              </a>
+              <a *ngIf="!datum.agreement">
+                -
+              </a>
+            </td>
+            <td class="font-size-12 fs-portfolio-blue-text" [ngClass]="{ 'visible': !datum?.displayDetail }">
+              <span class="transparant-text">{{ 'portfolio.detail-label.factsheet' | translate }}</span>
+              <br>
+              <a *ngIf="datum.factSheet" (click)="download(datum.factSheet, '(FACTSHEET) ' + datum.loan_code)">
+                <img src="assets/img/icon/pdf-icon.svg">
+              </a>
+              <a *ngIf="!datum.factSheet">
+                -
+              </a>
+            </td>
+            <td class="font-size-12 fs-portfolio-blue-text" [ngClass]="{ 'visible': !datum?.displayDetail }">
+              <span class="transparant-text">{{ 'portfolio.detail-label.notes' | translate }}</span>
+              <br>
+              <img *ngIf="portfolioModel.repaymentNotes.loanIds.indexOf(datum.loan_id) >= 0" (click)="showRepaymentNotesDialog(datum.loan_id)"
+                src="assets/img/icon/file-icon.svg">
+            </td>
+          </tr>
+          <tr [ngClass]="{ 'visible': !datum?.displayDetail }">
+            <td attr.colspan="{{ portfolioModel.colspan }}" class="fs-portfolio-expanded-row text-center" *ngIf="datum.actual_data || datum.data ">
+            </td>
+            <td attr.colspan="{{ portfolioModel.colspan }}" class="fs-portfolio-expanded-row text-center white-text"
+              *ngIf="!datum.actual_data || !datum.data ">
+              <p class="margin-top-5" *ngIf="datum.loan_status !== masterData.paymentStatuses['revert']">
+                {{ 'portfolio.detail-label.no-disbursement' | translate }}
+              </p>
+              <p class="margin-top-5" *ngIf="datum.loan_status === masterData.paymentStatuses['revert']">
+                {{ 'portfolio.detail-label.reverted-loan' | translate }}
+              </p>
+            </td>
+          </tr>
+          <tr [ngClass]="{ 'visible': !datum?.displayDetail }" *ngIf="datum.actual_data || datum.data">
+            <td attr.colspan="{{ portfolioModel.colspan }}" class="fs-portfolio-expanded-row text-center">
+              <div class="btn btn-switch-style left" [ngClass]="{ 'active': !datum?.isActualRepayment }" (click)="toggleRepaymentTable(datum, false)">
+                {{ 'portfolio.detail-label.expected' | translate }}
+                <ng-container *ngIf="datum.is_restructured && enableRestructuredLoan">
+                  {{ 'investor-portfolio.restructured.expected-tab' | translate }}
+                </ng-container>
+              </div>
+              <div class="btn btn-switch-style right" [ngClass]="{ 'active': datum?.isActualRepayment }" (click)="toggleRepaymentTable(datum, true)">
+                {{ 'portfolio.detail-label.actual' | translate }}
+              </div>
+            </td>
+          </tr>
+          <tr class="fs-portofolio-expandaded" [ngClass]="{ 'visible': !datum?.displayDetail }" *ngIf="datum.actual_data || datum.data ">
+            <td class="fs-portfolio-expanded-row" attr.colspan="{{ portfolioModel.colspan }}">
+              <table class="fs-portfolio-expanded-table full-width">
+                <thead>
+                  <tr>
+                    <th>{{ 'portfolio.detail-label.no' | translate }}</th>
+                    <th>{{ 'portfolio.detail-label.date' | translate }}</th>
+                    <th>{{ 'portfolio.detail-label.principal' | translate }} ({{ currency }})</th>
+                    <th>{{ 'portfolio.detail-label.interest' | translate }} ({{ currency }})</th>
+                    <th>{{ 'portfolio.detail-label.late-interest-fee' | translate }} ({{ currency }})</th>
+                    <th>{{ 'portfolio.detail-label.early-fee' | translate }} ({{ currency }})</th>
+                    <th>{{ 'portfolio.detail-label.service-fee' | translate }} ({{ currency }})</th>
+                    <th *ngIf="showGst">{{ 'portfolio.detail-label.gst' | translate }} ({{ currency }})</th>
+                    <th>{{ 'portfolio.detail-label.withholding-tax' | translate }} ({{ currency }})</th>
+                    <th>{{ 'portfolio.detail-label.net-repayment' | translate }} ({{ currency }})</th>
+                    <th>{{ 'portfolio.detail-label.status' | translate }}</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="!datum?.isActualRepayment">
+                  <tr *ngFor="let repayment of datum?.data; let i = index;">
+                    <td>{{ i + 1 }}</td>
+                    <td class="deadline">{{ repayment.deadline | date: portfolioModel.dateFormat }}
+                      <a *ngIf="datum?.displayDetail && showGracePeriod(datum.loan_code)" class="tooltip-top"
+                        [attr.data-tooltip]="('portfolio.label.grace-period' | translate : getGracePeriod(repayment.deadline))">
+                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                      </a>
+                    </td>
+                    <td>{{ repayment.principal | number: portfolioModel.decimalFormat:
+                      portfolioModel.localeDecimalFormat }}</td>
+                    <td>{{ repayment.interest | number: portfolioModel.decimalFormat:
+                      portfolioModel.localeDecimalFormat }}</td>
+                    <td>{{ repayment.late_interest | number: portfolioModel.decimalFormat:
+                      portfolioModel.localeDecimalFormat
+                      }}
+                    </td>
+                    <td>{{ repayment.early_fee | number: portfolioModel.decimalFormat:
+                      portfolioModel.localeDecimalFormat }}</td>
+                    <td>{{ repayment.service_fee | number: portfolioModel.decimalFormat:
+                      portfolioModel.localeDecimalFormat }}</td>
+                    <td *ngIf="showGst">{{ repayment.gst | number: portfolioModel.decimalFormat:
+                      portfolioModel.localeDecimalFormat }}</td>
+                    <td>{{ repayment.tax_witholding | number: portfolioModel.decimalFormat:
+                      portfolioModel.localeDecimalFormat
+                      }}
+                    </td>
+                    <td>{{ repayment.net_repayment | number: portfolioModel.decimalFormat:
+                      portfolioModel.localeDecimalFormat
+                      }}
+                    </td>
+                    <td>{{ convertStatusToUpperCase(repayment.status) }}</td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="datum?.isActualRepayment">
+                  <tr *ngFor="let repayment of datum?.actual_data; let i = index;">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ repayment.deadline | date: portfolioModel.dateFormat }}</td>
+                    <td>{{ repayment.principal | number: portfolioModel.decimalFormat:
+                      portfolioModel.localeDecimalFormat }}</td>
+                    <td>{{ repayment.interest | number: portfolioModel.decimalFormat:
+                      portfolioModel.localeDecimalFormat }}</td>
+                    <td>{{ repayment.late_interest | number: portfolioModel.decimalFormat:
+                      portfolioModel.localeDecimalFormat
+                      }}
+                    </td>
+                    <td>{{ repayment.early_fee | number: portfolioModel.decimalFormat:
+                      portfolioModel.localeDecimalFormat }}</td>
+                    <td>{{ repayment.service_fee | number: portfolioModel.decimalFormat:
+                      portfolioModel.localeDecimalFormat }}</td>
+                    <td *ngIf="showGst">{{ repayment.gst | number: portfolioModel.decimalFormat:
+                      portfolioModel.localeDecimalFormat }}</td>
+                    <td>{{ repayment.tax_witholding | number: portfolioModel.decimalFormat:
+                      portfolioModel.localeDecimalFormat
+                      }}
+                    </td>
+                    <td>{{ repayment.net_repayment | number: portfolioModel.decimalFormat:
+                      portfolioModel.localeDecimalFormat
+                      }}
+                    </td>
+                    <td>{{ convertStatusToUpperCase(repayment.status) }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="portfolioModel.data.length === 0">
+          <tr>
+            <td class="text-center" attr.colspan="{{ portfolioModel.colspan }}">
+              <i>{{ 'investor-portfolio.no-invested-loan' | translate }}</i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="col-md-12 text-center">
+        <div class="row loadMoreContainer" *ngIf="portfolioModel.displayInvestedLoadMore">
+          <div class="loadMoreButton">
+            <i class="fa fa-plus" (click)="getInvestedLoanInstallmentDetails()"></i>
+            <br />
+            <span class="loadMoreTitle" (click)="getInvestedLoanInstallmentDetails()">
+              {{ 'portfolio.detail-label.button-load-more' | translate }} {{ portfolioModel.recordsPerPage }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<modal id="RepaymentNoteModal" class="fs-modal fs-modal__open fs-modal--hidden">
+  <div class="fs-modal__background" (click)="this.closeModal('RepaymentNoteModal')"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered repayment-dialog">
+    <div class="fs-modal__content">
+      <div class="fs-modal__header fs-modal__header--noborder">
+        <h5 class="fs-modal__title fs-modal__title--centered">{{ 'portfolio.repayment-notes-title' | translate }}</h5>
+        <div type="button" class="fs-modal__close" (click)="this.closeModal('RepaymentNoteModal')"></div>
+      </div>
+      <div class="loan-offer-container">
+        <div class="row installment-item" *ngFor="let repaymentNote of portfolioModel.repaymentNotes.data">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 font-size-14">
+            <div class="pull-left col-md-3 col-lg-2">{{ repaymentNote.title | date: portfolioModel.dateTimeFormat }}</div>
+            <div class="pull-right col-md-9 col-lg-10">{{ repaymentNote.content }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+
+<modal id="PortfolioFilterModal" class="fs-modal fs-modal__open fs-modal--hidden" [enableIOSfix]="false">
+  <div class="fs-modal__background" (click)="this.closeModal('PortfolioFilterModal')"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered portfolio-filter-dialog">
+    <div class="fs-modal__content">
+      <div class="fs-modal__header fs-modal__header--noborder">
+        <h5 class="fs-modal__title fs-modal__title--centered">{{ 'investor-portfolio.filter.filter-loan' | translate }}</h5>
+        <div type="button" class="fs-modal__close" (click)="this.closeModal('PortfolioFilterModal')"></div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null text-right" (click)="resetFilter()" role="button">
+          <u>{{ 'investor-portfolio.filter.reset' | translate }}</u>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null">
+          <p-dropdown [options]="portfolioFilter.list.loanType" [(ngModel)]="portfolioFilter.value.loanType"
+            placeholder="{{ 'investor-portfolio.filter.list.loan-type' | translate  }}">
+          </p-dropdown>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null">
+          <p-calendar [(ngModel)]="portfolioFilter.value.startDate" [showIcon]="true" [placeholder]="( 'investor-portfolio.filter.list.start-date' | translate )"
+            [monthNavigator]="true" [yearNavigator]="true" [baseZIndex]="10000" id="startDate" inputStyleClass="form-control portfolio-filter"
+            [baseZIndex]="10001" name="startDate" selectionMode="range" appendTo="body" yearRange="1900:2030">
+          </p-calendar>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null">
+          <p-calendar [(ngModel)]="portfolioFilter.value.maturityDate" [showIcon]="true" [placeholder]="( 'investor-portfolio.filter.list.maturity-date' | translate )"
+            [monthNavigator]="true" [yearNavigator]="true" id="maturityDate" inputStyleClass="form-control portfolio-filter"
+            name="maturityDate" selectionMode="range" [baseZIndex]="10001" appendTo="body" selectionMode="range"
+            yearRange="1900:2030">
+          </p-calendar>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null">
+          <p-dropdown [options]="portfolioFilter.list.repaymentStatus" [(ngModel)]="portfolioFilter.value.repaymentStatus"
+            (onChange)="onRepaymentStatusFilterChange()" placeholder="{{ 'investor-portfolio.filter.list.repayment-status' | translate  }}">
+          </p-dropdown>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null">
+          <p-dropdown [options]="portfolioFilter.list.loanStatus" (onChange)="onLoanStatusFilterChange()" [(ngModel)]="portfolioFilter.value.loanStatus"
+            placeholder="{{ 'investor-portfolio.filter.list.loan-status' | translate }}">
+          </p-dropdown>
+        </div>
+      </div>
+
+      <div *ngIf="showSubStatusFilter" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null">
+          <p-dropdown [options]="portfolioFilter.list.loanSubStatus" [(ngModel)]="portfolioFilter.value.loanSubStatus"
+                      placeholder="{{ 'investor-portfolio.filter.list.loan-sub-status' | translate }}">
+          </p-dropdown>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-top-20 margin-bottom-20 padding-null">
+          <div class="btn btn-primary-investor full-width" (click)="onFilterLoan()">
+            {{ 'investor-portfolio.filter.filter' | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+
+<modal id="DefaultDefModal" class="fs-modal fs-modal__open fs-modal--hidden">
+  <div class="fs-modal__background" (click)="this.closeModal('DefaultDefModal')"></div>
+  <div class="fs-modal__dialog fs-modal__dialog--centered portfolio-default-info-dialog">
+    <div class="fs-modal__content">
+      <div class="fs-modal__header fs-modal__header--noborder">
+        <div type="button" class="fs-modal__close" (click)="this.closeModal('DefaultDefModal')"></div>
+      </div>
+      <div [innerHTML]="defaultedDef.content"></div>
+      <div *ngIf="showInRecoveryDef">
+        <div [innerHTML]="defaultedDef.inRecovery['content']"></div>
+      </div>
+      <div *ngIf="!showInRecoveryDef">
+        <div [innerHTML]="defaultedDef.nonRecoverable['content']"></div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-20">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-top-20 margin-bottom-20 padding-null">
+          <div class="btn btn-primary-investor full-width" (click)="this.closeModal('DefaultDefModal')">
+           {{defaultedDef.buttonLabel}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</modal>
+
+<ng-template #repaymentLegend>
+  <div class="hidden-xs col-sm-0 col-lg-1 fs-portfolio-empty-box">
+  </div>
+  <div class="col-xs-12 padding-null fs-portfolio-legend-container" [ngClass]="{ 'col-lg-9': countryCode !== 'ID', 'col-lg-10' : countryCode === 'ID' }">
+    <span class="margin-bottom-10 margin-right-20 title">{{ 'investor-portfolio.button.repayment-status' |
+      translate }} :</span>
+    <div class="d-inline-block">
+      <span class="circle-legend green-aquamarine d-inline-block"></span>
+      <span class="legend-text green-aquamarine margin-right-10">{{
+        'investor-portfolio.repayment-legend.partial-early-repayment' | translate }}</span>
+    </div>
+    <div class="d-inline-block">
+      <span class="circle-legend green-turquoise d-inline-block"></span>
+      <span class="legend-text green-turquoise margin-right-10">{{ 'investor-portfolio.repayment-legend.paid' |
+        translate }}</span>
+    </div>
+    <div class="d-inline-block">
+      <span class="circle-legend light-blue d-inline-block"></span>
+      <span class="legend-text light-blue margin-right-10">{{ 'investor-portfolio.repayment-legend.not-due' |
+        translate }}</span>
+    </div>
+    <div class="d-inline-block">
+      <span class="circle-legend brown d-inline-block"></span>
+      <span class="legend-text brown margin-right-10">{{ 'investor-portfolio.repayment-legend.partial' | translate
+        }}</span>
+    </div>
+    <div class="d-inline-block">
+      <span class="circle-legend purple d-inline-block"></span>
+      <span class="legend-text purple margin-right-10">{{ 'investor-portfolio.repayment-legend.late' | translate }}</span>
+    </div>
+    <div class="d-inline-block">
+      <span class="circle-legend yellow d-inline-block"></span>
+      <span class="legend-text yellow margin-right-10">{{ 'investor-portfolio.repayment-legend.miss' | translate }}</span>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-1 fs-portfolio-button-container">
+    <div class="btn export-csv" (click)="downloadPortfolioCsv()">
+      {{ 'portfolio.export-csv' | translate }}
+    </div>
+  </div>
+</ng-template>

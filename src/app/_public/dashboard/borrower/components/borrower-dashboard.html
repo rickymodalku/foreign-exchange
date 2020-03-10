@@ -1,0 +1,141 @@
+<div class="container-fluid white borrowerDashboard">
+  <div class="row">
+    <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12 borrowerDashboardHeader padding-null" *ngIf="countryCode !== 'MY'">
+      <img src="{{imageBaseUrl}}/borrow-public-page-background.jpg" />
+      <div class="col-md-4 col-lg-4 info-box">
+        <div class="font-size-38 margin-bottom-20 title">
+          <span class="Gilroy-SemiBold">{{ 'borrow.header.title' | translate }}</span>
+          <span class="Gilroy-Light">{{ 'borrow.header.title-2' | translate }}</span>
+        </div>
+        <div class="col-lg-10 font-size-16 caption padding-null" [innerHTML]="( 'borrow.header.caption' | translate )">
+        </div>
+        <div class="font-size-16 btn btn-primary-borrower font-size-18 fs-services-button" routerLink="/sign-up-borrower">
+          <div class="block pull-left">
+            {{ 'borrow.header.button' | translate }}
+          </div>
+          <div class="white-right-arrow-icon arrow-icon pull-right margin-top-5">
+          </div>
+        </div>
+        <div class="font-size-14 seeBenefit" (click)="scrollDown('ProductOffers')">
+          {{ 'borrow.header.benefit-see' | translate }}
+          <i class="fa fa-chevron-right margin-left-5" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>
+    <div class=" col-xs-12 borrowerDashboardHeader padding-null" *ngIf="countryCode === 'MY'">
+      <div role="button" class="col-xs-12 col-sm-4 padding-null" (click)="goToFinancingBlog()">
+        <img class="hidden-xs" src="{{imageBaseUrl}}/running-man/running-man-borrow.jpg" />
+        <img class="hidden-sm hidden-md hidden-lg" src="{{imageBaseUrl}}/running-man/running-man-borrow-mobile.jpg" />
+      </div>
+      <div role="button" class="col-xs-12 col-sm-4 padding-null" routerLink="/sign-up-borrower">
+        <img class="hidden-xs" src="{{imageBaseUrl}}/borrow-lp-desktop-2.png" />
+        <img class="hidden-sm hidden-md hidden-lg" src="{{imageBaseUrl}}/borrow-lp-mobile-2.png" />
+      </div>
+      <div role="button" class="col-xs-12 col-sm-4 padding-null" routerLink="/sign-up-borrower">
+        <img class="hidden-xs" src="{{imageBaseUrl}}/borrow-lp-desktop-3.png" />
+        <img class="hidden-sm hidden-md hidden-lg" src="{{imageBaseUrl}}/borrow-lp-mobile-3.png" />
+      </div>
+    </div>
+  </div>
+
+  <div class="row info-box-mobile margin-bottom-20 padding-1em">
+    <div class="col-xs-12">
+      <div class="info-box-mobile__title">
+        <strong>{{ 'borrow.header.title' | translate }}</strong>
+        <br> {{ 'borrow.header.title-2' | translate }}
+      </div>
+      <div class="info-box-mobile__description">
+        {{ 'borrow.header.caption' | translate }}
+      </div>
+      <div class="font-size-16 btn btn-primary-borrower font-size-18 fs-services-button" routerLink="/sign-up-borrower">
+        <div class="block pull-left">
+          {{ 'borrow.header.button' | translate }}
+        </div>
+        <div class="white-right-arrow-icon arrow-icon pull-right margin-top-5">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row borrowerCaption padding-1em">
+    <div class="col-sm-12 text-justify">
+      <span class="font-size-36 Gilroy-SemiBold">{{ 'borrow.benefit-clear.title' | translate }}</span>
+    </div>
+    <div class="col-sm-12 text-justify borrowercaptionDescription transparant-text" [innerHTML]="( 'borrow.benefit-clear.caption' | translate )"></div>
+  </div>
+  <div class="row slider-mobile">
+    <div class="swiper-container" *ngIf="benefits.length > 0" [swiper]="mobileSwipeConfig">
+      <div class="swiper-wrapper">
+        <div *ngFor="let benefit of benefits" class="swiper-slide" fxLayout="column" fxLayoutAlign="center center" style="background-color:#fbf8ff;padding-top:20px;">
+          <div class="text-center">
+            <img src="{{benefit.logo}}" />
+          </div>
+          <br>
+          <div class="text-center dark-purple-text">
+            <span class="Gilroy-SemiBold">{{ benefit.desc }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row borrowerBenefit">
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center">
+      <img src="assets/img/_public/dashboard/application-icon.svg" />
+      <br>
+      <span class="Gilroy-SemiBold">{{ 'borrow.benefit-clear.application-easy' | translate }}</span>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center">
+      <img src="assets/img/_public/dashboard/safe-icon.svg" />
+      <br>
+      <span class="Gilroy-SemiBold">{{ 'borrow.benefit-clear.platform-safe' | translate }}</span>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center">
+      <img src="assets/img/_public/dashboard/computer-icon.svg" />
+      <br>
+      <span class="Gilroy-SemiBold">{{ 'borrow.benefit-clear.processing-fast-loan' | translate }}</span>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center">
+      <img src="assets/img/_public/dashboard/progress-icon.svg" />
+      <br>
+      <span class="Gilroy-SemiBold">{{ 'borrow.benefit-clear.rate-attractive' | translate }}</span>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center">
+      <img src="assets/img/_public/dashboard/building-icon.svg" />
+      <br>
+      <span class="Gilroy-SemiBold">{{ 'borrow.benefit-clear.based-on-need' | translate }}</span>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center">
+      <img src="assets/img/_public/dashboard/heart-icon.svg" />
+      <br>
+      <span class="Gilroy-SemiBold">{{ 'borrow.benefit-clear.happy-to-help' | translate }}</span>
+    </div>
+  </div>
+
+  <div class="row borrowerOffer">
+    <div class="col-xs-12 text-center">
+      <span class="title Gilroy-SemiBold">{{ 'borrow.product-offer.title' | translate }}</span>
+    </div>
+    <div id="ProductOffers" class="offerContainer" [ngClass]="{ 'offerContainer2Col': products.length === 2 }">
+      <div class="item" [ngClass]="{ 'item2Col': products.length === 2, 'borderItem': !isLast }" *ngFor="let product of products; last as isLast">
+        <img src="{{ product.icon }}" />
+        <p class="productName">{{ product.title }}</p>
+        <p class="productCaption">{{ product.description }}</p>
+        <div [innerHTML]="product.upto"></div>
+        <ul>
+          <li *ngFor="let feature of product.feature">{{ feature }}</li>
+          <li *ngIf="product.title === 'FS Bolt' && showXero"><a class="xero-borrow-link" id="borrow-xero-integration" routerLink="/xero">{{ 'borrow.product-offer.xero-integration' | translate }}</a></li>
+        </ul>
+        <div *ngIf="product.title !== 'FS Bolt'" class="btnContainer">
+          <a routerLink="/borrow/check-eligibility" *ngIf="countryCode !== 'ID'" class="btn btn-primary-investor btnProduct" id="btn-{{ product.key }}">{{ 'borrow.product-offer.product-check-eligibility' | translate }}</a>
+          <a routerLink="/sign-up-borrower" *ngIf="countryCode === 'ID'" class="btn btn-primary-investor btnProduct" id="btn-{{ product.key }}">{{ 'borrow.product-offer.product-check-eligibility' | translate }}</a>
+        </div>
+        <div *ngIf="product.title === 'FS Bolt'" class="btnContainer">
+          <a [href]="CONFIGURATION.boltLinkBorrowPage" target="_blank" class="btn btnProduct btnMore" id="btn-bolt-more">{{ product.more }}</a>
+          <a [href]="CONFIGURATION.applyBoltBorrowPage" target="_blank" class="btn btn-primary-investor btnProduct btnApply" id="btn-bolt-apply">{{ product.apply }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<newsletter> </newsletter>

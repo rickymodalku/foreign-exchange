@@ -1,0 +1,314 @@
+@media #{$phone} {
+  .browseLoanContainer {
+    margin-bottom: 100px;
+
+    .browseLoanHeader {
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-top: 40px;
+      padding-bottom: 25px;
+
+    }
+
+    .browseLoanView {
+      padding: 25px 10px;
+    }
+
+    .btnBrowseLoan {
+      width: 100%;
+    }
+  }
+}
+
+@media #{$desktop} {
+  .browseLoanContainer {
+    margin-bottom: 0;
+
+    .browseLoanHeader {
+      padding-left: 60px;
+      padding-right: 60px;
+      padding-top: 40px;
+
+      .browseLoanBtnContainer {
+        .btnBrowseLoan {
+          width: auto;
+        }
+      }
+    }
+
+    .btnBrowseLoan {
+      width: initial;
+    }
+
+    .browseLoanView {
+      padding: 25px 10px;
+      padding-left: 40px;
+    }
+  }
+}
+
+.browseLoanContainer {
+  margin-bottom: 0;
+
+  .browseLoanHeader {
+    background-color: #3e7eff;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.17);
+    height: 100%;
+
+    .browseLoanHeaderTitleBox {
+      .browseLoanHeaderTitle {
+        font-size: 36px;
+        line-height: 0.67;
+        color: #ffffff;
+        margin-bottom: 10px;
+      }
+
+      .browseLoanHeaderCaption {
+        color: #9dbeff;
+      }
+    }
+
+    .browseLoanBtnContainer {
+      padding-left: 0;
+
+      .btnBrowseLoan {
+        float: left;
+        padding: 0.75em 1em;
+        margin-right: 15px;
+        border-radius: 7.5px;
+        background-color: #3672ec;
+        border: solid 1px rgba(255, 255, 255, 0.5);
+        font-size: 16px;
+        text-align: left;
+        color: #92b7ff;
+        text-align: center;
+        margin-bottom: 10px;
+        cursor: pointer;
+
+        &.white {
+          background-color: $white;
+          color: $fs-blue;
+          opacity: 1;
+        }
+
+        .circle-number-information {
+          display: inline-block !important;
+          @include circle-text(25px, #3e7eff, #3e7eff, 14px, white);
+        }
+      }
+    }
+  }
+
+  .browseLoanView {
+    .browseLoanViewBoxContainer {
+      padding: 0 1em 2em 1em;
+      max-width: 30em;
+      min-height: 32em;
+
+      &.today-investment {
+        min-height: initial;
+      }
+    }
+
+    .browseLoanViewBox {
+      padding-top: 10px;
+      border-radius: 6px;
+      background-color: #ffffff;
+
+      .loanCode {
+        font-size: 20px;
+        font-weight: bold;
+        color: #3e7eff;
+      }
+
+      .loanStatistic {
+
+        .loan-detail-box {
+          background-color: aliceblue;
+          padding-bottom: 0.5em;
+          padding-top: 0.5em;
+          border-top: 1px solid rgba(216, 216, 216, 0.75);
+          border-bottom: 1px solid rgba(216, 216, 216, 0.75);
+        }
+
+        .interestBoxDetail {
+          font-size: 14px;
+          padding-left: 15px;
+          width: calc(100%/3);
+          border-right: solid 1px rgba(151, 151, 151, 0.5);
+
+          span {
+            color: black;
+            font-weight: bold;
+          }
+
+          &:last-child {
+            border-right: none;
+          }
+        }
+
+        .loanProgress {
+          font-size: 14px;
+          height: 10%;
+          width: 92.5%;
+          margin-left: auto;
+          margin-right: auto;
+          margin-top: 10px;
+
+          &.investment-amount {
+            width: inherit;
+          }
+
+          .progress-text {
+            color: #19c0a6;
+            font-weight: bold;
+          }
+
+          .footer-text-detail {
+            color: #3e7eff;
+            font-weight: bold;
+          }
+
+          .detail {
+            font-size: 16px;
+          }
+        }
+
+        .loanStatisticFooter {
+          background-color: rgb(242, 245, 254);
+          padding-bottom: 1.5em;
+
+          strong {
+            color: #19c0a6;
+            font-size: 16px;
+          }
+
+          font {
+            color: #9b9b9b;
+          }
+
+          .btnInvest {
+            font-size: 16px;
+            width: 90px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 2px;
+            background-color: #3e7eff;
+            font-weight: bold;
+            color: #ffffff;
+
+            &.disabled {
+              background-color: #9b9b9b;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#investSBNDialog,
+#RedeemSBNDialog {
+  .mat-checkbox-inner-container {
+    margin-top: 0px;
+  }
+}
+
+.sbn-expand-button {
+  cursor: pointer;
+}
+
+.sbn-table {
+  thead {
+    tr {
+      th {
+        padding: 10px 5px;
+      }
+
+      th:first-child {
+        width: 50px;
+      }
+
+      th:last-child {
+        width: 150px;
+      }
+
+      th:nth-child(2) {
+        width: 75px;
+      }
+
+      th:nth-child(3) {
+        width: 130px;
+      }
+
+      th:nth-child(4) {
+        width: initial !important;
+      }
+
+      th:nth-child(6) {
+        width: 100px;
+      }
+    }
+  }
+
+  tr {
+    td {
+      padding: 10px 10px;
+    }
+
+    td:first-child {
+      width: 60px;
+    }
+
+    td:last-child {
+      width: 150px;
+    }
+  }
+}
+
+.sbn-transaction-status {
+  thead {
+    tr {
+      th:nth-child(1) {
+        width: 20%;
+      }
+
+      th:nth-child(3) {
+        width: 140px;
+      }
+
+      th:nth-child(5) {
+        width: 15%;
+      }
+      th:nth-child(6) {
+        width: 10%;
+      }
+      th:nth-last-child(1) {
+        padding-left: 50px;
+      }
+    }
+  }
+  tbody{
+    td:nth-last-child(1) {
+      padding-left: 50px;
+    }
+  }
+}
+
+.sbn-detail-row {
+  background-color: #f2f5fe;
+}
+
+.sbn-detail-table {
+  width: 80%;
+
+  th,
+  td {
+    text-align: right !important;
+    padding: 0 20px !important;
+  }
+}
+.sbn-retail::after {
+  top: 20%;
+  height: 4.5em;
+}

@@ -1,0 +1,13 @@
+<div 
+    [ngClass]="{ 'notification-item-dashboard': isInsideDashboard }"
+    class="notification-item">
+    <div *ngFor="let notification of notifications" 
+        [ngClass]="{ 
+            'notification-success': notification.type === 'SUCCESS',
+            'notification-info': notification.type === 'INFO', 
+            'notification-error': notification.type === 'ERROR' 
+        }"
+        (click)="remove(notification.uuid)">
+            {{ notification.message }}
+    </div>
+</div>

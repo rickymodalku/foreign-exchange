@@ -1,0 +1,80 @@
+<div *ngIf="countryCode !== 'SG'" class="fs-signup-form setting">
+  <div class="fs-setting-content">
+    <div class="col-md-8 content-center">
+      <div *ngIf="countryCode === 'MY'" class="fs-setting-subscription-agreement d-inline-block full-width">
+        <div class="Gilroy-SemiBold download-subscription-agreement" (click)="downloadLatestBlankSA()">{{ 'form.setting-platform-agreement.name' | translate }}</div>
+      </div>
+      <div *ngIf="countryCode === 'ID'" class="fs-setting-subscription-agreement d-inline-block full-width">
+        <div class="Gilroy-SemiBold download-subscription-agreement" (click)="downloadUserLatestSA()">
+          {{ userSAFileName }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="countryCode === 'SG'" class="fs-setting-content">
+  <div class="col-md-8 content-center">
+    <div class="fssg-setting-subscription-agreement d-inline-block full-width fs-box-shadow">
+      <div class="Gilroy-SemiBold left-subscription-agreement">
+        {{ 'form.setting-subscription-agreement.name' | translate }}</div>
+      <div class="right-subscription-agreement">
+        <button (click)="downloadLatestBlankSA()" class="btn btn-primary-investor">
+          {{ 'form.setting-subscription-agreement.button-download-pdf' | translate }}
+        </button>
+      </div>
+    </div>
+    <div class="fssg-setting-subscription-agreement d-inline-block full-width fs-box-shadow">
+      <div class="Gilroy-SemiBold left-subscription-agreement">{{ userSAFileName }}</div>
+      <div class="right-subscription-agreement">
+        <button (click)="downloadUserLatestSA()" class="btn btn-primary-investor">
+          {{ 'form.setting-subscription-agreement.button-download-pdf' | translate }}
+        </button>
+      </div>
+    </div>
+    <div class="fssg-setting-reverification d-inline-block full-width fs-box-shadow">
+      <div class="content-top">
+        <div class="Gilroy-SemiBold left-risk-disclosure">
+          {{ 'form.setting-subscription-agreement.risk-disclosure-agreement' | translate }}
+          <span class="warning" *ngIf="riskDisclosureData.isToExpire || riskDisclosureData.isExpired">
+            {{ 'form.setting-subscription-agreement.view-and-agree' | translate }}
+          </span>
+          <span class="date" *ngIf="!riskDisclosureData.isToExpire && !riskDisclosureData.isExpired">
+            {{ 'form.setting-subscription-agreement.risk-disclosure-agreed-on' | translate }} {{ riskDisclosureData.signOfDate | date: dateFormat }}
+          </span>
+        </div>
+        <div class="right-risk-disclosure">
+          <button (click)="openRiskDisclosure()" class="btn btn-primary-investor">
+            {{ 'form.setting-subscription-agreement.view' | translate }}
+          </button>
+        </div>
+      </div>
+      <div class="content-bottom" *ngIf="riskDisclosureData.isToExpire || riskDisclosureData.isExpired">
+        {{ 'form.setting-subscription-agreement.risk-disclosure-disclaimer' | translate }} {{ riskDisclosureData.signOfDate | date: dateFormat }}
+      </div>
+    </div>
+    <div class="fssg-setting-reverification d-inline-block full-width fs-box-shadow">
+      <div class="content-top">
+        <div class="Gilroy-SemiBold left-risk-disclosure">
+          {{ 'form.setting-subscription-agreement.suitability-assessment' | translate }}
+          <span class="date">
+            {{ 'form.setting-subscription-agreement.update-on' | translate }}
+            {{ suitabilityAssessmentData.assessmentDate | date: dateFormat }}:
+            <span class="investment-profile" [ngClass]="{ 'warning-conservative' : suitabilityAssessmentData.profileType === conservativeType }">
+                {{ suitabilityAssessmentData.profileName }}
+            </span>
+          </span>
+        </div>
+        <div class="right-risk-disclosure">
+          <button (click)="openSuitabilityAssessment()" class="btn btn-primary-investor">
+            {{ 'form.setting-subscription-agreement.update' | translate }}
+          </button>
+        </div>
+      </div>
+      <div class="content-bottom" *ngIf="suitabilityAssessmentData.profileType === conservativeType">
+        {{ 'form.setting-subscription-agreement.suitability-assessment-disclaimer' | translate }}
+      </div>
+    </div>
+  </div>
+</div>
+<sg-risk-disclosure *ngIf="countryCode === 'SG'" #riskDisclosure (onSignoffSuccess)="updateAssessmentInfo()"></sg-risk-disclosure>
+<sg-suitability-assessment *ngIf="countryCode === 'SG'" #suitabilityAssessment (onAssessmentSuccess)="updateAssessmentInfo()"></sg-suitability-assessment>

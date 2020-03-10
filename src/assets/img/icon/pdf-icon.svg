@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="32" viewBox="0 0 36 32">
+    <defs>
+        <rect id="a" width="22" height="26" x="14" rx="2"/>
+        <rect id="b" width="22" height="26" x="8" y="6" rx="2"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <use fill="#F5F8FC" xlink:href="#a"/>
+        <rect width="21" height="25" x="14.5" y=".5" stroke="#9EAAB6" rx="2"/>
+        <g opacity=".698">
+            <use fill="#FDFDFD" xlink:href="#b"/>
+            <rect width="21" height="25" x="8.5" y="6.5" stroke="#9EAAB6" rx="2"/>
+        </g>
+        <rect width="22" height="12" y="12" fill="#EF4921" rx="1"/>
+        <text fill="#FFF" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="8" font-weight="bold">
+            <tspan x="2.992" y="21">PDF</tspan>
+        </text>
+    </g>
+</svg>

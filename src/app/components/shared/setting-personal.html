@@ -1,0 +1,277 @@
+<div class="fs-signup-form setting">
+  <div class="fs-setting-content row">
+    <div class="col-md-8 content-center clearfix">
+      <div class="fs-setting-box fs-box-shadow d-inline-block full-width">
+        <div>
+          <div class="fs-signup-title font-size-20 Gilroy-SemiBold">{{ 'form.setting-personal.placeholder.title-account' | translate }}</div>
+          <div class="fs-signup-caption margin-bottom-10">{{ 'form.setting-personal.placeholder.subtitle-account' | translate }}</div>
+          <div class="form-inline margin-bottom-10">
+            <div
+              class="form-group sign-up-group form-disabled">
+              <label>{{ 'form.setting-personal.placeholder.username' | translate }}</label>
+              <input
+                [value]="formModel.existing?.userName"
+                autocomplete="off"
+                class="form-control sign-up-form"
+                id="userName"
+                name="userName"
+                type="text" disabled/>
+            </div>
+            <div
+              class="form-group sign-up-group form-disabled">
+              <label>{{ 'form.setting-personal.placeholder.referral-code' | translate }}</label>
+              <input
+                [value]="formModel.existing?.referralCode"
+                autocomplete="off"
+                class="form-control sign-up-form"
+                id="referralCode"
+                name="referralCode"
+                type="text" disabled/>
+            </div>
+          </div>
+        </div>
+        <!-- Commenting this until we are ready for the profile picture feature
+        <div>
+          <div class="col-md-12 padding-null margin-bottom-20 margin-top-20 text-left margin-bottom-5">
+            <div class="Gilroy-SemiBold font-size-18">{{ 'form.setting-personal.placeholder.title-profile-picture' | translate }}</div>
+            <div class="light-gray-text font-size-12">{{ 'form.setting-personal.placeholder.subtitle-profile-picture' | translate }}</div>
+          </div>
+          <div class="col-md-12 full-width" style="background-color: #fafbfc;border: solid 1px #dde5ed;padding-top: 0.5em;padding-bottom: 0.5em;">
+            <div class="col-md-1 padding-null">
+                <div class="default-profile-picture" style="height:45px;background-size:contain">
+                </div>
+            </div>
+            <div class="col-md-11" style="padding: 0.25em 0em;">
+                <font class="col-md-12 padding-null" style="color: #4a4a4a;font-size: 12px;">Upload profile picture (max 1.5mb)</font>
+                <font class="col-md-12 padding-null" style="color: #4a4a4a;font-size: 14px;">default.jpg</font>
+            </div>
+            </div>
+            <div class="col-md-12 padding-null margin-top-15">
+                <div class="btn btn-primary-referral pull-left margin-right-15">{{ 'form.setting-personal.placeholder.button-upload' | translate }}</div>
+            </div>
+          </div>		 -->
+          <div>
+          <form
+            [formGroup]="settingPersonalForm"
+            (ngSubmit)="onSettingPersonalFormSubmit()"
+            class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-null margin-top-20"
+            id="setting-personal-form"
+            name="setting-personal-form">
+            <div class="fs-signup-title font-size-20 Gilroy-SemiBold">{{ 'form.setting-personal.placeholder.title-general' | translate }}</div>
+            <div class="fs-signup-caption margin-bottom-10">{{ 'form.setting-personal.placeholder.subtitle-general' | translate }}</div>
+            <div class="form-inline margin-bottom-10">
+              <div
+                class="form-group sign-up-group form-disabled"
+                [ngClass]="{ 'form-control-error': formModel.settingPersonal.validation && settingPersonalForm.controls.fullName.invalid }">
+                <label>{{ 'form.setting-personal.placeholder.fullname' | translate }}</label>
+                <input
+                  autocomplete="off"
+                  class="form-control sign-up-form"
+                  formControlName="fullName"
+                  id="fullName"
+                  name="fullName"
+                  type="text" />
+              </div>
+              <div
+                class="form-group sign-up-group form-disabled"
+                [ngClass]="{ 'form-control-error': formModel.settingPersonal.validation && settingPersonalForm.controls.genderId.invalid }">
+                <label>{{ 'form.setting-personal.placeholder.gender' | translate }}</label>
+                <mat-select placeholder="{{ 'form.setting-personal.select.gender' | translate }}"
+                  formControlName="genderId"
+                  id="genderId"
+                  name="genderId">
+                  <mat-option *ngFor="let gender of masterData.genders" [value]="gender.id" ngDefaultControl>
+                    {{ gender.name }}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10">
+              <div
+                class="form-group sign-up-group form-disabled"
+                [ngClass]="{ 'form-control-error': formModel.settingPersonal.validation && (!formModel.settingPersonal.birthDateValid || settingPersonalForm.controls.birthDate.invalid) }">
+                <label>{{ 'form.setting-personal.placeholder.birth-date' | translate }}</label>
+                <p-calendar
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  (onSelect)="onBirthDateChange(false)"
+                  formControlName="birthDate"
+                  id="birthDate"
+                  inputStyleClass="form-control sign-up-form"
+                  name="birthDate"
+                  [baseZIndex]="10001"
+                  placeholder="{{ 'form.setting-personal.placeholder.birth-date-default' | translate }}"
+                  yearRange="1900:2030">
+                </p-calendar>
+              </div>
+              <div
+              class="form-group sign-up-group form-disabled" *ngIf="countryCode !== 'ID'"
+              [ngClass]="{ 'form-control-error': formModel.settingPersonal.validation && settingPersonalForm.controls.birthPlace.invalid }">
+              <label>{{ 'form.setting-personal.placeholder.birth-place' | translate }}</label>
+              <input
+                autocomplete="off"
+                class="form-control sign-up-form"
+                formControlName="birthPlace"
+                id="birthPlace"
+                name="birthPlace"
+                type="text" />
+              </div>
+
+              <div *ngIf="countryCode === 'ID'"
+                class="form-group sign-up-group form-disabled"
+                [ngClass]="{ 'form-control-error': formModel.settingPersonal.validation && settingPersonalForm.controls.taxCardNumber.invalid }">
+                <label>{{ 'form.setting-personal.placeholder.tax-card-number' | translate }}</label>
+                <input
+                  autocomplete="off"
+                  class="form-control sign-up-form"
+                  formControlName="taxCardNumber"
+                  id="taxCardNumber"
+                  name="taxCardNumber"
+                  type="text"/>
+              </div>
+
+            </div>
+            <div class="form-inline margin-bottom-10">
+              <div
+                class="form-group sign-up-group form-disabled"
+                [ngClass]="{ 'form-control-error': formModel.settingPersonal.validation && (settingPersonalForm.controls.mobilePhoneNumber.invalid || settingPersonalForm.controls.mobilePhonePrefix.invalid) }">
+                <label>
+                  <span>{{ 'form.setting-personal.placeholder.mobile-phone-number' | translate }}</span>
+                </label>
+                <input
+                  [placeholder]="phonePrefix"
+                  autocomplete="off"
+                  class="form-control sign-up-form form-control-prefix"
+                  formControlName="mobilePhonePrefix"
+                  id="mobilePhonePrefix"
+                  name="mobilePhonePrefix"
+                  type="text" />
+                -
+                <input
+                  autocomplete="off"
+                  class="form-control sign-up-form form-control-affix form-control-no-float"
+                  formControlName="mobilePhoneNumber"
+                  id="mobilePhoneNumber"
+                  name="mobilePhoneNumber"
+                  type="text" />
+              </div>
+              <div
+              class="form-group sign-up-group form-disabled"
+              [ngClass]="{ 'form-control-error': formModel.settingPersonal.validation && settingPersonalForm.controls.birthPlace.invalid }">
+              <label>{{ 'form.setting-personal.placeholder.ic-number' | translate }}</label>
+              <input
+                autocomplete="off"
+                class="form-control sign-up-form"
+                formControlName="icNumber"
+                id="icNumber"
+                name="icNumber"
+                type="text"/>
+              </div>
+            </div>
+
+            <div class="fs-signup-title font-size-20 margin-top-20 Gilroy-SemiBold">{{ 'form.setting-personal.placeholder.title-residential' | translate }}</div>
+            <div class="fs-signup-caption margin-bottom-10">{{ 'form.setting-personal.placeholder.subtitle-residential' | translate }}</div>
+            <div class="form-inline margin-bottom-10">
+              <div
+                class="form-group sign-up-group full-width form-disabled"
+                [ngClass]="{ 'form-control-error': formModel.settingPersonal.validation && settingPersonalForm.controls.residentialCountryId.invalid }">
+                <label>{{ 'form.setting-personal.placeholder.country' | translate }}</label>
+                <mat-select placeholder="{{ 'form.setting-personal.select.country' | translate }}"
+                  (selectionChange)="onResidentialCountryChange(formModel.settingPersonal.residentialCountryId)"
+                  [(ngModel)]="formModel.settingPersonal.residentialCountryId"
+                  formControlName="residentialCountryId"
+                  id="residentialCountryId"
+                  name="residentialCountryId">
+                  <mat-option *ngFor="let country of masterData.countries" [value]="country.code" ngDefaultControl>
+                    {{ country.name }}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10">
+              <div
+                class="form-group sign-up-group form-disabled"
+                [ngClass]="{ 'form-control-error': formModel.settingPersonal.validation && settingPersonalForm.controls.stateId.invalid }">
+                <label>{{ 'form.setting-personal.placeholder.state' | translate }}</label>
+                <mat-select placeholder="{{ 'form.setting-personal.select.state' | translate }}"
+                  (selectionChange)="onResidentialStateChange(formModel.settingPersonal.stateId)"
+                  [(ngModel)]="formModel.settingPersonal.stateId"
+                  formControlName="stateId"
+                  id="stateId"
+                  name="stateId">
+                  <mat-option *ngFor="let state of masterData.states" [value]="state.id" ngDefaultControl>
+                    {{ state.name }}
+                  </mat-option>
+                </mat-select>
+              </div>
+              <div
+                class="form-group sign-up-group form-disabled"
+                [ngClass]="{ 'form-control-error': formModel.settingPersonal.validation && settingPersonalForm.controls.district.invalid }">
+                <label>{{ 'form.setting-personal.placeholder.city' | translate }}</label>
+                <input
+                  autocomplete="off"
+                  class="form-control sign-up-form"
+                  formControlName="district"
+                  id="district"
+                  name="district"
+                  type="text" />
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10">
+              <div
+                class="form-group sign-up-group full-width form-disabled"
+                [ngClass]="{ 'form-control-error': formModel.settingPersonal.validation && settingPersonalForm.controls.address1.invalid }">
+                <label>{{ 'form.setting-personal.placeholder.address-1' | translate }}</label>
+                <input
+                  autocomplete="off"
+                  class="form-control sign-up-form"
+                  formControlName="address1"
+                  id="address1"
+                  name="address1"
+                  type="text" />
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10">
+              <div
+                class="form-group sign-up-group full-width form-disabled"
+                [ngClass]="{ 'form-control-error': formModel.settingPersonal.validation && settingPersonalForm.controls.address2.invalid }">
+                <label>{{ 'form.setting-personal.placeholder.address-2' | translate }}</label>
+                <input
+                  autocomplete="off"
+                  class="form-control sign-up-form"
+                  formControlName="address2"
+                  id="address2"
+                  name="address2"
+                  type="text" />
+              </div>
+            </div>
+            <div class="form-inline margin-bottom-10">
+              <div
+                class="form-group sign-up-group form-disabled"
+                [ngClass]="{ 'form-control-error': formModel.settingPersonal.validation && settingPersonalForm.controls.zipCode.invalid }">
+                <label>{{ 'form.setting-personal.placeholder.postal-code' | translate }}</label>
+                <input
+                  autocomplete="off"
+                  class="form-control sign-up-form"
+                  formControlName="zipCode"
+                  id="zipCode"
+                  name="zipCode"
+                  type="text" />
+              </div>
+              <div class="margin-top-10">{{ 'form.setting-personal.placeholder.manual' | translate }} <a href="mailto:{{ infoEmail }}">{{ infoEmail }}</a></div>
+            </div>
+            <div class="onboarding-footer">
+              <button *ngIf="enableUpdate"
+                class="btn btn-primary-referral pull-right"
+                id="setting-personal-form-submit"
+                name="setting-personal-form-submit"
+                type="submit">
+                {{ 'form.setting-personal.placeholder.submit' | translate }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

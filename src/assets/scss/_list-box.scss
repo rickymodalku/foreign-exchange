@@ -1,0 +1,46 @@
+@media #{$tablet} {
+    .list-box {
+        &.statement-filter{
+            margin-left : auto;
+            margin-right : auto;
+            float : none;    
+        }
+    }
+}
+
+.list-box {
+    list-style: none;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.list-box__item {
+    background-color: white;
+    padding: 2em;
+    box-shadow: 0 1px 2px 0 rgba(169, 169, 169, 0.5);
+    margin-bottom: 1em;
+    margin-top: 1em;
+    display: flex;
+    flex-direction: row;
+}
+
+.list-box__descriptions {
+    flex-basis: 90%;
+}
+
+.list-box__title {
+    color: #9b9b9b;
+    display: block;
+}
+
+.list-box__link {
+    display: block;
+    color: #a6a6a6;
+}
+
+.list-box__icon {
+    flex-basis: 10%;
+    align-self: flex-end;
+    font-size: 32px;
+    color: #4281FB;
+}

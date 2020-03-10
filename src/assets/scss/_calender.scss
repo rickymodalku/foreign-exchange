@@ -1,0 +1,67 @@
+.fc td {
+    border-style: none !important;
+}
+
+.fc-basic-view .fc-body .fc-row {
+    height: inherit !important;
+    min-height: inherit !important;
+}
+
+.fc-ltr .fc-basic-view .fc-day-top .fc-day-number {
+    float: none !important;
+}
+
+.fc-row {
+    text-align: center;
+}
+
+.fc .fc-row {
+    width: 25em;
+    margin-bottom: 1em;
+}
+
+.fc-scroller {
+    height: inherit !important;
+}
+
+.fc-prev-button {
+    opacity: 0.25;
+    border-radius: 14px !important;
+    background-color: #3c177e !important;
+    height: 25px !important;
+    width: 25px;
+    margin-right: 0.5em !important;
+}
+
+.fc-next-button {
+    opacity: 0.25;
+    border-radius: 14px !important;
+    background-color: #3c177e !important;
+    height: 25px !important;
+    width: 25px;
+}
+
+.fc-today-button {
+    display: none !important;
+}
+
+.ui-button {
+    border: none !important;
+}
+
+.ui-widget-header {
+    background: inherit !important;
+    border: none !important;
+}
+
+.fc-today {
+    background-color: #ff4747 !important;
+    // border-radius: 100px;
+    // width: 2em;
+    // height: 2em;
+    // line-height: 2em;
+}
+
+// .fc-day-top {
+//     line-height: 2em;
+// }
