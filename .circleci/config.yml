@@ -1,0 +1,166 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/fundingasiagroup/alice-writes-web-3
+    parallelism: 1
+    shell: /bin/bash --login
+    environment:
+      CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
+      CIRCLE_TEST_REPORTS: ./test-results
+      JUNIT_REPORT: ./junit
+      SHORT_GIT_HASH: $(echo $CIRCLE_SHA1 | cut -c -7)
+      JUNIT_REPORT_PATH: ./junit/
+      JUNIT_REPORT_NAME: test-results.xml
+    # To see the list of pre-built images that CircleCI provides for most common languages see
+    # https://circleci.com/docs/2.0/circleci-images/
+    docker:
+      - image: circleci/node:10.16-stretch-browsers
+    steps:
+      # Machine Setup
+      - checkout
+      - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS $JUNIT_REPORT
+      # Dependencies
+      - restore_cache:
+          keys:
+            - v1.1-dep-{{ checksum "package.json" }}
+      - run: export PATH="~/fundingasiagroup/alice-writes-web-3/node_modules/.bin:$PATH"
+      - run: npm install
+      # Save dependency cache
+      - save_cache:
+          key: v1.1-dep-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      # Test
+      #   This would typically be a build job when using workflows, possibly combined with build
+      - run: |
+          set -e
+          npm run test -- --no-watch --codeCoverage=true --watch=false --browsers=ChromeHeadless
+          ./node_modules/coveralls/bin/coveralls.js < ./coverage/lcov.info
+          mv ./junit $CIRCLE_TEST_REPORTS/
+      # Save test results
+      - store_test_results:
+          path: ./test-results
+      # Save artifacts
+      - store_artifacts:
+          path: coverage
+      - store_artifacts:
+          path: ./junit
+      # Set environment name
+      - run:
+          name: Update environment name
+          command: |
+            if [[ ${CIRCLE_TAG} == "" ]]; then
+              echo 'export ENVIRONMENT_NAME=staging-uat' >> $BASH_ENV
+            elif [[ ${CIRCLE_TAG} =~ v[0-9]+(\.[0-9]+)+ ]]; then
+              echo 'export ENVIRONMENT_NAME=production' >> $BASH_ENV
+            fi
+            source $BASH_ENV
+      # Building
+      - run:
+          name: Building
+          command: |
+            if [[ ${ENVIRONMENT_NAME} == "staging-uat" ]]; then
+              echo "Building for ${ENVIRONMENT_NAME} environment"
+              npm run build-staging
+              mv dist dist-staging
+              npm run build-uat
+              mv dist dist-uat
+            elif [[ ${ENVIRONMENT_NAME} == "production" ]]; then
+              echo "Building for ${ENVIRONMENT_NAME} environment"
+              npm run build-production
+              mv dist dist-production
+              echo "Building for ID ${ENVIRONMENT_NAME} environment"
+              npm run build-production-id
+              mv dist dist-production-id
+            fi
+      # Cache the dist folder for the deploy job
+      - save_cache:
+          key: v1_dist_{{ .Environment.CIRCLE_WORKFLOW_JOB_ID }}_{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - dist-production-id
+            - dist-production
+            - dist-staging
+            - dist-uat
+      - persist_to_workspace:
+          root: ~/fundingasiagroup/alice-writes-web-3
+          paths:
+            - dist-production-id
+            - dist-production
+            - dist-staging
+            - dist-uat
+
+  # The deploy job
+  deploy:
+    working_directory: ~/fundingasiagroup/alice-writes-web-3
+    docker:
+      - image: circleci/node:carbon-browsers
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - 64:4d:4d:c7:6b:6f:51:d2:48:79:bd:ca:8b:22:b9:9b
+      - attach_workspace:
+          at: ~/fundingasiagroup/alice-writes-web-3/dist
+
+    # Set environment name
+      - run:
+          name: Update environment name
+          command: |
+            if [[ ${CIRCLE_TAG} == "" ]]; then
+              echo 'export ENVIRONMENT_NAME=staging-uat' >> $BASH_ENV
+            elif [[ ${CIRCLE_TAG} =~ v[0-9]+(\.[0-9]+)+ ]]; then
+              echo 'export ENVIRONMENT_NAME=production' >> $BASH_ENV
+            fi
+            source $BASH_ENV
+      # Restore cache from the build job which contains the
+      # dist folder that needs to be deployed
+      - restore_cache:
+          key: v1_dist_{{ .Environment.CIRCLE_WORKFLOW_UPSTREAM_JOB_IDS }}_{{ .Environment.CIRCLE_SHA1 }}
+      # Install AWS cli
+      - run:
+          name: Install aws cli
+          command:
+              sudo apt-get -y -qq install awscli
+      # Set the signature version for the S3 auth
+      - run:
+          name: Setting Signature Version 4 for S3 Request Authentication
+          command: aws configure set default.s3.signature_version s3v4
+      # Deploy to the S3 bucket corresponding to the current branch
+      - run:
+          name: Deploy to S3
+          command: |
+            set -xe
+            if [[ ${ENVIRONMENT_NAME} == "staging-uat" ]]; then
+              echo "Deploying to ${ENVIRONMENT_NAME} environment"
+              aws --region ap-southe1231312312ast-1 s3 sync --cache-control 'max-age=604800' --exclude index.html dist/dist-staging s3://v3stagi123123123123ng.fundi123123123ngasiagroup.com --delete
+            fi
+workflows:
+  version: 2
+  # Build for all
+  build-deploy-staging-uat:
+    jobs:
+      - build
+      # Deploy staging and uat only when merged to master
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                master
+  build-deploy-production:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /v[0-9]+(\.[0-9]+)+/ # v1.2.3
+            branches:
+              ignore: /.*/
+      - deploy:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /v[0-9]+(\.[0-9]+)+/ # v1.2.3
+            branches:
+              ignore: /.*/
+
